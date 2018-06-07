@@ -6,7 +6,7 @@ Project repo for Group 19
 
 Aman Tewary - B00782684 - am858620@dal.ca
 
-Nikhil Kamath 
+Nikhil Kamath - B00779777 - nk634683@dal.ca
 
 Haofan Hou  
 
