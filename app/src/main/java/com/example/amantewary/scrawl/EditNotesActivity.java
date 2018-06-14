@@ -12,6 +12,7 @@ import android.widget.TextView;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 public class EditNotesActivity extends AppCompatActivity {
 
@@ -24,19 +25,19 @@ public class EditNotesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_notes);
 
-        Toolbar toolbar_edit_note = (Toolbar) findViewById(R.id.tool_bar);
+        Toolbar toolbar_edit_note = findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar_edit_note);
         setTitle("Edit Note");
 
-        tv_date = (TextView)findViewById(R.id.tv_date);
-        btn_add_label = (Button)findViewById(R.id.btn_add_label);
-        et_content = (EditText)findViewById(R.id.et_content);
-        et_title = (EditText)findViewById(R.id.et_title);
+        tv_date = findViewById(R.id.tv_date);
+        btn_add_label = findViewById(R.id.btn_add_label);
+        et_content = findViewById(R.id.et_content);
+        et_title = findViewById(R.id.et_title);
 
 
         //make tv_date show current date
         Date c = Calendar.getInstance().getTime();
-        SimpleDateFormat df = new SimpleDateFormat("MMM dd, yyyy");
+        SimpleDateFormat df = new SimpleDateFormat("MMM dd, yyyy", Locale.CANADA);
         String current_date = df.format(c);
         tv_date.setText(current_date);
 
