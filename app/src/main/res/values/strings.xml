@@ -6,4 +6,9 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
+    <string name="input_title_here">Input title here...</string>
+    <string name="add_label">Add label</string>
+    <string name="may_22_2018">May 22, 2018</string>
+    <string name="input_note_here">Input note here...</string>
+    <string name="save">Save</string>
 </resources>
