@@ -3,10 +3,12 @@ package com.example.amantewary.scrawl;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -26,6 +28,8 @@ public class EditNotesActivity extends AppCompatActivity {
     EditText et_title, et_content, et_link;
     Spinner sp_add_labels;
 
+    String title, date, label, content, link;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,13 +45,13 @@ public class EditNotesActivity extends AppCompatActivity {
         et_link = (EditText)findViewById(R.id.et_link);
         sp_add_labels = (Spinner)findViewById(R.id.sp_add_label);
 
-        //make tv_date show current date
-        Date c = Calendar.getInstance().getTime();
-        SimpleDateFormat df = new SimpleDateFormat("MMM dd, yyyy", Locale.CANADA);
-        String current_date = df.format(c);
-        tv_date.setText(current_date);
 
-        //TODO Retrieve labels from db
+        //TODO Retrieve date the note was last modified from db...
+        //Fake date here
+        date = "Jun 23 2018";
+        tv_date.setText(date);
+
+        //TODO Retrieve labels from db...
         //Fake labels here
         String[] labels = new String[]{
                 "Personal",
@@ -56,14 +60,24 @@ public class EditNotesActivity extends AppCompatActivity {
                 "Travel"
         };
 
-        ArrayAdapter labelAdapter = new ArrayAdapter<String>(
+        final ArrayAdapter labelAdapter = new ArrayAdapter<String>(
                 this,
                 android.R.layout.simple_list_item_1,
                 labels
-                );
+        );
 
         sp_add_labels.setAdapter(labelAdapter);
+        sp_add_labels.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                label = (String) labelAdapter.getItem(position);
+            }
 
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
     }
 
@@ -78,18 +92,41 @@ public class EditNotesActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        //validate EditTexts
         if (id == R.id.action_save) {
 
             String txt_title = et_title.getText().toString();
+            String txt_link = et_link.getText().toString();
+
+            //validate EditTexts first
             if(txt_title.isEmpty()) {
                 et_title.setError("Please input the title.");
+
+            }else if (!txt_link.isEmpty() && !isLink(txt_link)){
+                et_link.setError("Please input valid link");
+
+            }else {
+                //collect note info.
+                title = et_title.getText().toString();
+                Log.d("Note Info", "title: " + title);
+
+                //label is already got in OnItemClickListener of sp_add_labels
+                Log.d("Note Info", "label: " + label);
+
+                Date c = Calendar.getInstance().getTime();
+                SimpleDateFormat df = new SimpleDateFormat("MMM dd, yyyy", Locale.CANADA);
+                date = df.format(c);
+                Log.d("Note Info", "date: " + date);
+
+                content = et_content.getText().toString();
+                Log.d("Note Info", "content: " + content);
+
+                link = et_link.getText().toString();
+                Log.d("Note Info", "link: " + link);
+
+                //TODO save note into db...
+
             }
 
-            String txt_link = et_link.getText().toString();
-            if (!txt_link.isEmpty() && !isLink(txt_link)){
-                et_link.setError("Please input valid link");
-            }
 
         }
         return super.onOptionsItemSelected(item);
