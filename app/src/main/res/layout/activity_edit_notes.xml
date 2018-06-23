@@ -1,59 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context=".EditNotesActivity">
 
     <include
         android:id="@+id/tool_bar"
-        layout="@layout/tool_bar" />
+        layout="@layout/tool_bar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/et_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
 
     <EditText
         android:id="@+id/et_title"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:background="@drawable/edittext_border"
+        android:hint="@string/input_title_here"
+        android:inputType="text"
         android:padding="10dp"
-        android:maxLines="1"
-        android:hint="Input title here..."/>
+        app:layout_constraintBottom_toTopOf="@+id/sp_add_label"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tool_bar" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
+
+    <Spinner
+        android:id="@+id/sp_add_label"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:spinnerMode="dialog"
+        app:layout_constraintBottom_toTopOf="@+id/et_content"
+        app:layout_constraintEnd_toStartOf="@+id/tv_date"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_title" />
 
-        <Button
-            android:id="@+id/btn_add_label"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:text="Add label" />
+    <TextView
+        android:id="@+id/tv_date"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="end|center"
+        android:paddingEnd="20dp"
+        android:paddingStart="0dp"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toTopOf="@+id/et_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/sp_add_label"
+        app:layout_constraintTop_toBottomOf="@+id/et_title" />
 
-        <TextView
-            android:id="@+id/tv_date"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="May 22, 2018"
-            android:gravity="right"
-            android:paddingRight="20dp"
-            android:textSize="15sp"/>
-
-    </LinearLayout>
 
     <EditText
         android:id="@+id/et_content"
-        android:layout_width="match_parent"
-        android:layout_height="400dp"
-        android:hint="Input note here..."
-        android:gravity="top|left"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/edittext_border"
+        android:gravity="top|start"
+        android:hint="@string/input_note_here"
+        android:inputType="textMultiLine"
+        android:padding="10dp"
         android:scrollbars="vertical"
         android:singleLine="false"
+        app:layout_constraintBottom_toTopOf="@+id/et_link"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sp_add_label" />
+
+    <EditText
+        android:id="@+id/et_link"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/edittext_border"
+        android:hint="@string/input_link_here"
+        android:inputType="textUri"
         android:padding="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_content" />
 
-        android:background="@null"
-        android:inputType="textMultiLine" />
 
-
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>
