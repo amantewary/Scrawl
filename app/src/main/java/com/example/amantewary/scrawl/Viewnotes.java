@@ -28,8 +28,6 @@ public class Viewnotes extends AppCompatActivity {
         setContentView(R.layout.activity_viewnotesscroll);
         SubtitleCollapsingToolbarLayout collapsingToolbarLayout = (SubtitleCollapsingToolbarLayout) findViewById(R.id.subtitlecollapsingtoolbarlayout);
         collapsingToolbarLayout.setTitleEnabled(true);
-        collapsingToolbarLayout.setCollapsedSubtitleTextAppearance(10);
-        collapsingToolbarLayout.setExpandedSubtitleTextAppearance(10);
         collapsingToolbarLayout.setTitle("Note");
         collapsingToolbarLayout.setSubtitle("QA");
 
