@@ -1,8 +1,12 @@
 package com.example.amantewary.scrawl;
 
+import android.content.Intent;
 import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.BottomSheetBehavior;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.SubtitleCollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -13,23 +17,48 @@ import android.view.View;
 public class Viewnotes extends AppCompatActivity {
 
     private Menu menu;
+    private BottomSheetBehavior mBottomSheetBehavior1;
     private FloatingActionButton fab;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_viewnotesscroll);
+        SubtitleCollapsingToolbarLayout collapsingToolbarLayout = (SubtitleCollapsingToolbarLayout) findViewById(R.id.subtitlecollapsingtoolbarlayout);
+        collapsingToolbarLayout.setTitleEnabled(true);
+        collapsingToolbarLayout.setCollapsedSubtitleTextAppearance(10);
+        collapsingToolbarLayout.setExpandedSubtitleTextAppearance(10);
+        collapsingToolbarLayout.setTitle("Note");
+        collapsingToolbarLayout.setSubtitle("QA");
 
         final Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
-
+//        mToolbar.setTitle("My Title");
+        View bottomSheet = findViewById(R.id.menu_sheet);
+        mBottomSheetBehavior1 = BottomSheetBehavior.from(bottomSheet);
+        mBottomSheetBehavior1.setHideable(true);
+        mBottomSheetBehavior1.setPeekHeight(0);
+        mBottomSheetBehavior1.setState(BottomSheetBehavior.STATE_COLLAPSED);
         final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.cog);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+//
+//                Intent intent = new Intent(activity_viewnotesscroll.this, NewMessageActivity.class);
+//                startActivity(intent);
+
+                if(mBottomSheetBehavior1.getState() != BottomSheetBehavior.STATE_EXPANDED) {
+                    mBottomSheetBehavior1.setState(BottomSheetBehavior.STATE_EXPANDED);
+
+                }
+                else {
+                    mBottomSheetBehavior1.setState(BottomSheetBehavior.STATE_COLLAPSED);
+                }
+
             }
         });
 
