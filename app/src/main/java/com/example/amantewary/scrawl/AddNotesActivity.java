@@ -1,16 +1,14 @@
 package com.example.amantewary.scrawl;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -22,7 +20,7 @@ import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class EditNotesActivity extends AppCompatActivity {
+public class AddNotesActivity extends AppCompatActivity {
 
     TextView tv_date;
     EditText et_title, et_content, et_link;
@@ -33,7 +31,7 @@ public class EditNotesActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_notes);
+        setContentView(R.layout.activity_add_notes);
 
         Toolbar toolbar_edit_note = findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar_edit_note);
