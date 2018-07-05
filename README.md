@@ -10,5 +10,5 @@ Nikhil Kamath - B00779777 - nk634683@dal.ca
 
 Haofan Hou - B00783052 - hf674519@dal.ca
 
-Sowmya Umesh 
+Sowmya Umesh - B00788667 - sw441412@dal.ca
  
