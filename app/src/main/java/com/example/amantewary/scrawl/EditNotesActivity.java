@@ -35,15 +35,15 @@ public class EditNotesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_notes);
 
-        Toolbar toolbar_edit_note = (Toolbar) findViewById(R.id.tool_bar);
+        Toolbar toolbar_edit_note = findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar_edit_note);
         setTitle("Edit Note");
 
-        tv_date = (TextView)findViewById(R.id.tv_date);
-        et_content = (EditText)findViewById(R.id.et_content);
-        et_title = (EditText)findViewById(R.id.et_title);
-        et_link = (EditText)findViewById(R.id.et_link);
-        sp_add_labels = (Spinner)findViewById(R.id.sp_add_label);
+        tv_date = findViewById(R.id.tv_date);
+        et_content = findViewById(R.id.et_content);
+        et_title = findViewById(R.id.et_title);
+        et_link = findViewById(R.id.et_link);
+        sp_add_labels = findViewById(R.id.sp_add_label);
 
 
         //TODO Retrieve date the note was last modified from db...
@@ -60,7 +60,7 @@ public class EditNotesActivity extends AppCompatActivity {
                 "Travel"
         };
 
-        final ArrayAdapter labelAdapter = new ArrayAdapter<String>(
+        final ArrayAdapter labelAdapter = new ArrayAdapter<>(
                 this,
                 android.R.layout.simple_list_item_1,
                 labels
