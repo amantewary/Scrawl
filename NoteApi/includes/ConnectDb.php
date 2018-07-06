@@ -10,12 +10,19 @@
 		}
 		function connect()
 		{
-			
-			include_once dirname(__FILE__) . '/Constants.php';
-			$this->con = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
-			if (mysqli_connect_errno()) {
-				echo "Failed to connect to MySQL: " . mysqli_connect_error();
+		
+			$this->con = null;
+
+			try{
+
+				include_once dirname(__FILE__) . '/Constants.php';
+				$this->con = new PDO('mysql:host='.DB_HOST . ';dbname='. DB_NAME, DB_USER, DB_PASS);
+				$this->con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+			} catch(PDOException $e){
+				echo 'Connection Error:' . $e->getMessage();
 			}
+			
 			return $this->con;
 		}
 	 

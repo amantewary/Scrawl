@@ -14,9 +14,9 @@ class Operations
 	* The create operation
 	* When this method is called a new record is created in the database
 	*/
-	function createNote($notetitle, $notelable, $notebody){
-		$stmt = $this->con->prepare("INSERT INTO notes (notetitle, notelable, notebody) VALUES (?, ?, ?)");
-		$stmt->bind_param("sss", $notetitle, $notelable, $notebody);
+	function createNote($notetitle, $notelabel, $notebody, $author_id){
+		$stmt = $this->con->prepare("INSERT INTO notes (notetitle, notelabel, notebody, author_id) VALUES (?, ?, ?, ?)");
+		$stmt->bind_param("sssi", $notetitle, $notelabel, $notebody, $author_id);
 		if($stmt->execute())
 			return true; 
 		return false; 
@@ -27,9 +27,9 @@ class Operations
 	* When this method is called it is returning all the existing record of the database
 	*/
 	function getNotes(){
-		$stmt = $this->con->prepare("SELECT id, notetitle, notelable, notebody FROM notes");
+		$stmt = $this->con->prepare("SELECT id, notetitle, notelabel, notebody, author_id FROM notes");
 		$stmt->execute();
-		$stmt->bind_result($id, $notetitle, $notelable, $notebody);
+		$stmt->bind_result($id, $notetitle, $notelabel, $notebody, $author_id);
 		
 		$notes = array(); 
 		
@@ -37,8 +37,9 @@ class Operations
 			$note  = array();
 			$note['id'] = $id; 
 			$note['notetitle'] = $notetitle; 
-			$note['notelable'] = $notelable; 
+			$note['notelabel'] = $notelabel; 
 			$note['notebody'] = $notebody;
+			$note['author_id'] = $author_id;
 			
 			array_push($notes, $note); 
 		}
@@ -50,9 +51,9 @@ class Operations
 	* The update operation
 	* When this method is called the record with the given id is updated with the new given values
 	*/
-	function updateNote($id, $notetitle, $notelable, $notebody){
-		$stmt = $this->con->prepare("UPDATE notes SET notetitle = ?, notelable = ?, body = ? WHERE id = ?");
-		$stmt->bind_param("sssi", $notetitle, $notelable, $notebody, $id);
+	function updateNote($id, $notetitle, $notelabel, $notebody, $author_id){
+		$stmt = $this->con->prepare("UPDATE notes SET notetitle = ?, notelabel = ?, notebody = ?, author_id = ? WHERE id = ?");
+		$stmt->bind_param("sssii", $notetitle, $notelabel, $notebody, $author_id, $id);
 		if($stmt->execute())
 			return true; 
 		return false; 
