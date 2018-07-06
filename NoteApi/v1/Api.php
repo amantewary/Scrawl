@@ -22,11 +22,11 @@
 		
 		switch($_GET['apicall']){
 			case 'createnote':
-				isTheseParametersAvailable(array('notetitle','notelable','notebody'));
+				isTheseParametersAvailable(array('notetitle','notelabel','notebody'));
 				$db = new Operations();
 				$result = $db->createNote(
 					$_POST['notetitle'],
-					$_POST['notelable'],
+					$_POST['notelabel'],
 					$_POST['notebody']
 				);
 				if($result){
@@ -49,12 +49,12 @@
 			
 			
 			case 'updatenote':
-				isTheseParametersAvailable(array('id','notetitle','notelable','notebody'));
+				isTheseParametersAvailable(array('id','notetitle','notelabel','notebody'));
 				$db = new Operations();
 				$result = $db->updateNote(
 					$_POST['id'],
 					$_POST['notetitle'],
-					$_POST['notelable'],
+					$_POST['notelabel'],
 					$_POST['notebody']
 				);
 				
