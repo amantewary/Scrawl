@@ -11,8 +11,7 @@ require_once 'config.php';
 
 $response = array("error" => FALSE);
 
-if (isset($_POST['name']) && isset($_POST['email']) && isset($_POST['password'])) {
-    $username = $_POST['name'];
+if (isset($_POST['email']) && isset($_POST['password'])) {
     $email = $_POST['email'];
     $password = $_POST['password'];
 
@@ -33,8 +32,6 @@ if (isset($_POST['name']) && isset($_POST['email']) && isset($_POST['password'])
         $response["error"] = TRUE;
         $response["error_msg"] = "You are not a registered user";
         echo json_encode($response);
-
-
     }
 
 
