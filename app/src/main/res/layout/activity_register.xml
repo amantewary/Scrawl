@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.amantewary.scrawl.ActivityLogin">
+    tools:context="com.example.amantewary.scrawl.ActivityRegister">
 
 
     <LinearLayout
@@ -12,10 +12,23 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:orientation="vertical"
-        tools:layout_editor_absoluteX="59dp"
-        tools:layout_editor_absoluteY="142dp"
+        tools:layout_editor_absoluteX="30dp"
+        tools:layout_editor_absoluteY="127dp"
         tools:ignore="MissingConstraints">
 
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/editTextUserName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/username"
+                android:inputType="textPersonName" />
+        </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
@@ -31,11 +44,11 @@
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
-            app:passwordToggleEnabled="true"
-            app:passwordToggleTint="@color/colorAccent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp">
+            android:layout_marginTop="8dp"
+            app:passwordToggleEnabled="true"
+            app:passwordToggleTint="@color/colorAccent">
 
             <android.support.design.widget.TextInputEditText
                 android:id="@+id/editTextPassword"
@@ -46,23 +59,26 @@
         </android.support.design.widget.TextInputLayout>
 
         <Button
-            android:id="@+id/buttonLogin"
+            android:id="@+id/buttonRegister"
             style="@style/DefaultButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="16dp"
-            android:text="@string/login" />
+            android:layout_weight="1"
+            android:text="@string/register" />
 
         <TextView
-            android:id="@+id/textViewCreateAccount"
-            android:layout_width="match_parent"
+            android:id="@+id/textViewLogin"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:layout_marginTop="16dp"
-            android:gravity="center_horizontal"
-            android:text="@string/login"/>
+            android:gravity="center"
+            android:text="@string/create_account"
+            android:textColor="@android:color/white"
+            tools:text="Create Account" />
     </LinearLayout>
-
 
 
 </android.support.constraint.ConstraintLayout>
