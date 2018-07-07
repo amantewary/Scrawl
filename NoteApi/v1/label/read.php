@@ -10,14 +10,13 @@
   $num = $result->rowCount();
   if($num > 0) {
     $labels_arr = array();
-    $labels_arr['data'] = array();
     while($row = $result->fetch(PDO::FETCH_ASSOC)) {
       extract($row);
       $labels_item = array(
         'id' => $id,
         'name' => $name
       );
-      array_push($labels_arr['data'], $labels_item);
+      array_push($labels_arr, $labels_item);
     }
     echo json_encode($labels_arr);
 

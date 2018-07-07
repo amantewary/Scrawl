@@ -14,6 +14,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -25,8 +26,41 @@ public class AddNotesActivity extends AppCompatActivity {
     TextView tv_date;
     EditText et_title, et_content, et_link;
     Spinner sp_add_labels;
-
     String title, date, label, content, link;
+
+    /**
+     * A method to check if a string is a link
+     *
+     * @param str string
+     * @return true: it is link; false: it is not a link
+     */
+    private static boolean isLink(String str) {
+        String regex = "^((https|http|ftp|rtsp|mms)?://)"
+                + "?(([0-9a-z_!~*'().&=+$%-]+: )?[0-9a-z_!~*'().&=+$%-]+@)?"
+                + "(([0-9]{1,3}.){3}[0-9]{1,3}"
+                + "|"
+                + "([0-9a-z_!~*'()-]+.)*"
+                + "([0-9a-z][0-9a-z-]{0,61})?[0-9a-z]."
+                + "[a-z]{2,6})"
+                + "(:[0-9]{1,4})?"
+                + "((/?)|"
+                + "(/[0-9a-z_!~*'().;?:@&=+$,%#-]+)+/?)$";
+
+        return match(regex, str);
+    }
+
+    /**
+     * A method to determine if a string match a regex
+     *
+     * @param regex regex
+     * @param str   string
+     * @return true: match; false: not match
+     */
+    private static boolean match(String regex, String str) {
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(str);
+        return matcher.matches();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,13 +69,16 @@ public class AddNotesActivity extends AppCompatActivity {
 
         Toolbar toolbar_edit_note = (Toolbar) findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar_edit_note);
+        //Get Label
+
+
         setTitle("Edit Note");
 
-        tv_date = (TextView)findViewById(R.id.tv_date);
-        et_content = (EditText)findViewById(R.id.et_content);
-        et_title = (EditText)findViewById(R.id.et_title);
-        et_link = (EditText)findViewById(R.id.et_link);
-        sp_add_labels = (Spinner)findViewById(R.id.sp_add_label);
+        tv_date = (TextView) findViewById(R.id.tv_date);
+        et_content = (EditText) findViewById(R.id.et_content);
+        et_title = (EditText) findViewById(R.id.et_title);
+        et_link = (EditText) findViewById(R.id.et_link);
+        sp_add_labels = (Spinner) findViewById(R.id.sp_add_label);
 
 
         //TODO Retrieve date the note was last modified from db...
@@ -49,21 +86,13 @@ public class AddNotesActivity extends AppCompatActivity {
         date = "Jun 23 2018";
         tv_date.setText(date);
 
-        //TODO Retrieve labels from db...
-        //Fake labels here
-        String[] labels = new String[]{
-                "Personal",
-                "Work",
-                "Life",
-                "Travel"
-        };
-
+        ArrayList<String> labels = (ArrayList<String>) getIntent().getSerializableExtra("labels");
         final ArrayAdapter labelAdapter = new ArrayAdapter<String>(
                 this,
-                android.R.layout.simple_list_item_1,
+                android.R.layout.simple_spinner_item,
                 labels
         );
-
+        labelAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         sp_add_labels.setAdapter(labelAdapter);
         sp_add_labels.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -96,13 +125,13 @@ public class AddNotesActivity extends AppCompatActivity {
             String txt_link = et_link.getText().toString();
 
             //validate EditTexts first
-            if(txt_title.isEmpty()) {
+            if (txt_title.isEmpty()) {
                 et_title.setError("Please input the title.");
 
-            }else if (!txt_link.isEmpty() && !isLink(txt_link)){
+            } else if (!txt_link.isEmpty() && !isLink(txt_link)) {
                 et_link.setError("Please input valid link");
 
-            }else {
+            } else {
                 //collect note info.
                 title = et_title.getText().toString();
                 Log.d("Note Info", "title: " + title);
@@ -128,38 +157,6 @@ public class AddNotesActivity extends AppCompatActivity {
 
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    /**
-     * A method to check if a string is a link
-     * @param str string
-     * @return true: it is link; false: it is not a link
-     */
-    private static boolean isLink(String str){
-        String regex = "^((https|http|ftp|rtsp|mms)?://)"
-                + "?(([0-9a-z_!~*'().&=+$%-]+: )?[0-9a-z_!~*'().&=+$%-]+@)?"
-                + "(([0-9]{1,3}.){3}[0-9]{1,3}"
-                + "|"
-                + "([0-9a-z_!~*'()-]+.)*"
-                + "([0-9a-z][0-9a-z-]{0,61})?[0-9a-z]."
-                + "[a-z]{2,6})"
-                + "(:[0-9]{1,4})?"
-                + "((/?)|"
-                + "(/[0-9a-z_!~*'().;?:@&=+$,%#-]+)+/?)$";
-
-        return match(regex, str);
-    }
-
-    /**
-     * A method to determine if a string match a regex
-     * @param regex regex
-     * @param str string
-     * @return true: match; false: not match
-     */
-    private static boolean match(String regex, String str) {
-        Pattern pattern = Pattern.compile(regex);
-        Matcher matcher = pattern.matcher(str);
-        return matcher.matches();
     }
 
 
