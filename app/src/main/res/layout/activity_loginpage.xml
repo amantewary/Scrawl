@@ -17,18 +17,24 @@
         tools:ignore="MissingConstraints">
 
 
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp">
+        <!--<android.support.design.widget.TextInputLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="16dp">-->
 
-            <android.support.design.widget.TextInputEditText
-                android:id="@+id/editTextEmail"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/email"
-                android:inputType="textEmailAddress" />
-        </android.support.design.widget.TextInputLayout>
+            <!--<android.support.design.widget.TextInputEditText-->
+                <!--android:id="@+id/email"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:hint="@string/email"-->
+                <!--android:inputType="textEmailAddress" />-->
+        <!--</android.support.design.widget.TextInputLayout>-->
+        <AutoCompleteTextView
+        android:id="@+id/email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/email"
+        android:inputType="textEmailAddress" />
 
         <android.support.design.widget.TextInputLayout
             app:passwordToggleEnabled="true"
@@ -38,7 +44,7 @@
             android:layout_marginTop="8dp">
 
             <android.support.design.widget.TextInputEditText
-                android:id="@+id/editTextPassword"
+                android:id="@+id/password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/password"
@@ -46,7 +52,7 @@
         </android.support.design.widget.TextInputLayout>
 
         <Button
-            android:id="@+id/buttonLogin"
+            android:id="@+id/btn_login"
             style="@style/DefaultButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -54,13 +60,6 @@
             android:layout_marginTop="16dp"
             android:text="@string/login" />
 
-        <TextView
-            android:id="@+id/textViewCreateAccount"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:gravity="center_horizontal"
-            android:text="@string/login"/>
     </LinearLayout>
 
 
