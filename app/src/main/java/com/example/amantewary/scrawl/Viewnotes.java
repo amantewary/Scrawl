@@ -1,25 +1,38 @@
 package com.example.amantewary.scrawl;
 
 import android.content.Intent;
+import android.support.design.internal.BottomNavigationMenu;
 import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.BottomSheetBehavior;
+import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.SubtitleCollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.view.menu.MenuBuilder;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.PopupMenu;
+import android.widget.ShareActionProvider;
+import android.widget.TextView;
 
-public class Viewnotes extends AppCompatActivity {
+import org.w3c.dom.Text;
+
+public class Viewnotes extends AppCompatActivity implements View.OnClickListener{
 
     private Menu menu;
     private BottomSheetBehavior mBottomSheetBehavior1;
     private FloatingActionButton fab;
+    TextView tv_note_title, tv_note_content;
+    Button btn_edit, btn_share, btn_delete;
 
+    private ShareActionProvider mShareActionProvider;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +93,17 @@ public class Viewnotes extends AppCompatActivity {
             }
         });
 
+        tv_note_content = (TextView)findViewById(R.id.tv_note_content);
+        tv_note_title = (TextView)findViewById(R.id.tv_note_title);
+
+        btn_edit = (Button) findViewById(R.id.btn_edit);
+        btn_share = (Button) findViewById(R.id.btn_share);
+        btn_delete = (Button) findViewById(R.id.btn_delete);
+
+        btn_edit.setOnClickListener(this);
+        btn_share.setOnClickListener(this);
+        btn_delete.setOnClickListener(this);
+
     }
 
     @Override
@@ -88,6 +112,7 @@ public class Viewnotes extends AppCompatActivity {
         this.menu = menu;
         getMenuInflater().inflate(R.menu.activity_viewnotesmenu, menu);
         hideOption(R.id.action_info);
+
         return true;
     }
 
@@ -117,6 +142,30 @@ public class Viewnotes extends AppCompatActivity {
         MenuItem item = menu.findItem(id);
         item.setVisible(true);
     }
+
+
+    @Override
+    public void onClick(View view){
+        switch (view.getId()){
+            case R.id.btn_edit:
+                break;
+            case R.id.btn_share:
+                setShareIntent();
+                break;
+            case R.id.btn_delete:
+                break;
+        }
+    }
+
+    private void setShareIntent(){
+        Intent sendIntent = new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.putExtra(Intent.EXTRA_TEXT, tv_note_content.getText().toString());
+        sendIntent.setType("text/plain");
+        startActivity(Intent.createChooser(sendIntent, "share to"));
+    }
+
+
 
 
 
