@@ -10,12 +10,27 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.example.amantewary.scrawl.API.ILabelAPI;
+import com.example.amantewary.scrawl.Handlers.LabelHandler;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    ArrayList<String> labelOptions;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,16 +38,6 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = findViewById(R.id.fab_add_note);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), AddNotesActivity.class);
-                startActivity(intent);
-            }
-        });
-
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -41,6 +46,42 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        //Loading Labels from database
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(AppURLs.labelApiURL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        ILabelAPI ILabelAPI = retrofit.create(ILabelAPI.class);
+
+        Call<List<LabelHandler>> call = ILabelAPI.getLabels();
+        call.enqueue(new Callback<List<LabelHandler>>() {
+            @Override
+            public void onResponse(Call<List<LabelHandler>> call, Response<List<LabelHandler>> response) {
+
+                List<LabelHandler> labels = response.body();
+                labelOptions = new ArrayList<String>();
+                for (LabelHandler label : labels) {
+                    Log.e("label", label.getName());
+                    labelOptions.add(label.getName());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<LabelHandler>> call, Throwable t) {
+
+            }
+        });
+
+        FloatingActionButton fab = findViewById(R.id.fab_add_note);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, AddNotesActivity.class);
+                intent.putExtra("labels", labelOptions);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

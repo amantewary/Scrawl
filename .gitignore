@@ -1,4 +1,4 @@
-# Created by https://www.gitignore.io/api/android,androidstudio
+# Created by https://www.gitignore.io/ILabelAPI/android,androidstudio
 
 
 
@@ -158,4 +158,4 @@ fabric.properties
 !/gradle/wrapper/gradle-wrapper.jar
 
 
-# End of https://www.gitignore.io/api/android,androidstudio
+# End of https://www.gitignore.io/ILabelAPI/android,androidstudio
