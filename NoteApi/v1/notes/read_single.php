@@ -12,8 +12,8 @@
     'id' => $note->id,
     'title' => $note->title,
     'body' => $note->body,
+    'url' => $note->url,
     'author' => $note->author_id,
-    'label_id' => $note->label_id,
     'label_name' => $note->label_name
   );
   print_r(json_encode($note_arr));

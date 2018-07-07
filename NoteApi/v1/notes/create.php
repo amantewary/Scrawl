@@ -12,8 +12,9 @@
   $data = json_decode(file_get_contents("php://input"));
   $note->title = $data->title;
   $note->body = $data->body;
+  $note->url = $data->url;
   $note->author_id = $data->author_id;
-  $note->label_id = $data->label_id;
+  $note->label_name = $data->label_name;
   if($note->create()) {
     echo json_encode(
       array('message' => 'New Note Created')

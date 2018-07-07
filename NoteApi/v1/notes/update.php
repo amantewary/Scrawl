@@ -12,8 +12,9 @@
   $note->id = $data->id;
   $note->title = $data->title;
   $note->body = $data->body;
+  $note->url = $data->url;
   $note->author_id = $data->author_id;
-  $note->label_id = $data->label_id;
+  $note->label_name = $data->label_name;
   if($note->update()) {
     echo json_encode(
       array('message' => 'Note Updated')
