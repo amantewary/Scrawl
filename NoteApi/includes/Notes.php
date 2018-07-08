@@ -48,7 +48,7 @@
       return $stmt;
     }
     public function read_single() {
-       $query = 'SELECT n.id, n.label_name, n.title, n.body, n.author_id, n.created_at FROM ' . $this->table . ' n  WHERE n.id = ? LIMIT 0,1';
+       $query = 'SELECT n.id, n.label_name, n.title, n.body, n.url, n.author_id, n.created_at FROM ' . $this->table . ' n  WHERE n.id = ? LIMIT 0,1';
       $stmt = $this->con->prepare($query);
       $stmt->bindParam(1, $this->id);
       $stmt->execute();

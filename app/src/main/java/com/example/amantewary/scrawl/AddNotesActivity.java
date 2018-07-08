@@ -9,10 +9,20 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.example.amantewary.scrawl.API.INoteAPI;
+import com.example.amantewary.scrawl.Handlers.NoteHandler;
 
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class AddNotesActivity extends AppCompatActivity {
 
@@ -20,7 +30,6 @@ public class AddNotesActivity extends AppCompatActivity {
     EditText et_title, et_content, et_link;
     Spinner sp_add_labels;
     String title, date, content, link;
-    Integer label_id;
 
     /**
      * A method to check if a string is a link
@@ -88,9 +97,7 @@ public class AddNotesActivity extends AppCompatActivity {
         );
         labelAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         sp_add_labels.setAdapter(labelAdapter);
-
     }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
@@ -101,53 +108,40 @@ public class AddNotesActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-
         if (id == R.id.action_save) {
-
             addNote();
-
-//            String txt_title = et_title.getText().toString();
-//            String txt_link = et_link.getText().toString();
-//
-//            //validate EditTexts first
-//            if (txt_title.isEmpty()) {
-//                et_title.setError("Please input the title.");
-//
-//            } else if (!txt_link.isEmpty() && !isLink(txt_link)) {
-//                et_link.setError("Please input valid link");
-//
-//            } else {
-//                //collect note info.
-//                title = et_title.getText().toString();
-//                Log.d("Note Info", "title: " + title);
-//
-//                //label is already got in OnItemClickListener of sp_add_labels
-//                Log.d("Note Info", "label: " + label);
-//
-//                Date c = Calendar.getInstance().getTime();
-//                SimpleDateFormat df = new SimpleDateFormat("MMM dd, yyyy", Locale.CANADA);
-//                date = df.format(c);
-//                Log.d("Note Info", "date: " + date);
-//
-//                content = et_content.getText().toString();
-//                Log.d("Note Info", "content: " + content);
-//
-//                link = et_link.getText().toString();
-//                Log.d("Note Info", "link: " + link);
-//
-//                //TODO save note into db...
-//
-//            }
-//
-
+            finish();
         }
         return super.onOptionsItemSelected(item);
     }
 
     public void addNote(){
-
+        String label = sp_add_labels.getSelectedItem().toString();
+        String title = et_title.getText().toString().trim();
+        String body = et_content.getText().toString().trim();
+        String link = et_link.getText().toString().trim();
+        NoteHandler noteHandler = new NoteHandler(label, title, body, link, 1);
+        sendRequest(noteHandler);
     }
 
+    private void sendRequest(NoteHandler noteHandler){
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(AppURLs.noteApiURL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        INoteAPI noteAPI = retrofit.create(INoteAPI.class);
+        Call<NoteHandler> call = noteAPI.createNote(noteHandler);
+        call.enqueue(new Callback<NoteHandler>() {
+            @Override
+            public void onResponse(Call<NoteHandler> call, Response<NoteHandler> response) {
+                Toast.makeText(AddNotesActivity.this,"Note Created", Toast.LENGTH_SHORT).show();
+            }
+            @Override
+            public void onFailure(Call<NoteHandler> call, Throwable t) {
+                Toast.makeText(AddNotesActivity.this,"Something Went Wrong", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 
 
 }
