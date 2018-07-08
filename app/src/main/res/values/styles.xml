@@ -40,4 +40,14 @@
         <item name="android:minWidth">200dp</item>
     </style>
 
+    <style name="NormalButtonTheme" parent="@style/Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorButtonNormal">@color/colorPrimary</item>
+        <item name="colorControlHighlight">#22000000</item>
+    </style>
+
+    <style name="DeleteButtonTheme" parent="@style/Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorButtonNormal">#e84e40</item>
+        <item name="colorControlHighlight">#22000000</item>
+    </style>
+
 </resources>
