@@ -8,8 +8,12 @@
     
     public function connect() {
       $this->conn = null;
-      try { 
-        $this->conn = new PDO('mysql:host=' . $this->host . ';dbname=' . $this->db_name, $this->username, $this->password);
+      $dsn = 'mysql:host=' . $this->host . ';dbname=' . $this->db_name;
+      $user = $this->username;
+      $pass = $this->password;
+      //PDO Connection Testing
+  try { 
+        $this->conn = new PDO($dsn, $user, $pass);
         $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
       } catch(PDOException $e) {
         echo 'Connection Error: ' . $e->getMessage();
