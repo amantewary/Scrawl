@@ -14,7 +14,12 @@ import android.widget.Toast;
 import com.example.amantewary.scrawl.API.INoteAPI;
 import com.example.amantewary.scrawl.Handlers.NoteHandler;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -72,6 +77,7 @@ public class AddNotesActivity extends AppCompatActivity {
 
         Toolbar toolbar_edit_note = (Toolbar) findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar_edit_note);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         //Get Label
 
 
@@ -83,11 +89,11 @@ public class AddNotesActivity extends AppCompatActivity {
         et_link = (EditText) findViewById(R.id.et_link);
         sp_add_labels = (Spinner) findViewById(R.id.sp_add_label);
 
-
-        //TODO Retrieve date the note was last modified from db...
-        //Fake date here
-        date = "Jun 23 2018";
-        tv_date.setText(date);
+        //make tv_date show current date
+        Date c = Calendar.getInstance().getTime();
+        SimpleDateFormat df = new SimpleDateFormat("MMM dd, yyyy", Locale.CANADA);
+        String current_date = df.format(c);
+        tv_date.setText(current_date);
 
         ArrayList<String> labels = (ArrayList<String>) getIntent().getSerializableExtra("labels");
         final ArrayAdapter labelAdapter = new ArrayAdapter<String>(
