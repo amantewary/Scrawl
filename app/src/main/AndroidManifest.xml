@@ -23,7 +23,6 @@
         </activity>
 
 
-        <activity android:name=".ActivityLogin" />
         <activity
             android:name=".AddNotesActivity"
             android:theme="@style/AppTheme" />
