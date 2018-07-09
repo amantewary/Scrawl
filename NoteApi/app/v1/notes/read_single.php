@@ -13,7 +13,7 @@
     'title' => $note->title,
     'body' => $note->body,
     'url' => $note->url,
-    'author' => $note->author_id,
+    'user' => $note->user_id,
     'label_name' => $note->label_name
   );
   print_r(json_encode($note_arr));

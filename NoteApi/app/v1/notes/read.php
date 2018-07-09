@@ -21,7 +21,7 @@
         'title' => $title,
         'body' => html_entity_decode($body),
         'url' => $note->url,
-        'author_id' => $author_id,
+        'user_id' => $user_id,
         'label_name' => $label_name
       );
       array_push($notes_arr['data'], $note_item);

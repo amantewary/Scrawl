@@ -2,7 +2,7 @@
   header('Access-Control-Allow-Origin: *');
   header('Content-Type: application/json');
   header('Access-Control-Allow-Methods: PUT');
-  header('Access-Control-Allow-Headers: Access-Control-Allow-Headers,Content-Type,Access-Control-Allow-Methods, Authorization, X-Requested-With');
+  header('Access-Control-Allow-Headers: Access-Control-Allow-Headers,Content-Type,Access-Control-Allow-Methods, userization, X-Requested-With');
   include_once '../../includes/ConnectDb.php';
   include_once '../../includes/Notes.php';
   $database = new ConnectDb();
@@ -13,7 +13,7 @@
   $note->title = $data->title;
   $note->body = $data->body;
   $note->url = $data->url;
-  $note->author_id = $data->author_id;
+  $note->user_id = $data->user_id;
   $note->label_name = $data->label_name;
   if($note->update()) {
     echo json_encode(
