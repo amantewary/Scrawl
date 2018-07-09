@@ -3,6 +3,7 @@ package com.example.amantewary.scrawl;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
@@ -116,12 +117,17 @@ public class AddNotesActivity extends AppCompatActivity {
     }
 
     public void addNote(){
-        String label = sp_add_labels.getSelectedItem().toString();
-        String title = et_title.getText().toString().trim();
-        String body = et_content.getText().toString().trim();
-        String link = et_link.getText().toString().trim();
-        NoteHandler noteHandler = new NoteHandler(label, title, body, link, 1);
-        sendRequest(noteHandler);
+
+        try {
+            String label = sp_add_labels.getSelectedItem().toString();
+            String title = et_title.getText().toString().trim();
+            String body = et_content.getText().toString().trim();
+            String link = et_link.getText().toString().trim();
+            NoteHandler noteHandler = new NoteHandler(label, title, body, link, 1);
+            sendRequest(noteHandler);
+        } catch(Exception e){
+            Log.e("Message", e.toString());
+        }
     }
 
     private void sendRequest(NoteHandler noteHandler){
