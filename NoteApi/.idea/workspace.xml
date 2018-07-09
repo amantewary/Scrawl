@@ -11,13 +11,60 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="ConnectDb.php" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/includes/ConnectDb.php">
+      <file leaf-file-name="composer.json" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/composer.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="8" column="31" lean-forward="true" selection-start-line="8" selection-start-column="31" selection-end-line="8" selection-end-column="31" />
+            <state relative-caret-position="120">
+              <caret line="5" column="18" selection-start-line="5" selection-start-column="18" selection-end-line="5" selection-end-column="18" />
             </state>
           </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="LabelsTest.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/tests/LabelsTest.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="317">
+              <caret line="17" column="36" lean-forward="true" selection-start-line="17" selection-start-column="36" selection-end-line="17" selection-end-column="36" />
+              <folding>
+                <element signature="e#6#71#0#PHP" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="autoload_classmap.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/vendor/composer/autoload_classmap.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-383" />
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="autoload_psr4.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/vendor/composer/autoload_psr4.php">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file leaf-file-name="ClassLoader.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/vendor/composer/ClassLoader.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="672">
+              <caret line="132" column="23" selection-start-line="132" selection-start-column="23" selection-end-line="132" selection-end-column="23" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="phpunit.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/phpunit.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="120">
+              <caret line="5" column="16" selection-start-line="5" selection-start-column="16" selection-end-line="5" selection-end-column="16" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="autoload.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/vendor/autoload.php">
+          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
     </leaf>
@@ -27,6 +74,12 @@
       <list>
         <option value="$PROJECT_DIR$/includes/ConnectDb.php" />
         <option value="$PROJECT_DIR$/includes/ConnectDbTest.php" />
+        <option value="$PROJECT_DIR$/test/ConnectDbTest.php" />
+        <option value="$PROJECT_DIR$/v1/notes/create.php" />
+        <option value="$PROJECT_DIR$/test/LabelsTest.php" />
+        <option value="$PROJECT_DIR$/phpunit.xml" />
+        <option value="$PROJECT_DIR$/composer.json" />
+        <option value="$PROJECT_DIR$/tests/LabelsTest.php" />
       </list>
     </option>
   </component>
@@ -40,7 +93,7 @@
     <packageJsonPaths />
   </component>
   <component name="PhpWorkspaceProjectConfiguration" interpreter_name="PHP 7.2" />
-  <component name="ProjectFrameBounds" extendedState="1">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="85" />
     <option name="y" value="25" />
     <option name="width" value="1750" />
@@ -62,7 +115,18 @@
             <path>
               <item name="NoteApi" type="b2602c69:ProjectViewProjectNode" />
               <item name="NoteApi" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="NoteApi" type="b2602c69:ProjectViewProjectNode" />
+              <item name="NoteApi" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
               <item name="includes" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="NoteApi" type="b2602c69:ProjectViewProjectNode" />
+              <item name="NoteApi" type="462c0819:PsiDirectoryNode" />
+              <item name="tests" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -73,7 +137,16 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="com.jetbrains.php.phpunit.codeGeneration.PhpNewTestDialog.defaultLibrary" value="PHPUnit" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/composer.json" />
+    <property name="settings.editor.selected.configurable" value="php.test.frameworks.configurable" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\School\Term_3\QA\Project\Group19\NoteApi\test" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\School\Term_3\QA\Project\Group19\NoteApi\includes" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -87,11 +160,36 @@
       </list>
     </option>
   </component>
-  <component name="RunManager">
-    <configuration name="ConnectDb.php" type="PhpLocalRunConfigurationType" factoryName="PHP Console" temporary="true" path="$PROJECT_DIR$/includes/ConnectDb.php" />
+  <component name="RunManager" selected="PHPUnit.LabelsTest.testRead">
+    <configuration name="ConnectDbTest" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <TestRunner class="ConnectDbTest" file="$PROJECT_DIR$/test/ConnectDbTest.php" scope="Class" />
+    </configuration>
+    <configuration name="ConnectDbTest.testConnect" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <TestRunner class="ConnectDbTest" file="$PROJECT_DIR$/test/ConnectDbTest.php" method="testConnect" scope="Method" />
+    </configuration>
+    <configuration name="LabelsTest (1)" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <TestRunner class="LabelsTest" file="$PROJECT_DIR$/tests/LabelsTest.php" scope="Class" />
+    </configuration>
+    <configuration name="LabelsTest" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <TestRunner class="LabelsTest" file="$PROJECT_DIR$/test/LabelsTest.php" scope="Class" />
+    </configuration>
+    <configuration name="LabelsTest.testRead" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <TestRunner class="LabelsTest" file="$PROJECT_DIR$/tests/LabelsTest.php" method="testRead" scope="Method" />
+    </configuration>
+    <list>
+      <item itemvalue="PHPUnit.ConnectDbTest.testConnect" />
+      <item itemvalue="PHPUnit.ConnectDbTest" />
+      <item itemvalue="PHPUnit.LabelsTest" />
+      <item itemvalue="PHPUnit.LabelsTest (1)" />
+      <item itemvalue="PHPUnit.LabelsTest.testRead" />
+    </list>
     <recent_temporary>
       <list>
-        <item itemvalue="PHP Script.ConnectDb.php" />
+        <item itemvalue="PHPUnit.LabelsTest.testRead" />
+        <item itemvalue="PHPUnit.LabelsTest (1)" />
+        <item itemvalue="PHPUnit.LabelsTest" />
+        <item itemvalue="PHPUnit.ConnectDbTest" />
+        <item itemvalue="PHPUnit.ConnectDbTest.testConnect" />
       </list>
     </recent_temporary>
   </component>
@@ -105,28 +203,60 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1531096186808</updated>
-      <workItem from="1531096189520" duration="788000" />
+      <workItem from="1531096189520" duration="13040000" />
     </task>
     <servers />
   </component>
+  <component name="TestHistory">
+    <history-entry file="LabelsTest_(1) - 2018.07.09 at 00h 37m 09s.xml">
+      <configuration name="LabelsTest (1)" configurationId="PHPUnitRunConfigurationType" />
+    </history-entry>
+    <history-entry file="LabelsTest_testRead - 2018.07.09 at 00h 59m 59s.xml">
+      <configuration name="LabelsTest.testRead" configurationId="PHPUnitRunConfigurationType" />
+    </history-entry>
+    <history-entry file="LabelsTest_testRead - 2018.07.09 at 01h 04m 42s.xml">
+      <configuration name="LabelsTest.testRead" configurationId="PHPUnitRunConfigurationType" />
+    </history-entry>
+    <history-entry file="LabelsTest_testRead - 2018.07.09 at 01h 05m 03s.xml">
+      <configuration name="LabelsTest.testRead" configurationId="PHPUnitRunConfigurationType" />
+    </history-entry>
+    <history-entry file="LabelsTest_testRead - 2018.07.09 at 01h 36m 16s.xml">
+      <configuration name="LabelsTest.testRead" configurationId="PHPUnitRunConfigurationType" />
+    </history-entry>
+    <history-entry file="LabelsTest_testRead - 2018.07.09 at 01h 36m 49s.xml">
+      <configuration name="LabelsTest.testRead" configurationId="PHPUnitRunConfigurationType" />
+    </history-entry>
+    <history-entry file="LabelsTest_testRead - 2018.07.09 at 01h 44m 37s.xml">
+      <configuration name="LabelsTest.testRead" configurationId="PHPUnitRunConfigurationType" />
+    </history-entry>
+    <history-entry file="LabelsTest_testRead - 2018.07.09 at 10h 17m 38s.xml">
+      <configuration name="LabelsTest.testRead" configurationId="PHPUnitRunConfigurationType" />
+    </history-entry>
+    <history-entry file="LabelsTest_testRead - 2018.07.09 at 10h 21m 01s.xml">
+      <configuration name="LabelsTest.testRead" configurationId="PHPUnitRunConfigurationType" />
+    </history-entry>
+    <history-entry file="LabelsTest_testRead - 2018.07.09 at 10h 21m 38s.xml">
+      <configuration name="LabelsTest.testRead" configurationId="PHPUnitRunConfigurationType" />
+    </history-entry>
+  </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="788000" />
+    <option name="totallyTimeSpent" value="13040000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="68" y="20" width="1400" height="774" extended-state="1" />
+    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24963924" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.22526042" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" side_tool="true" />
       <window_info anchor="right" id="Database" />
       <window_info anchor="bottom" id="Database Changes" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.32980332" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.6" />
       <window_info anchor="bottom" id="Version Control" show_stripe_button="false" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Terminal" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Terminal" weight="0.32965517" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.39939487" />
       <window_info id="Favorites" side_tool="true" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -146,18 +276,103 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/includes/ConnectDbTest.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="13" lean-forward="true" selection-start-line="13" selection-end-line="13" />
+        <state relative-caret-position="119">
+          <caret line="12" column="33" lean-forward="true" selection-start-line="12" selection-start-column="33" selection-end-line="12" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/includes/ConnectDb.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" column="25" selection-start-line="9" selection-start-column="25" selection-end-line="9" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/ConnectDbTest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="16" column="56" lean-forward="true" selection-start-line="16" selection-start-column="56" selection-end-line="16" selection-end-column="56" />
           <folding>
             <element signature="e#6#72#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/includes/ConnectDb.php">
+    <entry file="file://$PROJECT_DIR$/v1/notes/create.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="31" lean-forward="true" selection-start-line="8" selection-start-column="31" selection-end-line="8" selection-end-column="31" />
+        <state relative-caret-position="102">
+          <caret line="6" column="46" selection-start-line="6" selection-start-column="46" selection-end-line="6" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/includes/Notes.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="34" selection-start-line="5" selection-start-column="34" selection-end-line="5" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/includes/Labels.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="11" column="28" selection-start-line="11" selection-start-column="28" selection-end-line="11" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/LabelsTest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
+          <folding>
+            <element signature="e#6#72#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/composer/autoload_classmap.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-383" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/composer/autoload_psr4.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/composer/ClassLoader.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="672">
+          <caret line="132" column="23" selection-start-line="132" selection-start-column="23" selection-end-line="132" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/composer/autoload_real.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-299" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/autoload.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/phpunit.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="5" column="16" selection-start-line="5" selection-start-column="16" selection-end-line="5" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/composer.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="5" column="18" selection-start-line="5" selection-start-column="18" selection-end-line="5" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/LabelsTest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="317">
+          <caret line="17" column="36" lean-forward="true" selection-start-line="17" selection-start-column="36" selection-end-line="17" selection-end-column="36" />
+          <folding>
+            <element signature="e#6#71#0#PHP" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
