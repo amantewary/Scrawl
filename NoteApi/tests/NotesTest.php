@@ -1,6 +1,5 @@
 <?php
 /**
- * Created by PhpStorm.
  * User: amantewary
  * Date: 09-07-2018
  * Time: 10:29 AM
@@ -13,18 +12,6 @@ class NotesTest extends TestCase
 {
 
     public function testRead()
-    {
-        $stmtMock = $this->createMock(\PDOStatement::class);
-        $pdoMock = $this->createMock(\PDO::class);
-        $stmtMock->method('execute')
-            ->willReturn(true);
-        $pdoMock->method('prepare')
-            ->willReturn($stmtMock);
-        $test = new Notes($pdoMock);
-        $this->assertEquals($stmtMock,$test->read());
-    }
-
-    public function testFailRead()
     {
         $stmtMock = $this->createMock(\PDOStatement::class);
         $pdoMock = $this->createMock(\PDO::class);
@@ -50,7 +37,14 @@ class NotesTest extends TestCase
 
     public function testRead_single()
     {
-        //TODO: Need to write test for this
+        $stmtMock = $this->createMock(\PDOStatement::class);
+        $pdoMock = $this->createMock(\PDO::class);
+        $stmtMock->method('execute')
+            ->willReturn(true);
+        $pdoMock->method('prepare')
+            ->willReturn($stmtMock);
+        $test = new Notes($pdoMock);
+        $this->assertEquals(true,$test->read_single());
     }
 
     public function testCreate()
