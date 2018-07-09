@@ -11,8 +11,6 @@
   $num = $result->rowCount();
   if($num > 0) {
     $notes_arr = array();
-    $notes_arr['data'] = array();
-
     while($row = $result->fetch(PDO::FETCH_ASSOC)) {
       extract($row);
 
@@ -24,7 +22,7 @@
         'user_id' => $user_id,
         'label_name' => $label_name
       );
-      array_push($notes_arr['data'], $note_item);
+      array_push($notes_arr, $note_item);
     }
     echo json_encode($notes_arr);
   } else {
