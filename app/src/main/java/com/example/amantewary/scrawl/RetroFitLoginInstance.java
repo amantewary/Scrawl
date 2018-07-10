@@ -4,6 +4,8 @@ package com.example.amantewary.scrawl;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+
+// A single class to handle requests from both registration and Login
 public class RetroFitLoginInstance {
 
     private static Retrofit retrofit;

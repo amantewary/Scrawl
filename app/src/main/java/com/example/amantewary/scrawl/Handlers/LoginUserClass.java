@@ -12,9 +12,6 @@ public class LoginUserClass {
     String email;
     @SerializedName("username")
     String username;
-
-
-
     @SerializedName("error")
     String error;
 

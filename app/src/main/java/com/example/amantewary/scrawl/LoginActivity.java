@@ -17,7 +17,6 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
-import android.util.Patterns;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -27,7 +26,6 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.amantewary.scrawl.API.ILoginUser;
 import com.example.amantewary.scrawl.Handlers.LoginUserClass;
@@ -66,20 +64,16 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
-
+    EmailPasswordValidation emailPasswordValidation;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loginpage);
+        emailPasswordValidation = new EmailPasswordValidation();
+
+       initLayout();
 
 
-        // Set up the login form.
-        mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
-        populateAutoComplete();
-        mProgressView = findViewById(R.id.login_progress);
-        mLoginFormView = findViewById(R.id.login_form);
-
-        mPasswordView = (EditText) findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
@@ -101,6 +95,16 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
 //        mLoginFormView = findViewById(R.id.login_form);
 //        mProgressView = findViewById(R.id.login_progress);
+    }
+
+    public void initLayout(){
+        // Set up the login form.
+        mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
+        populateAutoComplete();
+        mProgressView = findViewById(R.id.login_progress);
+        mLoginFormView = findViewById(R.id.login_form);
+
+        mPasswordView = (EditText) findViewById(R.id.password);
     }
 
     private void populateAutoComplete() {
@@ -166,7 +170,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         View focusView = null;
 
         // Check for a valid password, if the user entered one.
-        if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
+        if (!TextUtils.isEmpty(password) && !emailPasswordValidation.isPasswordValid(password)) {
             mPasswordView.setError(getString(R.string.error_invalid_password));
             focusView = mPasswordView;
             cancel = true;
@@ -177,7 +181,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             mEmailView.setError(getString(R.string.error_field_required));
             focusView = mEmailView;
             cancel = true;
-        } else if (!isEmailValid(email)) {
+        } else if (!emailPasswordValidation.isEmailValid(email)) {
             mEmailView.setError(getString(R.string.error_invalid_email));
             focusView = mEmailView;
             cancel = true;
@@ -232,13 +236,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
 
 
-    private boolean isEmailValid(String email) {
-        return Patterns.EMAIL_ADDRESS.matcher(email).matches();
-    }
 
-    private boolean isPasswordValid(String password) {
-        return password.length() > 4;
-    }
 
     /**
      * Shows the progress UI and hides the login form.
