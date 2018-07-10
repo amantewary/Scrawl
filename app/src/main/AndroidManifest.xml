@@ -30,6 +30,9 @@
 
         </activity>
         <activity android:name=".ActivityRegister" >
+
+        </activity>
+        <activity android:name=".SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
