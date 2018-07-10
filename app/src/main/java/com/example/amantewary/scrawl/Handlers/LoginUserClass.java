@@ -1,26 +1,47 @@
 package com.example.amantewary.scrawl.Handlers;
 
+
+import com.google.gson.annotations.SerializedName;
+
 public class LoginUserClass {
 
 
-    boolean error;
-    String username;
+    @SerializedName("password")
+    String password;
+    @SerializedName("email")
     String email;
+    @SerializedName("username")
+    String username;
 
-    public LoginUserClass(boolean error, String username, String email) {
-        this.error = error;
-        this.username = username;
+
+
+    @SerializedName("error")
+    String error;
+
+
+
+    public LoginUserClass(String email, String password) {
+        this.password = password;
         this.email = email;
     }
 
-    public boolean isError() {
-        return error;
+
+
+    public String getEmail() {
+        return email;
     }
 
-    public void setError(boolean error) {
-        this.error = error;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
     public String getUsername() {
         return username;
     }
@@ -29,11 +50,11 @@ public class LoginUserClass {
         this.username = username;
     }
 
-    public String getEmail() {
-        return email;
+    public String getError() {
+        return error;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setError(String error) {
+        this.error = error;
     }
 }
