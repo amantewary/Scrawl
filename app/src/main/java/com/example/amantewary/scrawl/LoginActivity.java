@@ -5,7 +5,6 @@ import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.CursorLoader;
-import android.content.Intent;
 import android.content.Loader;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -18,7 +17,6 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
-import android.util.Patterns;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -28,20 +26,19 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.example.amantewary.scrawl.API.ILoginUser;
+import com.example.amantewary.scrawl.Handlers.LoginUserClass;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
+import retrofit2.Call;
+import retrofit2.Callback;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -67,16 +64,16 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
-
+    EmailPasswordValidation emailPasswordValidation;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loginpage);
-        // Set up the login form.
-        mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
-        populateAutoComplete();
+        emailPasswordValidation = new EmailPasswordValidation();
 
-        mPasswordView = (EditText) findViewById(R.id.password);
+       initLayout();
+
+
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
@@ -88,7 +85,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }
         });
 
-        Button mEmailSignInButton = (Button) findViewById(R.id.btn_login);
+        Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -98,6 +95,16 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
 //        mLoginFormView = findViewById(R.id.login_form);
 //        mProgressView = findViewById(R.id.login_progress);
+    }
+
+    public void initLayout(){
+        // Set up the login form.
+        mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
+        populateAutoComplete();
+        mProgressView = findViewById(R.id.login_progress);
+        mLoginFormView = findViewById(R.id.login_form);
+
+        mPasswordView = (EditText) findViewById(R.id.password);
     }
 
     private void populateAutoComplete() {
@@ -163,7 +170,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         View focusView = null;
 
         // Check for a valid password, if the user entered one.
-        if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
+        if (!TextUtils.isEmpty(password) && !emailPasswordValidation.isPasswordValid(password)) {
             mPasswordView.setError(getString(R.string.error_invalid_password));
             focusView = mPasswordView;
             cancel = true;
@@ -174,7 +181,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             mEmailView.setError(getString(R.string.error_field_required));
             focusView = mEmailView;
             cancel = true;
-        } else if (!isEmailValid(email)) {
+        } else if (!emailPasswordValidation.isEmailValid(email)) {
             mEmailView.setError(getString(R.string.error_invalid_email));
             focusView = mEmailView;
             cancel = true;
@@ -194,83 +201,42 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
 
     private void requestLogin(final String email, final String password) {
-        // Tag used to cancel the request
-        String tag_string_req = "req_login";
 
 
-        StringRequest strReq = new StringRequest(Request.Method.POST,
-                AppURLs.loginURL, new Response.Listener<String>() {
-
+        ILoginUser service = RetroFitLoginInstance.getRetrofit().create(ILoginUser.class);
+        RequestBody body = RequestBody.create(MediaType.parse("text/plain"), email);
+        RequestBody body2 = RequestBody.create(MediaType.parse("text/plain"), password);
+        Map<String, RequestBody> requestBodyMap = new HashMap<>();
+        requestBodyMap.put("email", body);
+        requestBodyMap.put("password", body2);
+        Call<LoginUserClass> call = service.sendPost(requestBodyMap);
+        call.enqueue(new Callback<LoginUserClass>() {
             @Override
-            public void onResponse(String response) {
-                Log.d(TAG, "Register Response: " + response.toString());
-
-
-                try {
-                    JSONObject jObj = new JSONObject(response);
-                    boolean error = jObj.getBoolean("error");
-                    if (!error) {
-
-
-                        String name = jObj.getString("username");
-                        String email = jObj.getString("email");
-
-                        Toast.makeText(getApplicationContext(), name, Toast.LENGTH_SHORT).show();
-
-                        // Launch login activity
-                        Intent intent = new Intent(
-                                LoginActivity.this,
-                                MainActivity.class);
-                        startActivity(intent);
-                        finish();
+            public void onResponse(Call<LoginUserClass> call, retrofit2.Response<LoginUserClass> response) {
+                if (response.isSuccessful()) {
+                    if (response.body().getError().equals("false")) {
+                        Log.e(TAG, response.body().getUsername());
                     } else {
-
-                        // Error occurred in registration. Get the error
-                        // message
-                        String errorMsg = jObj.getString("error_msg");
-                        Toast.makeText(getApplicationContext(),
-                                errorMsg, Toast.LENGTH_LONG).show();
-                        finish();
+                        // Todo: Write something to show error
                     }
-                } catch (JSONException e) {
-                    e.printStackTrace();
+
+                } else {
+                    Log.e(TAG, "" + response.raw());
                 }
 
             }
-        }, new Response.ErrorListener() {
 
             @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e(TAG, "Registration Error: " + error.getMessage());
-                Toast.makeText(getApplicationContext(),
-                        error.getMessage(), Toast.LENGTH_LONG).show();
+            public void onFailure(Call<LoginUserClass> call, Throwable t) {
+                t.printStackTrace();
+                Log.e(TAG, "Here" + t.getMessage());
+
             }
-        }) {
-
-            @Override
-            protected Map<String, String> getParams() {
-                // Posting params to register url
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("email", email);
-                params.put("password", password);
-
-                return params;
-            }
-
-        };
-
-        // Adding request to request queue
-        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+        });
     }
 
 
-    private boolean isEmailValid(String email) {
-        return   Patterns.EMAIL_ADDRESS.matcher(email).matches();
-    }
 
-    private boolean isPasswordValid(String password) {
-        return password.length() > 4;
-    }
 
     /**
      * Shows the progress UI and hides the login form.
