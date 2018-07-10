@@ -80,7 +80,6 @@ public class AddNotesActivity extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         //Get Label
 
-
         setTitle("Edit Note");
 
         tv_date = (TextView) findViewById(R.id.tv_date);

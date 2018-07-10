@@ -1,28 +1,29 @@
 package com.example.amantewary.scrawl;
 
 import android.content.Intent;
-import android.support.design.internal.BottomNavigationMenu;
 import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.BottomSheetBehavior;
-import android.support.design.widget.BottomSheetDialogFragment;
-import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.SubtitleCollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.view.menu.MenuBuilder;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.PopupMenu;
 import android.widget.ShareActionProvider;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import org.w3c.dom.Text;
+import com.example.amantewary.scrawl.API.IShareAPI;
+import com.example.amantewary.scrawl.Handlers.ShareHandler;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Viewnotes extends AppCompatActivity implements View.OnClickListener{
 
@@ -30,7 +31,7 @@ public class Viewnotes extends AppCompatActivity implements View.OnClickListener
     private BottomSheetBehavior mBottomSheetBehavior1;
     private FloatingActionButton fab;
     TextView tv_note_title, tv_note_content;
-    Button btn_edit, btn_share, btn_delete;
+    Button btn_edit, btn_collaborate, btn_share, btn_delete;
 
     private ShareActionProvider mShareActionProvider;
 
@@ -97,10 +98,12 @@ public class Viewnotes extends AppCompatActivity implements View.OnClickListener
         tv_note_title = (TextView)findViewById(R.id.tv_note_title);
 
         btn_edit = (Button) findViewById(R.id.btn_edit);
+        btn_collaborate = (Button)findViewById(R.id.btn_collaborate);
         btn_share = (Button) findViewById(R.id.btn_share);
         btn_delete = (Button) findViewById(R.id.btn_delete);
 
         btn_edit.setOnClickListener(this);
+        btn_collaborate.setOnClickListener(this);
         btn_share.setOnClickListener(this);
         btn_delete.setOnClickListener(this);
 
@@ -149,6 +152,9 @@ public class Viewnotes extends AppCompatActivity implements View.OnClickListener
         switch (view.getId()){
             case R.id.btn_edit:
                 break;
+            case R.id.btn_collaborate:
+                addShare();
+                break;
             case R.id.btn_share:
                 setShareIntent();
                 break;
@@ -163,6 +169,39 @@ public class Viewnotes extends AppCompatActivity implements View.OnClickListener
         sendIntent.putExtra(Intent.EXTRA_TEXT, tv_note_content.getText().toString());
         sendIntent.setType("text/plain");
         startActivity(Intent.createChooser(sendIntent, "share to"));
+    }
+
+    public void addShare(){
+        //TODO share_from = current user's id
+        //Mock share_from here
+        Integer share_from = 1;
+        //Mock share_to here
+        Integer share_to = 2;
+        //Mock note_id
+        Integer note_id = 1;
+
+        ShareHandler shareHandler = new ShareHandler(share_from, share_to, note_id);
+        sendRequest(shareHandler);
+    }
+
+    private void sendRequest(ShareHandler shareHandler){
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(AppURLs.shareApiURL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        IShareAPI shareAPI = retrofit.create(IShareAPI.class);
+
+        Call<ShareHandler> call = shareAPI.createShare(shareHandler);
+        call.enqueue(new Callback<ShareHandler>() {
+            @Override
+            public void onResponse(Call<ShareHandler> call, Response<ShareHandler> response) {
+                Toast.makeText(Viewnotes.this,"Shared Successfully", Toast.LENGTH_SHORT).show();
+            }
+            @Override
+            public void onFailure(Call<ShareHandler> call, Throwable t) {
+                Toast.makeText(Viewnotes.this,"Something Went Wrong", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
 

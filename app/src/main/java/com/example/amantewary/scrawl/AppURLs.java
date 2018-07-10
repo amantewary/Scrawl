@@ -10,7 +10,7 @@ package com.example.amantewary.scrawl;
 
 public class AppURLs {
 
-    static String loginURL, registerURL, labelApiURL, noteApiURL;
+    static String loginURL, registerURL, labelApiURL, noteApiURL, shareApiURL;
     private static final AppURLs ourInstance = new AppURLs();
 
     public static AppURLs getInstance() {
@@ -22,5 +22,6 @@ public class AppURLs {
         registerURL = "http://web.cs.dal.ca/~kamath/QA_Devint/login.php";
         labelApiURL = "https://web.cs.dal.ca/~kamath/QA_Devint/NoteApi/v1/label/";
         noteApiURL = "https://web.cs.dal.ca/~kamath/QA_Devint/NoteApi/v1/notes/";
+        shareApiURL = "https://web.cs.dal.ca/~hhou/QA_Devint/NoteApi/v1/shares/";
     }
 }
