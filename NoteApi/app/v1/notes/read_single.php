@@ -3,6 +3,7 @@
   header('Content-Type: application/json');
   include_once '../../includes/ConnectDb.php';
   include_once '../../includes/Notes.php';
+  include_once '../../includes/HttpLogger.php';
   $database = new ConnectDb();
   $db = $database->connect();
   $note = new Notes($db);
@@ -17,3 +18,4 @@
     'label_name' => $note->label_name
   );
   print_r(json_encode($note_arr));
+$database->disconnect($db);

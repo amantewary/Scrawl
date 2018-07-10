@@ -1,5 +1,6 @@
 <?php
 
+require 'Logger.php';
 class Notes
 {
     private $con;
@@ -20,7 +21,7 @@ class Notes
 
     public function create()
     {
-
+        error_log('Invoked create() Method');
         $query = 'INSERT INTO ' .
             $this->table . '
         SET
@@ -42,20 +43,24 @@ class Notes
         $stmt->bindParam(':user_id', $this->user_id);
         $stmt->bindParam(':label_name', $this->label_name);
         if ($stmt->execute()) {
+            error_log('Note Created');
             return true;
         }
-        printf("Error: %s.\n", $stmt->error);
+        error_log("Error: %s.\n", $stmt->error);
         return false;
     }
 
     public function read()
     {
+        error_log('Invoked read() Method');
         try {
             $query = 'SELECT n.id, n.label_name, n.title, n.body, n.url, n.user_id, n.created_at FROM ' . $this->table . ' n ORDER BY n.created_at DESC';
             $stmt = $this->con->prepare($query);
             $stmt->execute();
+            error_log('Retrieved Notes List');
             return $stmt;
         } catch (\Exception $e) {
+            error_log('Error while retrieving notes: ' . $e->getMessage());
             return false;
         }
     }
