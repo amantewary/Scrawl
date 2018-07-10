@@ -1,0 +1,14 @@
+Error PDOException: SQLSTATE[HY000] [1045] Access denied for user 'CSCI5308_19_DEVINT_USER'@'76-11-22-245.eastlink.ca' (using password: NO) in /Applications/XAMPP/xamppfiles/htdocs/PDO/config.php:16
+Stack trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/PDO/config.php(16): PDO->__construct('mysql:host=db-5...', 'CSCI5308_19_DEV...', '', Array)
+#1 /Applications/XAMPP/xamppfiles/htdocs/PDO/Database_Queries.php(9): require('/Applications/X...')
+#2 /Applications/XAMPP/xamppfiles/htdocs/PDO/login.php(9): require_once('/Applications/X...')
+#3 {main}[10-Jul-2018 18:52:46 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined function now() in /Applications/XAMPP/xamppfiles/htdocs/PDO/login.php:40
+Stack trace:
+#0 {main}
+  thrown in /Applications/XAMPP/xamppfiles/htdocs/PDO/login.php on line 40
+[10-Jul-2018 18:53:40 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined method PDO::now() in /Applications/XAMPP/xamppfiles/htdocs/PDO/login.php:40
+Stack trace:
+#0 {main}
+  thrown in /Applications/XAMPP/xamppfiles/htdocs/PDO/login.php on line 40
+[10-Jul-2018 18:57:23 Europe/Berlin] PHP Notice:  Array to string conversion in /Applications/XAMPP/xamppfiles/htdocs/PDO/login.php on line 40
