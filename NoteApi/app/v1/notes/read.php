@@ -1,9 +1,9 @@
 <?php 
   header('Access-Control-Allow-Origin: *');
   header('Content-Type: application/json');
-
   include_once '../../includes/ConnectDb.php';
   include_once '../../includes/Notes.php';
+  include_once '../../includes/HttpLogger.php';
   $database = new ConnectDb();
   $db = $database->connect();
   $note = new Notes($db);
@@ -25,8 +25,10 @@
       array_push($notes_arr, $note_item);
     }
     echo json_encode($notes_arr);
+      $database->disconnect($db);
   } else {
     echo json_encode(
       array('message' => 'No Note Found')
     );
+      $database->disconnect($db);
   }

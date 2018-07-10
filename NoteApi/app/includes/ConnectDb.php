@@ -1,4 +1,6 @@
 <?php 
+
+  require 'Logger.php';
   class ConnectDb {
     private $host = 'db-5308.cs.dal.ca';
     private $db_name = 'CSCI5308_19_DEVINT';
@@ -11,13 +13,24 @@
       $dsn = 'mysql:host=' . $this->host . ';dbname=' . $this->db_name;
       $user = $this->username;
       $pass = $this->password;
+
       //PDO Connection Testing
-  try { 
+    try {
+
         $this->conn = new PDO($dsn, $user, $pass);
         $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        error_log("--->Database Connection Open \n");
+
       } catch(PDOException $e) {
-        echo 'Connection Error: ' . $e->getMessage();
+        error_log('Connection Error: ' . $e->getMessage() . '\n');
+        die($e->getMessage());
       }
       return $this->conn;
+    }
+
+    public function disconnect(&$conn){
+        $conn = null;
+        error_log("--->Database Connection Closed \n");
     }
   }
