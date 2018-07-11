@@ -19,9 +19,9 @@
             android:id="@+id/subtitlecollapsingtoolbarlayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:contentScrim="?colorPrimary"
+            app:contentScrim="?attr/colorPrimary"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            >
+            app:toolbarId="@+id/toolbar">
 
             <!--app:subtitle="QA, Project Details"-->
             <!--app:title="Note 1"-->
