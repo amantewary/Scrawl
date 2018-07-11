@@ -15,3 +15,12 @@ CREATE TABLE `labels` (
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 );
+
+CREATE TABLE `shares` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `share_from` varchar(45) NOT NULL,
+  `share_to` varchar(45) NOT NULL,
+  `note_id` int(11) NOT NULL,
+  `shared_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+);

@@ -1,11 +1,13 @@
 package com.example.amantewary.scrawl;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.SubtitleCollapsingToolbarLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -13,18 +15,21 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ShareActionProvider;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.amantewary.scrawl.API.INoteAPI;
 import com.example.amantewary.scrawl.Handlers.NoteHandler;
-
-import java.util.List;
+import com.example.amantewary.scrawl.API.IShareAPI;
+import com.example.amantewary.scrawl.Handlers.ShareHandler;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import java.util.List;
+
 
 public class ViewNotesActivity extends AppCompatActivity implements View.OnClickListener{
     private static final String TAG = "ViewNotesActivity";
@@ -35,9 +40,7 @@ public class ViewNotesActivity extends AppCompatActivity implements View.OnClick
     private SubtitleCollapsingToolbarLayout collapsingToolbarLayout;
     Integer noteId;
     TextView tv_note_content, tv_note_link;
-    Button btn_edit, btn_share, btn_delete;
-
-    private ShareActionProvider mShareActionProvider;
+    Button btn_edit, btn_share, btn_delete, btn_collaborate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,10 +108,12 @@ public class ViewNotesActivity extends AppCompatActivity implements View.OnClick
         tv_note_link = findViewById(R.id.viewNotesLink);
 
         btn_edit = (Button) findViewById(R.id.btn_edit);
+        btn_collaborate = (Button)findViewById(R.id.btn_collaborate);
         btn_share = (Button) findViewById(R.id.btn_share);
         btn_delete = (Button) findViewById(R.id.btn_delete);
 
         btn_edit.setOnClickListener(this);
+        btn_collaborate.setOnClickListener(this);
         btn_share.setOnClickListener(this);
         btn_delete.setOnClickListener(this);
 
@@ -184,6 +189,9 @@ public class ViewNotesActivity extends AppCompatActivity implements View.OnClick
         switch (view.getId()){
             case R.id.btn_edit:
                 break;
+            case R.id.btn_collaborate:
+                showDialog();
+                break;
             case R.id.btn_share:
                 setShareIntent();
                 break;
@@ -193,15 +201,74 @@ public class ViewNotesActivity extends AppCompatActivity implements View.OnClick
     }
 
     private void setShareIntent(){
-        Intent sendIntent = new Intent();
-        sendIntent.setAction(Intent.ACTION_SEND);
-        sendIntent.putExtra(Intent.EXTRA_TEXT, tv_note_content.getText().toString());
-        sendIntent.setType("text/plain");
-        startActivity(Intent.createChooser(sendIntent, "share to"));
+        try{
+            Intent sendIntent = new Intent();
+            sendIntent.setAction(Intent.ACTION_SEND);
+            sendIntent.putExtra(Intent.EXTRA_TEXT, tv_note_content.getText().toString());
+            sendIntent.setType("text/plain");
+            startActivity(Intent.createChooser(sendIntent, "share to"));
+        }catch (Exception e){
+            Log.e(TAG, "Failed to set Share Intent: " + e.getMessage());
+        }
+
     }
 
+    private void showDialog(){
+
+        final EditText et_collaborate_with = new EditText(this);
+        et_collaborate_with.setHint("Please input email address");
+        try{
+            new AlertDialog.Builder(this)
+                    .setTitle("Collaborate with:")
+                    .setView(et_collaborate_with)
+                    .setPositiveButton("Share", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            setCollaborateInfo(et_collaborate_with.getText().toString());
+                        }
+                    })
+                    .setNegativeButton("Cancel", null)
+                    .show();
+        }catch (Exception e){
+            Log.e(TAG, "Failed to show Dialog " + e.getMessage());
+        }
 
 
+    }
 
+    public void setCollaborateInfo(String collaborate_with){
+        try{
+            //Check if the user is logged in
+            String share_from = SessionManager.KEY_EMAIL;
+
+            String share_to = collaborate_with;
+
+            Integer note_id = noteId;
+
+            ShareHandler shareHandler = new ShareHandler(share_from, share_to, note_id);
+            sendRequest(shareHandler);
+        }catch (Exception e) {
+            Log.e("Message", e.toString());
+        }
+    }
+
+    private void sendRequest(ShareHandler shareHandler){
+        IShareAPI shareAPI = RetroFitInstance.getRetrofit().create(IShareAPI.class);
+        Call<ShareHandler> call = shareAPI.createShare(shareHandler);
+        call.enqueue(new Callback<ShareHandler>() {
+            @Override
+            public void onResponse(Call<ShareHandler> call, Response<ShareHandler> response) {
+                Log.d(TAG, "onResponse: Server Response: " + response.toString());
+                Log.d(TAG, "onResponse: Received Information: " + response.body().toString());
+                Toast.makeText(ViewNotesActivity.this, "Shared Successfully", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<ShareHandler> call, Throwable t) {
+                Log.e(TAG, "onFailure: Something Went Wrong: " + t.getMessage());
+                Toast.makeText(ViewNotesActivity.this, "Something Went Wrong", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 
 }
