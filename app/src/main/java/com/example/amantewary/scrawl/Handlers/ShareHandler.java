@@ -3,6 +3,8 @@ package com.example.amantewary.scrawl.Handlers;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.sql.Date;
+
 public class ShareHandler {
 
     @SerializedName("id")
@@ -11,17 +13,21 @@ public class ShareHandler {
 
     @SerializedName("share_from")
     @Expose
-    Integer share_from;
+    String share_from;
 
     @SerializedName("share_to")
     @Expose
-    Integer share_to;
+    String share_to;
 
     @SerializedName("note_id")
     @Expose
     Integer note_id;
 
-    public ShareHandler(Integer share_from, Integer share_to, Integer note_id) {
+    @SerializedName("shared_at")
+    @Expose
+    Date shared_at;
+
+    public ShareHandler(String share_from, String share_to, Integer note_id) {
         this.share_from = share_from;
         this.share_to = share_to;
         this.note_id = note_id;
@@ -35,19 +41,19 @@ public class ShareHandler {
         this.id = id;
     }
 
-    public Integer getShare_from() {
+    public String getShare_from() {
         return share_from;
     }
 
-    public void setShare_from(Integer share_from) {
+    public void setShare_from(String share_from) {
         this.share_from = share_from;
     }
 
-    public Integer getShare_to() {
+    public String getShare_to() {
         return share_to;
     }
 
-    public void setShare_to(Integer share_to) {
+    public void setShare_to(String share_to) {
         this.share_to = share_to;
     }
 
@@ -59,4 +65,11 @@ public class ShareHandler {
         this.note_id = note_id;
     }
 
+    public Date getShared_at() {
+        return shared_at;
+    }
+
+    public void setShared_at(Date shared_at) {
+        this.shared_at = shared_at;
+    }
 }

@@ -1,41 +1,35 @@
 package com.example.amantewary.scrawl;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.SubtitleCollapsingToolbarLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ShareActionProvider;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.amantewary.scrawl.API.INoteAPI;
 import com.example.amantewary.scrawl.Handlers.NoteHandler;
-import android.widget.Toast;
-
 import com.example.amantewary.scrawl.API.IShareAPI;
 import com.example.amantewary.scrawl.Handlers.ShareHandler;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class ViewNotesActivity extends AppCompatActivity implements View.OnClickListener{
     private static final String TAG = "ViewNotesActivity";
@@ -47,8 +41,6 @@ public class ViewNotesActivity extends AppCompatActivity implements View.OnClick
     Integer noteId;
     TextView tv_note_content, tv_note_link;
     Button btn_edit, btn_share, btn_delete, btn_collaborate;
-
-    private ShareActionProvider mShareActionProvider;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -198,7 +190,7 @@ public class ViewNotesActivity extends AppCompatActivity implements View.OnClick
             case R.id.btn_edit:
                 break;
             case R.id.btn_collaborate:
-                addShare();
+                showDialog();
                 break;
             case R.id.btn_share:
                 setShareIntent();
@@ -221,15 +213,35 @@ public class ViewNotesActivity extends AppCompatActivity implements View.OnClick
 
     }
 
-    public void addShare(){
-        try{
-            //TODO share_from = current user's id
-            //Mock share_from here
-            Integer share_from = 1;
-//            Integer share_from = SessionManager.KEY_EMAIL;
+    private void showDialog(){
 
-            //Mock share_to here
-            Integer share_to = 2;
+        final EditText et_collaborate_with = new EditText(this);
+        et_collaborate_with.setHint("Please input email address");
+        try{
+            new AlertDialog.Builder(this)
+                    .setTitle("Collaborate with:")
+                    .setView(et_collaborate_with)
+                    .setPositiveButton("Share", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            setCollaborateInfo(et_collaborate_with.getText().toString());
+                        }
+                    })
+                    .setNegativeButton("Cancel", null)
+                    .show();
+        }catch (Exception e){
+            Log.e(TAG, "Failed to show Dialog " + e.getMessage());
+        }
+
+
+    }
+
+    public void setCollaborateInfo(String collaborate_with){
+        try{
+            //Check if the user is logged in
+            String share_from = SessionManager.KEY_EMAIL;
+
+            String share_to = collaborate_with;
 
             Integer note_id = noteId;
 
@@ -248,7 +260,7 @@ public class ViewNotesActivity extends AppCompatActivity implements View.OnClick
             public void onResponse(Call<ShareHandler> call, Response<ShareHandler> response) {
                 Log.d(TAG, "onResponse: Server Response: " + response.toString());
                 Log.d(TAG, "onResponse: Received Information: " + response.body().toString());
-                Toast.makeText(ViewNotesActivity.this, "Share Created", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ViewNotesActivity.this, "Shared Successfully", Toast.LENGTH_SHORT).show();
             }
 
             @Override
