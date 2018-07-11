@@ -9,6 +9,8 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -16,7 +18,10 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.example.amantewary.scrawl.API.ILabelAPI;
+import com.example.amantewary.scrawl.API.INoteAPI;
+import com.example.amantewary.scrawl.Adapters.NotesList;
 import com.example.amantewary.scrawl.Handlers.LabelHandler;
+import com.example.amantewary.scrawl.Handlers.NoteHandler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +34,9 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     public static final String NOTE_ID = "noteId";
+
+    RecyclerView notesListView;
+    NotesList notesAdapter;
     ArrayList<String> labelOptions;
 
     @Override
@@ -46,10 +54,12 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        //Loading Labels from database
-        ILabelAPI ILabelAPI = RetroFitInstance.getRetrofit().create(ILabelAPI.class);
+        notesListView = findViewById(R.id.viewNoteList);
 
-        Call<List<LabelHandler>> call = ILabelAPI.getLabels();
+        //Loading Labels from database
+        ILabelAPI labelAPI = RetroFitInstance.getRetrofit().create(ILabelAPI.class);
+
+        Call<List<LabelHandler>> call = labelAPI.getLabels();
         call.enqueue(new Callback<List<LabelHandler>>() {
             @Override
             public void onResponse(Call<List<LabelHandler>> call, Response<List<LabelHandler>> response) {
@@ -75,6 +85,29 @@ public class MainActivity extends AppCompatActivity
                 Intent intent = new Intent(MainActivity.this, AddNotesActivity.class);
                 intent.putExtra("labels", labelOptions);
                 startActivity(intent);
+            }
+        });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        final INoteAPI noteAPI = RetroFitInstance.getRetrofit().create(INoteAPI.class);
+        Call<List<NoteHandler>> call = noteAPI.getNotes();
+
+        call.enqueue(new Callback<List<NoteHandler>>() {
+            @Override
+            public void onResponse(Call<List<NoteHandler>> call, Response<List<NoteHandler>> response) {
+                List<NoteHandler> notes = response.body();
+                notesAdapter = new NotesList(MainActivity.this, notes);
+                notesListView.setAdapter(notesAdapter);
+                notesListView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+            }
+
+            @Override
+            public void onFailure(Call<List<NoteHandler>> call, Throwable t) {
+
             }
         });
     }
