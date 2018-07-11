@@ -9,14 +9,20 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.amantewary.scrawl.API.ILabelAPI;
+import com.example.amantewary.scrawl.API.INoteAPI;
+import com.example.amantewary.scrawl.Adapters.NotesList;
 import com.example.amantewary.scrawl.Handlers.LabelHandler;
+import com.example.amantewary.scrawl.Handlers.NoteHandler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,12 +30,14 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    private static final String TAG = "MainActivity";
+
+    RecyclerView notesListView;
+    NotesList notesAdapter;
     ArrayList<String> labelOptions;
 
     @Override
@@ -47,18 +55,17 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        //Loading Labels from database
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(AppURLs.labelApiURL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        ILabelAPI ILabelAPI = retrofit.create(ILabelAPI.class);
+        notesListView = findViewById(R.id.viewNoteList);
 
-        Call<List<LabelHandler>> call = ILabelAPI.getLabels();
+        //Loading Labels from database
+        ILabelAPI labelAPI = RetroFitInstance.getRetrofit().create(ILabelAPI.class);
+
+        Call<List<LabelHandler>> call = labelAPI.getLabels();
         call.enqueue(new Callback<List<LabelHandler>>() {
             @Override
             public void onResponse(Call<List<LabelHandler>> call, Response<List<LabelHandler>> response) {
-
+                Log.d(TAG, "onResponse: Server Response: " + response.toString());
+                Log.d(TAG, "onResponse: Received Information: " + response.body().toString());
                 List<LabelHandler> labels = response.body();
                 labelOptions = new ArrayList<String>();
                 for (LabelHandler label : labels) {
@@ -69,7 +76,8 @@ public class MainActivity extends AppCompatActivity
 
             @Override
             public void onFailure(Call<List<LabelHandler>> call, Throwable t) {
-
+                Log.e(TAG, "onFailure: Something Went Wrong: " + t.getMessage());
+                Toast.makeText(MainActivity.this, "Something Went Wrong", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -80,6 +88,32 @@ public class MainActivity extends AppCompatActivity
                 Intent intent = new Intent(MainActivity.this, AddNotesActivity.class);
                 intent.putExtra("labels", labelOptions);
                 startActivity(intent);
+            }
+        });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        final INoteAPI noteAPI = RetroFitInstance.getRetrofit().create(INoteAPI.class);
+        Call<List<NoteHandler>> call = noteAPI.getNotes();
+
+        call.enqueue(new Callback<List<NoteHandler>>() {
+            @Override
+            public void onResponse(Call<List<NoteHandler>> call, Response<List<NoteHandler>> response) {
+                Log.d(TAG, "onResponse: Server Response: " + response.toString());
+                Log.d(TAG, "onResponse: Received Information: " + response.body().toString());
+                List<NoteHandler> notes = response.body();
+                notesAdapter = new NotesList(MainActivity.this, notes);
+                notesListView.setAdapter(notesAdapter);
+                notesListView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+            }
+
+            @Override
+            public void onFailure(Call<List<NoteHandler>> call, Throwable t) {
+                Log.e(TAG, "onFailure: Something Went Wrong: " + t.getMessage());
+                Toast.makeText(MainActivity.this, "Something Went Wrong", Toast.LENGTH_SHORT).show();
             }
         });
     }

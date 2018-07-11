@@ -67,6 +67,7 @@ class Notes
 
     public function read_single()
     {
+        error_log('Invoked read_single() Method');
         try {
             $query = 'SELECT n.id, n.label_name, n.title, n.body, n.url, n.user_id, n.created_at FROM ' . $this->table . ' n  WHERE n.id = ? LIMIT 0,1';
             $stmt = $this->con->prepare($query);
@@ -78,8 +79,10 @@ class Notes
             $this->url = $row['url'];
             $this->user_id = $row['user_id'];
             $this->label_name = $row['label_name'];
+            error_log('Retrieved Note');
             return true;
         } catch (Exception $e) {
+            error_log('Note Not Available: ' . $e->getMessage());
             return false;
         }
     }
@@ -110,9 +113,10 @@ class Notes
         $stmt->bindParam(':label_name', $this->label_name);
         $stmt->bindParam(':id', $this->id);
         if ($stmt->execute()) {
+            error_log('Note Updated');
             return true;
         }
-        printf("Error: %s.\n", $stmt->error);
+        error_log("Error: %s.\n", $stmt->error);
         return false;
     }
 
@@ -124,9 +128,10 @@ class Notes
         $this->id = htmlspecialchars(strip_tags($this->id));
         $stmt->bindParam(':id', $this->id);
         if ($stmt->execute()) {
+            error_log('Note Deleted');
             return true;
         }
-        printf("Error: %s.\n", $stmt->error);
+        error_log("Error: %s.\n", $stmt->error);
         return false;
     }
 

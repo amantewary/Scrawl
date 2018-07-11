@@ -22,10 +22,10 @@ import java.util.regex.Pattern;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class AddNotesActivity extends AppCompatActivity {
+
+    private static final String TAG = "AddNotesActivity";
 
     TextView tv_date;
     EditText et_title, et_content, et_link;
@@ -99,6 +99,7 @@ public class AddNotesActivity extends AppCompatActivity {
         labelAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         sp_add_labels.setAdapter(labelAdapter);
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
@@ -116,7 +117,7 @@ public class AddNotesActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void addNote(){
+    public void addNote() {
 
         try {
             String label = sp_add_labels.getSelectedItem().toString();
@@ -125,26 +126,26 @@ public class AddNotesActivity extends AppCompatActivity {
             String link = et_link.getText().toString().trim();
             NoteHandler noteHandler = new NoteHandler(label, title, body, link, 1);
             sendRequest(noteHandler);
-        } catch(Exception e){
+        } catch (Exception e) {
             Log.e("Message", e.toString());
         }
     }
 
-    private void sendRequest(NoteHandler noteHandler){
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(AppURLs.noteApiURL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        INoteAPI noteAPI = retrofit.create(INoteAPI.class);
+    private void sendRequest(NoteHandler noteHandler) {
+        INoteAPI noteAPI = RetroFitInstance.getRetrofit().create(INoteAPI.class);
         Call<NoteHandler> call = noteAPI.createNote(noteHandler);
         call.enqueue(new Callback<NoteHandler>() {
             @Override
             public void onResponse(Call<NoteHandler> call, Response<NoteHandler> response) {
-                Toast.makeText(AddNotesActivity.this,"Note Created", Toast.LENGTH_SHORT).show();
+                Log.d(TAG, "onResponse: Server Response: " + response.toString());
+                Log.d(TAG, "onResponse: Received Information: " + response.body().toString());
+                Toast.makeText(AddNotesActivity.this, "Note Created", Toast.LENGTH_SHORT).show();
             }
+
             @Override
             public void onFailure(Call<NoteHandler> call, Throwable t) {
-                Toast.makeText(AddNotesActivity.this,"Something Went Wrong", Toast.LENGTH_SHORT).show();
+                Log.e(TAG, "onFailure: Something Went Wrong: " + t.getMessage());
+                Toast.makeText(AddNotesActivity.this, "Something Went Wrong", Toast.LENGTH_SHORT).show();
             }
         });
     }

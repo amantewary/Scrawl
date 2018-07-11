@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.example.amantewary.scrawl.API.ILoginUser;
 import com.example.amantewary.scrawl.API.IRegisterUser;
 import com.example.amantewary.scrawl.Handlers.LoginUserClass;
 
@@ -94,7 +93,7 @@ public class ActivityRegister extends AppCompatActivity {
 
     public void postcredentials(String username, String email, String password){
 
-        IRegisterUser service = RetroFitLoginInstance.getRetrofit().create(IRegisterUser.class);
+        IRegisterUser service = RetroFitInstance.getRetrofit().create(IRegisterUser.class);
         RequestBody body = RequestBody.create(MediaType.parse("text/plain"), email);
         RequestBody body2 = RequestBody.create(MediaType.parse("text/plain"), password);
         RequestBody body3 = RequestBody.create(MediaType.parse("text/plain"), username);

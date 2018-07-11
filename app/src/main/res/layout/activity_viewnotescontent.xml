@@ -4,46 +4,81 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:clipToPadding="true"
+    android:fillViewport="false"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.example.amantewary.scrawl.Viewnotes"
+    tools:context="com.example.amantewary.scrawl.ViewNotesActivity"
     tools:showIn="@layout/activity_viewnotesscroll">
 
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:paddingTop="1dp">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="1dp"
-            app:cardElevation="2dp">
+            android:layout_height="match_parent"
+            android:layout_marginBottom="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/border"
+            app:cardCornerRadius="10dp"
+            app:cardUseCompatPadding="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
-            style="@style/Widget.CardContent"
+        <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
             <TextView
-                android:layout_width="match_parent"
+                android:id="@+id/viewNotesBody"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Title"
-                android:id="@+id/tv_note_title"
-                android:layout_marginBottom="10dp"
-                android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:padding="5dp"
+                android:text="TextView"
+                android:textColor="@color/colorPrimary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
             <TextView
-                android:text="@string/content"
+                android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/tv_note_content" />
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="LINK"
+                android:textColor="#000000"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/viewNotesBody" />
 
-        </LinearLayout>
+            <TextView
+                android:id="@+id/viewNotesLink"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:autoLink="all"
+                android:clickable="true"
+                android:focusable="true"
+                android:padding="5dp"
+                android:text="TextView"
+                android:textColor="@color/colorPrimary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+        </android.support.constraint.ConstraintLayout>
 
     </android.support.v7.widget.CardView>
-     </LinearLayout>
+    </LinearLayout>
 
 
     <!--<TextView-->
