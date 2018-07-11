@@ -5,7 +5,6 @@ $user = 'CSCI5308_19_DEVINT_USER';
 $pass = 'CSCI5308_19_DEVINT_19248';
 
 
-
 try {
     $dsn = "mysql:host=$host;dbname=$db;";
     $opt = [
