@@ -8,6 +8,6 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 
 public interface ILabelAPI {
-    @GET("read")
+    @GET("~kamath/QA_Devint/NoteApi/v1/label/read")
     Call<List<LabelHandler>> getLabels();
 }

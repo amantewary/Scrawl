@@ -1,0 +1,27 @@
+Error PDOException: SQLSTATE[HY000] [1045] Access denied for user 'CSCI5308_19_DEVINT_USER'@'76-11-22-245.eastlink.ca' (using password: NO) in /Applications/XAMPP/xamppfiles/htdocs/PDO/config.php:16
+Stack trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/PDO/config.php(16): PDO->__construct('mysql:host=db-5...', 'CSCI5308_19_DEV...', '', Array)
+#1 /Applications/XAMPP/xamppfiles/htdocs/PDO/Database_Queries.php(9): require('/Applications/X...')
+#2 /Applications/XAMPP/xamppfiles/htdocs/PDO/login.php(9): require_once('/Applications/X...')
+#3 {main}[10-Jul-2018 18:52:46 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined function now() in /Applications/XAMPP/xamppfiles/htdocs/PDO/login.php:40
+Stack trace:
+#0 {main}
+  thrown in /Applications/XAMPP/xamppfiles/htdocs/PDO/login.php on line 40
+[10-Jul-2018 18:53:40 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined method PDO::now() in /Applications/XAMPP/xamppfiles/htdocs/PDO/login.php:40
+Stack trace:
+#0 {main}
+  thrown in /Applications/XAMPP/xamppfiles/htdocs/PDO/login.php on line 40
+[10-Jul-2018 18:57:23 Europe/Berlin] PHP Notice:  Array to string conversion in /Applications/XAMPP/xamppfiles/htdocs/PDO/login.php on line 40
+Error PDOException: SQLSTATE[HY000] [1045] Access denied for user ''@'T8A51.WPA.Dal.Ca' (using password: YES) in /Applications/XAMPP/xamppfiles/htdocs/PDO/config.php:15
+Stack trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/PDO/config.php(15): PDO->__construct('mysql:host=db-5...', '', 'CSCI5308_19_DEV...', Array)
+#1 /Applications/XAMPP/xamppfiles/htdocs/PDO/AllTestCases.php(10): require('/Applications/X...')
+#2 /Applications/XAMPP/xamppfiles/htdocs/PDO/vendor/phpunit/phpunit/src/Util/FileLoader.php(57): include_once('/Applications/X...')
+#3 /Applications/XAMPP/xamppfiles/htdocs/PDO/vendor/phpunit/phpunit/src/Util/FileLoader.php(45): PHPUnit\Util\FileLoader::load('/Applications/X...')
+#4 /Applications/XAMPP/xamppfiles/htdocs/PDO/vendor/phpunit/phpunit/src/Runner/StandardTestSuiteLoader.php(39): PHPUnit\Util\FileLoader::checkAndLoad('/Applications/X...')
+#5 /Applications/XAMPP/xamppfiles/htdocs/PDO/vendor/phpunit/phpunit/src/Runner/BaseTestRunner.php(130): PHPUnit\Runner\StandardTestSuiteLoader->load('AllTestCases', '/Applications/X...')
+#6 /Applications/XAMPP/xamppfiles/htdocs/PDO/vendor/phpunit/phpunit/src/Runner/BaseTestRunner.php(78): PHPUnit\Runner\BaseTestRunner->loadSuiteClass('AllTestCases', '/Applications/X...')
+#7 /Applications/XAMPP/xamppfiles/htdocs/PDO/vendor/phpunit/phpunit/src/TextUI/Command.php(176): PHPUnit\Runner\BaseTestRunner->getTest('AllTestCases', '/Applications/X...', Array)
+#8 /Applications/XAMPP/xamppfiles/htdocs/PDO/vendor/phpunit/phpunit/src/TextUI/Command.php(155): PHPUnit\TextUI\Command->run(Array, true)
+#9 /Applications/XAMPP/xamppfiles/htdocs/PDO/vendor/phpunit/phpunit/phpunit(53): PHPUnit\TextUI\Command::main()
+#10 {main}

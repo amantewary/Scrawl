@@ -1,20 +1,35 @@
 package com.example.amantewary.scrawl.Handlers;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 public class NoteHandler {
 
+    @SerializedName("id")
+    @Expose
     Integer id;
+    @SerializedName("label_name")
+    @Expose
     String label_name;
+    @SerializedName("title")
+    @Expose
     String title;
+    @SerializedName("body")
+    @Expose
     String body;
+    @SerializedName("url")
+    @Expose
     String url;
-    Integer author_id;
+    @SerializedName("user_id")
+    @Expose
+    Integer user_id;
 
-    public NoteHandler(String label_name, String title, String body, String url, Integer author_id) {
+    public NoteHandler(String label_name, String title, String body, String url, Integer user_id) {
         this.label_name = label_name;
         this.title = title;
         this.body = body;
         this.url = url;
-        this.author_id = author_id;
+        this.user_id = user_id;
     }
 
     public Integer getId() {
@@ -57,11 +72,11 @@ public class NoteHandler {
         this.url = url;
     }
 
-    public Integer getAuthor_id() {
-        return author_id;
+    public Integer getUser_id() {
+        return user_id;
     }
 
-    public void setAuthor_id(Integer author_id) {
-        this.author_id = author_id;
+    public void setUser_id(Integer user_id) {
+        this.user_id = user_id;
     }
 }
