@@ -3,12 +3,12 @@
 header('Access-Control-Allow-Origin: *');
 header('Content-Type: application/json');
 header('Access-Control-Allow-Methods: POST');
-header('Access-Control-Allow-Headers: Access-Control-Allow-Headers,Content-Type,Access-Control-Allow-Methods, Authorization, X-Requested-With');
+header('Access-Control-Allow-Headers: Access-Control-Allow-Headers,Content-Type,Access-Control-Allow-Methods, userization, X-Requested-With');
 include_once '../../includes/ConnectDb.php';
 include_once '../../includes/Share.php';
+include_once '../../includes/HttpLogger.php';
 $database = new ConnectDb();
 $db = $database->connect();
-//$note = new Notes($db);
 $share = new Share($db);
 $data = json_decode(file_get_contents("php://input"));
 
@@ -21,8 +21,12 @@ if($share->create()) {
     echo json_encode(
         array('message' => 'New Share Created')
     );
+    $database->disconnect($db);
 } else {
     echo json_encode(
         array('message' => 'Share Not Created')
     );
+    $database->disconnect($db);
 }
+
+

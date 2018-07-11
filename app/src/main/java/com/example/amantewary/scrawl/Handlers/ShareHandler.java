@@ -1,11 +1,25 @@
 package com.example.amantewary.scrawl.Handlers;
 
-public class ShareHandler {
-    Integer id;
-    Integer share_from;
-    Integer share_to;
-    Integer note_id;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
+public class ShareHandler {
+
+    @SerializedName("id")
+    @Expose
+    Integer id;
+
+    @SerializedName("share_from")
+    @Expose
+    Integer share_from;
+
+    @SerializedName("share_to")
+    @Expose
+    Integer share_to;
+
+    @SerializedName("note_id")
+    @Expose
+    Integer note_id;
 
     public ShareHandler(Integer share_from, Integer share_to, Integer note_id) {
         this.share_from = share_from;

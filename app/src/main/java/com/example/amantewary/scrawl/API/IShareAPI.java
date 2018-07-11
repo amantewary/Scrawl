@@ -12,6 +12,6 @@ import retrofit2.http.POST;
 
 public interface IShareAPI {
 
-    @POST("create")
+    @POST("~hhou/QA_Devint/NoteApi/v1/shares/create")
     Call<ShareHandler> createShare(@Body ShareHandler share);
 }

@@ -46,9 +46,7 @@ public class ViewNotesActivity extends AppCompatActivity implements View.OnClick
     private SubtitleCollapsingToolbarLayout collapsingToolbarLayout;
     Integer noteId;
     TextView tv_note_content, tv_note_link;
-    Button btn_edit, btn_share, btn_delete;
-    TextView tv_note_title, tv_note_content;
-    Button btn_edit, btn_collaborate, btn_share, btn_delete;
+    Button btn_edit, btn_share, btn_delete, btn_collaborate;
 
     private ShareActionProvider mShareActionProvider;
 
@@ -211,42 +209,52 @@ public class ViewNotesActivity extends AppCompatActivity implements View.OnClick
     }
 
     private void setShareIntent(){
-        Intent sendIntent = new Intent();
-        sendIntent.setAction(Intent.ACTION_SEND);
-        sendIntent.putExtra(Intent.EXTRA_TEXT, tv_note_content.getText().toString());
-        sendIntent.setType("text/plain");
-        startActivity(Intent.createChooser(sendIntent, "share to"));
+        try{
+            Intent sendIntent = new Intent();
+            sendIntent.setAction(Intent.ACTION_SEND);
+            sendIntent.putExtra(Intent.EXTRA_TEXT, tv_note_content.getText().toString());
+            sendIntent.setType("text/plain");
+            startActivity(Intent.createChooser(sendIntent, "share to"));
+        }catch (Exception e){
+            Log.e(TAG, "Failed to set Share Intent: " + e.getMessage());
+        }
+
     }
 
     public void addShare(){
-        //TODO share_from = current user's id
-        //Mock share_from here
-        Integer share_from = 1;
-        //Mock share_to here
-        Integer share_to = 2;
-        //Mock note_id
-        Integer note_id = 1;
+        try{
+            //TODO share_from = current user's id
+            //Mock share_from here
+            Integer share_from = 1;
+//            Integer share_from = SessionManager.KEY_EMAIL;
 
-        ShareHandler shareHandler = new ShareHandler(share_from, share_to, note_id);
-        sendRequest(shareHandler);
+            //Mock share_to here
+            Integer share_to = 2;
+
+            Integer note_id = noteId;
+
+            ShareHandler shareHandler = new ShareHandler(share_from, share_to, note_id);
+            sendRequest(shareHandler);
+        }catch (Exception e) {
+            Log.e("Message", e.toString());
+        }
     }
 
     private void sendRequest(ShareHandler shareHandler){
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(AppURLs.shareApiURL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        IShareAPI shareAPI = retrofit.create(IShareAPI.class);
-
+        IShareAPI shareAPI = RetroFitInstance.getRetrofit().create(IShareAPI.class);
         Call<ShareHandler> call = shareAPI.createShare(shareHandler);
         call.enqueue(new Callback<ShareHandler>() {
             @Override
             public void onResponse(Call<ShareHandler> call, Response<ShareHandler> response) {
-                Toast.makeText(Viewnotes.this,"Shared Successfully", Toast.LENGTH_SHORT).show();
+                Log.d(TAG, "onResponse: Server Response: " + response.toString());
+                Log.d(TAG, "onResponse: Received Information: " + response.body().toString());
+                Toast.makeText(ViewNotesActivity.this, "Share Created", Toast.LENGTH_SHORT).show();
             }
+
             @Override
             public void onFailure(Call<ShareHandler> call, Throwable t) {
-                Toast.makeText(Viewnotes.this,"Something Went Wrong", Toast.LENGTH_SHORT).show();
+                Log.e(TAG, "onFailure: Something Went Wrong: " + t.getMessage());
+                Toast.makeText(ViewNotesActivity.this, "Something Went Wrong", Toast.LENGTH_SHORT).show();
             }
         });
     }
