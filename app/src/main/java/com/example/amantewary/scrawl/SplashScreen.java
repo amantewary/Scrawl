@@ -6,10 +6,12 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
 public class SplashScreen extends AppCompatActivity {
+    SessionManager sessionManager;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash_layout);
+        sessionManager = new SessionManager(getApplicationContext());
         LogoLauncher logoLauncher = new LogoLauncher();
         logoLauncher.start();
     }
@@ -23,8 +25,13 @@ public class SplashScreen extends AppCompatActivity {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-                startActivity(new Intent(SplashScreen.this, LoginActivity.class));
-                finish();
+                if (sessionManager.checkLogin()){
+                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                }else{
+                    startActivity(new Intent(SplashScreen.this, LoginActivity.class));
+                    finish();
+
+                }
 
             }
 
