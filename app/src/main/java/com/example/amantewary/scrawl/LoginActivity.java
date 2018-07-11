@@ -63,7 +63,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
-    EmailPasswordValidation emailPasswordValidation;
     SessionManager sessionManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -220,6 +219,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
                             sessionManager.createLoginSession(response.body().getUsername(), response.body().getEmail());
                             startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                            finish();
                     } else {
                         // Todo: Write something to show error
                     }
