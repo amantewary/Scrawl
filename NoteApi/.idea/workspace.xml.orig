@@ -311,8 +311,11 @@
       <workItem from="1531147023018" duration="13000" />
       <workItem from="1531156207394" duration="1654000" />
       <workItem from="1531313833483" duration="3801000" />
-      <workItem from="1531318320236" duration="1083000" />
+<<<<<<< HEAD
       <workItem from="1531318320236" duration="529000" />
+=======
+      <workItem from="1531318320236" duration="1083000" />
+>>>>>>> devint
     </task>
     <servers />
   </component>
@@ -349,9 +352,11 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="18895000" />
-    <option name="totallyTimeSpent" value="23779000" />
+<<<<<<< HEAD
     <option name="totallyTimeSpent" value="23225000" />
+=======
+    <option name="totallyTimeSpent" value="23779000" />
+>>>>>>> devint
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
