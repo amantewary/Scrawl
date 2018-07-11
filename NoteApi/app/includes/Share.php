@@ -38,12 +38,17 @@ class Share
         $stmt->bindParam(':share_to', $this->share_to);
         $stmt->bindParam(':note_id', $this->note_id);
 
-        if ($stmt->execute()) {
-            error_log('Share record Created');
-            return true;
-        }
-        error_log("Error: %s.\n", $stmt->error);
-        return false;
+        try {
+            if ($stmt->execute()) {
+                error_log('Share record Created');
+                return true;
+            } else {
+                throw new PDOException();
+            }
+        }catch (\PDOException $e) {
+                error_log("Error while creating share record: " . $e->getMessage());
+                return $e;
+         }
     }
 
     public function readNoteIdByUserId()
@@ -71,12 +76,18 @@ class Share
         $stmt = $this->con->prepare($query);
         $this->id = htmlspecialchars(strip_tags($this->id));
         $stmt->bindParam(':id', $this->id);
-        if ($stmt->execute()) {
-            error_log('Share record Deleted');
-            return true;
+
+        try{
+            if ($stmt->execute()) {
+                error_log('Share record Deleted');
+                return true;
+            }else{
+                throw new PDOException();
+            }
+        }catch (\PDOException $e) {
+            error_log('Error while Deleting share record: ' . $e->getMessage());
+            return $e;
         }
-        error_log("Error: %s.\n", $stmt->error);
-        return false;
     }
 
 }

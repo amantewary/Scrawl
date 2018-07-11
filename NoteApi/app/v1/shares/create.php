@@ -15,7 +15,6 @@ $data = json_decode(file_get_contents("php://input"));
 $share->share_from = $data->share_from;
 $share->share_to = $data->share_to;
 $share->note_id = $data->note_id;
-$share->shared_at = $data->shared_at;
 
 if($share->create()) {
     echo json_encode(

@@ -271,8 +271,4 @@ public class ViewNotesActivity extends AppCompatActivity implements View.OnClick
         });
     }
 
-
-
-
-
 }
