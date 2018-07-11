@@ -15,7 +15,7 @@ import android.widget.Button;
 import android.widget.ShareActionProvider;
 import android.widget.TextView;
 
-public class Viewnotes extends AppCompatActivity implements View.OnClickListener{
+public class ViewNotesActivity extends AppCompatActivity implements View.OnClickListener{
 
     private Menu menu;
     private BottomSheetBehavior mBottomSheetBehavior1;

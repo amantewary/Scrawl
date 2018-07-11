@@ -6,7 +6,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 
 // A single class to handle requests from both registration and Login
-public class RetroFitLoginInstance {
+public class RetroFitInstance {
 
     private static Retrofit retrofit;
 

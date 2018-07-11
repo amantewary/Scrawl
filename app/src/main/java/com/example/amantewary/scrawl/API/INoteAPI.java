@@ -10,10 +10,10 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 public interface INoteAPI {
-    @GET("read")
+    @GET("~kamath/QA_Devint/NoteApi/v1/notes/read")
     Call<List<NoteHandler>> getNotes();
 
-    @POST("create")
+    @POST("~kamath/QA_Devint/NoteApi/v1/notes/create")
     Call<NoteHandler> createNote(@Body NoteHandler note);
 
 

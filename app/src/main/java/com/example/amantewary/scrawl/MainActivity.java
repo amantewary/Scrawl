@@ -24,12 +24,11 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    public static final String NOTE_ID = "noteId";
     ArrayList<String> labelOptions;
 
     @Override
@@ -48,11 +47,7 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         //Loading Labels from database
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(AppURLs.labelApiURL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        ILabelAPI ILabelAPI = retrofit.create(ILabelAPI.class);
+        ILabelAPI ILabelAPI = RetroFitInstance.getRetrofit().create(ILabelAPI.class);
 
         Call<List<LabelHandler>> call = ILabelAPI.getLabels();
         call.enqueue(new Callback<List<LabelHandler>>() {
