@@ -4,7 +4,7 @@
  * Date: 09-07-2018
  * Time: 10:29 AM
  */
-//TEST
+
 use PHPUnit\Framework\TestCase;
 
 require '../app/includes/Notes.php';
@@ -49,6 +49,7 @@ class NotesTest extends TestCase
         $this->assertTrue($test->delete());
     }
 
+
     public function testRead_single()
     {
         $stmtMock = $this->createMock(\PDOStatement::class);
@@ -85,6 +86,19 @@ class NotesTest extends TestCase
         $this->assertTrue($test->create());
     }
 
+    public function testCreateFail()
+    {
+        $stmtMock = $this->createMock(\PDOStatement::class);
+        $pdoMock = $this->createMock(\PDO::class);
+        $stmtMock->method('execute')
+            ->willReturn(false);
+        $pdoMock->method('prepare')
+            ->willReturn($stmtMock);
+        $test = new Notes($pdoMock);
+        $this->assertEquals(new PDOException(),$test->create());
+    }
+
+
     public function testUpdate()
     {
         $stmtMock = $this->createMock(\PDOStatement::class);
@@ -95,5 +109,17 @@ class NotesTest extends TestCase
             ->willReturn($stmtMock);
         $test = new Notes($pdoMock);
         $this->assertTrue($test->update());
+    }
+
+    public function testUpdateFail()
+    {
+        $stmtMock = $this->createMock(\PDOStatement::class);
+        $pdoMock = $this->createMock(\PDO::class);
+        $stmtMock->method('execute')
+            ->willReturn(false);
+        $pdoMock->method('prepare')
+            ->willReturn($stmtMock);
+        $test = new Notes($pdoMock);
+        $this->assertEquals(new PDOException(),$test->update());
     }
 }

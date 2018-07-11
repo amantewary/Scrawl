@@ -43,12 +43,17 @@ class Notes
         $stmt->bindParam(':url', $this->url);
         $stmt->bindParam(':user_id', $this->user_id);
         $stmt->bindParam(':label_name', $this->label_name);
-        if ($stmt->execute()) {
-            error_log('Note Created');
-            return true;
+        try {
+            if ($stmt->execute()) {
+                error_log('Note Created');
+                return true;
+            }else {
+                throw new PDOException();
+            }
+        }catch (\PDOException $e) {
+            error_log("Error: " . $e->getMessage());
+            return $e;
         }
-        error_log("Error: %s.\n", $stmt->error);
-        return false;
     }
 
     public function read()
@@ -119,12 +124,17 @@ class Notes
         $stmt->bindParam(':user_id', $this->user_id);
         $stmt->bindParam(':label_name', $this->label_name);
         $stmt->bindParam(':id', $this->id);
-        if ($stmt->execute()) {
-            error_log('Note Updated');
-            return true;
+        try {
+            if ($stmt->execute()) {
+                error_log('Note Updated');
+                return true;
+            }else {
+                throw new PDOException();
+            }
+        }catch(\PDOException $e) {
+            error_log("Error: " .  $e->getMessage());
+            return $e;
         }
-        error_log("Error: %s.\n", $stmt->error);
-        return false;
     }
 
     public function delete()
@@ -134,12 +144,15 @@ class Notes
         $stmt = $this->con->prepare($query);
         $this->id = htmlspecialchars(strip_tags($this->id));
         $stmt->bindParam(':id', $this->id);
-        if ($stmt->execute()) {
-            error_log('Note Deleted');
-            return true;
+        try {
+            if ($stmt->execute()) {
+                error_log('Note Deleted');
+                return true;
+            }
+        }catch(\PDOException $e) {
+            error_log("Error: " . $e->getMessage());
+            return $e;
         }
-        error_log("Error: %s.\n", $stmt->error);
-        return false;
     }
 
 }
