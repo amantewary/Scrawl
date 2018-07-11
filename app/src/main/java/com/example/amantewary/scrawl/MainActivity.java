@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.amantewary.scrawl.API.ILabelAPI;
 import com.example.amantewary.scrawl.API.INoteAPI;
@@ -33,7 +34,7 @@ import retrofit2.Response;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    public static final String NOTE_ID = "noteId";
+    private static final String TAG = "MainActivity";
 
     RecyclerView notesListView;
     NotesList notesAdapter;
@@ -63,7 +64,8 @@ public class MainActivity extends AppCompatActivity
         call.enqueue(new Callback<List<LabelHandler>>() {
             @Override
             public void onResponse(Call<List<LabelHandler>> call, Response<List<LabelHandler>> response) {
-
+                Log.d(TAG, "onResponse: Server Response: " + response.toString());
+                Log.d(TAG, "onResponse: Received Information: " + response.body().toString());
                 List<LabelHandler> labels = response.body();
                 labelOptions = new ArrayList<String>();
                 for (LabelHandler label : labels) {
@@ -74,7 +76,8 @@ public class MainActivity extends AppCompatActivity
 
             @Override
             public void onFailure(Call<List<LabelHandler>> call, Throwable t) {
-
+                Log.e(TAG, "onFailure: Something Went Wrong: " + t.getMessage());
+                Toast.makeText(MainActivity.this, "Something Went Wrong", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -99,6 +102,8 @@ public class MainActivity extends AppCompatActivity
         call.enqueue(new Callback<List<NoteHandler>>() {
             @Override
             public void onResponse(Call<List<NoteHandler>> call, Response<List<NoteHandler>> response) {
+                Log.d(TAG, "onResponse: Server Response: " + response.toString());
+                Log.d(TAG, "onResponse: Received Information: " + response.body().toString());
                 List<NoteHandler> notes = response.body();
                 notesAdapter = new NotesList(MainActivity.this, notes);
                 notesListView.setAdapter(notesAdapter);
@@ -107,7 +112,8 @@ public class MainActivity extends AppCompatActivity
 
             @Override
             public void onFailure(Call<List<NoteHandler>> call, Throwable t) {
-
+                Log.e(TAG, "onFailure: Something Went Wrong: " + t.getMessage());
+                Toast.makeText(MainActivity.this, "Something Went Wrong", Toast.LENGTH_SHORT).show();
             }
         });
     }

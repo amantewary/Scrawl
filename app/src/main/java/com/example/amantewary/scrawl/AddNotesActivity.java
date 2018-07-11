@@ -25,6 +25,8 @@ import retrofit2.Response;
 
 public class AddNotesActivity extends AppCompatActivity {
 
+    private static final String TAG = "AddNotesActivity";
+
     TextView tv_date;
     EditText et_title, et_content, et_link;
     Spinner sp_add_labels;
@@ -135,11 +137,14 @@ public class AddNotesActivity extends AppCompatActivity {
         call.enqueue(new Callback<NoteHandler>() {
             @Override
             public void onResponse(Call<NoteHandler> call, Response<NoteHandler> response) {
+                Log.d(TAG, "onResponse: Server Response: " + response.toString());
+                Log.d(TAG, "onResponse: Received Information: " + response.body().toString());
                 Toast.makeText(AddNotesActivity.this, "Note Created", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onFailure(Call<NoteHandler> call, Throwable t) {
+                Log.e(TAG, "onFailure: Something Went Wrong: " + t.getMessage());
                 Toast.makeText(AddNotesActivity.this, "Something Went Wrong", Toast.LENGTH_SHORT).show();
             }
         });

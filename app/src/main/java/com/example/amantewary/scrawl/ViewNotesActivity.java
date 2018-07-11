@@ -8,18 +8,32 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.SubtitleCollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ShareActionProvider;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.example.amantewary.scrawl.API.INoteAPI;
+import com.example.amantewary.scrawl.Handlers.NoteHandler;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ViewNotesActivity extends AppCompatActivity implements View.OnClickListener{
+    private static final String TAG = "ViewNotesActivity";
 
     private Menu menu;
     private BottomSheetBehavior mBottomSheetBehavior1;
     private FloatingActionButton fab;
+    private SubtitleCollapsingToolbarLayout collapsingToolbarLayout;
+    Integer noteId;
     TextView tv_note_title, tv_note_content;
     Button btn_edit, btn_share, btn_delete;
 
@@ -30,10 +44,13 @@ public class ViewNotesActivity extends AppCompatActivity implements View.OnClick
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_viewnotesscroll);
-        SubtitleCollapsingToolbarLayout collapsingToolbarLayout = (SubtitleCollapsingToolbarLayout) findViewById(R.id.subtitlecollapsingtoolbarlayout);
-        collapsingToolbarLayout.setTitleEnabled(true);
-        collapsingToolbarLayout.setTitle("Note");
-        collapsingToolbarLayout.setSubtitle("QA");
+        collapsingToolbarLayout = findViewById(R.id.subtitlecollapsingtoolbarlayout);
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+        if(bundle != null){
+            noteId = bundle.getInt("noteid");
+        }
+        collapsingToolbarLayout.setExpandedSubtitleTextAppearance(R.style.TextAppearance_AppCompat_Subhead);
 
         final Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
@@ -95,6 +112,31 @@ public class ViewNotesActivity extends AppCompatActivity implements View.OnClick
         btn_share.setOnClickListener(this);
         btn_delete.setOnClickListener(this);
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        final INoteAPI noteAPI = RetroFitInstance.getRetrofit().create(INoteAPI.class);
+        Call<List<NoteHandler>> call = noteAPI.getSingleNote(noteId);
+        call.enqueue(new Callback<List<NoteHandler>>() {
+            @Override
+            public void onResponse(Call<List<NoteHandler>> call, Response<List<NoteHandler>> response) {
+                Log.d(TAG, "onResponse: Server Response: " + response.toString());
+                Log.d(TAG, "onResponse: Received Information: " + response.body().toString());
+                List<NoteHandler> notes = response.body();
+                for(NoteHandler n : notes){
+                    collapsingToolbarLayout.setTitle(n.getTitle());
+                    collapsingToolbarLayout.setSubtitle(n.getLabel_name());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<NoteHandler>> call, Throwable t) {
+                Log.e(TAG, "onFailure: Something Went Wrong: " + t.getMessage());
+                Toast.makeText(ViewNotesActivity.this, "Something Went Wrong", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override

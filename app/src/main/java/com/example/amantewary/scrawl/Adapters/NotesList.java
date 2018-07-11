@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.amantewary.scrawl.Handlers.NoteHandler;
-import com.example.amantewary.scrawl.MainActivity;
 import com.example.amantewary.scrawl.R;
 import com.example.amantewary.scrawl.ViewNotesActivity;
 
@@ -41,7 +40,7 @@ public class NotesList extends RecyclerView.Adapter<NotesList.ViewHolder> {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, ViewNotesActivity.class);
-                intent.putExtra(MainActivity.NOTE_ID, notes.getId());
+                intent.putExtra("noteid", notes.getId());
                 context.startActivity(intent);
             }
         });
