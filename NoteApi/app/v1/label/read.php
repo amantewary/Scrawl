@@ -19,9 +19,10 @@
       array_push($labels_arr, $labels_item);
     }
     echo json_encode($labels_arr);
-
+    $database->disconnect($db);
   } else {
     echo json_encode(
       array('message' => 'No Labels Found')
     );
+    $database->disconnect($db);
   }

@@ -52,10 +52,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      * Id to identity READ_CONTACTS permission request.
      */
     private static final int REQUEST_READ_CONTACTS = 0;
-
-
+    EmailPasswordValidation emailPasswordValidation;
     private String TAG = LoginActivity.class.getCanonicalName();
-
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
@@ -74,6 +72,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         emailPasswordValidation = new EmailPasswordValidation();
         sessionManager = new SessionManager(getApplicationContext());
        initLayout();
+
 
 
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -99,7 +98,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 //        mProgressView = findViewById(R.id.login_progress);
     }
 
-    public void initLayout(){
+    public void initLayout() {
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         populateAutoComplete();
@@ -205,7 +204,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private void requestLogin(final String email, final String password) {
 
 
-        ILoginUser service = RetroFitLoginInstance.getRetrofit().create(ILoginUser.class);
+        ILoginUser service = RetroFitInstance.getRetrofit().create(ILoginUser.class);
         RequestBody body = RequestBody.create(MediaType.parse("text/plain"), email);
         RequestBody body2 = RequestBody.create(MediaType.parse("text/plain"), password);
         Map<String, RequestBody> requestBodyMap = new HashMap<>();
@@ -239,8 +238,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }
         });
     }
-
-
 
 
     /**

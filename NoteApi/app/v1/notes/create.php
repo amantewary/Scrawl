@@ -6,6 +6,7 @@
   header('Access-Control-Allow-Headers: Access-Control-Allow-Headers,Content-Type,Access-Control-Allow-Methods, userization, X-Requested-With');
   include_once '../../includes/ConnectDb.php';
   include_once '../../includes/Notes.php';
+  include_once '../../includes/HttpLogger.php';
   $database = new ConnectDb();
   $db = $database->connect();
   $note = new Notes($db);
@@ -19,9 +20,11 @@
     echo json_encode(
       array('message' => 'New Note Created')
     );
+    $database->disconnect($db);
   } else {
     echo json_encode(
       array('message' => 'Note Not Created')
     );
+      $database->disconnect($db);
   }
 
