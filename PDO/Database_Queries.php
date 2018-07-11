@@ -7,17 +7,23 @@
  */
 
 require 'config.php';
-
+require 'error_logger.php';
 
 function getUserData($pdo)
 {
 
 
-    $stmt = $pdo->prepare('Select * from user') or die("failed" . mysql_error());
+    try{
+        $stmt = $pdo->prepare('Select * from user') or die("failed" . mysql_error());
     $stmt->execute();
 
     $json = json_encode($rows = $stmt->fetchAll(PDO::FETCH_ASSOC));
     echo $json;
+    }catch(PDOException $e){
+        print_r($e);
+        error_log("Error ". $e, 3, "log.txt");
+    }
+    
 
 
 }
@@ -51,11 +57,14 @@ VALUES (?, ?, ?, ?, now(), now(), ?)") or die(mysql_error());
             $stmt = $pdo->prepare("SELECT username,email_address from user where email_address=?");
             $stmt->execute(array($email));
             $rows = $stmt->fetch(PDO::FETCH_ASSOC);
+            $stmt = null;
+            $pdo = null;
             return $rows;
         }
     } catch (PDOException $e) {
         print_r($e);
-            return false;
+        error_log("Error ". $e, 3, "log.txt");
+        return false;
     }
 
 }
@@ -72,6 +81,8 @@ function loginUser($pdo, $email, $password){
             $salt = $rows['salt'];
 
             if ($encrypted_password == dehashPassword($password,$salt)){
+                $stmt = null;
+                $pdo = null;
                 return $rows;
             }else{
                 return false;
@@ -79,6 +90,7 @@ function loginUser($pdo, $email, $password){
         }
     }catch (Exception $e){
         print_r($e);
+        error_log("Error ". $e, 3, "log.txt");
         return false;
     }
 
@@ -92,12 +104,15 @@ function isUserExists($pdo, $email){
         $stmt->execute(array($email));
         $affected_rows = $stmt->rowCount();
         if($affected_rows>0){
+            $stmt = null;
+            $pdo = null;
             return true;
         }else{
             return false;
         }
     }catch (Exception $e){
         print_r($e);
+        error_log("Error ". $e, 3, "log.txt");
         return false;
     }
 }

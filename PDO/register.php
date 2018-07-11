@@ -39,4 +39,7 @@ if(isset($_POST['name']) && isset($_POST['email']) && isset($_POST['password']))
 
 
     }
+    $pdo = null;
+    error_log("Request Agent ".$_SERVER['HTTP_USER_AGENT']. "\r\n"."Request Method ". $_SERVER['REQUEST_METHOD']. "\r\n Requested at". $_SERVER['REQUEST_TIME'] . "\r\nConnection Status " . connection_status(), 3, "tracker.txt");
+
 }

@@ -28,13 +28,14 @@ public class ActivityRegister extends AppCompatActivity {
     private Button registerButton;
     EmailPasswordValidation emailPasswordValidation;
     String TAG = ActivityRegister.class.getCanonicalName();
-
+    SessionManager sessionManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
         emailPasswordValidation = new EmailPasswordValidation();
+        sessionManager = new SessionManager(getApplicationContext());
         initLayout();
 
 
@@ -107,6 +108,7 @@ public class ActivityRegister extends AppCompatActivity {
             public void onResponse(Call<LoginUserClass> call, Response<LoginUserClass> response) {
                 if(response.isSuccessful()){
                     Log.e(TAG, response.body().getUsername());
+                    sessionManager.createLoginSession(response.body().getUsername(), response.body().getEmail());
                     startActivity(new Intent(getApplicationContext(), MainActivity.class));
                 }
             }

@@ -5,6 +5,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.CursorLoader;
+import android.content.Intent;
 import android.content.Loader;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -62,14 +63,16 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
-
+    EmailPasswordValidation emailPasswordValidation;
+    SessionManager sessionManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loginpage);
         emailPasswordValidation = new EmailPasswordValidation();
+        sessionManager = new SessionManager(getApplicationContext());
+       initLayout();
 
-        initLayout();
 
 
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -214,6 +217,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 if (response.isSuccessful()) {
                     if (response.body().getError().equals("false")) {
                         Log.e(TAG, response.body().getUsername());
+
+                            sessionManager.createLoginSession(response.body().getUsername(), response.body().getEmail());
+                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
                     } else {
                         // Todo: Write something to show error
                     }
