@@ -34,7 +34,7 @@ public class ViewNotesActivity extends AppCompatActivity implements View.OnClick
     private FloatingActionButton fab;
     private SubtitleCollapsingToolbarLayout collapsingToolbarLayout;
     Integer noteId;
-    TextView tv_note_title, tv_note_content;
+    TextView tv_note_content, tv_note_link;
     Button btn_edit, btn_share, btn_delete;
 
     private ShareActionProvider mShareActionProvider;
@@ -101,8 +101,8 @@ public class ViewNotesActivity extends AppCompatActivity implements View.OnClick
             }
         });
 
-        tv_note_content = (TextView)findViewById(R.id.tv_note_content);
-        tv_note_title = (TextView)findViewById(R.id.tv_note_title);
+        tv_note_content = findViewById(R.id.viewNotesBody);
+        tv_note_link = findViewById(R.id.viewNotesLink);
 
         btn_edit = (Button) findViewById(R.id.btn_edit);
         btn_share = (Button) findViewById(R.id.btn_share);
@@ -128,6 +128,8 @@ public class ViewNotesActivity extends AppCompatActivity implements View.OnClick
                 for(NoteHandler n : notes){
                     collapsingToolbarLayout.setTitle(n.getTitle());
                     collapsingToolbarLayout.setSubtitle(n.getLabel_name());
+                    tv_note_content.setText(n.getBody());
+                    tv_note_link.setText(n.getUrl());
                 }
             }
 
