@@ -110,6 +110,7 @@ public class ActivityRegister extends AppCompatActivity {
                     Log.e(TAG, response.body().getUsername());
                     sessionManager.createLoginSession(response.body().getUsername(), response.body().getEmail());
                     startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                    finish();
                 }
             }
 
