@@ -30,6 +30,7 @@ import android.widget.TextView;
 
 import com.example.amantewary.scrawl.API.ILoginUser;
 import com.example.amantewary.scrawl.Handlers.LoginUserClass;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -64,14 +65,16 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private View mProgressView;
     private View mLoginFormView;
     SessionManager sessionManager;
+    private Button mEmailSignInButton;
+    private Button mRegisterLink;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loginpage);
         emailPasswordValidation = new EmailPasswordValidation();
         sessionManager = new SessionManager(getApplicationContext());
-       initLayout();
-
+        initLayout();
 
 
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -85,7 +88,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }
         });
 
-        Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -93,8 +95,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }
         });
 
-//        mLoginFormView = findViewById(R.id.login_form);
-//        mProgressView = findViewById(R.id.login_progress);
+        mRegisterLink.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), ActivityRegister.class));
+                finish();
+            }
+        });
     }
 
     public void initLayout() {
@@ -105,6 +112,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mLoginFormView = findViewById(R.id.login_form);
 
         mPasswordView = (EditText) findViewById(R.id.password);
+        mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
+        mRegisterLink = (Button) findViewById(R.id.login_to_register_button);
+
+
     }
 
     private void populateAutoComplete() {
@@ -217,9 +228,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     if (response.body().getError().equals("false")) {
                         Log.e(TAG, response.body().getUsername());
 
-                            sessionManager.createLoginSession(response.body().getUsername(), response.body().getEmail());
-                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                            finish();
+                        sessionManager.createLoginSession(response.body().getUsername(), response.body().getEmail());
+                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                        finish();
                     } else {
                         // Todo: Write something to show error
                     }
@@ -329,6 +340,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         int ADDRESS = 0;
         int IS_PRIMARY = 1;
     }
+
+
 
 
 }

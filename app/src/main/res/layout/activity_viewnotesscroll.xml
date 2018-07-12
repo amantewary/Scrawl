@@ -14,7 +14,6 @@
         android:theme="@style/AppTheme.AppBarOverlay">
 
 
-
         <android.support.design.widget.SubtitleCollapsingToolbarLayout
             android:id="@+id/subtitlecollapsingtoolbarlayout"
             android:layout_width="match_parent"
@@ -26,7 +25,7 @@
             <!--app:subtitle="QA, Project Details"-->
             <!--app:title="Note 1"-->
 
-        <!--<android.support.design.widget.CollapsingToolbarLayout-->
+            <!--<android.support.design.widget.CollapsingToolbarLayout-->
             <!--android:id="@+id/toolbar_layout"-->
             <!--android:layout_width="match_parent"-->
             <!--android:layout_height="match_parent"-->
@@ -89,144 +88,144 @@
 
 
                 <!--<android.support.v7.widget.CardView-->
-                    <!--android:id="@+id/edit_card"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="match_parent"-->
-                    <!--android:layout_marginTop="20dp"-->
-                    <!--android:layout_marginLeft="5dp"-->
-                    <!--android:layout_marginRight="5dp"-->
-                    <!--android:clickable="true"-->
-                    <!--android:foreground="?android:attr/selectableItemBackground"-->
-                    <!--android:focusable="true"-->
-                    <!--app:cardBackgroundColor="@color/colorPrimaryDark"-->
-                    <!--app:cardElevation="0dp">-->
+                <!--android:id="@+id/edit_card"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_marginTop="20dp"-->
+                <!--android:layout_marginLeft="5dp"-->
+                <!--android:layout_marginRight="5dp"-->
+                <!--android:clickable="true"-->
+                <!--android:foreground="?android:attr/selectableItemBackground"-->
+                <!--android:focusable="true"-->
+                <!--app:cardBackgroundColor="@color/colorPrimaryDark"-->
+                <!--app:cardElevation="0dp">-->
 
-                    <!--<android.support.constraint.ConstraintLayout-->
-                        <!--android:layout_width="match_parent"-->
-                        <!--android:layout_height="match_parent">-->
+                <!--<android.support.constraint.ConstraintLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent">-->
 
-                        <!--<TextView-->
-                            <!--android:id="@+id/edit"-->
-                            <!--android:layout_width="0dp"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--android:layout_gravity="center"-->
-                            <!--android:layout_marginBottom="8dp"-->
-                            <!--android:layout_marginEnd="8dp"-->
-                            <!--android:layout_marginStart="8dp"-->
-                            <!--android:text="Edit Note"-->
-                            <!--android:textColor="@color/cardview_light_background"-->
-                            <!--android:textSize="18sp"-->
-                            <!--app:layout_constraintBottom_toBottomOf="parent"-->
-                            <!--app:layout_constraintEnd_toEndOf="parent"-->
-                            <!--app:layout_constraintStart_toEndOf="@+id/imageView2"-->
-                            <!--app:layout_constraintTop_toTopOf="parent" />-->
+                <!--<TextView-->
+                <!--android:id="@+id/edit"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_gravity="center"-->
+                <!--android:layout_marginBottom="8dp"-->
+                <!--android:layout_marginEnd="8dp"-->
+                <!--android:layout_marginStart="8dp"-->
+                <!--android:text="Edit Note"-->
+                <!--android:textColor="@color/cardview_light_background"-->
+                <!--android:textSize="18sp"-->
+                <!--app:layout_constraintBottom_toBottomOf="parent"-->
+                <!--app:layout_constraintEnd_toEndOf="parent"-->
+                <!--app:layout_constraintStart_toEndOf="@+id/imageView2"-->
+                <!--app:layout_constraintTop_toTopOf="parent" />-->
 
-                        <!--<ImageView-->
-                            <!--android:id="@+id/imageView2"-->
-                            <!--android:layout_width="wrap_content"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--android:layout_marginBottom="8dp"-->
-                            <!--android:layout_marginStart="8dp"-->
-                            <!--android:layout_marginTop="8dp"-->
-                            <!--app:layout_constraintBottom_toBottomOf="parent"-->
-                            <!--app:layout_constraintStart_toStartOf="parent"-->
-                            <!--app:layout_constraintTop_toTopOf="parent"-->
-                            <!--app:srcCompat="@drawable/ic_edit_black_24dp" />-->
-                    <!--</android.support.constraint.ConstraintLayout>-->
+                <!--<ImageView-->
+                <!--android:id="@+id/imageView2"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginBottom="8dp"-->
+                <!--android:layout_marginStart="8dp"-->
+                <!--android:layout_marginTop="8dp"-->
+                <!--app:layout_constraintBottom_toBottomOf="parent"-->
+                <!--app:layout_constraintStart_toStartOf="parent"-->
+                <!--app:layout_constraintTop_toTopOf="parent"-->
+                <!--app:srcCompat="@drawable/ic_edit_black_24dp" />-->
+                <!--</android.support.constraint.ConstraintLayout>-->
                 <!--</android.support.v7.widget.CardView>-->
 
                 <!--<android.support.v7.widget.CardView-->
-                    <!--android:id="@+id/delete_card"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="match_parent"-->
-                    <!--android:layout_marginTop="10dp"-->
-                    <!--android:layout_marginLeft="5dp"-->
-                    <!--android:layout_marginRight="5dp"-->
-                    <!--android:clickable="true"-->
-                    <!--android:foreground="?android:attr/selectableItemBackground"-->
-                    <!--android:focusable="true"-->
-                    <!--app:cardBackgroundColor="@color/colorPrimaryDark"-->
-                    <!--app:cardElevation="0dp">-->
+                <!--android:id="@+id/delete_card"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_marginTop="10dp"-->
+                <!--android:layout_marginLeft="5dp"-->
+                <!--android:layout_marginRight="5dp"-->
+                <!--android:clickable="true"-->
+                <!--android:foreground="?android:attr/selectableItemBackground"-->
+                <!--android:focusable="true"-->
+                <!--app:cardBackgroundColor="@color/colorPrimaryDark"-->
+                <!--app:cardElevation="0dp">-->
 
-                    <!--<android.support.constraint.ConstraintLayout-->
-                        <!--android:layout_width="match_parent"-->
-                        <!--android:layout_height="match_parent">-->
+                <!--<android.support.constraint.ConstraintLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent">-->
 
-                        <!--<TextView-->
-                            <!--android:layout_width="0dp"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--android:layout_gravity="center"-->
-                            <!--android:layout_marginBottom="8dp"-->
-                            <!--android:layout_marginEnd="8dp"-->
-                            <!--android:layout_marginStart="8dp"-->
-                            <!--android:layout_marginTop="8dp"-->
-                            <!--android:text="Delete Note"-->
-                            <!--android:textColor="@color/cardview_light_background"-->
-                            <!--android:textSize="18sp"-->
-                            <!--app:layout_constraintBottom_toBottomOf="parent"-->
-                            <!--app:layout_constraintEnd_toEndOf="parent"-->
-                            <!--app:layout_constraintStart_toEndOf="@+id/imageView3"-->
-                            <!--app:layout_constraintTop_toTopOf="parent" />-->
+                <!--<TextView-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_gravity="center"-->
+                <!--android:layout_marginBottom="8dp"-->
+                <!--android:layout_marginEnd="8dp"-->
+                <!--android:layout_marginStart="8dp"-->
+                <!--android:layout_marginTop="8dp"-->
+                <!--android:text="Delete Note"-->
+                <!--android:textColor="@color/cardview_light_background"-->
+                <!--android:textSize="18sp"-->
+                <!--app:layout_constraintBottom_toBottomOf="parent"-->
+                <!--app:layout_constraintEnd_toEndOf="parent"-->
+                <!--app:layout_constraintStart_toEndOf="@+id/imageView3"-->
+                <!--app:layout_constraintTop_toTopOf="parent" />-->
 
-                        <!--<ImageView-->
-                            <!--android:id="@+id/imageView3"-->
-                            <!--android:layout_width="wrap_content"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--android:layout_marginBottom="8dp"-->
-                            <!--android:layout_marginStart="8dp"-->
-                            <!--android:layout_marginTop="8dp"-->
-                            <!--app:layout_constraintBottom_toBottomOf="parent"-->
-                            <!--app:layout_constraintStart_toStartOf="parent"-->
-                            <!--app:layout_constraintTop_toTopOf="parent"-->
-                            <!--app:srcCompat="@drawable/ic_delete_black_24dp" />-->
-                    <!--</android.support.constraint.ConstraintLayout>-->
+                <!--<ImageView-->
+                <!--android:id="@+id/imageView3"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginBottom="8dp"-->
+                <!--android:layout_marginStart="8dp"-->
+                <!--android:layout_marginTop="8dp"-->
+                <!--app:layout_constraintBottom_toBottomOf="parent"-->
+                <!--app:layout_constraintStart_toStartOf="parent"-->
+                <!--app:layout_constraintTop_toTopOf="parent"-->
+                <!--app:srcCompat="@drawable/ic_delete_black_24dp" />-->
+                <!--</android.support.constraint.ConstraintLayout>-->
                 <!--</android.support.v7.widget.CardView>-->
 
                 <!--<android.support.v7.widget.CardView-->
-                    <!--android:id="@+id/share_card"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="match_parent"-->
-                    <!--android:layout_marginTop="10dp"-->
-                    <!--android:layout_marginBottom="15dp"-->
-                    <!--android:layout_marginLeft="5dp"-->
-                    <!--android:layout_marginRight="5dp"-->
-                    <!--android:clickable="true"-->
-                    <!--android:foreground="?android:attr/selectableItemBackground"-->
-                    <!--android:focusable="true"-->
-                    <!--app:cardBackgroundColor="@color/colorPrimaryDark"-->
-                    <!--app:cardElevation="0dp">-->
-                    <!--<android.support.constraint.ConstraintLayout-->
-                        <!--android:layout_width="match_parent"-->
-                        <!--android:layout_height="match_parent">-->
+                <!--android:id="@+id/share_card"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_marginTop="10dp"-->
+                <!--android:layout_marginBottom="15dp"-->
+                <!--android:layout_marginLeft="5dp"-->
+                <!--android:layout_marginRight="5dp"-->
+                <!--android:clickable="true"-->
+                <!--android:foreground="?android:attr/selectableItemBackground"-->
+                <!--android:focusable="true"-->
+                <!--app:cardBackgroundColor="@color/colorPrimaryDark"-->
+                <!--app:cardElevation="0dp">-->
+                <!--<android.support.constraint.ConstraintLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent">-->
 
-                        <!--<TextView-->
-                            <!--android:layout_width="0dp"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--android:layout_gravity="center"-->
-                            <!--android:layout_marginBottom="8dp"-->
-                            <!--android:layout_marginEnd="8dp"-->
-                            <!--android:layout_marginStart="8dp"-->
-                            <!--android:layout_marginTop="8dp"-->
-                            <!--android:text="Share"-->
-                            <!--android:textColor="@color/cardview_light_background"-->
-                            <!--android:textSize="18sp"-->
-                            <!--app:layout_constraintBottom_toBottomOf="parent"-->
-                            <!--app:layout_constraintEnd_toEndOf="parent"-->
-                            <!--app:layout_constraintStart_toEndOf="@+id/iv_share_notes"-->
-                            <!--app:layout_constraintTop_toTopOf="parent" />-->
+                <!--<TextView-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_gravity="center"-->
+                <!--android:layout_marginBottom="8dp"-->
+                <!--android:layout_marginEnd="8dp"-->
+                <!--android:layout_marginStart="8dp"-->
+                <!--android:layout_marginTop="8dp"-->
+                <!--android:text="Share"-->
+                <!--android:textColor="@color/cardview_light_background"-->
+                <!--android:textSize="18sp"-->
+                <!--app:layout_constraintBottom_toBottomOf="parent"-->
+                <!--app:layout_constraintEnd_toEndOf="parent"-->
+                <!--app:layout_constraintStart_toEndOf="@+id/iv_share_notes"-->
+                <!--app:layout_constraintTop_toTopOf="parent" />-->
 
-                        <!--<ImageView-->
-                            <!--android:id="@+id/iv_share_notes"-->
-                            <!--android:layout_width="wrap_content"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--android:layout_marginBottom="8dp"-->
-                            <!--android:layout_marginStart="8dp"-->
-                            <!--android:layout_marginTop="8dp"-->
-                            <!--app:layout_constraintBottom_toBottomOf="parent"-->
-                            <!--app:layout_constraintStart_toStartOf="parent"-->
-                            <!--app:layout_constraintTop_toTopOf="parent"-->
-                            <!--app:srcCompat="@drawable/ic_share_black_24dp" />-->
-                    <!--</android.support.constraint.ConstraintLayout>-->
+                <!--<ImageView-->
+                <!--android:id="@+id/iv_share_notes"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginBottom="8dp"-->
+                <!--android:layout_marginStart="8dp"-->
+                <!--android:layout_marginTop="8dp"-->
+                <!--app:layout_constraintBottom_toBottomOf="parent"-->
+                <!--app:layout_constraintStart_toStartOf="parent"-->
+                <!--app:layout_constraintTop_toTopOf="parent"-->
+                <!--app:srcCompat="@drawable/ic_share_black_24dp" />-->
+                <!--</android.support.constraint.ConstraintLayout>-->
                 <!--</android.support.v7.widget.CardView>-->
 
                 <Button
@@ -239,7 +238,7 @@
                     android:theme="@style/NormalButtonTheme"
                     android:foreground="?android:attr/selectableItemBackground"
                     android:gravity="center_vertical|center_horizontal|start"
-                    android:text="Edit Note"/>
+                    android:text="Edit Note" />
 
                 <Button
                     android:id="@+id/btn_share"
@@ -250,7 +249,7 @@
                     android:theme="@style/NormalButtonTheme"
                     android:foreground="?android:attr/selectableItemBackground"
                     android:gravity="center_vertical|center_horizontal|start"
-                    android:text="Share Note"/>
+                    android:text="Share Note" />
 
                 <Button
                     android:id="@+id/btn_delete"
@@ -262,7 +261,7 @@
                     android:theme="@style/DeleteButtonTheme"
                     android:foreground="?android:attr/selectableItemBackground"
                     android:gravity="center_vertical|center_horizontal|start"
-                    android:text="Delete Note"/>
+                    android:text="Delete Note" />
             </LinearLayout>
         </android.support.v7.widget.CardView>
     </android.support.v4.widget.NestedScrollView>

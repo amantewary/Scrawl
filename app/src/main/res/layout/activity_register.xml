@@ -11,10 +11,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
         android:orientation="vertical"
-        tools:layout_editor_absoluteX="30dp"
-        tools:layout_editor_absoluteY="127dp"
-        tools:ignore="MissingConstraints">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="30dp">
 
 
         <android.support.design.widget.TextInputLayout
@@ -68,16 +71,13 @@
             android:layout_weight="1"
             android:text="@string/register" />
 
-        <TextView
-            android:id="@+id/textViewLogin"
-            android:layout_width="wrap_content"
+        <Button
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="16dp"
-            android:gravity="center"
-            android:text="@string/create_account"
-            android:textColor="@android:color/white"
-            tools:text="Create Account" />
+            android:text="@string/register_to_login"
+            android:id="@+id/register_to_login_button"
+            style="@style/Base.Widget.AppCompat.Button.Borderless"
+            android:textColor="@color/cardview_dark_background" />
     </LinearLayout>
 
 
