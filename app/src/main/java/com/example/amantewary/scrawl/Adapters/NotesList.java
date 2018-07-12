@@ -15,6 +15,7 @@ import com.example.amantewary.scrawl.ViewNotesActivity;
 
 import java.util.List;
 
+//Structural Pattern : Adapter
 public class NotesList extends RecyclerView.Adapter<NotesList.ViewHolder> {
 
     private Context context;

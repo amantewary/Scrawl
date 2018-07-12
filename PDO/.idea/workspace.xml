@@ -9,7 +9,7 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ComposerSettings" executionDataType="PHAR" phpInterpreterId="bdd59e0e-0fad-4c03-8ec6-f7a36866ab59">
+  <component name="ComposerSettings" doNotAsk="true" executionDataType="PHAR" phpInterpreterId="bdd59e0e-0fad-4c03-8ec6-f7a36866ab59">
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
     <pharPath>$PROJECT_DIR$/composer.phar</pharPath>
   </component>
@@ -18,16 +18,16 @@
       <file leaf-file-name="config.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/config.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="345">
-              <caret line="23" lean-forward="true" selection-start-line="23" selection-end-line="23" />
+            <state relative-caret-position="509">
+              <caret line="23" selection-start-line="23" selection-end-line="23" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AllTestCases.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="AllTestCases.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/AllTestCases.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="387">
+            <state relative-caret-position="936">
               <caret line="44" column="4" selection-start-line="44" selection-start-column="4" selection-end-line="44" selection-end-column="4" />
             </state>
           </provider>
@@ -36,7 +36,7 @@
       <file leaf-file-name="register.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/register.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="555">
+            <state relative-caret-position="888">
               <caret line="42" column="31" selection-start-line="42" selection-end-line="43" />
             </state>
           </provider>
@@ -45,7 +45,7 @@
       <file leaf-file-name="login.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/login.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="358">
+            <state relative-caret-position="864">
               <caret line="41" selection-start-line="41" selection-end-line="41" />
             </state>
           </provider>
@@ -54,10 +54,24 @@
       <file leaf-file-name="Database_Queries.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Database_Queries.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="353">
-              <caret line="92" column="12" selection-start-line="92" selection-start-column="12" selection-end-line="92" selection-end-column="12" />
+            <state relative-caret-position="480">
+              <caret line="94" column="29" selection-start-line="94" selection-start-column="29" selection-end-line="94" selection-end-column="29" />
             </state>
           </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Database_QueriesTest.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/tests/Database_QueriesTest.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="384">
+              <caret line="21" column="36" lean-forward="true" selection-start-line="21" selection-start-column="36" selection-end-line="21" selection-end-column="36" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="error_logger.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/error_logger.php">
+          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
     </leaf>
@@ -74,7 +88,6 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/DB_APIs.php" />
-        <option value="$PROJECT_DIR$/Database_Queries.php" />
         <option value="$PROJECT_DIR$/register.php" />
         <option value="$PROJECT_DIR$/login.php" />
         <option value="$PROJECT_DIR$/composer.json" />
@@ -82,6 +95,8 @@
         <option value="$PROJECT_DIR$/TestCaseTest.php" />
         <option value="$PROJECT_DIR$/config.php" />
         <option value="$PROJECT_DIR$/AllTestCases.php" />
+        <option value="$PROJECT_DIR$/Database_Queries.php" />
+        <option value="$PROJECT_DIR$/tests/Database_QueriesTest.php" />
       </list>
     </option>
   </component>
@@ -94,7 +109,7 @@
   <component name="NodePackageJsonFileManager">
     <packageJsonPaths />
   </component>
-  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="PHP 7.1">
+  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="PHP 7.2">
     <include_path>
       <path value="$PROJECT_DIR$/vendor/composer" />
       <path value="$PROJECT_DIR$/vendor/myclabs/deep-copy" />
@@ -126,17 +141,18 @@
       <path value="$PROJECT_DIR$/vendor/phpdocumentor/reflection-common" />
     </include_path>
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="41" />
-    <option name="y" value="23" />
-    <option name="width" value="1399" />
-    <option name="height" value="877" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="40" />
+    <option name="y" value="22" />
+    <option name="width" value="1400" />
+    <option name="height" value="878" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -144,17 +160,21 @@
               <item name="PDO" type="b2602c69:ProjectViewProjectNode" />
               <item name="PDO" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="PDO" type="b2602c69:ProjectViewProjectNode" />
+              <item name="PDO" type="462c0819:PsiDirectoryNode" />
+              <item name="tests" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="com.jetbrains.php.phpunit.codeGeneration.PhpNewTestDialog.defaultLibrary" value="PHPUnit 6+" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/tests" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="web-ide.project.structure" />
@@ -171,31 +191,36 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="PHPUnit.AllTestCases.testIsUserExistsException">
-    <configuration name="AllTestCases.testIsUserExistsException" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
-      <TestRunner class="AllTestCases" file="$PROJECT_DIR$/AllTestCases.php" method="testIsUserExistsException" scope="Method" />
+  <component name="RunManager" selected="PHPUnit.Database_QueriesTest.testRegisterUser">
+    <configuration name="Database_QueriesTest.testGetUserData" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <TestRunner class="Database_QueriesTest" file="$PROJECT_DIR$/tests/Database_QueriesTest.php" method="testGetUserData" scope="Method" />
     </configuration>
-    <configuration name="LoginTest.testIsUserExists" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
-      <TestRunner class="LoginTest" file="$PROJECT_DIR$/LoginTest.php" method="testIsUserExists" scope="Method" />
+    <configuration name="Database_QueriesTest.testHashPassword" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <TestRunner class="Database_QueriesTest" file="$PROJECT_DIR$/tests/Database_QueriesTest.php" method="testHashPassword" scope="Method" />
     </configuration>
-    <configuration name="TestCaseTest.testIsUserExists" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
-      <TestRunner class="TestCaseTest" file="$PROJECT_DIR$/AllTestCases.php" method="testIsUserExists" scope="Method" />
+    <configuration name="Database_QueriesTest.testIsUserExists" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <TestRunner class="Database_QueriesTest" file="$PROJECT_DIR$/tests/Database_QueriesTest.php" method="testIsUserExists" scope="Method" />
     </configuration>
-    <configuration name="TestCaseTest.testIsUserExistsTrue" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
-      <TestRunner class="TestCaseTest" file="$PROJECT_DIR$/AllTestCases.php" method="testIsUserExistsTrue" scope="Method" />
+    <configuration name="Database_QueriesTest.testIsUserExistsFail" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <TestRunner class="Database_QueriesTest" file="$PROJECT_DIR$/tests/Database_QueriesTest.php" method="testIsUserExistsFail" scope="Method" />
+    </configuration>
+    <configuration name="Database_QueriesTest.testRegisterUser" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <TestRunner class="Database_QueriesTest" file="$PROJECT_DIR$/tests/Database_QueriesTest.php" method="testRegisterUser" scope="Method" />
     </configuration>
     <list>
-      <item itemvalue="PHPUnit.LoginTest.testIsUserExists" />
-      <item itemvalue="PHPUnit.TestCaseTest.testIsUserExists" />
-      <item itemvalue="PHPUnit.TestCaseTest.testIsUserExistsTrue" />
-      <item itemvalue="PHPUnit.AllTestCases.testIsUserExistsException" />
+      <item itemvalue="PHPUnit.Database_QueriesTest.testGetUserData" />
+      <item itemvalue="PHPUnit.Database_QueriesTest.testHashPassword" />
+      <item itemvalue="PHPUnit.Database_QueriesTest.testIsUserExists" />
+      <item itemvalue="PHPUnit.Database_QueriesTest.testIsUserExistsFail" />
+      <item itemvalue="PHPUnit.Database_QueriesTest.testRegisterUser" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="PHPUnit.AllTestCases.testIsUserExistsException" />
-        <item itemvalue="PHPUnit.TestCaseTest.testIsUserExistsTrue" />
-        <item itemvalue="PHPUnit.TestCaseTest.testIsUserExists" />
-        <item itemvalue="PHPUnit.LoginTest.testIsUserExists" />
+        <item itemvalue="PHPUnit.Database_QueriesTest.testRegisterUser" />
+        <item itemvalue="PHPUnit.Database_QueriesTest.testIsUserExistsFail" />
+        <item itemvalue="PHPUnit.Database_QueriesTest.testIsUserExists" />
+        <item itemvalue="PHPUnit.Database_QueriesTest.testHashPassword" />
+        <item itemvalue="PHPUnit.Database_QueriesTest.testGetUserData" />
       </list>
     </recent_temporary>
   </component>
@@ -215,60 +240,61 @@
       <workItem from="1531240438123" duration="2576000" />
       <workItem from="1531265761229" duration="685000" />
       <workItem from="1531307050949" duration="3903000" />
+      <workItem from="1531397919136" duration="5919000" />
     </task>
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="TestCaseTest_testIsUserExistsTrue - 2018.07.11 at 09h 21m 26s.xml">
-      <configuration name="TestCaseTest.testIsUserExistsTrue" configurationId="PHPUnitRunConfigurationType" />
+    <history-entry file="Database_QueriesTest_testIsUserExistsFail - 2018.07.12 at 10h 32m 46s.xml">
+      <configuration name="Database_QueriesTest.testIsUserExistsFail" configurationId="PHPUnitRunConfigurationType" />
     </history-entry>
-    <history-entry file="TestCaseTest_testIsUserExistsTrue - 2018.07.11 at 09h 21m 44s.xml">
-      <configuration name="TestCaseTest.testIsUserExistsTrue" configurationId="PHPUnitRunConfigurationType" />
+    <history-entry file="Database_QueriesTest_testIsUserExistsFail - 2018.07.12 at 10h 34m 49s.xml">
+      <configuration name="Database_QueriesTest.testIsUserExistsFail" configurationId="PHPUnitRunConfigurationType" />
     </history-entry>
-    <history-entry file="TestCaseTest_testIsUserExistsTrue - 2018.07.11 at 09h 25m 49s.xml">
-      <configuration name="TestCaseTest.testIsUserExistsTrue" configurationId="PHPUnitRunConfigurationType" />
+    <history-entry file="Database_QueriesTest_testRegisterUser - 2018.07.12 at 10h 52m 04s.xml">
+      <configuration name="Database_QueriesTest.testRegisterUser" configurationId="PHPUnitRunConfigurationType" />
     </history-entry>
-    <history-entry file="AllTestCases_testIsUserExistsException - 2018.07.11 at 09h 29m 38s.xml">
-      <configuration name="AllTestCases.testIsUserExistsException" configurationId="PHPUnitRunConfigurationType" />
+    <history-entry file="Database_QueriesTest_testRegisterUser - 2018.07.12 at 10h 52m 35s.xml">
+      <configuration name="Database_QueriesTest.testRegisterUser" configurationId="PHPUnitRunConfigurationType" />
     </history-entry>
-    <history-entry file="AllTestCases_testIsUserExistsException - 2018.07.11 at 09h 33m 38s.xml">
-      <configuration name="AllTestCases.testIsUserExistsException" configurationId="PHPUnitRunConfigurationType" />
+    <history-entry file="Database_QueriesTest_testRegisterUser - 2018.07.12 at 10h 52m 59s.xml">
+      <configuration name="Database_QueriesTest.testRegisterUser" configurationId="PHPUnitRunConfigurationType" />
     </history-entry>
-    <history-entry file="AllTestCases_testIsUserExistsException - 2018.07.11 at 09h 35m 21s.xml">
-      <configuration name="AllTestCases.testIsUserExistsException" configurationId="PHPUnitRunConfigurationType" />
+    <history-entry file="Database_QueriesTest_testRegisterUser - 2018.07.12 at 10h 53m 24s.xml">
+      <configuration name="Database_QueriesTest.testRegisterUser" configurationId="PHPUnitRunConfigurationType" />
     </history-entry>
-    <history-entry file="AllTestCases_testIsUserExistsException - 2018.07.11 at 09h 37m 28s.xml">
-      <configuration name="AllTestCases.testIsUserExistsException" configurationId="PHPUnitRunConfigurationType" />
+    <history-entry file="Database_QueriesTest_testRegisterUser - 2018.07.12 at 10h 55m 02s.xml">
+      <configuration name="Database_QueriesTest.testRegisterUser" configurationId="PHPUnitRunConfigurationType" />
     </history-entry>
-    <history-entry file="AllTestCases_testIsUserExistsException - 2018.07.11 at 09h 40m 45s.xml">
-      <configuration name="AllTestCases.testIsUserExistsException" configurationId="PHPUnitRunConfigurationType" />
+    <history-entry file="Database_QueriesTest_testRegisterUser - 2018.07.12 at 10h 55m 17s.xml">
+      <configuration name="Database_QueriesTest.testRegisterUser" configurationId="PHPUnitRunConfigurationType" />
     </history-entry>
-    <history-entry file="AllTestCases_testIsUserExistsException - 2018.07.11 at 09h 41m 02s.xml">
-      <configuration name="AllTestCases.testIsUserExistsException" configurationId="PHPUnitRunConfigurationType" />
+    <history-entry file="Database_QueriesTest_testRegisterUser - 2018.07.12 at 10h 55m 35s.xml">
+      <configuration name="Database_QueriesTest.testRegisterUser" configurationId="PHPUnitRunConfigurationType" />
     </history-entry>
-    <history-entry file="AllTestCases_testIsUserExistsException - 2018.07.11 at 09h 41m 16s.xml">
-      <configuration name="AllTestCases.testIsUserExistsException" configurationId="PHPUnitRunConfigurationType" />
+    <history-entry file="Database_QueriesTest_testRegisterUser - 2018.07.12 at 10h 55m 54s.xml">
+      <configuration name="Database_QueriesTest.testRegisterUser" configurationId="PHPUnitRunConfigurationType" />
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="16897000" />
+    <option name="totallyTimeSpent" value="22816000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="41" y="23" width="1399" height="877" extended-state="0" />
+    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.18370265" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.13216145" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
       <window_info anchor="right" id="Database" order="3" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32827586" />
       <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32876712" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Terminal" order="7" />
-      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Terminal" order="7" weight="0.32965517" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39975095" />
+      <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -284,7 +310,47 @@
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <option name="time" value="1" />
+    </breakpoint-manager>
+  </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/config.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="552">
+          <caret line="23" lean-forward="true" selection-start-line="23" selection-end-line="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/register.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="888">
+          <caret line="42" column="31" selection-start-line="42" selection-end-line="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/login.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="864">
+          <caret line="41" selection-start-line="41" selection-end-line="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Database_Queries.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2088">
+          <caret line="92" column="12" selection-start-line="92" selection-start-column="12" selection-end-line="92" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AllTestCases.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="936">
+          <caret line="44" column="4" selection-start-line="44" selection-start-column="4" selection-end-line="44" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Database_Queries.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1605">
@@ -320,13 +386,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/LoginTest.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="10" column="1" lean-forward="true" selection-start-line="10" selection-start-column="1" selection-end-line="10" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/LoginTest.php" />
     <entry file="file://$PROJECT_DIR$/Database_Queries.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1605">
@@ -409,7 +469,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/register.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="555">
+        <state relative-caret-position="888">
           <caret line="42" column="31" selection-start-line="42" selection-end-line="43" />
         </state>
       </provider>
@@ -424,29 +484,16 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/LoginTest.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="17" column="5" lean-forward="true" selection-start-line="15" selection-start-column="4" selection-end-line="17" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/LoginTest.php" />
     <entry file="file://$PROJECT_DIR$/login.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="358">
+        <state relative-caret-position="864">
           <caret line="41" selection-start-line="41" selection-end-line="41" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/log.txt">
       <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/config.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="23" lean-forward="true" selection-start-line="23" selection-end-line="23" />
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/tracker.txt">
       <provider selected="true" editor-type-id="text-editor">
@@ -455,17 +502,41 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Database_Queries.php">
+    <entry file="file://$PROJECT_DIR$/AllTestCases.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="353">
-          <caret line="92" column="12" selection-start-line="92" selection-start-column="12" selection-end-line="92" selection-end-column="12" />
+        <state relative-caret-position="936">
+          <caret line="44" column="4" selection-start-line="44" selection-start-column="4" selection-end-line="44" selection-end-column="4" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/AllTestCases.php">
+    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/php/lib/php.jar!/stubs/standard/standard_1.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="387">
-          <caret line="44" column="4" selection-start-line="44" selection-start-column="4" selection-end-line="44" selection-end-column="4" />
+        <state relative-caret-position="12504">
+          <caret line="551" column="9" selection-start-line="551" selection-start-column="9" selection-end-line="551" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="509">
+          <caret line="23" selection-start-line="23" selection-end-line="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/error_logger.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Database_Queries.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="480">
+          <caret line="94" column="29" selection-start-line="94" selection-start-column="29" selection-end-line="94" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/Database_QueriesTest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="384">
+          <caret line="21" column="36" lean-forward="true" selection-start-line="21" selection-start-column="36" selection-end-line="21" selection-end-column="36" />
         </state>
       </provider>
     </entry>

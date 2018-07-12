@@ -77,7 +77,6 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onFailure(Call<List<LabelHandler>> call, Throwable t) {
                 Log.e(TAG, "onFailure: Something Went Wrong: " + t.getMessage());
-                Toast.makeText(MainActivity.this, "Something Went Wrong", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -85,6 +84,7 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // Factory Design Pattern
                 Intent intent = new Intent(MainActivity.this, AddNotesActivity.class);
                 intent.putExtra("labels", labelOptions);
                 startActivity(intent);

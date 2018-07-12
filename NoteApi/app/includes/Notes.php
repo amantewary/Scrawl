@@ -94,6 +94,7 @@ class Notes
                 throw new PDOException();
             }
         } catch (\PDOException $e) {
+            print_r($e);
             error_log('Note Not Available: ' . $e->getMessage());
             return $e;
         }

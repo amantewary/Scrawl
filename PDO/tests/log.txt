@@ -1,0 +1,13 @@
+Error PDOException in D:\School\Term_3\QA\Project\Group19\PDO\Database_Queries.php:26
+Stack trace:
+#0 D:\School\Term_3\QA\Project\Group19\PDO\tests\Database_QueriesTest.php(67): Database_Queries->getUserData(Object(Mock_PDO_8c4678c0))
+#1 D:\School\Term_3\QA\Project\Group19\PDO\vendor\phpunit\phpunit\src\Framework\TestCase.php(1146): Database_QueriesTest->testIsUserExistsFail()
+#2 D:\School\Term_3\QA\Project\Group19\PDO\vendor\phpunit\phpunit\src\Framework\TestCase.php(844): PHPUnit\Framework\TestCase->runTest()
+#3 D:\School\Term_3\QA\Project\Group19\PDO\vendor\phpunit\phpunit\src\Framework\TestResult.php(645): PHPUnit\Framework\TestCase->runBare()
+#4 D:\School\Term_3\QA\Project\Group19\PDO\vendor\phpunit\phpunit\src\Framework\TestCase.php(798): PHPUnit\Framework\TestResult->run(Object(Database_QueriesTest))
+#5 D:\School\Term_3\QA\Project\Group19\PDO\vendor\phpunit\phpunit\src\Framework\TestSuite.php(765): PHPUnit\Framework\TestCase->run(Object(PHPUnit\Framework\TestResult))
+#6 D:\School\Term_3\QA\Project\Group19\PDO\vendor\phpunit\phpunit\src\TextUI\TestRunner.php(566): PHPUnit\Framework\TestSuite->run(Object(PHPUnit\Framework\TestResult))
+#7 D:\School\Term_3\QA\Project\Group19\PDO\vendor\phpunit\phpunit\src\TextUI\Command.php(200): PHPUnit\TextUI\TestRunner->doRun(Object(PHPUnit\Framework\TestSuite), Array, true)
+#8 D:\School\Term_3\QA\Project\Group19\PDO\vendor\phpunit\phpunit\src\TextUI\Command.php(155): PHPUnit\TextUI\Command->run(Array, true)
+#9 D:\School\Term_3\QA\Project\Group19\PDO\vendor\phpunit\phpunit\phpunit(53): PHPUnit\TextUI\Command::main()
+#10 {main}
