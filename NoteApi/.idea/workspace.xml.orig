@@ -14,11 +14,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="NotesTest.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="NotesTest.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tests/NotesTest.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="168">
-              <caret line="11" column="1" lean-forward="true" selection-start-line="11" selection-start-column="1" selection-end-line="11" selection-end-column="1" />
+            <state relative-caret-position="80">
+              <caret line="72" column="45" lean-forward="true" selection-start-line="72" selection-start-column="45" selection-end-line="72" selection-end-column="45" />
             </state>
           </provider>
         </entry>
@@ -28,6 +28,15 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="120">
               <caret line="5" column="30" selection-start-line="5" selection-start-column="30" selection-end-line="5" selection-end-column="30" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="update.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/v1/notes/update.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="408">
+              <caret line="17" column="40" selection-start-line="17" selection-start-column="40" selection-end-line="17" selection-end-column="40" />
             </state>
           </provider>
         </entry>
@@ -44,8 +53,8 @@
       <file leaf-file-name="ConnectDb.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/includes/ConnectDb.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="173">
-              <caret line="17" column="9" lean-forward="true" selection-start-line="17" selection-start-column="9" selection-end-line="17" selection-end-column="9" />
+            <state relative-caret-position="240">
+              <caret line="10" column="31" selection-start-line="10" selection-start-column="31" selection-end-line="10" selection-end-column="31" />
             </state>
           </provider>
         </entry>
@@ -54,25 +63,16 @@
         <entry file="file://$PROJECT_DIR$/app/includes/HttpLogger.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="192">
-              <caret line="8" column="12" selection-start-line="8" selection-start-column="12" selection-end-line="8" selection-end-column="12" />
+              <caret line="8" column="12" lean-forward="true" selection-start-line="8" selection-start-column="12" selection-end-line="8" selection-end-column="12" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Notes.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Notes.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/includes/Notes.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="408">
-              <caret line="66" column="28" lean-forward="true" selection-start-line="66" selection-start-column="28" selection-end-line="66" selection-end-column="28" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="delete.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/v1/notes/delete.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="504">
-              <caret line="22" column="33" selection-start-line="22" selection-start-column="33" selection-end-line="22" selection-end-column="33" />
+            <state relative-caret-position="1464">
+              <caret line="61" column="29" lean-forward="true" selection-start-line="61" selection-start-column="29" selection-end-line="61" selection-end-column="29" />
             </state>
           </provider>
         </entry>
@@ -86,7 +86,7 @@
         <entry file="file://$PROJECT_DIR$/app/includes/Labels.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="485">
-              <caret line="28" column="5" selection-start-line="28" selection-start-column="5" selection-end-line="28" selection-end-column="5" />
+              <caret line="28" column="5" lean-forward="true" selection-start-line="28" selection-start-column="5" selection-end-line="28" selection-end-column="5" />
             </state>
           </provider>
         </entry>
@@ -94,8 +94,8 @@
       <file leaf-file-name="LabelsTest.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tests/LabelsTest.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="410">
-              <caret line="31" column="36" selection-start-line="31" selection-start-column="36" selection-end-line="31" selection-end-column="36" />
+            <state relative-caret-position="456">
+              <caret line="31" column="36" lean-forward="true" selection-start-line="31" selection-start-column="36" selection-end-line="31" selection-end-column="36" />
               <folding>
                 <element signature="e#6#71#0#PHP" expanded="true" />
               </folding>
@@ -108,7 +108,6 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>author</find>
-      <find>error</find>
     </findStrings>
   </component>
   <component name="IdeDocumentHistory">
@@ -187,6 +186,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -208,13 +208,32 @@
             <path>
               <item name="NoteApi" type="b2602c69:ProjectViewProjectNode" />
               <item name="NoteApi" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="v1" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="NoteApi" type="b2602c69:ProjectViewProjectNode" />
+              <item name="NoteApi" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="v1" type="462c0819:PsiDirectoryNode" />
+              <item name="label" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="NoteApi" type="b2602c69:ProjectViewProjectNode" />
+              <item name="NoteApi" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="v1" type="462c0819:PsiDirectoryNode" />
+              <item name="notes" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="NoteApi" type="b2602c69:ProjectViewProjectNode" />
+              <item name="NoteApi" type="462c0819:PsiDirectoryNode" />
               <item name="tests" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -243,36 +262,36 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="PHPUnit.NotesTest">
-    <configuration name="NotesTest" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
-      <TestRunner class="NotesTest" file="$PROJECT_DIR$/tests/NotesTest.php" scope="Class" />
+  <component name="RunManager" selected="PHPUnit.NotesTest.testRead_singleFail">
+    <configuration name="LabelsTest.testReadFail" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <TestRunner class="LabelsTest" file="$PROJECT_DIR$/tests/LabelsTest.php" method="testReadFail" scope="Method" />
     </configuration>
-    <configuration name="NotesTest.testCreateFail" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
-      <TestRunner class="NotesTest" file="$PROJECT_DIR$/tests/NotesTest.php" method="testCreateFail" scope="Method" />
+    <configuration name="NotesTest.testReadFail" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <TestRunner class="NotesTest" file="$PROJECT_DIR$/tests/NotesTest.php" method="testReadFail" scope="Method" />
     </configuration>
-    <configuration name="NotesTest.testDeleteFail" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
-      <TestRunner class="NotesTest" file="$PROJECT_DIR$/tests/NotesTest.php" method="testDeleteFail" scope="Method" />
+    <configuration name="NotesTest.testReadFailure" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <TestRunner class="NotesTest" file="$PROJECT_DIR$/tests/NotesTest.php" method="testReadFailure" scope="Method" />
+    </configuration>
+    <configuration name="NotesTest.testRead_single" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <TestRunner class="NotesTest" file="$PROJECT_DIR$/tests/NotesTest.php" method="testRead_single" scope="Method" />
     </configuration>
     <configuration name="NotesTest.testRead_singleFail" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
       <TestRunner class="NotesTest" file="$PROJECT_DIR$/tests/NotesTest.php" method="testRead_singleFail" scope="Method" />
     </configuration>
-    <configuration name="NotesTest.testUpdateFail" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
-      <TestRunner class="NotesTest" file="$PROJECT_DIR$/tests/NotesTest.php" method="testUpdateFail" scope="Method" />
-    </configuration>
     <list>
+      <item itemvalue="PHPUnit.NotesTest.testReadFailure" />
+      <item itemvalue="PHPUnit.NotesTest.testRead_single" />
+      <item itemvalue="PHPUnit.LabelsTest.testReadFail" />
+      <item itemvalue="PHPUnit.NotesTest.testReadFail" />
       <item itemvalue="PHPUnit.NotesTest.testRead_singleFail" />
-      <item itemvalue="PHPUnit.NotesTest.testDeleteFail" />
-      <item itemvalue="PHPUnit.NotesTest.testCreateFail" />
-      <item itemvalue="PHPUnit.NotesTest.testUpdateFail" />
-      <item itemvalue="PHPUnit.NotesTest" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="PHPUnit.NotesTest" />
-        <item itemvalue="PHPUnit.NotesTest.testDeleteFail" />
-        <item itemvalue="PHPUnit.NotesTest.testUpdateFail" />
-        <item itemvalue="PHPUnit.NotesTest.testCreateFail" />
         <item itemvalue="PHPUnit.NotesTest.testRead_singleFail" />
+        <item itemvalue="PHPUnit.NotesTest.testReadFail" />
+        <item itemvalue="PHPUnit.LabelsTest.testReadFail" />
+        <item itemvalue="PHPUnit.NotesTest.testRead_single" />
+        <item itemvalue="PHPUnit.NotesTest.testReadFailure" />
       </list>
     </recent_temporary>
   </component>
@@ -292,46 +311,52 @@
       <workItem from="1531147023018" duration="13000" />
       <workItem from="1531156207394" duration="1654000" />
       <workItem from="1531313833483" duration="3801000" />
-      <workItem from="1531318320236" duration="1083000" />
+<<<<<<< HEAD
       <workItem from="1531318320236" duration="529000" />
-      <workItem from="1531327678384" duration="9336000" />
+=======
+      <workItem from="1531318320236" duration="1083000" />
+>>>>>>> devint
     </task>
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="NotesTest_testCreateFail - 2018.07.11 at 17h 25m 40s.xml">
-      <configuration name="NotesTest.testCreateFail" configurationId="PHPUnitRunConfigurationType" />
+    <history-entry file="LabelsTest_testReadFail - 2018.07.11 at 10h 52m 58s.xml">
+      <configuration name="LabelsTest.testReadFail" configurationId="PHPUnitRunConfigurationType" />
     </history-entry>
-    <history-entry file="NotesTest_testCreateFail - 2018.07.11 at 17h 26m 18s.xml">
-      <configuration name="NotesTest.testCreateFail" configurationId="PHPUnitRunConfigurationType" />
+    <history-entry file="LabelsTest_testReadFail - 2018.07.11 at 10h 53m 30s.xml">
+      <configuration name="LabelsTest.testReadFail" configurationId="PHPUnitRunConfigurationType" />
     </history-entry>
-    <history-entry file="NotesTest_testCreateFail - 2018.07.11 at 17h 26m 54s.xml">
-      <configuration name="NotesTest.testCreateFail" configurationId="PHPUnitRunConfigurationType" />
+    <history-entry file="LabelsTest_testReadFail - 2018.07.11 at 11h 12m 26s.xml">
+      <configuration name="LabelsTest.testReadFail" configurationId="PHPUnitRunConfigurationType" />
     </history-entry>
-    <history-entry file="NotesTest_testCreateFail - 2018.07.11 at 17h 29m 27s.xml">
-      <configuration name="NotesTest.testCreateFail" configurationId="PHPUnitRunConfigurationType" />
+    <history-entry file="LabelsTest_testReadFail - 2018.07.11 at 11h 12m 56s.xml">
+      <configuration name="LabelsTest.testReadFail" configurationId="PHPUnitRunConfigurationType" />
     </history-entry>
-    <history-entry file="NotesTest_testCreateFail - 2018.07.11 at 17h 30m 33s.xml">
-      <configuration name="NotesTest.testCreateFail" configurationId="PHPUnitRunConfigurationType" />
+    <history-entry file="LabelsTest_testReadFail - 2018.07.11 at 11h 14m 18s.xml">
+      <configuration name="LabelsTest.testReadFail" configurationId="PHPUnitRunConfigurationType" />
     </history-entry>
-    <history-entry file="NotesTest_testUpdateFail - 2018.07.11 at 17h 35m 15s.xml">
-      <configuration name="NotesTest.testUpdateFail" configurationId="PHPUnitRunConfigurationType" />
+    <history-entry file="NotesTest_testReadFail - 2018.07.11 at 11h 17m 17s.xml">
+      <configuration name="NotesTest.testReadFail" configurationId="PHPUnitRunConfigurationType" />
     </history-entry>
-    <history-entry file="NotesTest_testUpdateFail - 2018.07.11 at 17h 36m 59s.xml">
-      <configuration name="NotesTest.testUpdateFail" configurationId="PHPUnitRunConfigurationType" />
+    <history-entry file="NotesTest_testReadFail - 2018.07.11 at 11h 17m 29s.xml">
+      <configuration name="NotesTest.testReadFail" configurationId="PHPUnitRunConfigurationType" />
     </history-entry>
-    <history-entry file="NotesTest_testDeleteFail - 2018.07.11 at 17h 43m 31s.xml">
-      <configuration name="NotesTest.testDeleteFail" configurationId="PHPUnitRunConfigurationType" />
+    <history-entry file="NotesTest_testReadFail - 2018.07.11 at 11h 18m 17s.xml">
+      <configuration name="NotesTest.testReadFail" configurationId="PHPUnitRunConfigurationType" />
     </history-entry>
-    <history-entry file="NotesTest_testDeleteFail - 2018.07.11 at 17h 44m 58s.xml">
-      <configuration name="NotesTest.testDeleteFail" configurationId="PHPUnitRunConfigurationType" />
+    <history-entry file="NotesTest_testReadFail - 2018.07.11 at 11h 19m 01s.xml">
+      <configuration name="NotesTest.testReadFail" configurationId="PHPUnitRunConfigurationType" />
     </history-entry>
-    <history-entry file="NotesTest - 2018.07.11 at 17h 45m 27s.xml">
-      <configuration name="NotesTest" configurationId="PHPUnitRunConfigurationType" />
+    <history-entry file="NotesTest_testRead_singleFail - 2018.07.11 at 11h 19m 51s.xml">
+      <configuration name="NotesTest.testRead_singleFail" configurationId="PHPUnitRunConfigurationType" />
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="32561000" />
+<<<<<<< HEAD
+    <option name="totallyTimeSpent" value="23225000" />
+=======
+    <option name="totallyTimeSpent" value="23779000" />
+>>>>>>> devint
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
@@ -343,12 +368,12 @@
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
       <window_info anchor="right" id="Database" order="3" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.6" />
+      <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="7" weight="0.32965517" />
-      <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39939487" />
+      <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -588,6 +613,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/v1/notes/delete.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="504">
+          <caret line="22" column="33" selection-start-line="22" selection-start-column="33" selection-end-line="22" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/v1/notes/read.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="768">
@@ -616,10 +648,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/includes/ConnectDb.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="10" column="31" selection-start-line="10" selection-start-column="31" selection-end-line="10" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/includes/Logger.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/includes/HttpLogger.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="192">
-          <caret line="8" column="12" selection-start-line="8" selection-start-column="12" selection-end-line="8" selection-end-column="12" />
+          <caret line="8" column="12" lean-forward="true" selection-start-line="8" selection-start-column="12" selection-end-line="8" selection-end-column="12" />
         </state>
       </provider>
     </entry>
@@ -630,51 +672,34 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/v1/notes/delete.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="504">
-          <caret line="22" column="33" selection-start-line="22" selection-start-column="33" selection-end-line="22" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/tests/LabelsTest.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="410">
-          <caret line="31" column="36" selection-start-line="31" selection-start-column="36" selection-end-line="31" selection-end-column="36" />
+        <state relative-caret-position="456">
+          <caret line="31" column="36" lean-forward="true" selection-start-line="31" selection-start-column="36" selection-end-line="31" selection-end-column="36" />
           <folding>
             <element signature="e#6#71#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/includes/Logger.php">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/includes/ConnectDb.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="173">
-          <caret line="17" column="9" lean-forward="true" selection-start-line="17" selection-start-column="9" selection-end-line="17" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/includes/Labels.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="485">
-          <caret line="28" column="5" selection-start-line="28" selection-start-column="5" selection-end-line="28" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/includes/Notes.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="66" column="28" lean-forward="true" selection-start-line="66" selection-start-column="28" selection-end-line="66" selection-end-column="28" />
+          <caret line="28" column="5" lean-forward="true" selection-start-line="28" selection-start-column="5" selection-end-line="28" selection-end-column="5" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/tests/NotesTest.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="11" column="1" lean-forward="true" selection-start-line="11" selection-start-column="1" selection-end-line="11" selection-end-column="1" />
+        <state relative-caret-position="80">
+          <caret line="72" column="45" lean-forward="true" selection-start-line="72" selection-start-column="45" selection-end-line="72" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/includes/Notes.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1464">
+          <caret line="61" column="29" lean-forward="true" selection-start-line="61" selection-start-column="29" selection-end-line="61" selection-end-column="29" />
         </state>
       </provider>
     </entry>

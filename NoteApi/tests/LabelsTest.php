@@ -21,4 +21,16 @@ class LabelsTest extends PHPUnit\Framework\TestCase
         $test = new Labels($pdoMock);
         $this->assertEquals($stmtMock,$test->read());
     }
+
+    public function testReadFail()
+    {
+        $stmtMock = $this->createMock(\PDOStatement::class);
+        $pdoMock = $this->createMock(\PDO::class);
+        $stmtMock->method('execute')
+            ->willReturn(false);
+        $pdoMock->method('prepare')
+            ->willReturn($stmtMock);
+        $test = new Labels($pdoMock);
+        $this->assertEquals(new PDOException(),$test->read());
+    }
 }

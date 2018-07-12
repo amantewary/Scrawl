@@ -22,5 +22,4 @@ public interface INoteAPI {
     @POST("~kamath/QA_Devint/NoteApi/v1/notes/create")
     Call<NoteHandler> createNote(@Body NoteHandler note);
 
-
 }

@@ -1,6 +1,7 @@
 <?php
 
 require 'Logger.php';
+require 'HttpLogger.php';
 class Notes
 {
     private $con;
@@ -42,12 +43,17 @@ class Notes
         $stmt->bindParam(':url', $this->url);
         $stmt->bindParam(':user_id', $this->user_id);
         $stmt->bindParam(':label_name', $this->label_name);
-        if ($stmt->execute()) {
-            error_log('Note Created');
-            return true;
+        try {
+            if ($stmt->execute()) {
+                error_log('Note Created');
+                return true;
+            }else {
+                throw new PDOException();
+            }
+        }catch (\PDOException $e) {
+            error_log("Error: " . $e->getMessage());
+            return $e;
         }
-        error_log("Error: %s.\n", $stmt->error);
-        return false;
     }
 
     public function read()
@@ -56,12 +62,15 @@ class Notes
         try {
             $query = 'SELECT n.id, n.label_name, n.title, n.body, n.url, n.user_id, n.created_at FROM ' . $this->table . ' n ORDER BY n.created_at DESC';
             $stmt = $this->con->prepare($query);
-            $stmt->execute();
-            error_log('Retrieved Notes List');
-            return $stmt;
-        } catch (\Exception $e) {
+            if($stmt->execute()) {
+                error_log('Retrieved Notes List');
+                return $stmt;
+            }else{
+                throw new PDOException();
+            }
+        } catch (\PDOException $e) {
             error_log('Error while retrieving notes: ' . $e->getMessage());
-            return false;
+            return $e;
         }
     }
 
@@ -72,18 +81,21 @@ class Notes
             $query = 'SELECT n.id, n.label_name, n.title, n.body, n.url, n.user_id, n.created_at FROM ' . $this->table . ' n  WHERE n.id = ? LIMIT 0,1';
             $stmt = $this->con->prepare($query);
             $stmt->bindParam(1, $this->id);
-            $stmt->execute();
-            $row = $stmt->fetch(PDO::FETCH_ASSOC);
-            $this->title = $row['title'];
-            $this->body = $row['body'];
-            $this->url = $row['url'];
-            $this->user_id = $row['user_id'];
-            $this->label_name = $row['label_name'];
-            error_log('Retrieved Note');
-            return true;
-        } catch (Exception $e) {
+            if($stmt->execute()) {
+                $row = $stmt->fetch(PDO::FETCH_ASSOC);
+                $this->title = $row['title'];
+                $this->body = $row['body'];
+                $this->url = $row['url'];
+                $this->user_id = $row['user_id'];
+                $this->label_name = $row['label_name'];
+                error_log('Retrieved Note');
+                return true;
+            }else{
+                throw new PDOException();
+            }
+        } catch (\PDOException $e) {
             error_log('Note Not Available: ' . $e->getMessage());
-            return false;
+            return $e;
         }
     }
 
@@ -112,12 +124,17 @@ class Notes
         $stmt->bindParam(':user_id', $this->user_id);
         $stmt->bindParam(':label_name', $this->label_name);
         $stmt->bindParam(':id', $this->id);
-        if ($stmt->execute()) {
-            error_log('Note Updated');
-            return true;
+        try {
+            if ($stmt->execute()) {
+                error_log('Note Updated');
+                return true;
+            }else {
+                throw new PDOException();
+            }
+        }catch(\PDOException $e) {
+            error_log("Error: " .  $e->getMessage());
+            return $e;
         }
-        error_log("Error: %s.\n", $stmt->error);
-        return false;
     }
 
     public function delete()
@@ -127,12 +144,15 @@ class Notes
         $stmt = $this->con->prepare($query);
         $this->id = htmlspecialchars(strip_tags($this->id));
         $stmt->bindParam(':id', $this->id);
-        if ($stmt->execute()) {
-            error_log('Note Deleted');
-            return true;
+        try {
+            if ($stmt->execute()) {
+                error_log('Note Deleted');
+                return true;
+            }
+        }catch(\PDOException $e) {
+            error_log("Error: " . $e->getMessage());
+            return $e;
         }
-        error_log("Error: %s.\n", $stmt->error);
-        return false;
     }
 
 }

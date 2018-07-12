@@ -16,6 +16,7 @@ public class AppURLs {
         registerURL = "http://web.cs.dal.ca/~kamath/QA_Devint/register.php";
     }
 
+
     public static AppURLs getInstance() {
         return ourInstance;
     }
