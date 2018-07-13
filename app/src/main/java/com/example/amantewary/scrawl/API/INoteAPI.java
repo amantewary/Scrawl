@@ -11,6 +11,7 @@ import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 
+//Structural Pattern: Facade Pattern
 public interface INoteAPI {
     @GET("~kamath/QA_Devint/NoteApi/v1/notes/read")
     Call<List<NoteHandler>> getNotes();

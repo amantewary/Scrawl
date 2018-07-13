@@ -6,7 +6,7 @@
     android:id="@+id/linearLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AddNotesActivity">
+    tools:context=".EditNotesActivity">
 
     <include
         android:id="@+id/tool_bar"
@@ -20,7 +20,7 @@
         app:layout_constraintVertical_chainStyle="packed" />
 
     <EditText
-        android:id="@+id/et_title"
+        android:id="@+id/et_title_edit"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -33,14 +33,14 @@
         android:padding="5dp"
         android:textColorHint="@color/colorHint"
         android:textCursorDrawable="@null"
-        app:layout_constraintBottom_toTopOf="@+id/sp_add_label"
+        app:layout_constraintBottom_toTopOf="@+id/sp_edit_label"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tool_bar" />
 
 
     <Spinner
-        android:id="@+id/sp_add_label"
+        android:id="@+id/sp_edit_label"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -50,7 +50,7 @@
         app:layout_constraintBottom_toTopOf="@+id/et_content"
         app:layout_constraintEnd_toStartOf="@+id/tv_date"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_title" />
+        app:layout_constraintTop_toBottomOf="@+id/et_title_edit" />
 
     <TextView
         android:id="@+id/tv_date"
@@ -64,12 +64,12 @@
         android:textSize="15sp"
         app:layout_constraintBottom_toTopOf="@+id/et_content"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/sp_add_label"
-        app:layout_constraintTop_toBottomOf="@+id/et_title" />
+        app:layout_constraintStart_toEndOf="@+id/sp_edit_label"
+        app:layout_constraintTop_toBottomOf="@+id/et_title_edit" />
 
 
     <EditText
-        android:id="@+id/et_content"
+        android:id="@+id/et_content_edit"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="8dp"
@@ -87,14 +87,14 @@
         android:textColorHint="@color/colorHint"
         android:textCursorDrawable="@null"
         android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="@+id/et_link"
+        app:layout_constraintBottom_toTopOf="@+id/et_link_edit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sp_add_label" />
+        app:layout_constraintTop_toBottomOf="@+id/sp_edit_label" />
 
     <EditText
-        android:id="@+id/et_link"
+        android:id="@+id/et_link_edit"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -114,7 +114,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_content" />
+        app:layout_constraintTop_toBottomOf="@+id/et_content_edit" />
 
 
 </android.support.constraint.ConstraintLayout>

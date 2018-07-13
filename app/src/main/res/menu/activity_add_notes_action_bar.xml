@@ -5,9 +5,9 @@
     tools:context=".AddNotesActivity">
 
     <item
-        android:id="@+id/action_edit"
+        android:id="@+id/action_save"
         android:icon="@drawable/ic_send_white_24dp"
         android:title="@string/save"
-        app:showAsAction="always" />
+        app:showAsAction="always"/>
 
 </menu>
