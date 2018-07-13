@@ -8,12 +8,10 @@ package com.example.amantewary.scrawl;
 public class AppURLs {
 
     private static final AppURLs ourInstance = new AppURLs();
-    static String loginURL, registerURL, baseUrl;
+    static String baseUrl;
 
     private AppURLs() {
         baseUrl = "https://web.cs.dal.ca/";
-        loginURL = "https://web.cs.dal.ca/~kamath/QA_Devint/login.php";
-        registerURL = "http://web.cs.dal.ca/~kamath/QA_Devint/register.php";
     }
 
 

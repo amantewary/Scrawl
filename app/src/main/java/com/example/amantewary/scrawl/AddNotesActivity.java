@@ -3,7 +3,9 @@ package com.example.amantewary.scrawl;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
@@ -32,10 +34,9 @@ public class AddNotesActivity extends AppCompatActivity {
 
     private static final String TAG = "AddNotesActivity";
 
-    TextView tv_date;
-    EditText et_title, et_content, et_link;
-    Spinner sp_add_labels;
-    String title, date, content, link;
+    private TextView tv_date;
+    private EditText et_title, et_content, et_link;
+    private Spinner sp_add_labels;
 
     /**
      * A method to check if a string is a link
@@ -81,13 +82,13 @@ public class AddNotesActivity extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         //Get Label
 
-        setTitle("Edit Note");
+        setTitle("Add Note");
 
-        tv_date = (TextView) findViewById(R.id.tv_date);
-        et_content = (EditText) findViewById(R.id.et_content);
-        et_title = (EditText) findViewById(R.id.et_title);
-        et_link = (EditText) findViewById(R.id.et_link);
-        sp_add_labels = (Spinner) findViewById(R.id.sp_add_label);
+        tv_date = findViewById(R.id.tv_date);
+        et_content = findViewById(R.id.et_content);
+        et_title = findViewById(R.id.et_title);
+        et_link = findViewById(R.id.et_link);
+        sp_add_labels = findViewById(R.id.sp_add_label);
 
         //make tv_date show current date
         Date c = Calendar.getInstance().getTime();
@@ -108,7 +109,7 @@ public class AddNotesActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
-        getMenuInflater().inflate(R.menu.activity_edit_notes_action_bar, menu);
+        getMenuInflater().inflate(R.menu.activity_add_notes_action_bar, menu);
         return true;
     }
 
@@ -117,7 +118,6 @@ public class AddNotesActivity extends AppCompatActivity {
         int id = item.getItemId();
         if (id == R.id.action_save) {
             addNote();
-            finish();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -129,8 +129,39 @@ public class AddNotesActivity extends AppCompatActivity {
             String title = et_title.getText().toString().trim();
             String body = et_content.getText().toString().trim();
             String link = et_link.getText().toString().trim();
+            //TODO: Need to change user_id once login and registration is done.
             NoteHandler noteHandler = new NoteHandler(label, title, body, link, 1);
-            sendRequest(noteHandler);
+            /*
+            Validation for Recipe's Name, Ingredients, Steps and Cuisine.
+            User can leave the link blank.
+         */
+            if (!TextUtils.isEmpty(title)
+                    && !TextUtils.isEmpty(body)
+                    && (Patterns.WEB_URL.matcher(link).matches()
+                    || TextUtils.isEmpty(link))) {
+                sendRequest(noteHandler);
+            }else{
+
+                if (title.matches("")) {
+                    et_title.setBackgroundResource(R.drawable.border_error);
+                    et_title.setError("Enter Note Title");
+                    return;
+                } else {
+                    et_title.setBackgroundResource(R.drawable.border);
+                }
+                if (body.matches("")) {
+                    et_content.setBackgroundResource(R.drawable.border_error);
+                    et_content.setError("Enter Note Body");
+                    return;
+                } else {
+                    et_content.setBackgroundResource(R.drawable.border);
+                }
+                if (!Patterns.WEB_URL.matcher(link).matches()) {
+                    et_link.setError("Please Enter Valid URL");
+                    return;
+                }
+
+            }
         } catch (Exception e) {
             Log.e("Message", e.toString());
         }
@@ -145,12 +176,14 @@ public class AddNotesActivity extends AppCompatActivity {
                 Log.d(TAG, "onResponse: Server Response: " + response.toString());
                 Log.d(TAG, "onResponse: Received Information: " + response.body().toString());
                 Toast.makeText(AddNotesActivity.this, "Note Created", Toast.LENGTH_SHORT).show();
+                finish();
             }
 
             @Override
             public void onFailure(Call<NoteHandler> call, Throwable t) {
                 Log.e(TAG, "onFailure: Something Went Wrong: " + t.getMessage());
                 Toast.makeText(AddNotesActivity.this, "Something Went Wrong", Toast.LENGTH_SHORT).show();
+                finish();
             }
         });
     }

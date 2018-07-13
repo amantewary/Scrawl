@@ -1,6 +1,7 @@
-<?php 
+<?php
 
-  require 'Logger.php';
+require 'Logger.php';
+require 'HttpLogger.php';
   class ConnectDb {
     private $host = 'db-5308.cs.dal.ca';
     private $db_name = 'CSCI5308_19_DEVINT';

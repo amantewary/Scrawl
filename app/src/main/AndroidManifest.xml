@@ -3,6 +3,7 @@
     package="com.example.amantewary.scrawl">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
@@ -10,6 +11,7 @@
     <uses-permission android:name="android.permission.READ_CONTACTS" />
 
     <application
+        android:name=".AppController"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -18,40 +20,33 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".ViewNotesActivity"
-            android:theme="@style/AppTheme"
-            android:parentActivityName=".MainActivity">
-        </activity>
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme"></activity>
         <activity
             android:name=".AddNotesActivity"
+            android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme">
-
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
+
                 <category android:name="android.intent.category.DEFAULT" />
+
                 <data android:mimeType="text/*" />
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER"/>
+
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".LoginActivity"
-            android:label="@string/app_name">
-
-        </activity>
-        <activity android:name=".ActivityRegister">
-
-
-        </activity>
-        <activity android:name=".SplashScreen">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:label="@string/app_name"></activity>
+        <activity android:name=".ActivityRegister"></activity>
+        <activity android:name=".SplashScreen"></activity>
+        <activity android:name=".EditNotesActivity"></activity>
     </application>
 
 </manifest>
