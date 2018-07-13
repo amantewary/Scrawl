@@ -1,14 +1,11 @@
-# Created by https://www.gitignore.io/ILabelAPI/android,androidstudio
 
-
+# Created by https://www.gitignore.io/api/android,phpstorm,androidstudio
 
 # Files for the ART/Dalvik VM
 *.dex
 
 # Java class files
 *.class
-
-
 
 # Gradle files
 .gradle/
@@ -29,21 +26,33 @@ proguard/
 # Android Studio captures folder
 captures/
 
-# Intellij
+# IntelliJ
 *.iml
 .idea/workspace.xml
 .idea/tasks.xml
 .idea/gradle.xml
+.idea/assetWizardSettings.xml
 .idea/dictionaries
 .idea/libraries
+.idea/caches
 
 # External native build folder generated in Android Studio 2.2 and later
 .externalNativeBuild
+
+# Google Services (e.g. APIs or Firebase)
+google-services.json
 
 # Freeline
 freeline.py
 freeline/
 freeline_project_description.json
+
+# fastlane
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots
+fastlane/test_output
+fastlane/readme.md
 
 ### Android Patch ###
 gen-external-apklibs
@@ -157,5 +166,62 @@ fabric.properties
 
 !/gradle/wrapper/gradle-wrapper.jar
 
+### PhpStorm ###
+# Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio and WebStorm
+# Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
 
-# End of https://www.gitignore.io/ILabelAPI/android,androidstudio
+# User-specific stuff
+.idea/**/workspace.xml
+.idea/**/tasks.xml
+.idea/**/usage.statistics.xml
+.idea/**/dictionaries
+.idea/**/shelf
+
+# Sensitive or high-churn files
+.idea/**/dataSources/
+.idea/**/dataSources.ids
+.idea/**/dataSources.local.xml
+.idea/**/sqlDataSources.xml
+.idea/**/dynamic.xml
+.idea/**/uiDesigner.xml
+.idea/**/dbnavigator.xml
+
+# Gradle
+.idea/**/gradle.xml
+.idea/**/libraries
+
+# CMake
+cmake-build-*/
+
+# Mongo Explorer plugin
+.idea/**/mongoSettings.xml
+
+# File-based project format
+
+# IntelliJ
+
+# mpeltonen/sbt-idea plugin
+
+# JIRA plugin
+
+# Cursive Clojure plugin
+.idea/replstate.xml
+
+# Crashlytics plugin (for Android Studio and IntelliJ)
+
+# Editor-based Rest Client
+.idea/httpRequests
+
+### PhpStorm Patch ###
+# Comment Reason: https://github.com/joeblau/gitignore.io/issues/186#issuecomment-215987721
+
+# *.iml
+# modules.xml
+# .idea/misc.xml
+# *.ipr
+
+# Sonarlint plugin
+.idea/sonarlint
+
+
+# End of https://www.gitignore.io/api/android,phpstorm,androidstudio
