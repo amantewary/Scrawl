@@ -37,6 +37,7 @@ public class AddNotesActivity extends AppCompatActivity {
     private TextView tv_date;
     private EditText et_title, et_content, et_link;
     private Spinner sp_add_labels;
+    private ArrayList<String> labels;
 
     /**
      * A method to check if a string is a link
@@ -76,7 +77,6 @@ public class AddNotesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_notes);
-
         Toolbar toolbar_edit_note = (Toolbar) findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar_edit_note);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
@@ -96,7 +96,7 @@ public class AddNotesActivity extends AppCompatActivity {
         String current_date = df.format(c);
         tv_date.setText(current_date);
 
-        ArrayList<String> labels = (ArrayList<String>) getIntent().getSerializableExtra("labels");
+        labels = LabelLoader.getInstance().loadLabel(AddNotesActivity.this);
         final ArrayAdapter labelAdapter = new ArrayAdapter<String>(
                 this,
                 android.R.layout.simple_spinner_item,
