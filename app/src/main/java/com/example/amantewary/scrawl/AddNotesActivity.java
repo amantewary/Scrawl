@@ -1,6 +1,5 @@
 package com.example.amantewary.scrawl;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -13,13 +12,10 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.amantewary.scrawl.Handlers.NoteHandler;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -30,11 +26,6 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class AddNotesActivity extends AppCompatActivity implements Observer {
 
@@ -138,15 +129,12 @@ public class AddNotesActivity extends AppCompatActivity implements Observer {
 
         try {
 
-
             String label = inputHandler.inputCensor(sp_add_labels.getSelectedItem().toString());
             String title = inputHandler.inputCensor(et_title.getText().toString().trim());
             String body = inputHandler.inputCensor(et_content.getText().toString().trim());
             String link = et_link.getText().toString().trim();
             //TODO: Need to change user_id once login and registration is done.
             NoteHandler noteHandler = new NoteHandler(label, title, body, link, 1);
-
-
             if (inputHandler.inputValidator(title, body, link)) {
                 RequestHandler request = new RequestHandler();
                 request.createNote(noteHandler, AddNotesActivity.this);
@@ -167,6 +155,7 @@ public class AddNotesActivity extends AppCompatActivity implements Observer {
         }
     }
 
+    //TODO: Need to move this in InputHandler Class
     private void doRealTimeCheck(){
         et_content.addTextChangedListener(new TextWatcher() {
             @Override
