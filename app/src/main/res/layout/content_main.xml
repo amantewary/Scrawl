@@ -24,7 +24,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/searchBar"
-        tools:listitem="@layout/note_item"/>
+        tools:listitem="@layout/note_item" />
 
     <AutoCompleteTextView
         android:id="@+id/searchBar"

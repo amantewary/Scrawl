@@ -24,7 +24,7 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
             $response["error_msg"] = "Oops! Something went wrong";
             echo json_encode($response);
 
-        }else{
+        } else {
             $response["error"] = FALSE;
             $response["username"] = $row['username'];
             $response["email"] = $row['email_address'];
@@ -37,8 +37,8 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
         echo json_encode($response);
     }
 
-    $pdo = null;
-    error_log("Request Agent ".$_SERVER['HTTP_USER_AGENT']. "\r\n"."Request Method ". $_SERVER['REQUEST_METHOD']. "\r\n Requested at". $_SERVER['REQUEST_TIME'] . "\r\nConnection Status " . connection_status(), 3, "tracker.txt");
+    closeConnection();
+    error_log("\r\nTime: ".date("d-m-Y (D) H:i:s", time()) . "      Request Agent " . $_SERVER['HTTP_USER_AGENT'] . "\r\n" . "Request Method " . $_SERVER['REQUEST_METHOD'] . "\r\n Requested at " . $_SERVER['REQUEST_TIME'] . "\r\nConnection Status " . connection_status() . "\r\n ", 3, "tracker.txt");
 
 
 }

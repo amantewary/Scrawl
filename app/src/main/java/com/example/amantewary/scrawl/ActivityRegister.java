@@ -29,6 +29,7 @@ public class ActivityRegister extends AppCompatActivity {
     EmailPasswordValidation emailPasswordValidation;
     String TAG = ActivityRegister.class.getCanonicalName();
     SessionManager sessionManager;
+    private Button mLoginLink;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +46,14 @@ public class ActivityRegister extends AppCompatActivity {
                 attemptRegister();
             }
         });
+        mLoginLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                finish();
+            }
+        });
+
 
     }
 
@@ -55,6 +64,7 @@ public class ActivityRegister extends AppCompatActivity {
         inputPassword = findViewById(R.id.editTextPassword);
 
         registerButton = findViewById(R.id.buttonRegister);
+        mLoginLink = findViewById(R.id.register_to_login_button);
     }
 
     public void attemptRegister() {
@@ -109,6 +119,7 @@ public class ActivityRegister extends AppCompatActivity {
                 if(response.isSuccessful()){
                     Log.e(TAG, response.body().getUsername());
                     sessionManager.createLoginSession(response.body().getUsername(), response.body().getEmail());
+
                     startActivity(new Intent(getApplicationContext(), MainActivity.class));
                     finish();
                 }

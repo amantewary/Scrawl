@@ -223,6 +223,8 @@ cmake-build-*/
 # Sonarlint plugin
 .idea/sonarlint
 
+# p4merge
+*.orig
 
 
 # End of https://www.gitignore.io/api/android,phpstorm,androidstudio
