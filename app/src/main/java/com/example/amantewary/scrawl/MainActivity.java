@@ -1,5 +1,6 @@
 package com.example.amantewary.scrawl;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -27,6 +28,7 @@ import com.example.amantewary.scrawl.Handlers.LabelHandler;
 import com.example.amantewary.scrawl.Handlers.NoteHandler;
 import com.l4digital.fastscroll.FastScrollRecyclerView;
 
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,6 +45,7 @@ public class MainActivity extends AppCompatActivity
     NotesList notesAdapter;
     ArrayList<String> labelOptions;
     NavigationView navigationView;
+    FileOutputStream outputStream;
 
 
     @Override
@@ -79,6 +82,8 @@ public class MainActivity extends AppCompatActivity
                     Log.e("label", label.getName());
                     labelOptions.add(label.getName());
                 }
+//                writeToFile(labelOptions);
+
             }
 
             @Override
@@ -174,9 +179,9 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_add) {
             final Menu menu = navigationView.getMenu();
-            for (int i = 1; i <= 10; i++) {
-                menu.add("Runtime item " + i);
-            }
+
+                menu.add("Runtime item " + 1);
+
 
         } else if (id == R.id.nav_logout) {
             showDialog();
@@ -221,4 +226,18 @@ public class MainActivity extends AppCompatActivity
         startActivity(new Intent(getApplicationContext(), LoginActivity.class));
         finish();
     }
+
+//    public void writeToFile(ArrayList<String> labels){
+//        String filename = "labels.txt";
+//        try {
+//            outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
+//            for (String fileLabels: labels){
+//                outputStream.write(fileLabels.getBytes());
+//                outputStream.write("\n".getBytes());
+//            }
+//            outputStream.close();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
 }

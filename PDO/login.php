@@ -6,10 +6,9 @@
  * Time: 3:00 PM
  */
 
-require_once 'Database_Queries.php';
 require_once 'config.php';
-require_once 'error_logger.php';
 
+$database = new Database_Queries();
 
 $response = array("error" => FALSE);
 
@@ -17,9 +16,9 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    if (isUserExists($pdo, $email)) {
-        openConnection();
-        $row = loginUser($pdo, $email, $password);
+    if ($database->isUserExists($pdo, $email)) {
+        $database->openConnection();
+        $row = $database->loginUser($pdo, $email, $password);
         if (!$row) {
             $response["error"] = TRUE;
             $response["error_msg"] = "Oops! Something went wrong";
@@ -38,7 +37,7 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
         echo json_encode($response);
     }
 
-    closeConnection();
-    tracker();
+    $database->closeConnection();
+    $database->tracker();
 
 }

@@ -16,12 +16,9 @@ import com.l4digital.fastscroll.FastScroller;
 
 import java.util.List;
 
-<<<<<<< HEAD
+
 public class NotesList extends RecyclerView.Adapter<NotesList.ViewHolder> implements FastScroller.SectionIndexer{
-=======
-//Structural Pattern : Adapter
-public class NotesList extends RecyclerView.Adapter<NotesList.ViewHolder> {
->>>>>>> devint
+
 
     private Context context;
     private List<NoteHandler> notesList;
