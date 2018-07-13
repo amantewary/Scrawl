@@ -3,9 +3,7 @@ package com.example.amantewary.scrawl;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
 import android.util.Log;
-import android.util.Patterns;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
@@ -125,42 +123,18 @@ public class AddNotesActivity extends AppCompatActivity {
     public void addNote() {
 
         try {
-            String label = sp_add_labels.getSelectedItem().toString();
-            String title = et_title.getText().toString().trim();
-            String body = et_content.getText().toString().trim();
+            InputHandler inputHandler = new InputHandler();
+            String label = inputHandler.inputCensor(sp_add_labels.getSelectedItem().toString());
+            String title = inputHandler.inputCensor(et_title.getText().toString().trim());
+            String body = inputHandler.inputCensor(et_content.getText().toString().trim());
             String link = et_link.getText().toString().trim();
             //TODO: Need to change user_id once login and registration is done.
             NoteHandler noteHandler = new NoteHandler(label, title, body, link, 1);
-            /*
-            Validation for Recipe's Name, Ingredients, Steps and Cuisine.
-            User can leave the link blank.
-         */
-            if (!TextUtils.isEmpty(title)
-                    && !TextUtils.isEmpty(body)
-                    && (Patterns.WEB_URL.matcher(link).matches()
-                    || TextUtils.isEmpty(link))) {
+
+            if (inputHandler.inputValidator(title, body, link)) {
                 sendRequest(noteHandler);
             }else{
-
-                if (title.matches("")) {
-                    et_title.setBackgroundResource(R.drawable.border_error);
-                    et_title.setError("Enter Note Title");
-                    return;
-                } else {
-                    et_title.setBackgroundResource(R.drawable.border);
-                }
-                if (body.matches("")) {
-                    et_content.setBackgroundResource(R.drawable.border_error);
-                    et_content.setError("Enter Note Body");
-                    return;
-                } else {
-                    et_content.setBackgroundResource(R.drawable.border);
-                }
-                if (!Patterns.WEB_URL.matcher(link).matches()) {
-                    et_link.setError("Please Enter Valid URL");
-                    return;
-                }
-
+                inputHandler.inputErrorHandling(et_title, et_content, et_link);
             }
         } catch (Exception e) {
             Log.e("Message", e.toString());

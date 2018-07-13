@@ -46,7 +46,6 @@ public class EditNotesActivity extends AppCompatActivity {
         tv_date.setText(current_date);
 
         labels = LabelLoader.getInstance().loadLabel(EditNotesActivity.this);
-        ArrayList<String> labels = (ArrayList<String>) getIntent().getSerializableExtra("labels");
         final ArrayAdapter labelAdapter = new ArrayAdapter<String>(
                 this,
                 android.R.layout.simple_spinner_item,
