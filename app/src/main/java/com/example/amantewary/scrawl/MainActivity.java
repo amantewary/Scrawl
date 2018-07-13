@@ -83,12 +83,12 @@ public class MainActivity extends AppCompatActivity
                     Log.e("label", label.getName());
                     labelOptions.add(label.getName());
                 }
-<<<<<<< HEAD
+
 //                writeToFile(labelOptions);
 
-=======
+
                 LabelLoader.getInstance().saveLabel(MainActivity.this, labelOptions);
->>>>>>> devint
+
             }
 
             @Override
@@ -134,19 +134,7 @@ public class MainActivity extends AppCompatActivity
         });
     }
 
-<<<<<<< HEAD
-=======
-    //TODO: Need to move this in SplashScreen
-//    private void saveLabel(){
-//        SharedPreferences sharedPreferences = getSharedPreferences("spLabel", MODE_PRIVATE);
-//        SharedPreferences.Editor editor = sharedPreferences.edit();
-//        Gson gson = new Gson();
-//        String json = gson.toJson(labelOptions);
-//        editor.putString("label list", json);
-//        editor.apply();
-//    }
 
->>>>>>> devint
 
     @Override
     public void onBackPressed() {

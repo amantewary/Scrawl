@@ -10,7 +10,7 @@ public class EmailPasswordValidation {
     }
 
     public boolean isPasswordValid(String password) {
-        Log.e("Password length", (password.length() < 4 )+ " ");
+
         return password.length() < 4;
     }
 }
