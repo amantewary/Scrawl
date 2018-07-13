@@ -121,16 +121,6 @@ public class MainActivity extends AppCompatActivity
         });
     }
 
-    //TODO: Need to move this in SplashScreen
-//    private void saveLabel(){
-//        SharedPreferences sharedPreferences = getSharedPreferences("spLabel", MODE_PRIVATE);
-//        SharedPreferences.Editor editor = sharedPreferences.edit();
-//        Gson gson = new Gson();
-//        String json = gson.toJson(labelOptions);
-//        editor.putString("label list", json);
-//        editor.apply();
-//    }
-
 
     @Override
     public void onBackPressed() {
