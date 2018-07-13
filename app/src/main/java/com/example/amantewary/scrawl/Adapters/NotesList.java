@@ -12,11 +12,13 @@ import android.widget.TextView;
 import com.example.amantewary.scrawl.Handlers.NoteHandler;
 import com.example.amantewary.scrawl.R;
 import com.example.amantewary.scrawl.ViewNotesActivity;
+import com.l4digital.fastscroll.FastScroller;
 
 import java.util.List;
 
-//Structural Pattern : Adapter
-public class NotesList extends RecyclerView.Adapter<NotesList.ViewHolder> {
+
+public class NotesList extends RecyclerView.Adapter<NotesList.ViewHolder> implements FastScroller.SectionIndexer{
+
 
     private Context context;
     private List<NoteHandler> notesList;
@@ -50,6 +52,15 @@ public class NotesList extends RecyclerView.Adapter<NotesList.ViewHolder> {
     @Override
     public int getItemCount() {
         return this.notesList.size();
+    }
+
+    @Override
+    public String getSectionText(int position) {
+        if (notesList.get(position).getTitle().equals("") || notesList.get(position).getTitle() == null){
+            return "a";
+        }else{
+            return String.valueOf(notesList.get(position).getTitle().charAt(0));
+        }
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

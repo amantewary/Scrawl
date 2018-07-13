@@ -134,7 +134,19 @@ class Database_Queries
     {
         $stmt = null;
         $pdo = null;
-        error_log("Connection Closed at " . date("d-m-Y (D) H:i:s", time()), 3, "log.txt");
+        error_log("\r\nConnection Closed at " . date("d-m-Y (D) H:i:s", time()) . "\r\n", 3, "log.txt");
+
+    }
+
+    function openConnection()
+    {
+        error_log("\r\nConnection Opened at " . date("d-m-Y (D) H:i:s", time()) . " " . "Request From " . $_SERVER['REMOTE_ADDR'] . " \r\n", 3, "log.txt");
+
+    }
+
+    function tracker()
+    {
+        error_log("\r\nTime: " . date("d-m-Y (D) H:i:s", time()) . "      Request Agent " . $_SERVER['HTTP_USER_AGENT'] . "\r\n" . "Request Method " . $_SERVER['REQUEST_METHOD'] . "\r\n Requested at " . $_SERVER['REQUEST_TIME'] . "\r\nConnection Status " . connection_status() . "\r\n ", 3, "tracker.txt");
 
     }
 }

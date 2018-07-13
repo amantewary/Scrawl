@@ -83,13 +83,13 @@ public class ActivityRegister extends AppCompatActivity {
     public boolean validateFields(String email, String username, String password) {
 
         if (email.isEmpty()) {
-            inputEmail.setError("This should not be empty");
+            inputEmail.setError(getString(R.string.error_invalid_email));
             return false;
         } else if (username.isEmpty()) {
             inputUsername.setError("This should not be empty");
             return false;
         } else if (password.isEmpty()) {
-            inputPassword.setError("This should not be empty");
+            inputPassword.setError(getString(R.string.error_incorrect_password));
             return false;
         }else if(!emailPasswordValidation.isEmailValid(email)){
             inputEmail.setError("Enter a valid email");
@@ -119,9 +119,11 @@ public class ActivityRegister extends AppCompatActivity {
                 if(response.isSuccessful()){
                     Log.e(TAG, response.body().getUsername());
                     sessionManager.createLoginSession(response.body().getUsername(), response.body().getEmail());
-
                     startActivity(new Intent(getApplicationContext(), MainActivity.class));
                     finish();
+                }else{
+                    Toast.makeText(getApplicationContext(), response.body().getError_msg(), Toast.LENGTH_LONG).show();
+
                 }
             }
 

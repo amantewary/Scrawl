@@ -1,8 +1,11 @@
 package com.example.amantewary.scrawl;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -13,16 +16,27 @@ import android.widget.TextView;
 
 import com.example.amantewary.scrawl.Handlers.NoteHandler;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Objects;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class AddNotesActivity extends AppCompatActivity {
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+public class AddNotesActivity extends AppCompatActivity implements Observer {
 
     private static final String TAG = "AddNotesActivity";
 
@@ -30,7 +44,7 @@ public class AddNotesActivity extends AppCompatActivity {
     private EditText et_title, et_content, et_link;
     private Spinner sp_add_labels;
     private ArrayList<String> labels;
-
+    InputHandler inputHandler;
     /**
      * A method to check if a string is a link
      *
@@ -72,7 +86,8 @@ public class AddNotesActivity extends AppCompatActivity {
         Toolbar toolbar_edit_note = (Toolbar) findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar_edit_note);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-        //Get Label
+        inputHandler = new InputHandler(getApplicationContext());
+        inputHandler.addObserver(this);
 
         setTitle("Add Note");
 
@@ -81,6 +96,11 @@ public class AddNotesActivity extends AppCompatActivity {
         et_title = findViewById(R.id.et_title);
         et_link = findViewById(R.id.et_link);
         sp_add_labels = findViewById(R.id.sp_add_label);
+
+        /**
+         * Swag code!
+         * */
+        doRealTimeCheck();
 
         //make tv_date show current date
         Date c = Calendar.getInstance().getTime();
@@ -117,13 +137,15 @@ public class AddNotesActivity extends AppCompatActivity {
     public void addNote() {
 
         try {
-            InputHandler inputHandler = new InputHandler();
+
+
             String label = inputHandler.inputCensor(sp_add_labels.getSelectedItem().toString());
             String title = inputHandler.inputCensor(et_title.getText().toString().trim());
             String body = inputHandler.inputCensor(et_content.getText().toString().trim());
             String link = et_link.getText().toString().trim();
             //TODO: Need to change user_id once login and registration is done.
             NoteHandler noteHandler = new NoteHandler(label, title, body, link, 1);
+
 
             if (inputHandler.inputValidator(title, body, link)) {
                 RequestHandler request = new RequestHandler();
@@ -132,9 +154,56 @@ public class AddNotesActivity extends AppCompatActivity {
                 inputHandler.inputErrorHandling(et_title, et_content, et_link);
             }
         } catch (Exception e) {
-            Log.e("Message", e.toString());
+            Log.e("Message", ""+e);
         }
     }
 
 
+    @Override
+    public void update(Observable observable, Object o) {
+        if(observable instanceof InputHandler){
+            Log.e(TAG, "Here");
+            Toast.makeText(getApplicationContext(),"I know you are adding bad words.. naughty bow", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void doRealTimeCheck(){
+        et_content.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if(editable.length() != 0){
+                    inputHandler.inputCensor(et_content.getText().toString().trim());
+                }
+            }
+        });
+
+        et_title.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if(editable.length() != 0){
+                    inputHandler.inputCensor(et_content.getText().toString().trim());
+                }
+            }
+        });
+    }
 }

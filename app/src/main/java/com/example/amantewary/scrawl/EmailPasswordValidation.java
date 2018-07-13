@@ -1,5 +1,6 @@
 package com.example.amantewary.scrawl;
 
+import android.util.Log;
 import android.util.Patterns;
 
 public class EmailPasswordValidation {
@@ -9,6 +10,7 @@ public class EmailPasswordValidation {
     }
 
     public boolean isPasswordValid(String password) {
-        return password.length() > 4;
+
+        return password.length() < 4;
     }
 }
