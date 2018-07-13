@@ -15,7 +15,7 @@ require  'HttpLogger.php';
     public function read() {
       error_log('Invoked read() Method');
         try{
-            $query = 'SELECT id, name, created_at FROM ' . $this->table . ' ORDER BY created_at DESC';
+            $query = 'CALL spGetLabels()';
             $stmt = $this->con->prepare($query);
             if($stmt->execute()) {
                 error_log('Retrieved Labels List');

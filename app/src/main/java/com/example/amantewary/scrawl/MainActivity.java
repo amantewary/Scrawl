@@ -93,10 +93,10 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
+    protected void onResume() {
+        super.onResume();
 
-        final INoteAPI noteAPI = RetroFitInstance.getRetrofit().create(INoteAPI.class);
+        INoteAPI noteAPI = RetroFitInstance.getRetrofit().create(INoteAPI.class);
         Call<List<NoteHandler>> call = noteAPI.getNotes();
 
         call.enqueue(new Callback<List<NoteHandler>>() {

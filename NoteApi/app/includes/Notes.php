@@ -23,26 +23,19 @@ class Notes
     public function create()
     {
         error_log('Invoked create() Method');
-        $query = 'INSERT INTO ' .
-            $this->table . '
-        SET
-          title = :title,
-          body = :body,
-          url = :url,
-          user_id = :user_id,
-          label_name = :label_name';
+        $query = 'CALL spCreateNote(:label_name, :title, :body, :url, :user_id)';
 
         $stmt = $this->con->prepare($query);
+        $this->label_name = htmlspecialchars(strip_tags($this->label_name));
         $this->title = htmlspecialchars(strip_tags($this->title));
         $this->body = htmlspecialchars(strip_tags($this->body));
         $this->url = htmlspecialchars(strip_tags($this->url));
         $this->user_id = htmlspecialchars(strip_tags($this->user_id));
-        $this->label_name = htmlspecialchars(strip_tags($this->label_name));
+        $stmt->bindParam(':label_name', $this->label_name);
         $stmt->bindParam(':title', $this->title);
         $stmt->bindParam(':body', $this->body);
         $stmt->bindParam(':url', $this->url);
         $stmt->bindParam(':user_id', $this->user_id);
-        $stmt->bindParam(':label_name', $this->label_name);
         try {
             if ($stmt->execute()) {
                 error_log('Note Created');
@@ -60,7 +53,7 @@ class Notes
     {
         error_log('Invoked read() Method');
         try {
-            $query = 'SELECT n.id, n.label_name, n.title, n.body, n.url, n.user_id, n.created_at FROM ' . $this->table . ' n ORDER BY n.created_at DESC';
+            $query = 'CALL spGetNotes()';
             $stmt = $this->con->prepare($query);
             if($stmt->execute()) {
                 error_log('Retrieved Notes List');
@@ -78,7 +71,7 @@ class Notes
     {
         error_log('Invoked read_single() Method');
         try {
-            $query = 'SELECT n.id, n.label_name, n.title, n.body, n.url, n.user_id, n.created_at FROM ' . $this->table . ' n  WHERE n.id = ? LIMIT 0,1';
+            $query = 'CALL spGetNoteById(?)';
             $stmt = $this->con->prepare($query);
             $stmt->bindParam(1, $this->id);
             if($stmt->execute()) {
@@ -102,16 +95,7 @@ class Notes
 
     public function update()
     {
-        $query = 'UPDATE ' .
-            $this->table . '
-        SET
-          title = :title,
-          body = :body,
-          url = :url,
-          user_id = :user_id,
-          label_name = :label_name
-        WHERE
-          id = :id';
+        $query = 'CALL spUpdateNote(:label_name, :title, :body, :url, :user_id, :id)';
         $stmt = $this->con->prepare($query);
         $this->title = htmlspecialchars(strip_tags($this->title));
         $this->body = htmlspecialchars(strip_tags($this->body));
@@ -119,11 +103,11 @@ class Notes
         $this->user_id = htmlspecialchars(strip_tags($this->user_id));
         $this->label_name = htmlspecialchars(strip_tags($this->label_name));
         $this->id = htmlspecialchars(strip_tags($this->id));
+        $stmt->bindParam(':label_name', $this->label_name);
         $stmt->bindParam(':title', $this->title);
         $stmt->bindParam(':body', $this->body);
         $stmt->bindParam(':url', $this->url);
         $stmt->bindParam(':user_id', $this->user_id);
-        $stmt->bindParam(':label_name', $this->label_name);
         $stmt->bindParam(':id', $this->id);
         try {
             if ($stmt->execute()) {
@@ -141,18 +125,21 @@ class Notes
     public function delete()
     {
 
-        $query = 'DELETE FROM ' . $this->table . ' WHERE id = :id';
+        $query = 'CALL spDeleteNote(:id)';
         $stmt = $this->con->prepare($query);
         $this->id = htmlspecialchars(strip_tags($this->id));
         $stmt->bindParam(':id', $this->id);
         try {
-            if ($stmt->execute()) {
+            $stmt->execute();
+            if ($stmt->rowCount()) {
                 error_log('Note Deleted');
                 return true;
+            }else{
+                error_log("Deletion Failed");
+                return false;
             }
         }catch(\PDOException $e) {
             error_log("Error: " . $e->getMessage());
-            return $e;
         }
     }
 
