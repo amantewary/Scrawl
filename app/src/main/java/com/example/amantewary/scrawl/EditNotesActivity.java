@@ -24,6 +24,7 @@ public class EditNotesActivity extends AppCompatActivity {
     private EditText et_title, et_content, et_link;
     private TextView tv_date;
     private Spinner labelSpinner;
+    private ArrayList<String> labels;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +45,7 @@ public class EditNotesActivity extends AppCompatActivity {
         String current_date = df.format(c);
         tv_date.setText(current_date);
 
+        labels = LabelLoader.getInstance().loadLabel(EditNotesActivity.this);
         ArrayList<String> labels = (ArrayList<String>) getIntent().getSerializableExtra("labels");
         final ArrayAdapter labelAdapter = new ArrayAdapter<String>(
                 this,

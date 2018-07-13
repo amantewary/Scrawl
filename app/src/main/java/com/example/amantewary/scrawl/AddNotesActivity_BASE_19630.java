@@ -1,7 +1,5 @@
 package com.example.amantewary.scrawl;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -17,17 +15,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.amantewary.scrawl.API.INoteAPI;
-import com.example.amantewary.scrawl.Handlers.LabelHandler;
 import com.example.amantewary.scrawl.Handlers.NoteHandler;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.regex.Matcher;
@@ -41,19 +34,9 @@ public class AddNotesActivity extends AppCompatActivity {
 
     private static final String TAG = "AddNotesActivity";
 
-<<<<<<< HEAD
-    TextView tv_date;
-    EditText et_title, et_content, et_link;
-    Spinner sp_add_labels;
-    String title, date, content, link;
-    SessionManager sessionManager;
-
-=======
     private TextView tv_date;
     private EditText et_title, et_content, et_link;
     private Spinner sp_add_labels;
-    private ArrayList<String> labels;
->>>>>>> devint
 
     /**
      * A method to check if a string is a link
@@ -89,36 +72,11 @@ public class AddNotesActivity extends AppCompatActivity {
         return matcher.matches();
     }
 
-    public boolean handleShareEvent(){
-        if(sessionManager.checkLogin()){
-            Intent intent = getIntent();
-            String action = intent.getAction();
-            String type = intent.getType();
-
-            if (Intent.ACTION_SEND.equals(action) && type != null) {
-                if ("text/plain".equals(type)) {
-                    String sharedText = intent.getStringExtra(Intent.EXTRA_TEXT);
-                    if (sharedText != null) {
-                        et_content.setText(sharedText);
-                        return true;
-                    }
-                }
-            }
-        }else{
-            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
-            finish();
-        }
-        return false;
-
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_add_notes);
 
-        setContentView(R.layout.activity_add_notes);
-        sessionManager = new SessionManager(getApplicationContext());
-        setContentView(R.layout.activity_add_notes);
         Toolbar toolbar_edit_note = (Toolbar) findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar_edit_note);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
@@ -137,39 +95,16 @@ public class AddNotesActivity extends AppCompatActivity {
         SimpleDateFormat df = new SimpleDateFormat("MMM dd, yyyy", Locale.CANADA);
         String current_date = df.format(c);
         tv_date.setText(current_date);
-        LabelHandler labelHandler = new LabelHandler();
-        Log.e(TAG,labelHandler.getName()+ "");
-//        ArrayList<String> labels = (ArrayList<String>) getIntent().getSerializableExtra("labels");
-//        ArrayList<String> labels = new LabelHandler().getLabelHandlers();
-//
-//        try{
-//            Context ctx = getApplicationContext();
-//
-//            FileInputStream fileInputStream = ctx.openFileInput("labels.txt");
-//
-//            InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
-//
-//            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-//
-//            String lineData = bufferedReader.readLine();
-//            Log.e(TAG,lineData);
-//
-//        }catch (Exception e){
-//            Log.e(TAG,""+e);
-//        }
 
-
-
-        handleShareEvent();
-
-        labels = LabelLoader.getInstance().loadLabel(AddNotesActivity.this);
+        ArrayList<String> labels = (ArrayList<String>) getIntent().getSerializableExtra("labels");
         final ArrayAdapter labelAdapter = new ArrayAdapter<String>(
                 this,
                 android.R.layout.simple_spinner_item,
-                label;
+                labels
         );
         labelAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        sp_add_labels.setAdapter(labelAdapter);}
+        sp_add_labels.setAdapter(labelAdapter);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

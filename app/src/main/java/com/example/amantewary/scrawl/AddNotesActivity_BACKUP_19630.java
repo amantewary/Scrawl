@@ -115,10 +115,13 @@ public class AddNotesActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+<<<<<<< HEAD
 
         setContentView(R.layout.activity_add_notes);
         sessionManager = new SessionManager(getApplicationContext());
+=======
         setContentView(R.layout.activity_add_notes);
+>>>>>>> devint
         Toolbar toolbar_edit_note = (Toolbar) findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar_edit_note);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
@@ -162,14 +165,18 @@ public class AddNotesActivity extends AppCompatActivity {
 
         handleShareEvent();
 
+<<<<<<< HEAD
+=======
         labels = LabelLoader.getInstance().loadLabel(AddNotesActivity.this);
         final ArrayAdapter labelAdapter = new ArrayAdapter<String>(
                 this,
                 android.R.layout.simple_spinner_item,
-                label;
+                labels
         );
         labelAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        sp_add_labels.setAdapter(labelAdapter);}
+        sp_add_labels.setAdapter(labelAdapter);
+>>>>>>> devint
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

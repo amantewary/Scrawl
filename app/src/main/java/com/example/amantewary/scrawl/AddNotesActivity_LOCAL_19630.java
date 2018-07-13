@@ -41,19 +41,12 @@ public class AddNotesActivity extends AppCompatActivity {
 
     private static final String TAG = "AddNotesActivity";
 
-<<<<<<< HEAD
     TextView tv_date;
     EditText et_title, et_content, et_link;
     Spinner sp_add_labels;
     String title, date, content, link;
     SessionManager sessionManager;
 
-=======
-    private TextView tv_date;
-    private EditText et_title, et_content, et_link;
-    private Spinner sp_add_labels;
-    private ArrayList<String> labels;
->>>>>>> devint
 
     /**
      * A method to check if a string is a link
@@ -118,7 +111,6 @@ public class AddNotesActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_add_notes);
         sessionManager = new SessionManager(getApplicationContext());
-        setContentView(R.layout.activity_add_notes);
         Toolbar toolbar_edit_note = (Toolbar) findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar_edit_note);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
@@ -162,14 +154,7 @@ public class AddNotesActivity extends AppCompatActivity {
 
         handleShareEvent();
 
-        labels = LabelLoader.getInstance().loadLabel(AddNotesActivity.this);
-        final ArrayAdapter labelAdapter = new ArrayAdapter<String>(
-                this,
-                android.R.layout.simple_spinner_item,
-                label;
-        );
-        labelAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        sp_add_labels.setAdapter(labelAdapter);}
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
