@@ -31,7 +31,6 @@ import android.widget.Toast;
 
 import com.example.amantewary.scrawl.API.ILoginUser;
 import com.example.amantewary.scrawl.Handlers.LoginUserClass;
-import com.google.firebase.analytics.FirebaseAnalytics;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -240,6 +239,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     } else {
                         // Todo: Write something to show error
                         Toast.makeText(getApplicationContext(), response.body().getError_msg(), Toast.LENGTH_LONG).show();
+
+                        //TODO: I don't think this is a good practice. Need to look for an alternative method
+                        finish();
+                        startActivity(getIntent());
                     }
 
                 } else {
