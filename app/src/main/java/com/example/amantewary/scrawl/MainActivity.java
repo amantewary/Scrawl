@@ -60,6 +60,7 @@ public class MainActivity extends AppCompatActivity
         notesListView = findViewById(R.id.viewNoteList);
 
         //Loading Labels from database
+        //TODO: Need to move this in splash screen
         ILabelAPI labelAPI = RetroFitInstance.getRetrofit().create(ILabelAPI.class);
 
         Call<List<LabelHandler>> call = labelAPI.getLabels();
@@ -74,6 +75,7 @@ public class MainActivity extends AppCompatActivity
                     Log.e("label", label.getName());
                     labelOptions.add(label.getName());
                 }
+                LabelLoader.getInstance().saveLabel(MainActivity.this, labelOptions);
             }
 
             @Override
@@ -88,7 +90,6 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View view) {
                 // Factory Design Pattern
                 Intent intent = new Intent(MainActivity.this, AddNotesActivity.class);
-                intent.putExtra("labels", labelOptions);
                 startActivity(intent);
             }
         });
@@ -119,6 +120,17 @@ public class MainActivity extends AppCompatActivity
             }
         });
     }
+
+    //TODO: Need to move this in SplashScreen
+//    private void saveLabel(){
+//        SharedPreferences sharedPreferences = getSharedPreferences("spLabel", MODE_PRIVATE);
+//        SharedPreferences.Editor editor = sharedPreferences.edit();
+//        Gson gson = new Gson();
+//        String json = gson.toJson(labelOptions);
+//        editor.putString("label list", json);
+//        editor.apply();
+//    }
+
 
     @Override
     public void onBackPressed() {
