@@ -18,6 +18,7 @@ if (isset($_POST['name']) && isset($_POST['email']) && isset($_POST['password'])
     $password = $_POST['password'];
 
     if (isUserExists($pdo, $email)) {
+        openConnection();
         $response["error"] = TRUE;
         $response["error_msg"] = "User with " . $email . " already exists!";
         echo json_encode($response);
@@ -38,6 +39,5 @@ if (isset($_POST['name']) && isset($_POST['email']) && isset($_POST['password'])
 
     }
     closeConnection();
-    error_log("\r\nTime: ".date("d-m-Y (D) H:i:s", time()) . "      Request Agent " . $_SERVER['HTTP_USER_AGENT'] . "\r\n" . "Request Method " . $_SERVER['REQUEST_METHOD'] . "\r\n Requested at " . $_SERVER['REQUEST_TIME'] . "\r\nConnection Status " . connection_status() . "\r\n ", 3, "tracker.txt");
-
+    tracker();
 }

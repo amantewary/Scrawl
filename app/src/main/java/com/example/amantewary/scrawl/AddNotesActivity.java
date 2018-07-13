@@ -1,5 +1,6 @@
 package com.example.amantewary.scrawl;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -36,7 +37,7 @@ public class AddNotesActivity extends AppCompatActivity {
     EditText et_title, et_content, et_link;
     Spinner sp_add_labels;
     String title, date, content, link;
-
+    SessionManager sessionManager;
     /**
      * A method to check if a string is a link
      *
@@ -71,11 +72,32 @@ public class AddNotesActivity extends AppCompatActivity {
         return matcher.matches();
     }
 
+    public boolean handleShareEvent(){
+        if(sessionManager.isLoggedIn()){
+            Intent intent = getIntent();
+            String action = intent.getAction();
+            String type = intent.getType();
+
+            if (Intent.ACTION_SEND.equals(action) && type != null) {
+                if ("text/plain".equals(type)) {
+                    String sharedText = intent.getStringExtra(Intent.EXTRA_TEXT);
+                    if (sharedText != null) {
+                        et_content.setText(sharedText);
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_notes);
 
+        setContentView(R.layout.activity_add_notes);
+        sessionManager = new SessionManager(getApplicationContext());
         Toolbar toolbar_edit_note = (Toolbar) findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar_edit_note);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
@@ -88,7 +110,9 @@ public class AddNotesActivity extends AppCompatActivity {
         et_title = (EditText) findViewById(R.id.et_title);
         et_link = (EditText) findViewById(R.id.et_link);
         sp_add_labels = (Spinner) findViewById(R.id.sp_add_label);
-
+        if(!handleShareEvent()){
+            finish();
+        }
         //make tv_date show current date
         Date c = Calendar.getInstance().getTime();
         SimpleDateFormat df = new SimpleDateFormat("MMM dd, yyyy", Locale.CANADA);

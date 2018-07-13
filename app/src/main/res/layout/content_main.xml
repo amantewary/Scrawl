@@ -8,7 +8,7 @@
     tools:context=".MainActivity"
     tools:showIn="@layout/app_bar_main">
 
-    <android.support.v7.widget.RecyclerView
+    <com.l4digital.fastscroll.FastScrollRecyclerView
         android:id="@+id/viewNoteList"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -18,7 +18,12 @@
         android:layout_marginTop="8dp"
         android:clipChildren="true"
         android:clipToPadding="true"
-        android:scrollbars="vertical"
+        app:bubbleColor="@color/colorAccent"
+        app:bubbleTextColor="#ffffff"
+        app:handleColor="#999999"
+        app:trackColor="#bbbbbb"
+        app:hideScrollbar="false"
+        app:showTrack="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -40,7 +45,6 @@
         android:hint="Search..."
         android:textColorHint="@color/colorPrimaryDark"
         android:textColor="@color/colorPrimary"
-        android:cursorVisible="true"
         android:inputType="textPersonName"
         android:padding="7dp"
         android:textAlignment="viewStart"

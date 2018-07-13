@@ -15,7 +15,6 @@ function getUserData($pdo)
 
     try {
         $stmt = $pdo->prepare('Select * from user') or die("failed" . mysql_error());
-        error_log("\r\nConnection Opened at ". date("d-m-Y (D) H:i:s", time()). "\r\n" , 3, "log.txt");
 
         $stmt->execute();
 
@@ -39,7 +38,6 @@ function registerUser($pdo, $name, $email, $password)
         $salt = $hash["salt"];
         $stmt = $pdo->prepare("INSERT INTO user (unique_user_id, username , email_address , password , created_at , modified_at , salt )
 VALUES (?, ?, ?, ?, now(), now(), ?)") or die(mysql_error());
-        error_log("\r\nConnection Opened at ". date("d-m-Y (D) H:i:s", time()). "\r\n" , 3, "log.txt");
 
         $stmt->execute(array($uniqueId, $name, $email, $encrypted_password, $salt));
 
@@ -64,7 +62,6 @@ function loginUser($pdo, $email, $password)
 
     try {
         $stmt = $pdo->prepare("SELECT * from user where email_address=?");
-        error_log("\r\nConnection Opened at ". date("d-m-Y (D) H:i:s", time()). "\r\n" , 3, "log.txt");
 
         $stmt->execute(array($email));
         if ($stmt) {
@@ -93,7 +90,6 @@ function isUserExists($pdo, $email)
     $affected_rows = 0;
     try {
         $stmt = $pdo->prepare("SELECT * from user where email_address=?");
-        error_log("\r\nConnection Opened at ". date("d-m-Y (D) H:i:s", time()). "\r\n" , 3, "log.txt");
 
         $stmt->execute(array($email));
         $affected_rows = $stmt->rowCount();
@@ -134,7 +130,15 @@ function closeConnection()
 {
     $stmt = null;
     $pdo = null;
-    error_log("Connection Closed at " . date("d-m-Y (D) H:i:s", time()), 3, "log.txt");
+    error_log("\r\nConnection Closed at " . date("d-m-Y (D) H:i:s", time()) ."\r\n", 3, "log.txt");
+
+}
+function openConnection(){
+    error_log("\r\nConnection Opened at ". date("d-m-Y (D) H:i:s", time()). " " ."Request From ".$_SERVER['REMOTE_ADDR']. " \r\n", 3, "log.txt");
+
+}
+function tracker(){
+    error_log("\r\nTime: ".date("d-m-Y (D) H:i:s", time()) . "      Request Agent " . $_SERVER['HTTP_USER_AGENT'] . "\r\n" . "Request Method " . $_SERVER['REQUEST_METHOD'] . "\r\n Requested at " . $_SERVER['REQUEST_TIME'] . "\r\nConnection Status " . connection_status() . "\r\n ", 3, "tracker.txt");
 
 }
 

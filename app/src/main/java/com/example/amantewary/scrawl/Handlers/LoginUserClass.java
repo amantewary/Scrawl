@@ -14,7 +14,8 @@ public class LoginUserClass {
     String username;
     @SerializedName("error")
     String error;
-
+    @SerializedName("error_msg")
+    String error_msg;
 
 
     public LoginUserClass(String email, String password) {
@@ -22,6 +23,14 @@ public class LoginUserClass {
         this.email = email;
     }
 
+
+    public String getError_msg() {
+        return error_msg;
+    }
+
+    public void setError_msg(String error_msg) {
+        this.error_msg = error_msg;
+    }
 
 
     public String getEmail() {
@@ -39,6 +48,7 @@ public class LoginUserClass {
     public void setPassword(String password) {
         this.password = password;
     }
+
     public String getUsername() {
         return username;
     }

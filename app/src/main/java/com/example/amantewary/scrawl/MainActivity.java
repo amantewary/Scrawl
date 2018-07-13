@@ -25,6 +25,7 @@ import com.example.amantewary.scrawl.API.INoteAPI;
 import com.example.amantewary.scrawl.Adapters.NotesList;
 import com.example.amantewary.scrawl.Handlers.LabelHandler;
 import com.example.amantewary.scrawl.Handlers.NoteHandler;
+import com.l4digital.fastscroll.FastScrollRecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,13 +39,16 @@ public class MainActivity extends AppCompatActivity
 
     private static final String TAG = "MainActivity";
 
-    RecyclerView notesListView;
+    FastScrollRecyclerView notesListView;
     NotesList notesAdapter;
     ArrayList<String> labelOptions;
+    NavigationView navigationView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -54,7 +58,8 @@ public class MainActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView = findViewById(R.id.nav_view);
+
         navigationView.setNavigationItemSelectedListener(this);
 
         notesListView = findViewById(R.id.viewNoteList);
@@ -120,6 +125,7 @@ public class MainActivity extends AppCompatActivity
         });
     }
 
+
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -166,7 +172,11 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_manage) {
 
-        } else if (id == R.id.nav_share) {
+        } else if (id == R.id.nav_add) {
+            final Menu menu = navigationView.getMenu();
+            for (int i = 1; i <= 10; i++) {
+                menu.add("Runtime item " + i);
+            }
 
         } else if (id == R.id.nav_logout) {
             showDialog();
@@ -187,7 +197,7 @@ public class MainActivity extends AppCompatActivity
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                       signOut();
+                        signOut();
                     }
                 });
 
@@ -205,7 +215,7 @@ public class MainActivity extends AppCompatActivity
         dialog.show();
     }
 
-    public void signOut(){
+    public void signOut() {
         SessionManager sessionManager = new SessionManager(getApplicationContext());
         sessionManager.logoutUser();
         startActivity(new Intent(getApplicationContext(), LoginActivity.class));
