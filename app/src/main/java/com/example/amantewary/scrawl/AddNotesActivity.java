@@ -13,9 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.amantewary.scrawl.API.INoteAPI;
 import com.example.amantewary.scrawl.Handlers.NoteHandler;
 
 import java.io.BufferedReader;
@@ -33,11 +31,13 @@ import java.util.Observer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class AddNotesActivity extends AppCompatActivity implements Observer {
+
     private static final String TAG = "AddNotesActivity";
 
     private TextView tv_date;
@@ -148,34 +148,14 @@ public class AddNotesActivity extends AppCompatActivity implements Observer {
 
 
             if (inputHandler.inputValidator(title, body, link)) {
-                sendRequest(noteHandler);
+                RequestHandler request = new RequestHandler();
+                request.createNote(noteHandler, AddNotesActivity.this);
             }else{
                 inputHandler.inputErrorHandling(et_title, et_content, et_link);
             }
         } catch (Exception e) {
             Log.e("Message", ""+e);
         }
-    }
-
-    private void sendRequest(NoteHandler noteHandler) {
-        INoteAPI noteAPI = RetroFitInstance.getRetrofit().create(INoteAPI.class);
-        Call<NoteHandler> call = noteAPI.createNote(noteHandler);
-        call.enqueue(new Callback<NoteHandler>() {
-            @Override
-            public void onResponse(Call<NoteHandler> call, Response<NoteHandler> response) {
-                Log.d(TAG, "onResponse: Server Response: " + response.toString());
-                Log.d(TAG, "onResponse: Received Information: " + response.body().toString());
-                Toast.makeText(AddNotesActivity.this, "Note Created", Toast.LENGTH_SHORT).show();
-                finish();
-            }
-
-            @Override
-            public void onFailure(Call<NoteHandler> call, Throwable t) {
-                Log.e(TAG, "onFailure: Something Went Wrong: " + t.getMessage());
-                Toast.makeText(AddNotesActivity.this, "Something Went Wrong", Toast.LENGTH_SHORT).show();
-                finish();
-            }
-        });
     }
 
 
