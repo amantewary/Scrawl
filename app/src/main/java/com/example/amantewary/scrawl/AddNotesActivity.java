@@ -4,9 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
-import android.util.Patterns;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
@@ -28,6 +28,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Objects;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -35,15 +37,14 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class AddNotesActivity extends AppCompatActivity {
-
+public class AddNotesActivity extends AppCompatActivity implements Observer {
     private static final String TAG = "AddNotesActivity";
 
     private TextView tv_date;
     private EditText et_title, et_content, et_link;
     private Spinner sp_add_labels;
     private ArrayList<String> labels;
-
+    InputHandler inputHandler;
     /**
      * A method to check if a string is a link
      *
@@ -78,23 +79,6 @@ public class AddNotesActivity extends AppCompatActivity {
         return matcher.matches();
     }
 
-    private void handleSendNotes() {
-        SessionManager sessionManager = new SessionManager(getApplicationContext());
-        if (sessionManager.checkLogin()) {
-            Intent intent = getIntent();
-            String action = intent.getAction();
-            String type = intent.getType();
-
-            if (Intent.ACTION_SEND.equals(action) && type != null) {
-                if ("text/plain".equals(type)) {
-                    String sharedText = intent.getStringExtra(Intent.EXTRA_TEXT);
-                    if (sharedText != null) {
-                        et_content.setText(sharedText);
-                    }
-                }
-            }
-        }
-    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -102,8 +86,8 @@ public class AddNotesActivity extends AppCompatActivity {
         Toolbar toolbar_edit_note = (Toolbar) findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar_edit_note);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-        //Get Label
-
+        inputHandler = new InputHandler(getApplicationContext());
+        inputHandler.addObserver(this);
 
         setTitle("Add Note");
 
@@ -112,6 +96,11 @@ public class AddNotesActivity extends AppCompatActivity {
         et_title = findViewById(R.id.et_title);
         et_link = findViewById(R.id.et_link);
         sp_add_labels = findViewById(R.id.sp_add_label);
+
+        /**
+         * Swag code!
+         * */
+        doRealTimeCheck();
 
         //make tv_date show current date
         Date c = Calendar.getInstance().getTime();
@@ -127,7 +116,6 @@ public class AddNotesActivity extends AppCompatActivity {
         );
         labelAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         sp_add_labels.setAdapter(labelAdapter);
-        handleSendNotes();
     }
 
     @Override
@@ -149,48 +137,23 @@ public class AddNotesActivity extends AppCompatActivity {
     public void addNote() {
 
         try {
-            String label = sp_add_labels.getSelectedItem().toString();
-            String title = et_title.getText().toString().trim();
-            String body = et_content.getText().toString().trim();
+
+
+            String label = inputHandler.inputCensor(sp_add_labels.getSelectedItem().toString());
+            String title = inputHandler.inputCensor(et_title.getText().toString().trim());
+            String body = inputHandler.inputCensor(et_content.getText().toString().trim());
             String link = et_link.getText().toString().trim();
             //TODO: Need to change user_id once login and registration is done.
             NoteHandler noteHandler = new NoteHandler(label, title, body, link, 1);
-            /*
-            Validation for Recipe's Name, Ingredients, Steps and Cuisine.
-            User can leave the link blank.
-         */
-            if (!TextUtils.isEmpty(title)
-                    && !TextUtils.isEmpty(body)
-                    && (Patterns.WEB_URL.matcher(link).matches()
-                    || TextUtils.isEmpty(link))) {
-//                sendRequest(noteHandler);
+
+
+            if (inputHandler.inputValidator(title, body, link)) {
+                sendRequest(noteHandler);
             }else{
-
-                if (title.matches("")) {
-                    et_title.setBackgroundResource(R.drawable.border_error);
-                    et_title.setError("Enter Note Title");
-                    return;
-                } else {
-                    et_title.setBackgroundResource(R.drawable.border);
-                }
-                if (body.matches("")) {
-                    et_content.setBackgroundResource(R.drawable.border_error);
-                    et_content.setError("Enter Note Body");
-                    return;
-                } else {
-                    et_content.setBackgroundResource(R.drawable.border);
-                }
-                if (!Patterns.WEB_URL.matcher(link).matches()) {
-                    et_link.setError("Please Enter Valid URL");
-                    return;
-                }if(filterWords()){
-                    et_content.setBackgroundResource(R.drawable.border_error);
-                    et_content.setError("No bad words permitted");
-                }
-
+                inputHandler.inputErrorHandling(et_title, et_content, et_link);
             }
         } catch (Exception e) {
-            Log.e("Message", e.toString());
+            Log.e("Message", ""+e);
         }
     }
 
@@ -215,25 +178,52 @@ public class AddNotesActivity extends AppCompatActivity {
         });
     }
 
-    public boolean filterWords(){
-        String content = et_content.getText().toString();
-        String readLine = null;
-        InputStream is = getApplicationContext().getResources().openRawResource(R.raw.swearwords);
-        try{
-        byte[] b = new byte[is.available()];
 
-        is.read(b);
-        readLine = new String(b);
-        Log.e(TAG, readLine);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        if (content.contains(readLine)){
-            return true;
-        }else {
-            return false;
+    @Override
+    public void update(Observable observable, Object o) {
+        if(observable instanceof InputHandler){
+            Log.e(TAG, "Here");
+            Toast.makeText(getApplicationContext(),"I know you are adding bad words.. naughty bow", Toast.LENGTH_SHORT).show();
         }
     }
 
+    private void doRealTimeCheck(){
+        et_content.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if(editable.length() != 0){
+                    inputHandler.inputCensor(et_content.getText().toString().trim());
+                }
+            }
+        });
+
+        et_title.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if(editable.length() != 0){
+                    inputHandler.inputCensor(et_content.getText().toString().trim());
+                }
+            }
+        });
+    }
 }

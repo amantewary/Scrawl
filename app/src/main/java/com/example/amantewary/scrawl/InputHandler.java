@@ -1,0 +1,109 @@
+package com.example.amantewary.scrawl;
+
+import android.content.Context;
+import android.content.res.Resources;
+import android.text.TextUtils;
+import android.util.Log;
+import android.util.Patterns;
+import android.widget.EditText;
+
+import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Observable;
+import java.util.regex.Pattern;
+
+public class InputHandler extends Observable {
+
+    Context context;
+
+    public InputHandler(Context context) {
+        this.context = context;
+    }
+
+    List<String> badWords = new ArrayList<>();
+
+    public boolean inputValidator(String title, String body, String link){
+
+        if (!TextUtils.isEmpty(title)
+                && !TextUtils.isEmpty(body)
+                && (Patterns.WEB_URL.matcher(link).matches()
+                || TextUtils.isEmpty(link))) {
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public String inputCensor(String input){
+        String temp = input;
+        Log.e("Temp", input);
+        readTxt();
+        for (String word : badWords) {
+            Pattern pattern = Pattern.compile("\\b" + word + "\\b", Pattern.CASE_INSENSITIVE);
+            input = pattern.matcher(input).replaceAll(new String(new char[word.length()]).replace('\0', '*'));
+        }
+        Log.e("input", input);
+        if (!temp.equals(input)){
+            setChanged();
+            notifyObservers();
+        }
+        badWords.clear();
+        return input;
+    }
+
+    public void inputErrorHandling(EditText title, EditText body, EditText link){
+
+        if (title.getText().toString().trim().matches("")) {
+            title.setBackgroundResource(R.drawable.border_error);
+            title.setError("Enter Note Title");
+            return;
+        } else {
+            title.setBackgroundResource(R.drawable.border);
+        }
+        if (body.getText().toString().trim().matches("")) {
+            body.setBackgroundResource(R.drawable.border_error);
+            body.setError("Enter Note Body");
+            return;
+        } else {
+            body.setBackgroundResource(R.drawable.border);
+        }
+        if (!Patterns.WEB_URL.matcher(link.getText().toString().trim()).matches()) {
+            link.setError("Please Enter Valid URL");
+            return;
+        }
+        else {
+            link.setBackgroundResource(R.drawable.border);
+        }
+
+    }
+
+    private void readTxt(){
+        try{
+            InputStreamReader inputStream = new InputStreamReader(context.getAssets().open("swearwords.txt"));
+            BufferedReader reader = new BufferedReader(inputStream);
+            StringBuilder sb = new StringBuilder();
+            String mLine = reader.readLine();
+            while (mLine != null) {
+
+                badWords.add(mLine);
+                mLine = reader.readLine();
+            }
+            reader.close();
+        }catch (IOException e){
+            Log.e("TAG",""+ e);
+        }
+
+    }
+
+    @Override
+    public void notifyObservers() {
+        super.notifyObservers();
+
+    }
+}
