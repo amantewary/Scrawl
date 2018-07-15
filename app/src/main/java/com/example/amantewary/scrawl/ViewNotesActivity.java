@@ -20,15 +20,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.amantewary.scrawl.API.INoteAPI;
-import com.example.amantewary.scrawl.Handlers.NoteHandler;
 import com.example.amantewary.scrawl.API.IShareAPI;
+import com.example.amantewary.scrawl.Handlers.NoteHandler;
 import com.example.amantewary.scrawl.Handlers.ShareHandler;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import java.util.List;
 
 
 public class ViewNotesActivity extends AppCompatActivity implements View.OnClickListener{
@@ -38,9 +38,9 @@ public class ViewNotesActivity extends AppCompatActivity implements View.OnClick
     private BottomSheetBehavior mBottomSheetBehavior1;
     private FloatingActionButton fab;
     private SubtitleCollapsingToolbarLayout collapsingToolbarLayout;
-    Integer noteId;
-    TextView tv_note_content, tv_note_link;
-    Button btn_edit, btn_share, btn_delete, btn_collaborate;
+    private Integer noteId;
+    private TextView tv_note_content, tv_note_link;
+    private Button btn_edit, btn_share, btn_delete, btn_collaborate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,7 +84,7 @@ public class ViewNotesActivity extends AppCompatActivity implements View.OnClick
             }
         });
 
-        AppBarLayout mAppBarLayout = (AppBarLayout) findViewById(R.id.app_bar);
+        AppBarLayout mAppBarLayout = findViewById(R.id.app_bar);
         mAppBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             boolean isShow = false;
             int scrollRange = -1;
@@ -188,6 +188,9 @@ public class ViewNotesActivity extends AppCompatActivity implements View.OnClick
     public void onClick(View view){
         switch (view.getId()){
             case R.id.btn_edit:
+                Intent intent = new Intent(ViewNotesActivity.this, EditNotesActivity.class);
+                intent.putExtra("noteid", noteId);
+                startActivity(intent);
                 break;
             case R.id.btn_collaborate:
                 showDialog();
@@ -196,8 +199,34 @@ public class ViewNotesActivity extends AppCompatActivity implements View.OnClick
                 setShareIntent();
                 break;
             case R.id.btn_delete:
+                deleteNote();
                 break;
         }
+    }
+
+    public void deleteNote(){
+
+        //Builder
+        AlertDialog.Builder deleteAlert = new AlertDialog.Builder(ViewNotesActivity.this);
+        deleteAlert.setTitle("Delete Note");
+        deleteAlert.setMessage("Are you sure?");
+        deleteAlert.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                NoteHandler noteHandler = new NoteHandler(noteId);
+                NotesRequestHandler request = new NotesRequestHandler();
+                request.deleteNote(noteHandler, ViewNotesActivity.this);
+                finish();
+            }
+        });
+        deleteAlert.setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        deleteAlert.show();
+
     }
 
     private void setShareIntent(){

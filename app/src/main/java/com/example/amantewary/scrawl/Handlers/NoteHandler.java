@@ -24,7 +24,21 @@ public class NoteHandler {
     @Expose
     Integer user_id;
 
+
+    public NoteHandler(Integer id) {
+        this.id = id;
+    }
+
     public NoteHandler(String label_name, String title, String body, String url, Integer user_id) {
+        this.label_name = label_name;
+        this.title = title;
+        this.body = body;
+        this.url = url;
+        this.user_id = user_id;
+    }
+
+    public NoteHandler(Integer id, String label_name, String title, String body, String url, Integer user_id) {
+        this.id = id;
         this.label_name = label_name;
         this.title = title;
         this.body = body;
