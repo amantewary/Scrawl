@@ -35,7 +35,7 @@ public class AddNotesActivity extends AppCompatActivity implements Observer {
     private EditText et_title, et_content, et_link;
     private Spinner sp_add_labels;
     private ArrayList<String> labels;
-    InputHandler inputHandler;
+    private InputHandler inputHandler;
     /**
      * A method to check if a string is a link
      *

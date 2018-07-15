@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -20,7 +19,7 @@ import retrofit2.Response;
 
 public class NotesRequestHandler {
 
-    List<NoteHandler> notes;
+    private List<NoteHandler> notes;
 
 
     public void createNote(NoteHandler noteHandler, final Context context) {
@@ -48,7 +47,7 @@ public class NotesRequestHandler {
         });
     }
 
-    public Call<List<NoteHandler>> getNoteList(final Context context, final RecyclerView notesListView, @Nullable final INoteResponse callbacks){
+    public Call<List<NoteHandler>> getNoteList(final Context context, @Nullable final INoteResponse callbacks){
         RetroFitInstance.getRetrofit().create(INoteAPI.class)
                 .getNotes()
                 .enqueue(new Callback<List<NoteHandler>>() {

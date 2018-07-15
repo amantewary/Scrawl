@@ -38,9 +38,9 @@ public class ViewNotesActivity extends AppCompatActivity implements View.OnClick
     private BottomSheetBehavior mBottomSheetBehavior1;
     private FloatingActionButton fab;
     private SubtitleCollapsingToolbarLayout collapsingToolbarLayout;
-    Integer noteId;
-    TextView tv_note_content, tv_note_link;
-    Button btn_edit, btn_share, btn_delete, btn_collaborate;
+    private Integer noteId;
+    private TextView tv_note_content, tv_note_link;
+    private Button btn_edit, btn_share, btn_delete, btn_collaborate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

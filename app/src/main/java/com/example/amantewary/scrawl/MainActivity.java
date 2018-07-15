@@ -19,7 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import com.example.amantewary.scrawl.API.ILabelAPI;
+import com.example.amantewary.scrawl.API.ILabelResponse;
 import com.example.amantewary.scrawl.API.INoteResponse;
 import com.example.amantewary.scrawl.Adapters.NotesList;
 import com.example.amantewary.scrawl.Handlers.LabelHandler;
@@ -30,19 +30,15 @@ import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private static final String TAG = "MainActivity";
 
-    FastScrollRecyclerView notesListView;
-    NotesList notesAdapter;
-    ArrayList<String> labelOptions;
-    NavigationView navigationView;
+    private FastScrollRecyclerView notesListView;
+    private NotesList notesAdapter;
+    private ArrayList<String> labelOptions;
+    private NavigationView navigationView;
     FileOutputStream outputStream;
 
 
@@ -67,31 +63,23 @@ public class MainActivity extends AppCompatActivity
 
         //Loading Labels from database
         //TODO: Need to move this in splash screen
-        ILabelAPI labelAPI = RetroFitInstance.getRetrofit().create(ILabelAPI.class);
-
-        Call<List<LabelHandler>> call = labelAPI.getLabels();
-        call.enqueue(new Callback<List<LabelHandler>>() {
+        LabelRequestHandler request = new LabelRequestHandler();
+        request.getLabel(MainActivity.this, new ILabelResponse() {
             @Override
-            public void onResponse(Call<List<LabelHandler>> call, Response<List<LabelHandler>> response) {
-                Log.d(TAG, "onResponse: Server Response: " + response.toString());
-                Log.d(TAG, "onResponse: Received Information: " + response.body().toString());
-                List<LabelHandler> labels = response.body();
-                labelOptions = new ArrayList<String>();
+            public void onSuccess(@NonNull List<LabelHandler> labels) {
+                Log.d(TAG, "onResponse: Received Information: " + labels.toString());
+                labelOptions = new ArrayList<>();
                 for (LabelHandler label : labels) {
                     Log.e("label", label.getName());
                     labelOptions.add(label.getName());
                 }
-
 //                writeToFile(labelOptions);
-
-
                 LabelLoader.getInstance().saveLabel(MainActivity.this, labelOptions);
-
             }
 
             @Override
-            public void onFailure(Call<List<LabelHandler>> call, Throwable t) {
-                Log.e(TAG, "onFailure: Something Went Wrong: " + t.getMessage());
+            public void onError(@NonNull Throwable throwable) {
+                Log.e(TAG, "onFailure: Something Went Wrong: " + throwable.getMessage());
             }
         });
 
@@ -110,7 +98,7 @@ public class MainActivity extends AppCompatActivity
     protected void onResume() {
         super.onResume();
         NotesRequestHandler request = new NotesRequestHandler();
-        request.getNoteList(MainActivity.this, notesListView, new INoteResponse() {
+        request.getNoteList(MainActivity.this, new INoteResponse() {
             @Override
             public int hashCode() {
                 return super.hashCode();

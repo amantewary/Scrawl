@@ -14,7 +14,6 @@ public class AppURLs {
         baseUrl = "https://web.cs.dal.ca/";
     }
 
-
     public static AppURLs getInstance() {
         return ourInstance;
     }

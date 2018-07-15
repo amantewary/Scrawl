@@ -35,9 +35,9 @@ public class EditNotesActivity extends AppCompatActivity implements Observer {
     private TextView tv_date;
     private Spinner labelSpinner;
     private ArrayList<String> labels;
-    Integer noteId;
-    InputHandler inputHandler;
-    NotesRequestHandler request;
+    private Integer noteId;
+    private InputHandler inputHandler;
+    private NotesRequestHandler request;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -10,7 +10,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 import static android.content.Context.MODE_PRIVATE;
-
+//SINGLETON
 public class LabelLoader {
     private static final LabelLoader ourInstance = new LabelLoader();
     private ArrayList<String> labels;
