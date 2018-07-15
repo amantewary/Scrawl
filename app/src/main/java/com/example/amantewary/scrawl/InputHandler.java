@@ -16,7 +16,7 @@ import java.util.regex.Pattern;
 
 public class InputHandler extends Observable {
 
-    Context context;
+    private Context context;
 
     public InputHandler(Context context) {
         this.context = context;

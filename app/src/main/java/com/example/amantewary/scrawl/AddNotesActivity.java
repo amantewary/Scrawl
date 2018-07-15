@@ -35,7 +35,7 @@ public class AddNotesActivity extends AppCompatActivity implements Observer {
     private EditText et_title, et_content, et_link;
     private Spinner sp_add_labels;
     private ArrayList<String> labels;
-    InputHandler inputHandler;
+    private InputHandler inputHandler;
     /**
      * A method to check if a string is a link
      *
@@ -129,17 +129,14 @@ public class AddNotesActivity extends AppCompatActivity implements Observer {
 
         try {
 
-
             String label = inputHandler.inputCensor(sp_add_labels.getSelectedItem().toString());
             String title = inputHandler.inputCensor(et_title.getText().toString().trim());
             String body = inputHandler.inputCensor(et_content.getText().toString().trim());
             String link = et_link.getText().toString().trim();
             //TODO: Need to change user_id once login and registration is done.
             NoteHandler noteHandler = new NoteHandler(label, title, body, link, 1);
-
-
             if (inputHandler.inputValidator(title, body, link)) {
-                RequestHandler request = new RequestHandler();
+                NotesRequestHandler request = new NotesRequestHandler();
                 request.createNote(noteHandler, AddNotesActivity.this);
             }else{
                 inputHandler.inputErrorHandling(et_title, et_content, et_link);
@@ -159,6 +156,7 @@ public class AddNotesActivity extends AppCompatActivity implements Observer {
         }
     }
 
+    //TODO: Need to move this in InputHandler Class
     private void doRealTimeCheck(){
         et_content.addTextChangedListener(new TextWatcher() {
             @Override

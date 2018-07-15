@@ -7,8 +7,10 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.HTTP;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Query;
 
 //Structural Pattern: Facade Pattern
@@ -22,5 +24,11 @@ public interface INoteAPI {
 
     @POST("~kamath/QA_Devint/NoteApi/v1/notes/create")
     Call<NoteHandler> createNote(@Body NoteHandler note);
+
+    @PUT("~kamath/QA_Devint/NoteApi/v1/notes/update")
+    Call<NoteHandler> updateNote(@Body NoteHandler note);
+
+    @HTTP(method = "DELETE", path = "~kamath/QA_Devint/NoteApi/v1/notes/delete", hasBody = true)
+    Call<NoteHandler> deleteNote(@Body NoteHandler note);
 
 }
