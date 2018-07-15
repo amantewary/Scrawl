@@ -136,7 +136,7 @@ public class AddNotesActivity extends AppCompatActivity implements Observer {
             //TODO: Need to change user_id once login and registration is done.
             NoteHandler noteHandler = new NoteHandler(label, title, body, link, 1);
             if (inputHandler.inputValidator(title, body, link)) {
-                RequestHandler request = new RequestHandler();
+                NotesRequestHandler request = new NotesRequestHandler();
                 request.createNote(noteHandler, AddNotesActivity.this);
             }else{
                 inputHandler.inputErrorHandling(et_title, et_content, et_link);

@@ -14,7 +14,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.amantewary.scrawl.API.IGetNoteById;
+import com.example.amantewary.scrawl.API.INoteResponse;
 import com.example.amantewary.scrawl.Handlers.NoteHandler;
 
 import java.text.SimpleDateFormat;
@@ -37,7 +37,7 @@ public class EditNotesActivity extends AppCompatActivity implements Observer {
     private ArrayList<String> labels;
     Integer noteId;
     InputHandler inputHandler;
-    RequestHandler request;
+    NotesRequestHandler request;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +54,7 @@ public class EditNotesActivity extends AppCompatActivity implements Observer {
         labelSpinner = findViewById(R.id.sp_edit_label);
         tv_date = findViewById(R.id.tv_date_edit);
         inputHandler = new InputHandler(getApplicationContext());
-        request = new RequestHandler();
+        request = new NotesRequestHandler();
         inputHandler.addObserver(this);
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
@@ -76,7 +76,13 @@ public class EditNotesActivity extends AppCompatActivity implements Observer {
         labelAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         labelSpinner.setAdapter(labelAdapter);
 
-        request.getSingleNote(EditNotesActivity.this,noteId, new IGetNoteById(){
+        //Abstract Factory
+        request.getSingleNote(EditNotesActivity.this,noteId, new INoteResponse(){
+
+            @Override
+            public int hashCode() {
+                return super.hashCode();
+            }
 
             @Override
             public void onSuccess(@NonNull List<NoteHandler> note) {

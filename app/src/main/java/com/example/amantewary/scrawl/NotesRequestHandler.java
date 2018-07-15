@@ -18,7 +18,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class RequestHandler {
+public class NotesRequestHandler {
 
     List<NoteHandler> notes;
 
@@ -27,9 +27,9 @@ public class RequestHandler {
         final ProgressDialog dialog = new ProgressDialog(context);
         dialog.setMessage("Loading...");
         dialog.show();
-        INoteAPI noteAPI = RetroFitInstance.getRetrofit().create(INoteAPI.class);
-        Call<NoteHandler> call = noteAPI.createNote(noteHandler);
-        call.enqueue(new Callback<NoteHandler>() {
+        RetroFitInstance.getRetrofit().create(INoteAPI.class)
+                .createNote(noteHandler)
+                .enqueue(new Callback<NoteHandler>() {
             @Override
             public void onResponse(Call<NoteHandler> call, Response<NoteHandler> response) {
                 dialog.dismiss();
@@ -82,7 +82,6 @@ public class RequestHandler {
                     callbacks.onSuccess(notes);
                 }
             }
-
             @Override
             public void onFailure(Call<List<NoteHandler>> call, Throwable t) {
                 callbacks.onError(t);
@@ -93,23 +92,13 @@ public class RequestHandler {
                 .getSingleNote(noteId);
     }
 
-    public void editNote(NoteHandler noteHandler, final Context context, INoteResponse callbacks) {
+    public void editNote(NoteHandler noteHandler, final Context context) {
         final ProgressDialog dialog = new ProgressDialog(context);
         dialog.setMessage("Loading...");
         dialog.show();
-        INoteAPI noteAPI = RetroFitInstance.getRetrofit().create(INoteAPI.class).updateNote(noteHandler).enqueue(new Callback<NoteHandler>() {
-            @Override
-            public void onResponse(Call<NoteHandler> call, Response<NoteHandler> response) {
-                Log.d(context.getClass().getSimpleName(), "onResponse: Server Response: " + response.toString());
-            }
-
-            @Override
-            public void onFailure(Call<NoteHandler> call, Throwable t) {
-
-            }
-        });
-        Call<NoteHandler> call = noteAPI.updateNote(noteHandler);
-        call.enqueue(new Callback<NoteHandler>() {
+        RetroFitInstance.getRetrofit().create(INoteAPI.class)
+                .updateNote(noteHandler)
+                .enqueue(new Callback<NoteHandler>() {
             @Override
             public void onResponse(Call<NoteHandler> call, Response<NoteHandler> response) {
                 dialog.dismiss();
@@ -118,7 +107,6 @@ public class RequestHandler {
                 Toast.makeText(context, "Note Edited", Toast.LENGTH_SHORT).show();
                 ((Activity)(context)).finish();
             }
-
             @Override
             public void onFailure(Call<NoteHandler> call, Throwable t) {
                 Log.e(context.getClass().getSimpleName(), "onFailure: Something Went Wrong: " + t.getMessage());

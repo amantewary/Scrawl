@@ -1,6 +1,5 @@
 package com.example.amantewary.scrawl;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,20 +11,20 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.amantewary.scrawl.API.ILabelAPI;
+import com.example.amantewary.scrawl.API.INoteResponse;
 import com.example.amantewary.scrawl.Adapters.NotesList;
 import com.example.amantewary.scrawl.Handlers.LabelHandler;
-
 import com.example.amantewary.scrawl.Handlers.NoteHandler;
 import com.l4digital.fastscroll.FastScrollRecyclerView;
-
 
 import java.io.FileOutputStream;
 import java.util.ArrayList;
@@ -110,8 +109,25 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onResume() {
         super.onResume();
-        RequestHandler request = new RequestHandler();
-        request.getNoteList(MainActivity.this, notesListView);
+        NotesRequestHandler request = new NotesRequestHandler();
+        request.getNoteList(MainActivity.this, notesListView, new INoteResponse() {
+            @Override
+            public int hashCode() {
+                return super.hashCode();
+            }
+            @Override
+            public void onSuccess(@NonNull List<NoteHandler> note) {
+                Log.d(TAG, "onResponse: Received Information: " + note.toString());
+                notesAdapter = new NotesList(MainActivity.this, note);
+                notesListView.setAdapter(notesAdapter);
+                notesListView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+            }
+            @Override
+            public void onError(@NonNull Throwable throwable) {
+                Log.e(TAG, "onFailure: Something Went Wrong: " + throwable.getMessage());
+                Toast.makeText(MainActivity.this, "Something Went Wrong", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
 

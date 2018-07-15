@@ -6,7 +6,7 @@ import com.example.amantewary.scrawl.Handlers.NoteHandler;
 
 import java.util.List;
 
-public interface IGetNoteById {
+public interface INoteResponse {
 
     void onSuccess(@NonNull List<NoteHandler> note);
 
