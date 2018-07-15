@@ -1,6 +1,5 @@
 package com.example.amantewary.scrawl;
 
-import android.util.Log;
 import android.util.Patterns;
 
 public class EmailPasswordValidation {

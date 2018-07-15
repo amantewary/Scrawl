@@ -20,15 +20,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.amantewary.scrawl.API.INoteAPI;
-import com.example.amantewary.scrawl.Handlers.NoteHandler;
 import com.example.amantewary.scrawl.API.IShareAPI;
+import com.example.amantewary.scrawl.Handlers.NoteHandler;
 import com.example.amantewary.scrawl.Handlers.ShareHandler;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import java.util.List;
 
 
 public class ViewNotesActivity extends AppCompatActivity implements View.OnClickListener{
