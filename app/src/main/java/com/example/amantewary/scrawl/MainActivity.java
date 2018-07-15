@@ -11,25 +11,25 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-<<<<<<< HEAD
-=======
+
 import android.support.v7.widget.LinearLayoutManager;
->>>>>>> devint
+
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.amantewary.scrawl.API.ILabelResponse;
 import com.example.amantewary.scrawl.API.INoteResponse;
+import com.example.amantewary.scrawl.Adapters.NavigationDrawerAdapter;
 import com.example.amantewary.scrawl.Adapters.NotesList;
 import com.example.amantewary.scrawl.Handlers.LabelHandler;
-<<<<<<< HEAD
-=======
+
+import com.example.amantewary.scrawl.Handlers.NavgitationModel;
 import com.example.amantewary.scrawl.Handlers.NoteHandler;
->>>>>>> devint
 import com.l4digital.fastscroll.FastScrollRecyclerView;
 
 import java.io.FileOutputStream;
@@ -55,15 +55,23 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        ListView listView = (ListView) findViewById(R.id.lstDrawerItems);
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        navigationView = findViewById(R.id.nav_view);
+        ArrayList<NavgitationModel> navgitationModels = new ArrayList<>();
 
-        navigationView.setNavigationItemSelectedListener(this);
+        navgitationModels.add(new NavgitationModel(getResources().getDrawable(R.drawable.ic_add_box_black_24dp),"Title"));
+        NavigationDrawerAdapter navigationDrawerAdapter = new NavigationDrawerAdapter(navgitationModels,this);
+
+        listView.setAdapter(navigationDrawerAdapter);
+
+//        navigationView = findViewById(R.id.nav_view);
+//
+//        navigationView.setNavigationItemSelectedListener(this);
 
         notesListView = findViewById(R.id.viewNoteList);
 
