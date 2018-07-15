@@ -20,15 +20,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.amantewary.scrawl.API.INoteAPI;
-import com.example.amantewary.scrawl.Handlers.NoteHandler;
 import com.example.amantewary.scrawl.API.IShareAPI;
+import com.example.amantewary.scrawl.Handlers.NoteHandler;
 import com.example.amantewary.scrawl.Handlers.ShareHandler;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import java.util.List;
 
 
 public class ViewNotesActivity extends AppCompatActivity implements View.OnClickListener{
@@ -84,7 +84,7 @@ public class ViewNotesActivity extends AppCompatActivity implements View.OnClick
             }
         });
 
-        AppBarLayout mAppBarLayout = (AppBarLayout) findViewById(R.id.app_bar);
+        AppBarLayout mAppBarLayout = findViewById(R.id.app_bar);
         mAppBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             boolean isShow = false;
             int scrollRange = -1;
@@ -188,6 +188,9 @@ public class ViewNotesActivity extends AppCompatActivity implements View.OnClick
     public void onClick(View view){
         switch (view.getId()){
             case R.id.btn_edit:
+                Intent intent = new Intent(ViewNotesActivity.this, EditNotesActivity.class);
+                intent.putExtra("noteid", noteId);
+                startActivity(intent);
                 break;
             case R.id.btn_collaborate:
                 showDialog();

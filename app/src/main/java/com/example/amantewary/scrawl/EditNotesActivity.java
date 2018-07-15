@@ -1,23 +1,33 @@
 package com.example.amantewary.scrawl;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.example.amantewary.scrawl.API.IGetNoteById;
+import com.example.amantewary.scrawl.Handlers.NoteHandler;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
+import java.util.Observable;
+import java.util.Observer;
 
-public class EditNotesActivity extends AppCompatActivity {
+public class EditNotesActivity extends AppCompatActivity implements Observer {
 
     private static final String TAG = "EditNotesActivity";
 
@@ -25,6 +35,9 @@ public class EditNotesActivity extends AppCompatActivity {
     private TextView tv_date;
     private Spinner labelSpinner;
     private ArrayList<String> labels;
+    Integer noteId;
+    InputHandler inputHandler;
+    RequestHandler request;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +52,15 @@ public class EditNotesActivity extends AppCompatActivity {
         et_content = findViewById(R.id.et_content_edit);
         et_link = findViewById(R.id.et_link_edit);
         labelSpinner = findViewById(R.id.sp_edit_label);
+        tv_date = findViewById(R.id.tv_date_edit);
+        inputHandler = new InputHandler(getApplicationContext());
+        request = new RequestHandler();
+        inputHandler.addObserver(this);
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+        if(bundle != null){
+            noteId = bundle.getInt("noteid");
+        }
 
         Date c = Calendar.getInstance().getTime();
         SimpleDateFormat df = new SimpleDateFormat("MMM dd, yyyy", Locale.CANADA);
@@ -54,6 +76,24 @@ public class EditNotesActivity extends AppCompatActivity {
         labelAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         labelSpinner.setAdapter(labelAdapter);
 
+        request.getSingleNote(EditNotesActivity.this,noteId, new IGetNoteById(){
+
+            @Override
+            public void onSuccess(@NonNull List<NoteHandler> note) {
+                Log.d(TAG, "onResponse: Received Information: " + note.toString());
+                for(NoteHandler n : note){
+                    et_title.setText(n.getTitle());
+                    et_content.setText(n.getBody());
+                    et_link.setText(n.getUrl());
+                }
+            }
+
+            @Override
+            public void onError(@NonNull Throwable throwable) {
+                Log.e(TAG, "onFailure: Something Went Wrong: " + throwable.getMessage());
+            }
+        });
+
     }
 
     @Override
@@ -68,13 +108,30 @@ public class EditNotesActivity extends AppCompatActivity {
         int id = item.getItemId();
         if (id == R.id.action_edit) {
             editNote();
-            finish();
         }
         return super.onOptionsItemSelected(item);
     }
 
     public void editNote(){
 
+        String label = inputHandler.inputCensor(labelSpinner.getSelectedItem().toString());
+        String title = inputHandler.inputCensor(et_title.getText().toString().trim());
+        String body = inputHandler.inputCensor(et_content.getText().toString().trim());
+        String link = et_link.getText().toString().trim();
+        NoteHandler noteHandler = new NoteHandler(noteId, label, title, body, link, 1);
+        if (inputHandler.inputValidator(title, body, link)) {
+            request.editNote(noteHandler, EditNotesActivity.this);
+        }else{
+            inputHandler.inputErrorHandling(et_title, et_content, et_link);
+        }
+
+    }
+    @Override
+    public void update(Observable observable, Object o) {
+        if(observable instanceof InputHandler){
+            Log.e(TAG, "Here");
+            Toast.makeText(getApplicationContext(),"I know you are adding bad words.. naughty bow", Toast.LENGTH_SHORT).show();
+        }
     }
 
 }
