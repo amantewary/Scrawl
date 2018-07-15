@@ -199,8 +199,34 @@ public class ViewNotesActivity extends AppCompatActivity implements View.OnClick
                 setShareIntent();
                 break;
             case R.id.btn_delete:
+                deleteNote();
                 break;
         }
+    }
+
+    public void deleteNote(){
+
+        //Builder
+        AlertDialog.Builder deleteAlert = new AlertDialog.Builder(ViewNotesActivity.this);
+        deleteAlert.setTitle("Delete Note");
+        deleteAlert.setMessage("Are you sure?");
+        deleteAlert.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                NoteHandler noteHandler = new NoteHandler(noteId);
+                NotesRequestHandler request = new NotesRequestHandler();
+                request.deleteNote(noteHandler, ViewNotesActivity.this);
+                finish();
+            }
+        });
+        deleteAlert.setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        deleteAlert.show();
+
     }
 
     private void setShareIntent(){

@@ -19,7 +19,9 @@ public class LabelRequestHandler {
     private List<LabelHandler> labels;
 
     public Call<List<LabelHandler>> getLabel(final Context context, final @Nullable ILabelResponse callbacks){
-        RetroFitInstance.getRetrofit().create(ILabelAPI.class).getLabels().enqueue(new Callback<List<LabelHandler>>() {
+        RetroFitInstance.getRetrofit().create(ILabelAPI.class)
+                .getLabels()
+                .enqueue(new Callback<List<LabelHandler>>() {
             @Override
             public void onResponse(Call<List<LabelHandler>> call, Response<List<LabelHandler>> response) {
                 Log.d(context.getClass().getSimpleName(), "onResponse: Server Response: " + response.toString());
