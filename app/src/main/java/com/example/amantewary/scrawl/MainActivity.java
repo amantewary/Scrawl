@@ -11,9 +11,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-
 import android.support.v7.widget.LinearLayoutManager;
-
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -27,7 +25,6 @@ import com.example.amantewary.scrawl.API.INoteResponse;
 import com.example.amantewary.scrawl.Adapters.NavigationDrawerAdapter;
 import com.example.amantewary.scrawl.Adapters.NotesList;
 import com.example.amantewary.scrawl.Handlers.LabelHandler;
-
 import com.example.amantewary.scrawl.Handlers.NavgitationModel;
 import com.example.amantewary.scrawl.Handlers.NoteHandler;
 import com.l4digital.fastscroll.FastScrollRecyclerView;
@@ -62,12 +59,16 @@ public class MainActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
+
         ArrayList<NavgitationModel> navgitationModels = new ArrayList<>();
 
-        navgitationModels.add(new NavgitationModel(getResources().getDrawable(R.drawable.ic_add_box_black_24dp),"Title"));
+        loadLabelsForList(navgitationModels);
+
         NavigationDrawerAdapter navigationDrawerAdapter = new NavigationDrawerAdapter(navgitationModels,this);
 
         listView.setAdapter(navigationDrawerAdapter);
+
+
 
 //        navigationView = findViewById(R.id.nav_view);
 //
@@ -229,17 +230,12 @@ public class MainActivity extends AppCompatActivity
         finish();
     }
 
-//    public void writeToFile(ArrayList<String> labels){
-//        String filename = "labels.txt";
-//        try {
-//            outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
-//            for (String fileLabels: labels){
-//                outputStream.write(fileLabels.getBytes());
-//                outputStream.write("\n".getBytes());
-//            }
-//            outputStream.close();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
+    void loadLabelsForList(ArrayList<NavgitationModel> navList){
+        ArrayList<String> labelString = LabelLoader.getInstance().loadLabel(this);
+
+        for (String labelName : labelString){
+            navList.add(new NavgitationModel(getResources().getDrawable(R.drawable.ic_bookmark_black_24dp), labelName));
+        }
+    }
+
 }

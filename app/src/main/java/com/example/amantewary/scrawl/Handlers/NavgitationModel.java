@@ -1,8 +1,6 @@
 package com.example.amantewary.scrawl.Handlers;
 
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.widget.ImageView;
 
 public class NavgitationModel {
 
