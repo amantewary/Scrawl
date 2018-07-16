@@ -2,8 +2,8 @@
     <string name="app_name">Scrawl</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_title">Scrawl</string>
+    <string name="nav_header_subtitle">A Simple Notepad App</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
@@ -40,5 +40,7 @@
     <string name="back_to_login">Back to Login</string>
     <string name="title_activity_login2">Sign in</string>
     <string name="logout">Logout</string>
+
+    <string name="add_labels">Add Labels</string>
 
 </resources>

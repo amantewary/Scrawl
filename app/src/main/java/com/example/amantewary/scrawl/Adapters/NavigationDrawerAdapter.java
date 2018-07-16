@@ -72,7 +72,10 @@ public class NavigationDrawerAdapter extends ArrayAdapter<NavgitationModel> {
             }
         });
 
+
         return rowView;
     }
+
+
 
 }

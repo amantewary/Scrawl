@@ -23,17 +23,20 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:orientation="vertical"
+        android:fitsSystemWindows="true"
         android:layout_gravity="start"
+        android:clickable="true"
+        android:focusable="true"
         android:background="@color/colorWhite"
         android:layout_height="match_parent">
         <include layout="@layout/nav_header_main">
-
         </include>
         <ListView
             android:id="@+id/lstDrawerItems"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:longClickable="true"
+            android:divider="#000000"
             android:choiceMode="singleChoice"
             tools:listitem="@layout/nav_item"/>
 
