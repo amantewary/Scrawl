@@ -24,19 +24,39 @@
         android:layout_width="match_parent"
         android:orientation="vertical"
         android:layout_gravity="start"
+        android:background="@color/colorWhite"
         android:layout_height="match_parent">
         <include layout="@layout/nav_header_main">
 
         </include>
         <ListView
             android:id="@+id/lstDrawerItems"
-            android:background="@color/colorWhite"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:longClickable="true"
             android:choiceMode="singleChoice"
             tools:listitem="@layout/nav_item"/>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/nav_lout"
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_margin="@dimen/activity_vertical_margin"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_exit_to_app_black_24dp"
+                android:id="@+id/nav_logout_image" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:textColor="@android:color/black"
+                android:layout_margin="@dimen/activity_vertical_margin"
+                android:layout_height="wrap_content"
+                android:id="@+id/logout"
+                android:text="@string/logout"/>
+        </LinearLayout>
     </LinearLayout>
 
 </android.support.v4.widget.DrawerLayout>

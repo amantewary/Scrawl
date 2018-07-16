@@ -17,7 +17,10 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.amantewary.scrawl.API.ILabelResponse;
@@ -54,6 +57,7 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
         ListView listView = (ListView) findViewById(R.id.lstDrawerItems);
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        LinearLayout logout = findViewById(R.id.nav_lout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
@@ -105,6 +109,13 @@ public class MainActivity extends AppCompatActivity
                 // Factory Design Pattern
                 Intent intent = new Intent(MainActivity.this, AddNotesActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showDialog();
             }
         });
     }
@@ -187,7 +198,6 @@ public class MainActivity extends AppCompatActivity
 
 
         } else if (id == R.id.nav_logout) {
-            showDialog();
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);

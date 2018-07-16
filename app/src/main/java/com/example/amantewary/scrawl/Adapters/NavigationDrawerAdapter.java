@@ -23,7 +23,8 @@ public class NavigationDrawerAdapter extends ArrayAdapter<NavgitationModel> {
 
     String TAG = NavigationDrawerAdapter.class.getCanonicalName();
     private ArrayList<NavgitationModel> navigationList;
-    Context mContext;
+    private Context mContext;
+    private boolean editToggle = true;
 
 
     public NavigationDrawerAdapter(ArrayList<NavgitationModel> list, Context context) {
@@ -41,24 +42,32 @@ public class NavigationDrawerAdapter extends ArrayAdapter<NavgitationModel> {
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View rowView = inflater.inflate(R.layout.nav_item, parent, false);
         LinearLayout layout = (LinearLayout) rowView.findViewById(R.id.nav_linear_layout);
-        TextView textView = (TextView) rowView.findViewById(R.id.nav_text_view);
-        ImageView imageView = (ImageView) rowView.findViewById(R.id.nav_labels);
-        EditText editText = (EditText) rowView.findViewById(R.id.nav_edit_text);
+        final TextView labelNameTV = (TextView) rowView.findViewById(R.id.nav_text_view);
+        ImageView labelImage = (ImageView) rowView.findViewById(R.id.nav_labels);
+        final EditText labelEdittext = (EditText) rowView.findViewById(R.id.nav_edit_text);
 
-        textView.setText(navigationList.get(position).getTitle());
-        imageView.setImageDrawable(navigationList.get(position).getLabelImageView());
+        labelNameTV.setText(navigationList.get(position).getTitle());
+        labelImage.setImageDrawable(navigationList.get(position).getLabelImageView());
 
-        layout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.e(TAG, "Here " + position);
-            }
-        });
+        if (editToggle){
+            layout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                }
+            });
+        }
 
         layout.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
+                editToggle = false;
                 Log.e(TAG, "Here " + position);
+                String label = labelNameTV.getText().toString();
+                labelNameTV.setVisibility(View.GONE);
+                labelEdittext.setVisibility(View.VISIBLE);
+                labelEdittext.setText(label);
+
                 return false;
             }
         });
