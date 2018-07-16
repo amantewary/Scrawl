@@ -45,7 +45,7 @@ public class NavigationDrawerAdapter extends ArrayAdapter<NavgitationModel> {
         final ViewSwitcher viewSwitcher = rowView.findViewById(R.id.viewSwitcher);
         LinearLayout layout = (LinearLayout) rowView.findViewById(R.id.nav_linear_layout);
         final TextView labelNameTV = (TextView) rowView.findViewById(R.id.nav_text_view);
-        ImageView labelImage = (ImageView) rowView.findViewById(R.id.nav_labels);
+        final ImageView labelImage = (ImageView) rowView.findViewById(R.id.nav_labels);
         final EditText labelEdittext = (EditText) rowView.findViewById(R.id.nav_edit_text);
 
         labelNameTV.setText(navigationList.get(position).getTitle());
@@ -68,6 +68,7 @@ public class NavigationDrawerAdapter extends ArrayAdapter<NavgitationModel> {
                     editToggle = false;
                     textToggle = true;
                     Log.e(TAG, "Here true" + position);
+                    labelImage.setImageResource(R.drawable.ic_bookmark_grey_24dp);
                     String label = labelNameTV.getText().toString();
                     viewSwitcher.showNext();
                     labelEdittext.setText(label);
@@ -75,6 +76,7 @@ public class NavigationDrawerAdapter extends ArrayAdapter<NavgitationModel> {
                 } else {
                     editToggle = true;
                     viewSwitcher.showPrevious();
+                    labelImage.setImageDrawable(navigationList.get(position).getLabelImageView());
                     Log.e(TAG, "Here " + position);
 
                 }
