@@ -21,10 +21,11 @@ import java.util.ArrayList;
 
 public class NavigationDrawerAdapter extends ArrayAdapter<NavgitationModel> {
 
-    String TAG = NavigationDrawerAdapter.class.getCanonicalName();
+    private String TAG = NavigationDrawerAdapter.class.getCanonicalName();
     private ArrayList<NavgitationModel> navigationList;
     private Context mContext;
     private boolean editToggle = true;
+    private boolean textToggle = false;
 
 
     public NavigationDrawerAdapter(ArrayList<NavgitationModel> list, Context context) {
@@ -44,37 +45,38 @@ public class NavigationDrawerAdapter extends ArrayAdapter<NavgitationModel> {
         final ViewSwitcher viewSwitcher = rowView.findViewById(R.id.viewSwitcher);
         LinearLayout layout = (LinearLayout) rowView.findViewById(R.id.nav_linear_layout);
         final TextView labelNameTV = (TextView) rowView.findViewById(R.id.nav_text_view);
-        ImageView labelImage = (ImageView) rowView.findViewById(R.id.nav_labels);
+        final ImageView labelImage = (ImageView) rowView.findViewById(R.id.nav_labels);
         final EditText labelEdittext = (EditText) rowView.findViewById(R.id.nav_edit_text);
 
         labelNameTV.setText(navigationList.get(position).getTitle());
         labelImage.setImageDrawable(navigationList.get(position).getLabelImageView());
 
+        layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.e(TAG, "Here " + position);
+                
 
-            layout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Log.e(TAG, "Here " + position);
-
-
-
-                }
-            });
+            }
+        });
 
 
         labelImage.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
-                if(editToggle){
+                if (editToggle) {
                     editToggle = false;
+                    textToggle = true;
                     Log.e(TAG, "Here true" + position);
+                    labelImage.setImageResource(R.drawable.ic_bookmark_grey_24dp);
                     String label = labelNameTV.getText().toString();
                     viewSwitcher.showNext();
                     labelEdittext.setText(label);
 
-                }else{
+                } else {
                     editToggle = true;
                     viewSwitcher.showPrevious();
+                    labelImage.setImageDrawable(navigationList.get(position).getLabelImageView());
                     Log.e(TAG, "Here " + position);
 
                 }

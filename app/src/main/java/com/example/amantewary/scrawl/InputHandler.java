@@ -83,7 +83,6 @@ public class InputHandler extends Observable {
         try{
             InputStreamReader inputStream = new InputStreamReader(context.getAssets().open("swearwords.txt"));
             BufferedReader reader = new BufferedReader(inputStream);
-            StringBuilder sb = new StringBuilder();
             String mLine = reader.readLine();
             while (mLine != null) {
 
