@@ -17,10 +17,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.amantewary.scrawl.API.ILabelResponse;
@@ -30,6 +28,7 @@ import com.example.amantewary.scrawl.Adapters.NotesList;
 import com.example.amantewary.scrawl.Handlers.LabelHandler;
 import com.example.amantewary.scrawl.Handlers.NavgitationModel;
 import com.example.amantewary.scrawl.Handlers.NoteHandler;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.l4digital.fastscroll.FastScrollRecyclerView;
 
 import java.io.FileOutputStream;
@@ -44,15 +43,17 @@ public class MainActivity extends AppCompatActivity
     private FastScrollRecyclerView notesListView;
     private NotesList notesAdapter;
     private ArrayList<String> labelOptions;
-    private NavigationView navigationView;
-    FileOutputStream outputStream;
-
+    FirebaseAnalytics mFirebaseAnalytics;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
+
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+        mFirebaseAnalytics.setCurrentScreen(this, getClass().getCanonicalName(), null);
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ListView listView = (ListView) findViewById(R.id.lstDrawerItems);
@@ -192,10 +193,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_add) {
-            final Menu menu = navigationView.getMenu();
-
-                menu.add("Runtime item " + 1);
-
+            
 
         } else if (id == R.id.nav_logout) {
         }
