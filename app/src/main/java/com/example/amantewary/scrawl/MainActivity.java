@@ -34,6 +34,7 @@ import com.l4digital.fastscroll.FastScrollRecyclerView;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observer;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -44,7 +45,7 @@ public class MainActivity extends AppCompatActivity
     private NotesList notesAdapter;
     private ArrayList<String> labelOptions;
     FirebaseAnalytics mFirebaseAnalytics;
-
+    NavigationDrawerAdapter navigationDrawerAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,15 +70,11 @@ public class MainActivity extends AppCompatActivity
 
         loadLabelsForList(navgitationModels);
 
-        NavigationDrawerAdapter navigationDrawerAdapter = new NavigationDrawerAdapter(navgitationModels,this);
+        navigationDrawerAdapter = new NavigationDrawerAdapter(navgitationModels,this);
 
         listView.setAdapter(navigationDrawerAdapter);
 
 
-
-//        navigationView = findViewById(R.id.nav_view);
-//
-//        navigationView.setNavigationItemSelectedListener(this);
 
         notesListView = findViewById(R.id.viewNoteList);
 
@@ -150,6 +147,7 @@ public class MainActivity extends AppCompatActivity
     public void onBackPressed() {
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
+
             drawer.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
@@ -193,7 +191,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_add) {
-            
+
 
         } else if (id == R.id.nav_logout) {
         }
@@ -245,5 +243,6 @@ public class MainActivity extends AppCompatActivity
             navList.add(new NavgitationModel(getResources().getDrawable(R.drawable.ic_bookmark_black_24dp), labelName));
         }
     }
+
 
 }

@@ -21,10 +21,11 @@ import java.util.ArrayList;
 
 public class NavigationDrawerAdapter extends ArrayAdapter<NavgitationModel> {
 
-    String TAG = NavigationDrawerAdapter.class.getCanonicalName();
+    private String TAG = NavigationDrawerAdapter.class.getCanonicalName();
     private ArrayList<NavgitationModel> navigationList;
     private Context mContext;
     private boolean editToggle = true;
+    private boolean textToggle = false;
 
 
     public NavigationDrawerAdapter(ArrayList<NavgitationModel> list, Context context) {
@@ -50,29 +51,28 @@ public class NavigationDrawerAdapter extends ArrayAdapter<NavgitationModel> {
         labelNameTV.setText(navigationList.get(position).getTitle());
         labelImage.setImageDrawable(navigationList.get(position).getLabelImageView());
 
+        layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.e(TAG, "Here " + position);
+                
 
-            layout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Log.e(TAG, "Here " + position);
-
-
-
-                }
-            });
+            }
+        });
 
 
         labelImage.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
-                if(editToggle){
+                if (editToggle) {
                     editToggle = false;
+                    textToggle = true;
                     Log.e(TAG, "Here true" + position);
                     String label = labelNameTV.getText().toString();
                     viewSwitcher.showNext();
                     labelEdittext.setText(label);
 
-                }else{
+                } else {
                     editToggle = true;
                     viewSwitcher.showPrevious();
                     Log.e(TAG, "Here " + position);
