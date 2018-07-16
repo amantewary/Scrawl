@@ -241,8 +241,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                         Toast.makeText(getApplicationContext(), response.body().getError_msg(), Toast.LENGTH_LONG).show();
 
                         //TODO: I don't think this is a good practice. Need to look for an alternative method
-                        finish();
-                        startActivity(getIntent());
+//                        finish();
+//                        startActivity(getIntent());
+                        showProgress(false);
                     }
 
                 } else {

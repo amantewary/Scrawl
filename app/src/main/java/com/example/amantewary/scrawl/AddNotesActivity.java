@@ -1,5 +1,6 @@
 package com.example.amantewary.scrawl;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -36,6 +37,7 @@ public class AddNotesActivity extends AppCompatActivity implements Observer {
     private Spinner sp_add_labels;
     private ArrayList<String> labels;
     private InputHandler inputHandler;
+
     /**
      * A method to check if a string is a link
      *
@@ -70,6 +72,24 @@ public class AddNotesActivity extends AppCompatActivity implements Observer {
         return matcher.matches();
     }
 
+    private void handleSendNotes() {
+        SessionManager sessionManager = new SessionManager(getApplicationContext());
+        if (sessionManager.checkLogin()) {
+            Intent intent = getIntent();
+            String action = intent.getAction();
+            String type = intent.getType();
+
+            if (Intent.ACTION_SEND.equals(action) && type != null) {
+                if ("text/plain".equals(type)) {
+                    String sharedText = intent.getStringExtra(Intent.EXTRA_TEXT);
+                    if (sharedText != null) {
+                        et_content.setText(sharedText);
+                    }
+                }
+            }
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,9 +108,7 @@ public class AddNotesActivity extends AppCompatActivity implements Observer {
         et_link = findViewById(R.id.et_link);
         sp_add_labels = findViewById(R.id.sp_add_label);
 
-        /**
-         * Swag code!
-         * */
+
         doRealTimeCheck();
 
         //make tv_date show current date
@@ -107,6 +125,8 @@ public class AddNotesActivity extends AppCompatActivity implements Observer {
         );
         labelAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         sp_add_labels.setAdapter(labelAdapter);
+
+        handleSendNotes();
     }
 
     @Override
@@ -138,25 +158,25 @@ public class AddNotesActivity extends AppCompatActivity implements Observer {
             if (inputHandler.inputValidator(title, body, link)) {
                 NotesRequestHandler request = new NotesRequestHandler();
                 request.createNote(noteHandler, AddNotesActivity.this);
-            }else{
+            } else {
                 inputHandler.inputErrorHandling(et_title, et_content, et_link);
             }
         } catch (Exception e) {
-            Log.e("Message", ""+e);
+            Log.e("Message", "" + e);
         }
     }
 
 
     @Override
     public void update(Observable observable, Object o) {
-        if(observable instanceof InputHandler){
+        if (observable instanceof InputHandler) {
             Log.e(TAG, "Here");
-            Toast.makeText(getApplicationContext(),"I know you are adding bad words.. naughty bow", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "All bad words will be censored", Toast.LENGTH_SHORT).show();
         }
     }
 
     //TODO: Need to move this in InputHandler Class
-    private void doRealTimeCheck(){
+    private void doRealTimeCheck() {
         et_content.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -170,7 +190,7 @@ public class AddNotesActivity extends AppCompatActivity implements Observer {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if(editable.length() != 0){
+                if (editable.length() != 0) {
                     inputHandler.inputCensor(et_content.getText().toString().trim());
                 }
             }
@@ -189,7 +209,7 @@ public class AddNotesActivity extends AppCompatActivity implements Observer {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if(editable.length() != 0){
+                if (editable.length() != 0) {
                     inputHandler.inputCensor(et_content.getText().toString().trim());
                 }
             }

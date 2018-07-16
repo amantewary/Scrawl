@@ -17,18 +17,24 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.amantewary.scrawl.API.ILabelResponse;
 import com.example.amantewary.scrawl.API.INoteResponse;
+import com.example.amantewary.scrawl.Adapters.NavigationDrawerAdapter;
 import com.example.amantewary.scrawl.Adapters.NotesList;
 import com.example.amantewary.scrawl.Handlers.LabelHandler;
+import com.example.amantewary.scrawl.Handlers.NavgitationModel;
 import com.example.amantewary.scrawl.Handlers.NoteHandler;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.l4digital.fastscroll.FastScrollRecyclerView;
 
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observer;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -38,26 +44,37 @@ public class MainActivity extends AppCompatActivity
     private FastScrollRecyclerView notesListView;
     private NotesList notesAdapter;
     private ArrayList<String> labelOptions;
-    private NavigationView navigationView;
-    FileOutputStream outputStream;
-
-
+    FirebaseAnalytics mFirebaseAnalytics;
+    NavigationDrawerAdapter navigationDrawerAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
+
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+        mFirebaseAnalytics.setCurrentScreen(this, getClass().getCanonicalName(), null);
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        ListView listView = (ListView) findViewById(R.id.lstDrawerItems);
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        LinearLayout logout = findViewById(R.id.nav_lout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        navigationView = findViewById(R.id.nav_view);
 
-        navigationView.setNavigationItemSelectedListener(this);
+        ArrayList<NavgitationModel> navgitationModels = new ArrayList<>();
+
+        loadLabelsForList(navgitationModels);
+
+        navigationDrawerAdapter = new NavigationDrawerAdapter(navgitationModels,this);
+
+        listView.setAdapter(navigationDrawerAdapter);
+
+
 
         notesListView = findViewById(R.id.viewNoteList);
 
@@ -92,6 +109,13 @@ public class MainActivity extends AppCompatActivity
                 startActivity(intent);
             }
         });
+
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showDialog();
+            }
+        });
     }
 
     @Override
@@ -123,6 +147,7 @@ public class MainActivity extends AppCompatActivity
     public void onBackPressed() {
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
+
             drawer.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
@@ -166,13 +191,9 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_add) {
-            final Menu menu = navigationView.getMenu();
-
-                menu.add("Runtime item " + 1);
 
 
         } else if (id == R.id.nav_logout) {
-            showDialog();
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -215,17 +236,13 @@ public class MainActivity extends AppCompatActivity
         finish();
     }
 
-//    public void writeToFile(ArrayList<String> labels){
-//        String filename = "labels.txt";
-//        try {
-//            outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
-//            for (String fileLabels: labels){
-//                outputStream.write(fileLabels.getBytes());
-//                outputStream.write("\n".getBytes());
-//            }
-//            outputStream.close();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
+    void loadLabelsForList(ArrayList<NavgitationModel> navList){
+        ArrayList<String> labelString = LabelLoader.getInstance().loadLabel(this);
+
+        for (String labelName : labelString){
+            navList.add(new NavgitationModel(getResources().getDrawable(R.drawable.ic_bookmark_black_24dp), labelName));
+        }
+    }
+
+
 }
