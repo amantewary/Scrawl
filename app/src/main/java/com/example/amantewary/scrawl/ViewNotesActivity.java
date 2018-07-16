@@ -31,7 +31,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class ViewNotesActivity extends AppCompatActivity implements View.OnClickListener{
+public class ViewNotesActivity extends AppCompatActivity implements View.OnClickListener {
     private static final String TAG = "ViewNotesActivity";
 
     private Menu menu;
@@ -41,6 +41,8 @@ public class ViewNotesActivity extends AppCompatActivity implements View.OnClick
     private Integer noteId;
     private TextView tv_note_content, tv_note_link;
     private Button btn_edit, btn_share, btn_delete, btn_collaborate;
+    private NoteHandler noteHandler;
+    private NotesRequestHandler request;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +52,7 @@ public class ViewNotesActivity extends AppCompatActivity implements View.OnClick
         collapsingToolbarLayout = findViewById(R.id.subtitlecollapsingtoolbarlayout);
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
-        if(bundle != null){
+        if (bundle != null) {
             noteId = bundle.getInt("noteid");
         }
         collapsingToolbarLayout.setExpandedSubtitleTextAppearance(R.style.TextAppearance_AppCompat_Subhead);
@@ -73,11 +75,10 @@ public class ViewNotesActivity extends AppCompatActivity implements View.OnClick
 //                Intent intent = new Intent(activity_viewnotesscroll.this, NewMessageActivity.class);
 //                startActivity(intent);
 
-                if(mBottomSheetBehavior1.getState() != BottomSheetBehavior.STATE_EXPANDED) {
+                if (mBottomSheetBehavior1.getState() != BottomSheetBehavior.STATE_EXPANDED) {
                     mBottomSheetBehavior1.setState(BottomSheetBehavior.STATE_EXPANDED);
 
-                }
-                else {
+                } else {
                     mBottomSheetBehavior1.setState(BottomSheetBehavior.STATE_COLLAPSED);
                 }
 
@@ -108,7 +109,7 @@ public class ViewNotesActivity extends AppCompatActivity implements View.OnClick
         tv_note_link = findViewById(R.id.viewNotesLink);
 
         btn_edit = (Button) findViewById(R.id.btn_edit);
-        btn_collaborate = (Button)findViewById(R.id.btn_collaborate);
+        btn_collaborate = (Button) findViewById(R.id.btn_collaborate);
         btn_share = (Button) findViewById(R.id.btn_share);
         btn_delete = (Button) findViewById(R.id.btn_delete);
 
@@ -130,7 +131,7 @@ public class ViewNotesActivity extends AppCompatActivity implements View.OnClick
                 Log.d(TAG, "onResponse: Server Response: " + response.toString());
                 Log.d(TAG, "onResponse: Received Information: " + response.body().toString());
                 List<NoteHandler> notes = response.body();
-                for(NoteHandler n : notes){
+                for (NoteHandler n : notes) {
                     collapsingToolbarLayout.setTitle(n.getTitle());
                     collapsingToolbarLayout.setSubtitle(n.getLabel_name());
                     tv_note_content.setText(n.getBody());
@@ -185,8 +186,8 @@ public class ViewNotesActivity extends AppCompatActivity implements View.OnClick
 
 
     @Override
-    public void onClick(View view){
-        switch (view.getId()){
+    public void onClick(View view) {
+        switch (view.getId()) {
             case R.id.btn_edit:
                 Intent intent = new Intent(ViewNotesActivity.this, EditNotesActivity.class);
                 intent.putExtra("noteid", noteId);
@@ -204,49 +205,25 @@ public class ViewNotesActivity extends AppCompatActivity implements View.OnClick
         }
     }
 
-    public void deleteNote(){
 
-        //Builder
-        AlertDialog.Builder deleteAlert = new AlertDialog.Builder(ViewNotesActivity.this);
-        deleteAlert.setTitle("Delete Note");
-        deleteAlert.setMessage("Are you sure?");
-        deleteAlert.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                NoteHandler noteHandler = new NoteHandler(noteId);
-                NotesRequestHandler request = new NotesRequestHandler();
-                request.deleteNote(noteHandler, ViewNotesActivity.this);
-                finish();
-            }
-        });
-        deleteAlert.setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
-            }
-        });
-        deleteAlert.show();
-
-    }
-
-    private void setShareIntent(){
-        try{
+    private void setShareIntent() {
+        try {
             Intent sendIntent = new Intent();
             sendIntent.setAction(Intent.ACTION_SEND);
             sendIntent.putExtra(Intent.EXTRA_TEXT, tv_note_content.getText().toString());
             sendIntent.setType("text/plain");
             startActivity(Intent.createChooser(sendIntent, "share to"));
-        }catch (Exception e){
+        } catch (Exception e) {
             Log.e(TAG, "Failed to set Share Intent: " + e.getMessage());
         }
 
     }
 
-    private void showDialog(){
+    private void showDialog() {
 
         final EditText et_collaborate_with = new EditText(this);
         et_collaborate_with.setHint("Please input email address");
-        try{
+        try {
             new AlertDialog.Builder(this)
                     .setTitle("Collaborate with:")
                     .setView(et_collaborate_with)
@@ -258,15 +235,15 @@ public class ViewNotesActivity extends AppCompatActivity implements View.OnClick
                     })
                     .setNegativeButton("Cancel", null)
                     .show();
-        }catch (Exception e){
+        } catch (Exception e) {
             Log.e(TAG, "Failed to show Dialog " + e.getMessage());
         }
 
 
     }
 
-    public void setCollaborateInfo(String collaborate_with){
-        try{
+    public void setCollaborateInfo(String collaborate_with) {
+        try {
             //Check if the user is logged in
             String share_from = SessionManager.KEY_EMAIL;
 
@@ -276,12 +253,12 @@ public class ViewNotesActivity extends AppCompatActivity implements View.OnClick
 
             ShareHandler shareHandler = new ShareHandler(share_from, share_to, note_id);
             sendRequest(shareHandler);
-        }catch (Exception e) {
+        } catch (Exception e) {
             Log.e("Message", e.toString());
         }
     }
 
-    private void sendRequest(ShareHandler shareHandler){
+    private void sendRequest(ShareHandler shareHandler) {
         IShareAPI shareAPI = RetroFitInstance.getRetrofit().create(IShareAPI.class);
         Call<ShareHandler> call = shareAPI.createShare(shareHandler);
         call.enqueue(new Callback<ShareHandler>() {
@@ -298,6 +275,31 @@ public class ViewNotesActivity extends AppCompatActivity implements View.OnClick
                 Toast.makeText(ViewNotesActivity.this, "Something Went Wrong", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    public void deleteNote() {
+
+        //Builder
+        AlertDialog.Builder deleteAlert = new AlertDialog.Builder(ViewNotesActivity.this);
+        deleteAlert.setTitle("Delete Note");
+        deleteAlert.setMessage("Are you sure?");
+        deleteAlert.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                noteHandler = new NoteHandler(noteId);
+                request = new NotesRequestHandler();
+                request.deleteNote(noteHandler, ViewNotesActivity.this);
+                finish();
+            }
+        });
+        deleteAlert.setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        deleteAlert.show();
+
     }
 
 }
