@@ -42,5 +42,6 @@
     <string name="logout">Logout</string>
 
     <string name="add_labels">Add Labels</string>
+    <string name="title_activity_filtered_notes">FilteredNotesActivity</string>
 
 </resources>
