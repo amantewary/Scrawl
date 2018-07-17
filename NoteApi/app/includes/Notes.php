@@ -93,6 +93,27 @@ class Notes
         }
     }
 
+    public function readByLabel()
+    {
+        error_log('Invoked readByLabel Method');
+        try {
+            $query = 'CALL spGetNoteByLabel(:label_name)';
+            $stmt = $this->con->prepare($query);
+            $this->label_name = htmlspecialchars(strip_tags($this->label_name));
+            $stmt->bindParam(':label_name', $this->label_name);
+            if($stmt->execute()) {
+                error_log('Retrieved Note');
+                return $stmt;
+            }else{
+                throw new PDOException();
+            }
+        } catch (\PDOException $e) {
+            print_r($e);
+            error_log('Note Not Available: ' . $e->getMessage());
+            return $e;
+        }
+    }
+
     public function update()
     {
         $query = 'CALL spUpdateNote(:label_name, :title, :body, :url, :user_id, :id)';
