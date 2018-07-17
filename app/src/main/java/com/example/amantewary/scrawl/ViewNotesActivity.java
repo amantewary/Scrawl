@@ -253,36 +253,6 @@ public class ViewNotesActivity extends AppCompatActivity implements View.OnClick
 
     public void setCollaborateInfo(final String collaborate_with) {
 
-//        final Boolean[] result = new Boolean[1];
-//        IShareAPI service = RetroFitInstance.getRetrofit().create(IShareAPI.class);
-//        RequestBody body = RequestBody.create(MediaType.parse("text/plain"), collaborate_with);
-//        Map<String, RequestBody> requestBodyMap = new HashMap<>();
-//        requestBodyMap.put("email", body);
-//        Call<LoginUserClass> call = service.checkIfUserExists(requestBodyMap);
-//        call.enqueue(new Callback<LoginUserClass>() {
-//            @Override
-//            public void onResponse(Call<LoginUserClass> call, retrofit2.Response<LoginUserClass> response) {
-//                if (response.isSuccessful()) {
-//                    if (response.body().getError().equals("false")) {
-//                        result[0] = false;
-//                        Toast.makeText(getApplicationContext(), "This user not exists.", Toast.LENGTH_LONG).show();
-//                    } else {
-//                        result[0] = true;
-//                        Toast.makeText(getApplicationContext(), "This user not exists.", Toast.LENGTH_LONG).show();
-//                    }
-//                } else {
-//                    Log.e(TAG, "" + response.raw());
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<LoginUserClass> call, Throwable t) {
-//                t.printStackTrace();
-//                Log.e(TAG, "ifUserExists.onFailure" + t.getMessage());
-//
-//            }
-//        });
-
         try {
             if (sessionManager.checkLogin()){
                 final String share_from = SessionManager.KEY_EMAIL;
@@ -316,18 +286,8 @@ public class ViewNotesActivity extends AppCompatActivity implements View.OnClick
                     public void onFailure(Call<LoginUserClass> call, Throwable t) {
                         t.printStackTrace();
                         Log.e(TAG, "ifUserExists.onFailure" + t.getMessage());
-
                     }
                 });
-
-//                if (ifUserExists(collaborate_with)){
-//                    String share_to = collaborate_with;
-//                    Integer note_id = noteId;
-//                    ShareHandler shareHandler = new ShareHandler(share_from, share_to, note_id);
-//                    sendRequest(shareHandler);
-//                }else {
-//                    Toast.makeText(getApplicationContext(), "This user not exists.", Toast.LENGTH_LONG).show();
-//                }
 
             }else {
                 new  AlertDialog.Builder(this)
