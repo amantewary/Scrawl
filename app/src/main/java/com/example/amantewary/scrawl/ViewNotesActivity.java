@@ -251,7 +251,7 @@ public class ViewNotesActivity extends AppCompatActivity implements View.OnClick
 
     }
 
-    public void setCollaborateInfo(String collaborate_with) {
+    public void setCollaborateInfo(final String collaborate_with) {
 
 //        final Boolean[] result = new Boolean[1];
 //        IShareAPI service = RetroFitInstance.getRetrofit().create(IShareAPI.class);
@@ -284,54 +284,50 @@ public class ViewNotesActivity extends AppCompatActivity implements View.OnClick
 //        });
 
         try {
-            if (!SessionManager.KEY_EMAIL.equals("email")){
-                String share_from = SessionManager.KEY_EMAIL;
+            if (sessionManager.checkLogin()){
+                final String share_from = SessionManager.KEY_EMAIL;
 
-//                final Boolean[] result = new Boolean[1];
-//                IShareAPI service = RetroFitInstance.getRetrofit().create(IShareAPI.class);
-//                RequestBody body = RequestBody.create(MediaType.parse("text/plain"), collaborate_with);
-//                Map<String, RequestBody> requestBodyMap = new HashMap<>();
-//                requestBodyMap.put("email", body);
-//                Call<LoginUserClass> call = service.checkIfUserExists(requestBodyMap);
-//                call.enqueue(new Callback<LoginUserClass>() {
-//                    @Override
-//                    public void onResponse(Call<LoginUserClass> call, retrofit2.Response<LoginUserClass> response) {
-//                        if (response.isSuccessful()) {
-//                            if (response.body().getError().equals("false")) {
-//                                result[0] = false;
-//                                Toast.makeText(getApplicationContext(), "This user not exists.", Toast.LENGTH_LONG).show();
-//                            } else {
-//                                result[0] = true;
-//                                Toast.makeText(getApplicationContext(), "This user not exists.", Toast.LENGTH_LONG).show();
-//                            }
-//                        } else {
-//                            Log.e(TAG, "" + response.raw());
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onFailure(Call<LoginUserClass> call, Throwable t) {
-//                        t.printStackTrace();
-//                        Log.e(TAG, "ifUserExists.onFailure" + t.getMessage());
-//
-//                    }
-//                });
+                final Boolean[] result = new Boolean[1];
+                IShareAPI service = RetroFitInstance.getRetrofit().create(IShareAPI.class);
+                RequestBody body = RequestBody.create(MediaType.parse("text/plain"), collaborate_with);
+                Map<String, RequestBody> requestBodyMap = new HashMap<>();
+                requestBodyMap.put("email", body);
+                Call<LoginUserClass> call = service.checkIfUserExists(requestBodyMap);
+                call.enqueue(new Callback<LoginUserClass>() {
+                    @Override
+                    public void onResponse(Call<LoginUserClass> call, retrofit2.Response<LoginUserClass> response) {
+                        if (response.isSuccessful()) {
+                            if (response.body().getError().equals("false")) {
+                                result[0] = false;
+                                String share_to = collaborate_with;
+                                Integer note_id = noteId;
+                                ShareHandler shareHandler = new ShareHandler(share_from, share_to, note_id);
+                                sendRequest(shareHandler);
+                            } else {
+                                result[0] = true;
+                                Toast.makeText(getApplicationContext(), "This user not exists.", Toast.LENGTH_LONG).show();
+                            }
+                        } else {
+                            Log.e(TAG, "" + response.raw());
+                        }
+                    }
 
-//                if (result[0]){
-//                    Toast.makeText(getApplicationContext(), "This user exists.", Toast.LENGTH_LONG).show();
-//
+                    @Override
+                    public void onFailure(Call<LoginUserClass> call, Throwable t) {
+                        t.printStackTrace();
+                        Log.e(TAG, "ifUserExists.onFailure" + t.getMessage());
+
+                    }
+                });
+
+//                if (ifUserExists(collaborate_with)){
+//                    String share_to = collaborate_with;
+//                    Integer note_id = noteId;
+//                    ShareHandler shareHandler = new ShareHandler(share_from, share_to, note_id);
+//                    sendRequest(shareHandler);
+//                }else {
+//                    Toast.makeText(getApplicationContext(), "This user not exists.", Toast.LENGTH_LONG).show();
 //                }
-
-
-
-                if (ifUserExists(collaborate_with)){
-                    String share_to = collaborate_with;
-                    Integer note_id = noteId;
-                    ShareHandler shareHandler = new ShareHandler(share_from, share_to, note_id);
-                    sendRequest(shareHandler);
-                }else {
-                    Toast.makeText(getApplicationContext(), "This user not exists.", Toast.LENGTH_LONG).show();
-                }
 
             }else {
                 new  AlertDialog.Builder(this)
@@ -397,36 +393,36 @@ public class ViewNotesActivity extends AppCompatActivity implements View.OnClick
 
     }
 
-    private Boolean ifUserExists(String email){
-
-        final Boolean[] result = new Boolean[1];
-        IShareAPI service = RetroFitInstance.getRetrofit().create(IShareAPI.class);
-        RequestBody body = RequestBody.create(MediaType.parse("text/plain"), email);
-        Map<String, RequestBody> requestBodyMap = new HashMap<>();
-        requestBodyMap.put("email", body);
-        Call<LoginUserClass> call = service.checkIfUserExists(requestBodyMap);
-        call.enqueue(new Callback<LoginUserClass>() {
-            @Override
-            public void onResponse(Call<LoginUserClass> call, retrofit2.Response<LoginUserClass> response) {
-                if (response.isSuccessful()) {
-                    if (response.body().getError().equals("false")) {
-                        result[0] = false;
-                    } else {
-                        result[0] = true;
-                    }
-                } else {
-                    Log.e(TAG, "" + response.raw());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<LoginUserClass> call, Throwable t) {
-                t.printStackTrace();
-                Log.e(TAG, "ifUserExists.onFailure" + t.getMessage());
-            }
-        });
-
-        return result[0];
-    }
+//    private Boolean ifUserExists(String email){
+//
+//        final Boolean[] result = new Boolean[1];
+//        IShareAPI service = RetroFitInstance.getRetrofit().create(IShareAPI.class);
+//        RequestBody body = RequestBody.create(MediaType.parse("text/plain"), email);
+//        Map<String, RequestBody> requestBodyMap = new HashMap<>();
+//        requestBodyMap.put("email", body);
+//        Call<LoginUserClass> call = service.checkIfUserExists(requestBodyMap);
+//        call.enqueue(new Callback<LoginUserClass>() {
+//            @Override
+//            public void onResponse(Call<LoginUserClass> call, retrofit2.Response<LoginUserClass> response) {
+//                if (response.isSuccessful()) {
+//                    if (response.body().getError().equals("false")) {
+//                        result[0] = false;
+//                    } else {
+//                        result[0] = true;
+//                    }
+//                } else {
+//                    Log.e(TAG, "" + response.raw());
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<LoginUserClass> call, Throwable t) {
+//                t.printStackTrace();
+//                Log.e(TAG, "ifUserExists.onFailure" + t.getMessage());
+//            }
+//        });
+//
+//        return result[0];
+//    }
 
 }
