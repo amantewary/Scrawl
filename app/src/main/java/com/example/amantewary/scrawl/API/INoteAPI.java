@@ -31,4 +31,12 @@ public interface INoteAPI {
     @HTTP(method = "DELETE", path = "~kamath/QA_Devint/NoteApi/v1/notes/delete", hasBody = true)
     Call<NoteHandler> deleteNote(@Body NoteHandler note);
 
+    @Headers("Content-Type: application/json")
+    @GET("~kamath/QA_Devint/NoteApi/v1/notes/readByLabel")
+    Call<List<NoteHandler>> getNotesByLabel(@Query("label_name") String label_name);
+
+    @Headers("Content-Type: application/json")
+    @GET("~kamath/QA_Devint/NoteApi/v1/notes/readByUser")
+    Call<List<NoteHandler>> getNotesByUser(@Query("user_id") Integer user_id);
+
 }
