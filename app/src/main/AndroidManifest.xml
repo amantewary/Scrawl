@@ -28,7 +28,9 @@
             android:label="@string/app_name">
 
         </activity>
-        <activity android:name=".AddNotesActivity">
+        <activity
+            android:name=".AddNotesActivity"
+            android:parentActivityName=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
 
