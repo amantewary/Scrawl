@@ -21,6 +21,7 @@ public class NotesRequestHandler {
 
     private List<NoteHandler> notes;
     private ProgressDialog dialog;
+
     public void createNote(NoteHandler noteHandler, final Context context) {
         dialog = new ProgressDialog(context);
         dialog.setMessage("Loading...");
@@ -36,6 +37,7 @@ public class NotesRequestHandler {
                         Toast.makeText(context, "Note Created", Toast.LENGTH_SHORT).show();
                         ((Activity) (context)).finish();
                     }
+
                     @Override
                     public void onFailure(Call<NoteHandler> call, Throwable t) {
                         Log.e(context.getClass().getSimpleName(), "onFailure: Something Went Wrong: " + t.getMessage());
@@ -44,6 +46,7 @@ public class NotesRequestHandler {
                     }
                 });
     }
+
     public Call<List<NoteHandler>> getNoteList(final Context context, @Nullable final INoteResponse callbacks) {
         dialog = new ProgressDialog(context);
         dialog.setMessage("Loading...");
@@ -69,6 +72,7 @@ public class NotesRequestHandler {
         return RetroFitInstance.getRetrofit().create(INoteAPI.class)
                 .getNotes();
     }
+
     public Call<List<NoteHandler>> getSingleNote(final Context context, Integer noteId, @Nullable final INoteResponse callbacks) {
         dialog = new ProgressDialog(context);
         dialog.setMessage("Loading...");
@@ -85,6 +89,7 @@ public class NotesRequestHandler {
                             callbacks.onSuccess(notes);
                         }
                     }
+
                     @Override
                     public void onFailure(Call<List<NoteHandler>> call, Throwable t) {
                         callbacks.onError(t);
@@ -93,6 +98,34 @@ public class NotesRequestHandler {
         return RetroFitInstance.getRetrofit().create(INoteAPI.class)
                 .getSingleNote(noteId);
     }
+
+    public Call<List<NoteHandler>> getNotesListByLabel(final Context context, String label_name, @Nullable final INoteResponse callbacks) {
+        dialog = new ProgressDialog(context);
+        dialog.setMessage("Loading...");
+        dialog.show();
+        RetroFitInstance.getRetrofit().create(INoteAPI.class)
+                .getNotesByLabel(label_name)
+                .enqueue(new Callback<List<NoteHandler>>() {
+                    @Override
+                    public void onResponse(Call<List<NoteHandler>> call, Response<List<NoteHandler>> response) {
+                        dialog.dismiss();
+                        Log.d(context.getClass().getSimpleName(), "onResponse: Server Response: " + response.toString());
+                        notes = response.body();
+                        if (callbacks != null) {
+                            callbacks.onSuccess(notes);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<NoteHandler>> call, Throwable t) {
+                        dialog.dismiss();
+                        callbacks.onError(t);
+                    }
+                });
+        return RetroFitInstance.getRetrofit().create(INoteAPI.class)
+                .getNotesByLabel(label_name);
+    }
+
     public void editNote(NoteHandler noteHandler, final Context context) {
         dialog = new ProgressDialog(context);
         dialog.setMessage("Loading...");
@@ -108,6 +141,7 @@ public class NotesRequestHandler {
                         Toast.makeText(context, "Note Edited", Toast.LENGTH_SHORT).show();
                         ((Activity) (context)).finish();
                     }
+
                     @Override
                     public void onFailure(Call<NoteHandler> call, Throwable t) {
                         Log.e(context.getClass().getSimpleName(), "onFailure: Something Went Wrong: " + t.getMessage());
@@ -116,6 +150,7 @@ public class NotesRequestHandler {
                     }
                 });
     }
+
     public void deleteNote(final NoteHandler noteHandler, final Context context) {
         dialog = new ProgressDialog(context);
         dialog.setMessage("Loading...");
@@ -131,6 +166,7 @@ public class NotesRequestHandler {
                         Toast.makeText(context, "Note Deleted", Toast.LENGTH_SHORT).show();
                         ((Activity) (context)).finish();
                     }
+
                     @Override
                     public void onFailure(Call<NoteHandler> call, Throwable t) {
                         Log.e(context.getClass().getSimpleName(), "onFailure: Something Went Wrong: " + t.getMessage());

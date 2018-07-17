@@ -24,42 +24,47 @@ import android.widget.Toast;
 import com.example.amantewary.scrawl.API.ILabelResponse;
 import com.example.amantewary.scrawl.API.INoteResponse;
 import com.example.amantewary.scrawl.Adapters.NavigationDrawerAdapter;
-import com.example.amantewary.scrawl.Adapters.NotesList;
+import com.example.amantewary.scrawl.Adapters.NotesListAdapter;
 import com.example.amantewary.scrawl.Handlers.LabelHandler;
 import com.example.amantewary.scrawl.Handlers.NavgitationModel;
 import com.example.amantewary.scrawl.Handlers.NoteHandler;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.l4digital.fastscroll.FastScrollRecyclerView;
 
-import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Observer;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private static final String TAG = "MainActivity";
-
-    private FastScrollRecyclerView notesListView;
-    private NotesList notesAdapter;
-    private ArrayList<String> labelOptions;
     FirebaseAnalytics mFirebaseAnalytics;
     NavigationDrawerAdapter navigationDrawerAdapter;
+    private FastScrollRecyclerView notesListView;
+    private NotesListAdapter notesAdapter;
+    private ArrayList<String> labelOptions;
+    private Toolbar toolbar;
+    private ListView listView;
+    private DrawerLayout drawer;
+    private LinearLayout logout;
+
+    protected void viewBinder() {
+        toolbar = findViewById(R.id.toolbar);
+        notesListView = findViewById(R.id.viewNoteList);
+        listView = findViewById(R.id.lstDrawerItems);
+        drawer = findViewById(R.id.drawer_layout);
+        logout = findViewById(R.id.nav_lout);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_main);
 
+        viewBinder();
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         mFirebaseAnalytics.setCurrentScreen(this, getClass().getCanonicalName(), null);
-
-        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        ListView listView = (ListView) findViewById(R.id.lstDrawerItems);
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        LinearLayout logout = findViewById(R.id.nav_lout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
@@ -70,13 +75,11 @@ public class MainActivity extends AppCompatActivity
 
         loadLabelsForList(navgitationModels);
 
-        navigationDrawerAdapter = new NavigationDrawerAdapter(navgitationModels,this);
+        navigationDrawerAdapter = new NavigationDrawerAdapter(navgitationModels, this);
 
         listView.setAdapter(navigationDrawerAdapter);
 
 
-
-        notesListView = findViewById(R.id.viewNoteList);
 
         //Loading Labels from database
         //TODO: Need to move this in splash screen
@@ -121,19 +124,25 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onResume() {
         super.onResume();
+        populateNotesList();
+    }
+
+    protected void populateNotesList() {
         NotesRequestHandler request = new NotesRequestHandler();
         request.getNoteList(MainActivity.this, new INoteResponse() {
             @Override
             public int hashCode() {
                 return super.hashCode();
             }
+
             @Override
             public void onSuccess(@NonNull List<NoteHandler> note) {
                 Log.d(TAG, "onResponse: Received Information: " + note.toString());
-                notesAdapter = new NotesList(MainActivity.this, note);
+                notesAdapter = new NotesListAdapter(MainActivity.this, note);
                 notesListView.setAdapter(notesAdapter);
                 notesListView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
             }
+
             @Override
             public void onError(@NonNull Throwable throwable) {
                 Log.e(TAG, "onFailure: Something Went Wrong: " + throwable.getMessage());
@@ -236,10 +245,10 @@ public class MainActivity extends AppCompatActivity
         finish();
     }
 
-    void loadLabelsForList(ArrayList<NavgitationModel> navList){
+    void loadLabelsForList(ArrayList<NavgitationModel> navList) {
         ArrayList<String> labelString = LabelLoader.getInstance().loadLabel(this);
 
-        for (String labelName : labelString){
+        for (String labelName : labelString) {
             navList.add(new NavgitationModel(getResources().getDrawable(R.drawable.ic_bookmark_black_24dp), labelName));
         }
     }

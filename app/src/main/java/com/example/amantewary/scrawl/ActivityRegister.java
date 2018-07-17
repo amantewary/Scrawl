@@ -94,9 +94,13 @@ public class ActivityRegister extends AppCompatActivity {
         }else if(!emailPasswordValidation.isEmailValid(email)){
             inputEmail.setError("Enter a valid email");
             return false;
-        }else if(!emailPasswordValidation.isPasswordValid(password)){
+        }else if(emailPasswordValidation.isPasswordValid(password)){
             inputPassword.setError("The password should be greater than 4");
             return false;
+        }else{
+            inputEmail.setError(null);
+            inputUsername.setError(null);
+            inputPassword.setError(null);
         }
 
         return true;
@@ -117,13 +121,17 @@ public class ActivityRegister extends AppCompatActivity {
             @Override
             public void onResponse(Call<LoginUserClass> call, Response<LoginUserClass> response) {
                 if(response.isSuccessful()){
-                    Log.e(TAG, response.body().getUsername());
-                    sessionManager.createLoginSession(response.body().getUsername(), response.body().getEmail());
-                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                    finish();
-                }else{
-                    Toast.makeText(getApplicationContext(), response.body().getError_msg(), Toast.LENGTH_LONG).show();
+                    if (response.body().getError().equals("false")) {
+                        Log.e(TAG, response.body().getUsername());
+                        sessionManager.createLoginSession(response.body().getUsername(), response.body().getEmail());
+                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                        finish();
+                    }else{
+                        Toast.makeText(getApplicationContext(), response.body().getError_msg(), Toast.LENGTH_LONG).show();
 
+                    }
+                }else {
+                    Log.e(TAG, "" + response.raw());
                 }
             }
 
