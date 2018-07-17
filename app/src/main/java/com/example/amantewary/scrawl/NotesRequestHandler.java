@@ -99,6 +99,33 @@ public class NotesRequestHandler {
                 .getSingleNote(noteId);
     }
 
+    public Call<List<NoteHandler>> getNotesListByLabel(final Context context, String label_name, @Nullable final INoteResponse callbacks) {
+        dialog = new ProgressDialog(context);
+        dialog.setMessage("Loading...");
+        dialog.show();
+        RetroFitInstance.getRetrofit().create(INoteAPI.class)
+                .getNotesByLabel(label_name)
+                .enqueue(new Callback<List<NoteHandler>>() {
+                    @Override
+                    public void onResponse(Call<List<NoteHandler>> call, Response<List<NoteHandler>> response) {
+                        dialog.dismiss();
+                        Log.d(context.getClass().getSimpleName(), "onResponse: Server Response: " + response.toString());
+                        notes = response.body();
+                        if (callbacks != null) {
+                            callbacks.onSuccess(notes);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<NoteHandler>> call, Throwable t) {
+                        dialog.dismiss();
+                        callbacks.onError(t);
+                    }
+                });
+        return RetroFitInstance.getRetrofit().create(INoteAPI.class)
+                .getNotesByLabel(label_name);
+    }
+
     public void editNote(NoteHandler noteHandler, final Context context) {
         dialog = new ProgressDialog(context);
         dialog.setMessage("Loading...");

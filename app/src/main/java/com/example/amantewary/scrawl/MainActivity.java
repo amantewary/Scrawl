@@ -24,7 +24,7 @@ import android.widget.Toast;
 import com.example.amantewary.scrawl.API.ILabelResponse;
 import com.example.amantewary.scrawl.API.INoteResponse;
 import com.example.amantewary.scrawl.Adapters.NavigationDrawerAdapter;
-import com.example.amantewary.scrawl.Adapters.NotesList;
+import com.example.amantewary.scrawl.Adapters.NotesListAdapter;
 import com.example.amantewary.scrawl.Handlers.LabelHandler;
 import com.example.amantewary.scrawl.Handlers.NavgitationModel;
 import com.example.amantewary.scrawl.Handlers.NoteHandler;
@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity
     FirebaseAnalytics mFirebaseAnalytics;
     NavigationDrawerAdapter navigationDrawerAdapter;
     private FastScrollRecyclerView notesListView;
-    private NotesList notesAdapter;
+    private NotesListAdapter notesAdapter;
     private ArrayList<String> labelOptions;
     private Toolbar toolbar;
     private ListView listView;
@@ -50,6 +50,7 @@ public class MainActivity extends AppCompatActivity
 
     protected void viewBinder() {
         toolbar = findViewById(R.id.toolbar);
+        notesListView = findViewById(R.id.viewNoteList);
         listView = findViewById(R.id.lstDrawerItems);
         drawer = findViewById(R.id.drawer_layout);
         logout = findViewById(R.id.nav_lout);
@@ -79,7 +80,6 @@ public class MainActivity extends AppCompatActivity
         listView.setAdapter(navigationDrawerAdapter);
 
 
-        notesListView = findViewById(R.id.viewNoteList);
 
         //Loading Labels from database
         //TODO: Need to move this in splash screen
@@ -138,7 +138,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onSuccess(@NonNull List<NoteHandler> note) {
                 Log.d(TAG, "onResponse: Received Information: " + note.toString());
-                notesAdapter = new NotesList(MainActivity.this, note);
+                notesAdapter = new NotesListAdapter(MainActivity.this, note);
                 notesListView.setAdapter(notesAdapter);
                 notesListView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
             }
