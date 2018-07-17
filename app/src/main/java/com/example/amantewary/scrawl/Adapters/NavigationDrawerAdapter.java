@@ -54,7 +54,7 @@ public class NavigationDrawerAdapter extends ArrayAdapter<NavgitationModel> {
         layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.e(TAG, "Here " + position);
+                Log.e(TAG, "Here " + labelNameTV.getText());
                 
 
             }
