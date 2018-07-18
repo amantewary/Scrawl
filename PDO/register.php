@@ -6,9 +6,8 @@
  * Time: 11:27 AM
  */
 
+require_once 'Database_Queries.php';
 require_once 'config.php';
-
-$database = new Database_Queries();
 
 $response = array("error" => FALSE);
 
@@ -18,13 +17,13 @@ if (isset($_POST['name']) && isset($_POST['email']) && isset($_POST['password'])
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    if ($database->isUserExists($pdo, $email)) {
-        $database->openConnection();
+    if (isUserExists($pdo, $email)) {
+        openConnection();
         $response["error"] = TRUE;
         $response["error_msg"] = "User with " . $email . " already exists!";
         echo json_encode($response);
     } else {
-        $row = $database->registerUser($pdo, $username, $email, $password);
+        $row = registerUser($pdo, $username, $email, $password);
         if (!$row) {
             $response["error"] = TRUE;
             $response["error_msg"] = "Oops! Something went wrong";
@@ -33,12 +32,10 @@ if (isset($_POST['name']) && isset($_POST['email']) && isset($_POST['password'])
             $response["error"] = FALSE;
             $response["username"] = $row['username'];
             $response["email"] = $row['email_address'];
+            $response["id"] = $row['id'];
             echo json_encode($response);
-
-
         }
-
     }
-    $database->closeConnection();
-    $database->tracker();
+    closeConnection();
+    tracker();
 }
