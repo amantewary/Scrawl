@@ -255,7 +255,7 @@ public class ViewNotesActivity extends AppCompatActivity implements View.OnClick
 
         try {
             if (sessionManager.checkLogin()){
-                final String share_from = sessionManager.getKeyEmail();
+                final String share_from = sessionManager.getUserEmail();
 
                 final Boolean[] result = new Boolean[1];
                 IShareAPI service = RetroFitInstance.getRetrofit().create(IShareAPI.class);

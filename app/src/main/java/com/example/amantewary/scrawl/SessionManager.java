@@ -14,18 +14,13 @@ import java.util.HashMap;
 
 public class SessionManager {
 
-
     SharedPreferences pref;
-
 
     SharedPreferences.Editor editor;
 
-
     Context context;
 
-
     int PRIVATE_MODE = 0;
-
 
     private static final String Shared_Pref_Name = "Scrawl";
 
@@ -35,13 +30,15 @@ public class SessionManager {
 
     public static final String KEY_EMAIL = "email";
 
+    public static final String KEY_USERID = "userid";
+
     public SessionManager(Context context){
         this.context = context;
         pref = context.getSharedPreferences(Shared_Pref_Name, PRIVATE_MODE);
         editor = pref.edit();
     }
 
-    public void createLoginSession(String name, String email){
+    public void createLoginSession(String name, String email, Integer userid){
         // Storing login value as TRUE
         editor.putBoolean(IS_LOGIN, true);
 
@@ -51,10 +48,12 @@ public class SessionManager {
         // Storing email in pref
         editor.putString(KEY_EMAIL, email);
 
+        // Storing user id in pref
+        editor.putInt(KEY_USERID, userid);
+
         // commit changes
         editor.commit();
     }
-
 
     public boolean checkLogin(){
         if(!this.isLoggedIn()){
@@ -62,7 +61,6 @@ public class SessionManager {
         }else{
             return true;
         }
-
     }
 
     public HashMap<String, String> getUserDetails(){
@@ -87,8 +85,12 @@ public class SessionManager {
         return pref.getBoolean(IS_LOGIN, false);
     }
 
-    public String getKeyEmail() {
+    public String getUserEmail() {
         return pref.getString(KEY_EMAIL,null);
+    }
+
+    public Integer getUserId() {
+        return pref.getInt(KEY_USERID,0);
     }
 }
 

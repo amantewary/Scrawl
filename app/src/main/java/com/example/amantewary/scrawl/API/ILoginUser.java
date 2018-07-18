@@ -12,6 +12,6 @@ import retrofit2.http.PartMap;
 
 public interface ILoginUser {
     @Multipart
-    @POST("~kamath/QA_Devint/login.php")
+    @POST("~hhou/QA_Devint/login.php")
     Call<LoginUserClass> sendPost(@PartMap Map<String, RequestBody> parameters);
 }

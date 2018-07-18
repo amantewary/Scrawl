@@ -218,7 +218,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     private void requestLogin(final String email, final String password) {
 
-
         ILoginUser service = RetroFitInstance.getRetrofit().create(ILoginUser.class);
         RequestBody body = RequestBody.create(MediaType.parse("text/plain"), email);
         RequestBody body2 = RequestBody.create(MediaType.parse("text/plain"), password);
@@ -233,7 +232,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     if (response.body().getError().equals("false")) {
                         Log.e(TAG, response.body().getUsername());
 
-                        sessionManager.createLoginSession(response.body().getUsername(), response.body().getEmail());
+                        sessionManager.createLoginSession(response.body().getUsername(), response.body().getEmail(), response.body().getId());
+
                         startActivity(new Intent(getApplicationContext(), MainActivity.class));
                         finish();
                     } else {

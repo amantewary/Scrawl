@@ -1,11 +1,14 @@
 package com.example.amantewary.scrawl.Handlers;
 
 
+import android.content.Intent;
+
 import com.google.gson.annotations.SerializedName;
 
 public class LoginUserClass {
 
-
+    @SerializedName("id")
+    Integer id;
     @SerializedName("password")
     String password;
     @SerializedName("email")
@@ -23,6 +26,11 @@ public class LoginUserClass {
         this.email = email;
     }
 
+    public LoginUserClass(String email, String password, Integer id) {
+        this.password = password;
+        this.email = email;
+        this.id = id;
+    }
 
     public String getError_msg() {
         return error_msg;
@@ -31,7 +39,6 @@ public class LoginUserClass {
     public void setError_msg(String error_msg) {
         this.error_msg = error_msg;
     }
-
 
     public String getEmail() {
         return email;
@@ -63,5 +70,13 @@ public class LoginUserClass {
 
     public void setError(String error) {
         this.error = error;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 }

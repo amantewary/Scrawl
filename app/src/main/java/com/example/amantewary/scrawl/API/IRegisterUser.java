@@ -13,6 +13,6 @@ import retrofit2.http.PartMap;
 public interface IRegisterUser {
 
     @Multipart
-    @POST("~kamath/QA_Devint/register.php")
+    @POST("~hhou/QA_Devint/register.php")
     Call<LoginUserClass> sendPostRegister(@PartMap Map<String, RequestBody> parameters);
 }

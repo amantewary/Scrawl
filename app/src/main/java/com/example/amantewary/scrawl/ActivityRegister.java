@@ -123,7 +123,7 @@ public class ActivityRegister extends AppCompatActivity {
                 if(response.isSuccessful()){
                     if (response.body().getError().equals("false")) {
                         Log.e(TAG, response.body().getUsername());
-                        sessionManager.createLoginSession(response.body().getUsername(), response.body().getEmail());
+                        sessionManager.createLoginSession(response.body().getUsername(), response.body().getEmail(),response.body().getId());
                         startActivity(new Intent(getApplicationContext(), MainActivity.class));
                         finish();
                     }else{
