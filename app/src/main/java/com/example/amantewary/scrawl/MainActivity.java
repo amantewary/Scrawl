@@ -3,11 +3,13 @@ package com.example.amantewary.scrawl;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -47,12 +49,15 @@ public class MainActivity extends AppCompatActivity
     private ListView listView;
     private DrawerLayout drawer;
     private LinearLayout logout;
+    private SwipeRefreshLayout swiperefresh;
+
 
     protected void viewBinder() {
         toolbar = findViewById(R.id.toolbar);
         listView = findViewById(R.id.lstDrawerItems);
         drawer = findViewById(R.id.drawer_layout);
         logout = findViewById(R.id.nav_lout);
+        swiperefresh =(SwipeRefreshLayout)findViewById(R.id.swiperefresh);
     }
 
     @Override
@@ -119,6 +124,21 @@ public class MainActivity extends AppCompatActivity
                 showDialog();
             }
         });
+
+        swiperefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                Log.i(TAG, "onRefresh called from SwipeRefreshLayout");
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        swiperefresh.setRefreshing(false);
+                    }
+                },2000);
+
+            }
+        });
     }
 
     @Override
@@ -150,6 +170,30 @@ public class MainActivity extends AppCompatActivity
             }
         });
     }
+
+//    protected void populateNotesList() {
+//        NotesRequestHandler request = new NotesRequestHandler();
+//        request.getNoteList(MainActivity.this, new INoteResponse() {
+//            @Override
+//            public int hashCode() {
+//                return super.hashCode();
+//            }
+//
+//            @Override
+//            public void onSuccess(@NonNull List<NoteHandler> note) {
+//                Log.d(TAG, "onResponse: Received Information: " + note.toString());
+//                notesAdapter = new NotesList(MainActivity.this, note);
+//                notesListView.setAdapter(notesAdapter);
+//                notesListView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+//            }
+//
+//            @Override
+//            public void onError(@NonNull Throwable throwable) {
+//                Log.e(TAG, "onFailure: Something Went Wrong: " + throwable.getMessage());
+//                Toast.makeText(MainActivity.this, "Something Went Wrong", Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//    }
 
 
     @Override
