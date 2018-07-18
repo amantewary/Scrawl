@@ -21,6 +21,7 @@ public class NotesRequestHandler {
 
     private List<NoteHandler> notes;
     private ProgressDialog dialog;
+    private SessionManager sessionManager;
 
     public void createNote(NoteHandler noteHandler, final Context context) {
         dialog = new ProgressDialog(context);
@@ -49,10 +50,11 @@ public class NotesRequestHandler {
 
     public Call<List<NoteHandler>> getNoteList(final Context context, @Nullable final INoteResponse callbacks) {
         dialog = new ProgressDialog(context);
+        sessionManager = new SessionManager(context);
         dialog.setMessage("Loading...");
         dialog.show();
         RetroFitInstance.getRetrofit().create(INoteAPI.class)
-                .getNotes()
+                .getNotesByUser(Integer.valueOf(sessionManager.getUserDetails().get("userId")))
                 .enqueue(new Callback<List<NoteHandler>>() {
                     @Override
                     public void onResponse(Call<List<NoteHandler>> call, Response<List<NoteHandler>> response) {

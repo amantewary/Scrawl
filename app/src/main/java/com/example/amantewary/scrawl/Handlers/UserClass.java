@@ -3,7 +3,7 @@ package com.example.amantewary.scrawl.Handlers;
 
 import com.google.gson.annotations.SerializedName;
 
-public class LoginUserClass {
+public class UserClass {
 
 
     @SerializedName("password")
@@ -18,9 +18,19 @@ public class LoginUserClass {
     String error_msg;
 
 
-    public LoginUserClass(String email, String password) {
+
+    @SerializedName("userId")
+    String userId;
+
+
+    public UserClass(String email, String password) {
         this.password = password;
         this.email = email;
+    }
+    public UserClass(String email, String username, String userId) {
+        this.email = email;
+        this.username = username;
+        this.userId = userId;
     }
 
 
@@ -63,5 +73,13 @@ public class LoginUserClass {
 
     public void setError(String error) {
         this.error = error;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }

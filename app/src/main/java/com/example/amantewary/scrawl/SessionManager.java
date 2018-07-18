@@ -3,6 +3,8 @@ package com.example.amantewary.scrawl;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.example.amantewary.scrawl.Handlers.UserClass;
+
 import java.util.HashMap;
 
 /**
@@ -21,6 +23,8 @@ public class SessionManager {
     SharedPreferences.Editor editor;
 
 
+    UserClass userClass;
+
     Context context;
 
 
@@ -34,6 +38,8 @@ public class SessionManager {
 
     public static final String KEY_NAME = "username";
 
+    public static final String KEY_USERID = "userId";
+
     public static final String KEY_EMAIL = "email";
 
     public SessionManager(Context context){
@@ -43,15 +49,18 @@ public class SessionManager {
     }
 
 
-    public void createLoginSession(String name, String email){
+    public void createLoginSession(UserClass userClass){
         // Storing login value as TRUE
+        this.userClass = userClass;
         editor.putBoolean(IS_LOGIN, true);
 
         // Storing name in pref
-        editor.putString(KEY_NAME, name);
+        editor.putString(KEY_NAME, userClass.getUsername());
 
         // Storing email in pref
-        editor.putString(KEY_EMAIL, email);
+        editor.putString(KEY_EMAIL, userClass.getEmail());
+
+        editor.putString(KEY_USERID, userClass.getUserId());
 
         // commit changes
         editor.commit();
@@ -76,6 +85,8 @@ public class SessionManager {
 
         // user email id
         user.put(KEY_EMAIL, pref.getString(KEY_EMAIL, null));
+
+        user.put(KEY_USERID, pref.getString(KEY_USERID, null));
 
         // return user
         return user;

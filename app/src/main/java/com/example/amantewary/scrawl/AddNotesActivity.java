@@ -37,7 +37,7 @@ public class AddNotesActivity extends AppCompatActivity implements Observer {
     private Spinner sp_add_labels;
     private ArrayList<String> labels;
     private InputHandler inputHandler;
-
+    private  SessionManager sessionManager;
     /**
      * A method to check if a string is a link
      *
@@ -73,7 +73,6 @@ public class AddNotesActivity extends AppCompatActivity implements Observer {
     }
 
     private void handleSendNotes() {
-        SessionManager sessionManager = new SessionManager(getApplicationContext());
         if (sessionManager.checkLogin()) {
             Intent intent = getIntent();
             String action = intent.getAction();
@@ -94,6 +93,7 @@ public class AddNotesActivity extends AppCompatActivity implements Observer {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_notes);
+        sessionManager = new SessionManager(getApplicationContext());
         Toolbar toolbar_edit_note = (Toolbar) findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar_edit_note);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
@@ -154,7 +154,7 @@ public class AddNotesActivity extends AppCompatActivity implements Observer {
             String body = inputHandler.inputCensor(et_content.getText().toString().trim());
             String link = et_link.getText().toString().trim();
             //TODO: Need to change user_id once login and registration is done.
-            NoteHandler noteHandler = new NoteHandler(label, title, body, link, 1);
+            NoteHandler noteHandler = new NoteHandler(label, title, body, link, Integer.valueOf(sessionManager.getUserDetails().get("userId")));
             if (inputHandler.inputValidator(title, body, link)) {
                 NotesRequestHandler request = new NotesRequestHandler();
                 request.createNote(noteHandler, AddNotesActivity.this);
@@ -171,7 +171,7 @@ public class AddNotesActivity extends AppCompatActivity implements Observer {
     public void update(Observable observable, Object o) {
         if (observable instanceof InputHandler) {
             Log.e(TAG, "Here");
-            Toast.makeText(getApplicationContext(), "All bad words will be censored", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "All bad words will be censored!", Toast.LENGTH_SHORT).show();
         }
     }
 

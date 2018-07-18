@@ -30,7 +30,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.amantewary.scrawl.API.ILoginUser;
-import com.example.amantewary.scrawl.Handlers.LoginUserClass;
+import com.example.amantewary.scrawl.Handlers.UserClass;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -225,15 +225,15 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         Map<String, RequestBody> requestBodyMap = new HashMap<>();
         requestBodyMap.put("email", body);
         requestBodyMap.put("password", body2);
-        Call<LoginUserClass> call = service.sendPost(requestBodyMap);
-        call.enqueue(new Callback<LoginUserClass>() {
+        Call<UserClass> call = service.sendPost(requestBodyMap);
+        call.enqueue(new Callback<UserClass>() {
             @Override
-            public void onResponse(Call<LoginUserClass> call, retrofit2.Response<LoginUserClass> response) {
+            public void onResponse(Call<UserClass> call, retrofit2.Response<UserClass> response) {
                 if (response.isSuccessful()) {
                     if (response.body().getError().equals("false")) {
                         Log.e(TAG, response.body().getUsername());
 
-                        sessionManager.createLoginSession(response.body().getUsername(), response.body().getEmail());
+                        sessionManager.createLoginSession(new UserClass(response.body().getEmail(), response.body().getUsername(), response.body().getUserId()));
                         startActivity(new Intent(getApplicationContext(), MainActivity.class));
                         finish();
                     } else {
@@ -253,7 +253,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }
 
             @Override
-            public void onFailure(Call<LoginUserClass> call, Throwable t) {
+            public void onFailure(Call<UserClass> call, Throwable t) {
                 t.printStackTrace();
                 Log.e(TAG, "Here" + t.getMessage());
 

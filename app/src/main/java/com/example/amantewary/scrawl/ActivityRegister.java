@@ -10,7 +10,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.amantewary.scrawl.API.IRegisterUser;
-import com.example.amantewary.scrawl.Handlers.LoginUserClass;
+import com.example.amantewary.scrawl.Handlers.UserClass;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -116,14 +116,14 @@ public class ActivityRegister extends AppCompatActivity {
         requestBodyMap.put("email", body);
         requestBodyMap.put("password", body2);
         requestBodyMap.put("name", body3);
-        Call<LoginUserClass> call = service.sendPostRegister(requestBodyMap);
-        call.enqueue(new Callback<LoginUserClass>() {
+        Call<UserClass> call = service.sendPostRegister(requestBodyMap);
+        call.enqueue(new Callback<UserClass>() {
             @Override
-            public void onResponse(Call<LoginUserClass> call, Response<LoginUserClass> response) {
+            public void onResponse(Call<UserClass> call, Response<UserClass> response) {
                 if(response.isSuccessful()){
                     if (response.body().getError().equals("false")) {
                         Log.e(TAG, response.body().getUsername());
-                        sessionManager.createLoginSession(response.body().getUsername(), response.body().getEmail());
+                        sessionManager.createLoginSession(new UserClass(response.body().getUsername(), response.body().getEmail(), response.body().getUserId()));
                         startActivity(new Intent(getApplicationContext(), MainActivity.class));
                         finish();
                     }else{
@@ -136,7 +136,7 @@ public class ActivityRegister extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<LoginUserClass> call, Throwable t) {
+            public void onFailure(Call<UserClass> call, Throwable t) {
                 t.printStackTrace();
                 Toast.makeText(getApplicationContext(), "Looks like something is wrong!",Toast.LENGTH_SHORT).show();
             }

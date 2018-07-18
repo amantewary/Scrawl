@@ -1,6 +1,6 @@
 package com.example.amantewary.scrawl.API;
 
-import com.example.amantewary.scrawl.Handlers.LoginUserClass;
+import com.example.amantewary.scrawl.Handlers.UserClass;
 
 import java.util.Map;
 
@@ -13,5 +13,5 @@ import retrofit2.http.PartMap;
 public interface ILoginUser {
     @Multipart
     @POST("~kamath/QA_Devint/login.php")
-    Call<LoginUserClass> sendPost(@PartMap Map<String, RequestBody> parameters);
+    Call<UserClass> sendPost(@PartMap Map<String, RequestBody> parameters);
 }

@@ -7,6 +7,7 @@
  */
 
 require_once 'config.php';
+require_once 'Database_Queries.php';
 
 $database = new Database_Queries();
 
@@ -33,6 +34,7 @@ if (isset($_POST['name']) && isset($_POST['email']) && isset($_POST['password'])
             $response["error"] = FALSE;
             $response["username"] = $row['username'];
             $response["email"] = $row['email_address'];
+            $response["userId"] = $row['id'];
             echo json_encode($response);
 
 

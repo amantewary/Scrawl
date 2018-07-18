@@ -1,6 +1,6 @@
 package com.example.amantewary.scrawl.API;
 
-import com.example.amantewary.scrawl.Handlers.LoginUserClass;
+import com.example.amantewary.scrawl.Handlers.UserClass;
 
 import java.util.Map;
 
@@ -14,5 +14,5 @@ public interface IRegisterUser {
 
     @Multipart
     @POST("~kamath/QA_Devint/register.php")
-    Call<LoginUserClass> sendPostRegister(@PartMap Map<String, RequestBody> parameters);
+    Call<UserClass> sendPostRegister(@PartMap Map<String, RequestBody> parameters);
 }

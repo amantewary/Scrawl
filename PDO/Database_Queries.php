@@ -7,7 +7,8 @@
  */
 
 require 'config.php';
-require 'error_logger.php';
+
+
 class Database_Queries
 {
     function getUserData($pdo)
@@ -35,7 +36,7 @@ class Database_Queries
     {
         try {
             $uniqueId = uniqid('', true);
-            $hash = hashPassword($password);
+            $hash = $this->hashPassword($password);
             $encrypted_password = $hash["encrypted"];
             $salt = $hash["salt"];
             $stmt = $pdo->prepare("CALL spRegisterUser(?, ?, ?, ?, now(), now(), ?)") or die(mysql_error());
@@ -44,7 +45,7 @@ class Database_Queries
             $stmt->execute(array($uniqueId, $name, $email, $encrypted_password, $salt));
 
             if ($stmt) {
-                $stmt = $pdo->prepare("SELECT username,email_address from user where email_address=?");
+                $stmt = $pdo->prepare("SELECT username,id,email_address from user where email_address=?");
                 $stmt->execute(array($email));
                 $rows = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -72,7 +73,7 @@ class Database_Queries
                 $encrypted_password = $rows['password'];
                 $salt = $rows['salt'];
 
-                if ($encrypted_password == dehashPassword($password, $salt)) {
+                if ($encrypted_password == $this->dehashPassword($password, $salt)) {
 
                     return $rows;
                 } else {
