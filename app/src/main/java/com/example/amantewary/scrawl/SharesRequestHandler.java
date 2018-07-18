@@ -27,13 +27,13 @@ public class SharesRequestHandler {
     private List<NoteHandler> notes;
     private ProgressDialog dialog;
 
-    public Call<List<NoteHandler>> getAllNotesByUserId(final Context context, Integer share_to, @Nullable final INoteResponse callbacks) {
+    public Call<List<NoteHandler>> getAllNotesByUserId(final Context context, String share_to, Integer userid, @Nullable final INoteResponse callbacks) {
         dialog = new ProgressDialog(context);
         dialog.setMessage("Loading...");
         dialog.show();
 
         RetroFitInstance.getRetrofit().create(IShareAPI.class)
-                .getAllNotesByUserID(share_to)
+                .getAllNotesByUserID(share_to, userid)
                 .enqueue(new Callback<List<NoteHandler>>() {
                     @Override
                     public void onResponse(Call<List<NoteHandler>> call, Response<List<NoteHandler>> response) {
@@ -55,7 +55,7 @@ public class SharesRequestHandler {
                 });
 
         return RetroFitInstance.getRetrofit().create(IShareAPI.class)
-                .getAllNotesByUserID(share_to);
+                .getAllNotesByUserID(share_to, userid);
     }
 
 

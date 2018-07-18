@@ -50,14 +50,14 @@ public class MainActivity extends AppCompatActivity
     private DrawerLayout drawer;
     private LinearLayout logout;
     private SwipeRefreshLayout swiperefresh;
-
+    private SessionManager sessionManager;
 
     protected void viewBinder() {
         toolbar = findViewById(R.id.toolbar);
         listView = findViewById(R.id.lstDrawerItems);
         drawer = findViewById(R.id.drawer_layout);
         logout = findViewById(R.id.nav_lout);
-        swiperefresh =(SwipeRefreshLayout)findViewById(R.id.swiperefresh);
+//        swiperefresh =(SwipeRefreshLayout)findViewById(R.id.swiperefresh);
     }
 
     @Override
@@ -125,20 +125,22 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        swiperefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                Log.i(TAG, "onRefresh called from SwipeRefreshLayout");
+        sessionManager = new SessionManager(getApplicationContext());
 
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        swiperefresh.setRefreshing(false);
-                    }
-                },2000);
-
-            }
-        });
+//        swiperefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+//            @Override
+//            public void onRefresh() {
+//                Log.i(TAG, "onRefresh called from SwipeRefreshLayout");
+//
+//                new Handler().postDelayed(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        swiperefresh.setRefreshing(false);
+//                    }
+//                },2000);
+//
+//            }
+//        });
     }
 
     @Override
@@ -148,8 +150,11 @@ public class MainActivity extends AppCompatActivity
     }
 
     protected void populateNotesList() {
-        NotesRequestHandler request = new NotesRequestHandler();
-        request.getNoteList(MainActivity.this, new INoteResponse() {
+        String cur_usr_email = sessionManager.getUserEmail();
+        Integer cur_usr_id = sessionManager.getUserId();
+
+        SharesRequestHandler request = new SharesRequestHandler();
+        request.getAllNotesByUserId(MainActivity.this, cur_usr_email, cur_usr_id, new INoteResponse() {
             @Override
             public int hashCode() {
                 return super.hashCode();
