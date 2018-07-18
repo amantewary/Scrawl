@@ -26,6 +26,10 @@ public class LabelHandler {
         this.labelHandlers = labelHandlers;
     }
 
+    public LabelHandler(String name) {
+        this.name = name;
+    }
+
     public LabelHandler(String name, Integer id, Integer user_id) {
         this.name = name;
         this.id = id;
