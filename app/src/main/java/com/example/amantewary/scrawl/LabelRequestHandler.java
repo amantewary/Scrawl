@@ -18,9 +18,9 @@ public class LabelRequestHandler {
 
     private List<LabelHandler> labels;
 
-    public Call<List<LabelHandler>> getLabel(final Context context, final @Nullable ILabelResponse callbacks){
+    public Call<List<LabelHandler>> getLabel(final Context context, final Integer user_id,final @Nullable ILabelResponse callbacks){
         RetroFitInstance.getRetrofit().create(ILabelAPI.class)
-                .getLabels()
+                .getLabels(user_id)
                 .enqueue(new Callback<List<LabelHandler>>() {
             @Override
             public void onResponse(Call<List<LabelHandler>> call, Response<List<LabelHandler>> response) {
@@ -35,6 +35,6 @@ public class LabelRequestHandler {
                 callbacks.onError(t);
             }
         });
-        return RetroFitInstance.getRetrofit().create(ILabelAPI.class).getLabels();
+        return RetroFitInstance.getRetrofit().create(ILabelAPI.class).getLabels(user_id);
     }
 }
