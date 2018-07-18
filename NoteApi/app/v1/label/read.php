@@ -6,6 +6,8 @@
   $database = new ConnectDb();
   $db = $database->connect();
   $label = new Labels($db);
+  $label->user_id = isset($_GET['user_id']) ? $_GET['user_id'] : die();
+  error_log('Request to Access Labels For User With ID: ' . $label->user_id);
   $result = $label->read();
   $num = $result->rowCount();
   if($num > 0) {
