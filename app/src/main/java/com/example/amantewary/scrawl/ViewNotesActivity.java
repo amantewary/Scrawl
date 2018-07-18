@@ -255,7 +255,7 @@ public class ViewNotesActivity extends AppCompatActivity implements View.OnClick
 
         try {
             if (sessionManager.checkLogin()){
-                final String share_from = SessionManager.KEY_EMAIL;
+                final String share_from = sessionManager.getKeyEmail();
 
                 final Boolean[] result = new Boolean[1];
                 IShareAPI service = RetroFitInstance.getRetrofit().create(IShareAPI.class);
@@ -275,7 +275,7 @@ public class ViewNotesActivity extends AppCompatActivity implements View.OnClick
                                 sendRequest(shareHandler);
                             } else {
                                 result[0] = true;
-                                Toast.makeText(getApplicationContext(), "This user not exists.", Toast.LENGTH_LONG).show();
+                                Toast.makeText(getApplicationContext(), "Sorry. This user does not exist.", Toast.LENGTH_LONG).show();
                             }
                         } else {
                             Log.e(TAG, "" + response.raw());
@@ -352,37 +352,5 @@ public class ViewNotesActivity extends AppCompatActivity implements View.OnClick
         deleteAlert.show();
 
     }
-
-//    private Boolean ifUserExists(String email){
-//
-//        final Boolean[] result = new Boolean[1];
-//        IShareAPI service = RetroFitInstance.getRetrofit().create(IShareAPI.class);
-//        RequestBody body = RequestBody.create(MediaType.parse("text/plain"), email);
-//        Map<String, RequestBody> requestBodyMap = new HashMap<>();
-//        requestBodyMap.put("email", body);
-//        Call<LoginUserClass> call = service.checkIfUserExists(requestBodyMap);
-//        call.enqueue(new Callback<LoginUserClass>() {
-//            @Override
-//            public void onResponse(Call<LoginUserClass> call, retrofit2.Response<LoginUserClass> response) {
-//                if (response.isSuccessful()) {
-//                    if (response.body().getError().equals("false")) {
-//                        result[0] = false;
-//                    } else {
-//                        result[0] = true;
-//                    }
-//                } else {
-//                    Log.e(TAG, "" + response.raw());
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<LoginUserClass> call, Throwable t) {
-//                t.printStackTrace();
-//                Log.e(TAG, "ifUserExists.onFailure" + t.getMessage());
-//            }
-//        });
-//
-//        return result[0];
-//    }
 
 }

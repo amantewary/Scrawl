@@ -29,7 +29,6 @@ public class SessionManager {
 
     private static final String Shared_Pref_Name = "Scrawl";
 
-
     private static final String IS_LOGIN = "Is_Login";
 
     public static final String KEY_NAME = "username";
@@ -41,7 +40,6 @@ public class SessionManager {
         pref = context.getSharedPreferences(Shared_Pref_Name, PRIVATE_MODE);
         editor = pref.edit();
     }
-
 
     public void createLoginSession(String name, String email){
         // Storing login value as TRUE
@@ -67,8 +65,6 @@ public class SessionManager {
 
     }
 
-
-
     public HashMap<String, String> getUserDetails(){
         HashMap<String, String> user = new HashMap<String, String>();
         // user name
@@ -81,16 +77,18 @@ public class SessionManager {
         return user;
     }
 
-
     public void logoutUser(){
         // Clearing all data from Shared Preferences
         editor.clear();
         editor.commit();
     }
 
-
     public boolean isLoggedIn(){
         return pref.getBoolean(IS_LOGIN, false);
+    }
+
+    public String getKeyEmail() {
+        return pref.getString(KEY_EMAIL,null);
     }
 }
 
