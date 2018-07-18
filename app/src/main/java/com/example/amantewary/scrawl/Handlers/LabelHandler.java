@@ -12,6 +12,9 @@ public class LabelHandler {
     @SerializedName("id")
     @Expose
     Integer id;
+    @SerializedName("user_id")
+    @Expose
+    Integer user_id;
 
 
     ArrayList<String> labelHandlers;
@@ -23,9 +26,14 @@ public class LabelHandler {
         this.labelHandlers = labelHandlers;
     }
 
-    public LabelHandler(String name, Integer id) {
+    public LabelHandler(String name) {
+        this.name = name;
+    }
+
+    public LabelHandler(String name, Integer id, Integer user_id) {
         this.name = name;
         this.id = id;
+        this.user_id = user_id;
     }
 
     public String getName() {
@@ -36,6 +44,21 @@ public class LabelHandler {
         return id;
     }
 
+    public Integer getUser_id() {
+        return user_id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public void setUser_id(Integer user_id) {
+        this.user_id = user_id;
+    }
 
     public ArrayList<String> getLabelHandlers() {
         return labelHandlers;
