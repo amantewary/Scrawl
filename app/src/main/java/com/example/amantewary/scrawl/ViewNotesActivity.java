@@ -20,8 +20,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.amantewary.scrawl.API.ILoginUser;
-import com.example.amantewary.scrawl.API.INoteAPI;
 import com.example.amantewary.scrawl.API.Notes.INoteResponse;
 import com.example.amantewary.scrawl.API.IShareAPI;
 import com.example.amantewary.scrawl.Handlers.LoginUserClass;

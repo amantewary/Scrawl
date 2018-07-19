@@ -159,7 +159,7 @@ public class MainActivity extends AppCompatActivity
                 Log.d(TAG, "getID:"+String.valueOf(notes.get(0).getId()));
                 if (notes.get(0).getId()!=null){
                     Log.d(TAG, "populateNotesList().onResponse: Received Information: " + notes.toString());
-                    notesAdapter = new NotesList(MainActivity.this, notes);
+                    notesAdapter = new NotesListAdapter(MainActivity.this, notes);
                     notesListView.setAdapter(notesAdapter);
                     notesListView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
                 }
@@ -171,6 +171,26 @@ public class MainActivity extends AppCompatActivity
             }
         });
     }
+
+//    protected void populateNotesList() {
+//        NotesRequestHandler request = new NotesRequestHandler();
+//        request.getNoteList(MainActivity.this, 1, new INoteResponse() {
+//
+//            @Override
+//            public void onSuccess(@NonNull List<NoteHandler> note) {
+//                Log.d(TAG, "onResponse: Received Information: " + note.toString());
+//                notesAdapter = new NotesListAdapter(MainActivity.this, note);
+//                notesListView.setAdapter(notesAdapter);
+//                notesListView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+//            }
+//
+//            @Override
+//            public void onError(@NonNull Throwable throwable) {
+//                Log.e(TAG, "onFailure: Something Went Wrong: " + throwable.getMessage());
+//                Toast.makeText(MainActivity.this, "Something Went Wrong", Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//    }
 
     public void storeLabelFromResponse(List<LabelHandler> labels) {
         labelList = new ArrayList<>();
