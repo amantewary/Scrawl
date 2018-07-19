@@ -1,4 +1,4 @@
-package com.example.amantewary.scrawl.API;
+package com.example.amantewary.scrawl.API.Notes;
 
 import android.support.annotation.NonNull;
 
