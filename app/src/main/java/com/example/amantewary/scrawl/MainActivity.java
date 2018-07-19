@@ -21,8 +21,8 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.example.amantewary.scrawl.API.ILabelResponse;
-import com.example.amantewary.scrawl.API.INoteResponse;
+import com.example.amantewary.scrawl.API.Labels.ILabelResponse;
+import com.example.amantewary.scrawl.API.Notes.INoteResponse;
 import com.example.amantewary.scrawl.Adapters.NavigationDrawerAdapter;
 import com.example.amantewary.scrawl.Adapters.NotesListAdapter;
 import com.example.amantewary.scrawl.Handlers.LabelHandler;
@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity
     NavigationDrawerAdapter navigationDrawerAdapter;
     private FastScrollRecyclerView notesListView;
     private NotesListAdapter notesAdapter;
-    private ArrayList<String> labelOptions;
+    private ArrayList<String> labelList;
     private Toolbar toolbar;
     private ListView listView;
     private DrawerLayout drawer;
@@ -80,21 +80,15 @@ public class MainActivity extends AppCompatActivity
         listView.setAdapter(navigationDrawerAdapter);
 
 
-
         //Loading Labels from database
         //TODO: Need to move this in splash screen
         LabelRequestHandler request = new LabelRequestHandler();
-        request.getLabel(MainActivity.this, 1,new ILabelResponse() {
+        request.getLabel(MainActivity.this, 1, new ILabelResponse() {
             @Override
             public void onSuccess(@NonNull List<LabelHandler> labels) {
                 Log.d(TAG, "onResponse: Received Information: " + labels.toString());
-                labelOptions = new ArrayList<>();
-                for (LabelHandler label : labels) {
-                    Log.e("label", label.getName());
-                    labelOptions.add(label.getName());
-                }
-//                writeToFile(labelOptions);
-                LabelLoader.getInstance().saveLabel(MainActivity.this, labelOptions);
+                storeLabelFromResponse(labels);
+//                writeToFile(labelList);
             }
 
             @Override
@@ -129,11 +123,7 @@ public class MainActivity extends AppCompatActivity
 
     protected void populateNotesList() {
         NotesRequestHandler request = new NotesRequestHandler();
-        request.getNoteList(MainActivity.this, new INoteResponse() {
-            @Override
-            public int hashCode() {
-                return super.hashCode();
-            }
+        request.getNoteList(MainActivity.this, 1, new INoteResponse() {
 
             @Override
             public void onSuccess(@NonNull List<NoteHandler> note) {
@@ -149,6 +139,15 @@ public class MainActivity extends AppCompatActivity
                 Toast.makeText(MainActivity.this, "Something Went Wrong", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    public void storeLabelFromResponse(List<LabelHandler> labels) {
+        labelList = new ArrayList<>();
+        for (LabelHandler label : labels) {
+            Log.e("label", label.getName());
+            labelList.add(label.getName());
+        }
+        LabelLoader.getInstance().saveLabel(MainActivity.this, labelList);
     }
 
 

@@ -29,7 +29,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.amantewary.scrawl.API.ILoginUser;
+import com.example.amantewary.scrawl.API.Users.ILoginUser;
 import com.example.amantewary.scrawl.Handlers.LoginUserClass;
 
 import java.util.ArrayList;
