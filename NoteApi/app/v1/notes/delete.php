@@ -11,6 +11,7 @@
   $note = new Notes($db);
   $data = json_decode(file_get_contents("php://input"));
   $note->id = $data->id;
+  error_log('Request to Access To Delete Notes ID: ' . $note->id);
   if($note->delete()) {
     echo json_encode(
       array('message' => 'Note Deleted')
