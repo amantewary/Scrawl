@@ -6,8 +6,10 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.example.amantewary.scrawl.API.ILabelAPI;
-import com.example.amantewary.scrawl.API.ILabelResponse;
+import com.example.amantewary.scrawl.API.Labels.ILabelResponse;
+import com.example.amantewary.scrawl.API.Labels.ICreateLabel;
+import com.example.amantewary.scrawl.API.Labels.IDeleteLabel;
+import com.example.amantewary.scrawl.API.Labels.IGetLabels;
 import com.example.amantewary.scrawl.Handlers.LabelHandler;
 
 import java.util.List;
@@ -19,29 +21,31 @@ import retrofit2.Response;
 public class LabelRequestHandler {
 
     private List<LabelHandler> labels;
+    private ResponseHandler response;
 
-    public Call<List<LabelHandler>> getLabel(final Context context, final Integer user_id,final @Nullable ILabelResponse callbacks){
-        RetroFitInstance.getRetrofit().create(ILabelAPI.class)
-                .getLabels(user_id)
-                .enqueue(new Callback<List<LabelHandler>>() {
-            @Override
-            public void onResponse(Call<List<LabelHandler>> call, Response<List<LabelHandler>> response) {
-                Log.d(context.getClass().getSimpleName(), "onResponse: Server Response: " + response.toString());
-                labels = response.body();
-                if(callbacks != null){
-                    callbacks.onSuccess(labels);
-                }
-            }
-            @Override
-            public void onFailure(Call<List<LabelHandler>> call, Throwable t) {
-                callbacks.onError(t);
-            }
-        });
-        return RetroFitInstance.getRetrofit().create(ILabelAPI.class).getLabels(user_id);
+    public void getLabel(final Context context, final Integer user_id, final @Nullable ILabelResponse callbacks) {
+        IGetLabels labelAPI = RetroFitInstance.getRetrofit().create(IGetLabels.class);
+                Call<List<LabelHandler>> call = labelAPI.getLabels(user_id);
+                call.enqueue(new Callback<List<LabelHandler>>() {
+                    @Override
+                    public void onResponse(Call<List<LabelHandler>> call, Response<List<LabelHandler>> response) {
+                        Log.d(context.getClass().getSimpleName(), "onResponse: Server Response: " + response.toString());
+                        labels = response.body();
+                        if (callbacks != null) {
+                            callbacks.onSuccess(labels);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<LabelHandler>> call, Throwable t) {
+                        callbacks.onError(t);
+                    }
+                });
+
     }
 
     public void createLabel(LabelHandler labelHandler, final Context context) {
-        RetroFitInstance.getRetrofit().create(ILabelAPI.class)
+        RetroFitInstance.getRetrofit().create(ICreateLabel.class)
                 .createLabel(labelHandler)
                 .enqueue(new Callback<LabelHandler>() {
                     @Override
@@ -62,7 +66,7 @@ public class LabelRequestHandler {
     }
 
     public void deleteLabel(final LabelHandler labelHandler, final Context context) {
-        RetroFitInstance.getRetrofit().create(ILabelAPI.class)
+        RetroFitInstance.getRetrofit().create(IDeleteLabel.class)
                 .deleteLabel(labelHandler)
                 .enqueue(new Callback<LabelHandler>() {
                     @Override

@@ -7,8 +7,13 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.example.amantewary.scrawl.API.INoteAPI;
-import com.example.amantewary.scrawl.API.INoteResponse;
+import com.example.amantewary.scrawl.API.Notes.INoteResponse;
+import com.example.amantewary.scrawl.API.Notes.ICreateNote;
+import com.example.amantewary.scrawl.API.Notes.IDeleteNote;
+import com.example.amantewary.scrawl.API.Notes.IGetNote;
+import com.example.amantewary.scrawl.API.Notes.IGetNoteById;
+import com.example.amantewary.scrawl.API.Notes.IGetNoteByLabel;
+import com.example.amantewary.scrawl.API.Notes.IUpdateNote;
 import com.example.amantewary.scrawl.Handlers.NoteHandler;
 
 import java.util.List;
@@ -26,7 +31,7 @@ public class NotesRequestHandler {
         dialog = new ProgressDialog(context);
         dialog.setMessage("Loading...");
         dialog.show();
-        RetroFitInstance.getRetrofit().create(INoteAPI.class)
+        RetroFitInstance.getRetrofit().create(ICreateNote.class)
                 .createNote(noteHandler)
                 .enqueue(new Callback<NoteHandler>() {
                     @Override
@@ -47,12 +52,12 @@ public class NotesRequestHandler {
                 });
     }
 
-    public Call<List<NoteHandler>> getNoteList(final Context context, @Nullable final INoteResponse callbacks) {
+    public void getNoteList(final Context context, Integer user_id ,@Nullable final INoteResponse callbacks) {
         dialog = new ProgressDialog(context);
         dialog.setMessage("Loading...");
         dialog.show();
-        RetroFitInstance.getRetrofit().create(INoteAPI.class)
-                .getNotes()
+        RetroFitInstance.getRetrofit().create(IGetNote.class)
+                .getNotesByUser(user_id)
                 .enqueue(new Callback<List<NoteHandler>>() {
                     @Override
                     public void onResponse(Call<List<NoteHandler>> call, Response<List<NoteHandler>> response) {
@@ -69,15 +74,13 @@ public class NotesRequestHandler {
                         callbacks.onError(t);
                     }
                 });
-        return RetroFitInstance.getRetrofit().create(INoteAPI.class)
-                .getNotes();
     }
 
-    public Call<List<NoteHandler>> getSingleNote(final Context context, Integer noteId, @Nullable final INoteResponse callbacks) {
+    public void getSingleNote(final Context context, Integer noteId, @Nullable final INoteResponse callbacks) {
         dialog = new ProgressDialog(context);
         dialog.setMessage("Loading...");
         dialog.show();
-        RetroFitInstance.getRetrofit().create(INoteAPI.class)
+        RetroFitInstance.getRetrofit().create(IGetNoteById.class)
                 .getSingleNote(noteId)
                 .enqueue(new Callback<List<NoteHandler>>() {
                     @Override
@@ -95,15 +98,13 @@ public class NotesRequestHandler {
                         callbacks.onError(t);
                     }
                 });
-        return RetroFitInstance.getRetrofit().create(INoteAPI.class)
-                .getSingleNote(noteId);
     }
 
-    public Call<List<NoteHandler>> getNotesListByLabel(final Context context, String label_name, @Nullable final INoteResponse callbacks) {
+    public void getNotesListByLabel(final Context context, String label_name, @Nullable final INoteResponse callbacks) {
         dialog = new ProgressDialog(context);
         dialog.setMessage("Loading...");
         dialog.show();
-        RetroFitInstance.getRetrofit().create(INoteAPI.class)
+        RetroFitInstance.getRetrofit().create(IGetNoteByLabel.class)
                 .getNotesByLabel(label_name)
                 .enqueue(new Callback<List<NoteHandler>>() {
                     @Override
@@ -122,15 +123,13 @@ public class NotesRequestHandler {
                         callbacks.onError(t);
                     }
                 });
-        return RetroFitInstance.getRetrofit().create(INoteAPI.class)
-                .getNotesByLabel(label_name);
     }
 
     public void editNote(NoteHandler noteHandler, final Context context) {
         dialog = new ProgressDialog(context);
         dialog.setMessage("Loading...");
         dialog.show();
-        RetroFitInstance.getRetrofit().create(INoteAPI.class)
+        RetroFitInstance.getRetrofit().create(IUpdateNote.class)
                 .updateNote(noteHandler)
                 .enqueue(new Callback<NoteHandler>() {
                     @Override
@@ -155,7 +154,7 @@ public class NotesRequestHandler {
         dialog = new ProgressDialog(context);
         dialog.setMessage("Loading...");
         dialog.show();
-        RetroFitInstance.getRetrofit().create(INoteAPI.class)
+        RetroFitInstance.getRetrofit().create(IDeleteNote.class)
                 .deleteNote(noteHandler)
                 .enqueue(new Callback<NoteHandler>() {
                     @Override
