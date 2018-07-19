@@ -3,7 +3,6 @@ package com.example.amantewary.scrawl;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -21,7 +20,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.example.amantewary.scrawl.API.Labels.ILabelResponse;
 import com.example.amantewary.scrawl.API.Notes.INoteResponse;
