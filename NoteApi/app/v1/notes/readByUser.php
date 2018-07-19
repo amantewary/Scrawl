@@ -8,7 +8,7 @@
   $db = $database->connect();
   $note = new Notes($db);
   $note->user_id = isset($_GET['user_id']) ? $_GET['user_id'] : die();
-  error_log('Request to Access Notes For User With ID: ' . $note->user_id);
+  error_log('Request To Access To Retrieve Notes By User ID: ' . $note->user_id);
   $result = $note->readByUser();
   $num = $result->rowCount();
   if($num > 0) {

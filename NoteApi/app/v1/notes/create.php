@@ -16,6 +16,7 @@
   $note->url = $data->url;
   $note->user_id = $data->user_id;
   $note->label_name = $data->label_name;
+  error_log('Request Access To Create Notes By User ID: ' . $note->user_id);
   if($note->create()) {
     echo json_encode(
       array('message' => 'New Note Created')

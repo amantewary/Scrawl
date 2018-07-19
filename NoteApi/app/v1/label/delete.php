@@ -11,6 +11,7 @@
   $label = new Labels($db);
   $data = json_decode(file_get_contents("php://input"));
   $label->name = $data->name;
+  error_log('Request Access To Delete Label With Name: ' . $label->name);
   if($label->delete()) {
     echo json_encode(
       array('message' => 'Label Deleted')
