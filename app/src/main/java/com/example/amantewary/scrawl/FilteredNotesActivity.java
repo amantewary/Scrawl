@@ -9,7 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.example.amantewary.scrawl.API.INoteResponse;
+import com.example.amantewary.scrawl.API.Notes.INoteResponse;
 import com.example.amantewary.scrawl.Adapters.FilteredNotesListAdapter;
 import com.example.amantewary.scrawl.Handlers.NoteHandler;
 import com.l4digital.fastscroll.FastScrollRecyclerView;

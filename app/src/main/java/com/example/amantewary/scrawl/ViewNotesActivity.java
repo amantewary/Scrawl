@@ -3,6 +3,7 @@ package com.example.amantewary.scrawl;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.FloatingActionButton;
@@ -19,7 +20,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.amantewary.scrawl.API.INoteAPI;
+import com.example.amantewary.scrawl.API.Notes.INoteResponse;
 import com.example.amantewary.scrawl.API.IShareAPI;
 import com.example.amantewary.scrawl.Handlers.NoteHandler;
 import com.example.amantewary.scrawl.Handlers.ShareHandler;
@@ -123,28 +124,28 @@ public class ViewNotesActivity extends AppCompatActivity implements View.OnClick
     @Override
     protected void onStart() {
         super.onStart();
-        final INoteAPI noteAPI = RetroFitInstance.getRetrofit().create(INoteAPI.class);
-        Call<List<NoteHandler>> call = noteAPI.getSingleNote(noteId);
-        call.enqueue(new Callback<List<NoteHandler>>() {
+        request = new NotesRequestHandler();
+        request.getSingleNote(ViewNotesActivity.this, noteId, new INoteResponse() {
             @Override
-            public void onResponse(Call<List<NoteHandler>> call, Response<List<NoteHandler>> response) {
-                Log.d(TAG, "onResponse: Server Response: " + response.toString());
-                Log.d(TAG, "onResponse: Received Information: " + response.body().toString());
-                List<NoteHandler> notes = response.body();
-                for (NoteHandler n : notes) {
+            public void onSuccess(@NonNull List<NoteHandler> note) {
+                Log.d(TAG, "onResponse: Received Information: " + note.toString());
+                setView(note);
+            }
+            @Override
+            public void onError(@NonNull Throwable throwable) {
+                Log.e(TAG, "onFailure: Something Went Wrong: " + throwable.getMessage());
+            }
+        });
+    }
+
+    public void setView(List<NoteHandler> note){
+        for (NoteHandler n : note) {
                     collapsingToolbarLayout.setTitle(n.getTitle());
                     collapsingToolbarLayout.setSubtitle(n.getLabel_name());
                     tv_note_content.setText(n.getBody());
                     tv_note_link.setText(n.getUrl());
                 }
-            }
 
-            @Override
-            public void onFailure(Call<List<NoteHandler>> call, Throwable t) {
-                Log.e(TAG, "onFailure: Something Went Wrong: " + t.getMessage());
-                Toast.makeText(ViewNotesActivity.this, "Something Went Wrong", Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 
     @Override
@@ -187,6 +188,7 @@ public class ViewNotesActivity extends AppCompatActivity implements View.OnClick
 
     @Override
     public void onClick(View view) {
+        //Replace Condition Polymorphism
         switch (view.getId()) {
             case R.id.btn_edit:
                 Intent intent = new Intent(ViewNotesActivity.this, EditNotesActivity.class);
