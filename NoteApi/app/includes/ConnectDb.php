@@ -21,7 +21,7 @@ require 'HttpLogger.php';
         $this->conn = new PDO($dsn, $user, $pass);
         $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-        error_log("--->Database Connection Open \n");
+        error_log("---------------<Database Connection Open>---------------");
 
       } catch(PDOException $e) {
         error_log('Connection Error: ' . $e->getMessage() . '\n');
@@ -32,6 +32,6 @@ require 'HttpLogger.php';
 
     public function disconnect(&$conn){
         $conn = null;
-        error_log("--->Database Connection Closed \n");
+        error_log("---------------<Database Connection Closed>---------------");
     }
   }

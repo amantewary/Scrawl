@@ -13,6 +13,7 @@
   $data = json_decode(file_get_contents("php://input"));
   $label->name = $data->name;
   $label->user_id = $data->user_id;
+  error_log('Request Access To Create Notes By User ID: ' . $label->user_id);
   if($label->create()) {
     echo json_encode(
       array('message' => 'New Label Created')
