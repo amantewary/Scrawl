@@ -31,6 +31,8 @@ import android.widget.Toast;
 
 import com.example.amantewary.scrawl.API.ILoginUser;
 import com.example.amantewary.scrawl.Handlers.UserClass;
+import com.example.amantewary.scrawl.API.Users.ILoginUser;
+import com.example.amantewary.scrawl.Handlers.LoginUserClass;
 
 import java.util.ArrayList;
 import java.util.HashMap;
