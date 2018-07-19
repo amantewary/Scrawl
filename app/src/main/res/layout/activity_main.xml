@@ -32,11 +32,11 @@
         <include layout="@layout/nav_header_main">
         </include>
 
-        <android.support.v4.widget.SwipeRefreshLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/swiperefresh"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        <!--<android.support.v4.widget.SwipeRefreshLayout-->
+            <!--xmlns:android="http://schemas.android.com/apk/res/android"-->
+            <!--android:id="@+id/swiperefresh"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content">-->
 
             <ListView
                 android:id="@+id/lstDrawerItems"
@@ -47,7 +47,7 @@
                 android:choiceMode="singleChoice"
                 tools:listitem="@layout/nav_item"/>
 
-        </android.support.v4.widget.SwipeRefreshLayout>
+        <!--</android.support.v4.widget.SwipeRefreshLayout>-->
 
         <LinearLayout
             android:layout_width="match_parent"

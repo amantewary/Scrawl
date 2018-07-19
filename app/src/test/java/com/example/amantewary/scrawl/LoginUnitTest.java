@@ -6,6 +6,4 @@ package com.example.amantewary.scrawl;
 
 public class LoginUnitTest {
 
-
-
 }
