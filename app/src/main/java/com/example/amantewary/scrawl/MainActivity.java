@@ -161,17 +161,19 @@ public class MainActivity extends AppCompatActivity
             }
 
             @Override
-            public void onSuccess(@NonNull List<NoteHandler> note) {
-                Log.d(TAG, "onResponse: Received Information: " + note.toString());
-                notesAdapter = new NotesList(MainActivity.this, note);
-                notesListView.setAdapter(notesAdapter);
-                notesListView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+            public void onSuccess(@NonNull List<NoteHandler> notes) {
+                Log.d(TAG, "getID:"+String.valueOf(notes.get(0).getId()));
+                if (notes.get(0).getId()!=null){
+                    Log.d(TAG, "populateNotesList().onResponse: Received Information: " + notes.toString());
+                    notesAdapter = new NotesList(MainActivity.this, notes);
+                    notesListView.setAdapter(notesAdapter);
+                    notesListView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+                }
             }
 
             @Override
             public void onError(@NonNull Throwable throwable) {
-                Log.e(TAG, "onFailure: Something Went Wrong: " + throwable.getMessage());
-                Toast.makeText(MainActivity.this, "Something Went Wrong", Toast.LENGTH_SHORT).show();
+                Log.e(TAG, "populateNotesList().onError: Something Went Wrong: " + throwable.getMessage());
             }
         });
     }

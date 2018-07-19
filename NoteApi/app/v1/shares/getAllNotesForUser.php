@@ -37,6 +37,8 @@ if (isset($_GET['share_to']) && isset($_GET['userid'])) {
         echo json_encode($notes_arr);
         $database->disconnect($db);
     } else {
+        error_log('No existed note found for user: ' . $userid);
+
         echo json_encode(
             array('message' => 'No Note Found')
         );

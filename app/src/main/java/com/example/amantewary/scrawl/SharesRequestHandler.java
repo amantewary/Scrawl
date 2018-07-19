@@ -50,6 +50,7 @@ public class SharesRequestHandler {
 
                     @Override
                     public void onFailure(Call<List<NoteHandler>> call, Throwable t) {
+                        dialog.dismiss();
                         callbacks.onError(t);
                     }
                 });
