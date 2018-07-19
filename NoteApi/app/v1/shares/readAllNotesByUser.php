@@ -11,13 +11,15 @@ $db = $database->connect();
 
 $share = new Share($db);
 
-if (isset($_GET['share_to'])) {
+if (isset($_GET['share_to']) && isset($_GET['userid'])) {
     $share->share_to = $_GET['share_to'];
+    $userid = $_GET['userid'];
 } else {
     $share->share_to = die();
 }
 
-error_log('Request to Access Share Record For Share_to: ' . $share->share_to);
+
+error_log('Request to Access Share Record For Share_to: ' . $share->share_to . ' with userid '. $userid);
 
 $result = $share->readNoteIdByUserId();
 $num = $result->rowCount();
@@ -55,7 +57,7 @@ if($num > 0) {
 
     //retrieve notes of share_to
     $owned_note = new Notes($db);
-    $owned_note->user_id = $share->share_to;
+    $owned_note->user_id = $userid;
 
     error_log('Request to the notes owned by the user: ' . $note->user_id);
 

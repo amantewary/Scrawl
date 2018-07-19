@@ -17,7 +17,6 @@ class Share
     public $share_to;
     public $note_id;
     public $shared_at;
-    public $user_id;
 
     public function create()
     {
@@ -55,10 +54,10 @@ class Share
     {
         error_log('Invoked readNoteIdByUserId() Method');
         try{
-            $query = 'SELECT n.id, n.note_id, n.share_from FROM ' . $this->table . ' n WHERE n.share_to = :user_id';
+            $query = "SELECT n.id, n.note_id, n.share_from FROM " . $this->table . " n WHERE n.share_to = ':share_to'";
             $stmt = $this->con->prepare($query);
             if($stmt->execute()) {
-                error_log('Retrieved Share records that are shared to the current user');
+                error_log('Successfully retrieved Share records that are shared to the current user');
                 return $stmt;
             }else{
                 throw new PDOException();
@@ -68,25 +67,6 @@ class Share
             return $e;
         }
     }
-
-//    public function readNote()
-//    {
-//        error_log('Invoked readNote() Method');
-//        try {
-//
-//            $query = 'SELECT n.note_id FROM ' . $this->table . ' n WHERE n.share_to = :user_id';
-//            $stmt = $this->con->prepare($query);
-//            if($stmt->execute()) {
-//                error_log('Retrieved Notes List');
-//                return $stmt;
-//            }else{
-//                throw new PDOException();
-//            }
-//        } catch (\PDOException $e) {
-//            error_log('Error while retrieving notes: ' . $e->getMessage());
-//            return $e;
-//        }
-//    }
 
     public function delete()
     {
