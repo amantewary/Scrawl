@@ -17,8 +17,6 @@ public class UserClass {
     @SerializedName("error_msg")
     String error_msg;
 
-
-
     @SerializedName("userId")
     String userId;
 

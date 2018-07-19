@@ -124,6 +124,7 @@ public class EditNotesActivity extends AppCompatActivity implements Observer {
         String title = inputHandler.inputCensor(et_title.getText().toString().trim());
         String body = inputHandler.inputCensor(et_content.getText().toString().trim());
         String link = et_link.getText().toString().trim();
+        //Todo: add userId here
         NoteHandler noteHandler = new NoteHandler(noteId, label, title, body, link, 1);
         if (inputHandler.inputValidator(title, body, link)) {
             request.editNote(noteHandler, EditNotesActivity.this);
