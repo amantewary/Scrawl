@@ -34,6 +34,7 @@ public class FilteredNotesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_filtered_notes);
+        sessionManager = new SessionManager(getApplicationContext());
         viewBinder();
         setSupportActionBar(toolbar);
         Intent intent = getIntent();

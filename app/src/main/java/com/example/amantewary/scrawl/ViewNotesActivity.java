@@ -350,7 +350,6 @@ public class ViewNotesActivity extends AppCompatActivity implements View.OnClick
                     noteHandler = new NoteHandler(noteId);
                     request = new NotesRequestHandler();
                     request.deleteNote(noteHandler, ViewNotesActivity.this);
-                    finish();
                 }
             });
             deleteAlert.setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
