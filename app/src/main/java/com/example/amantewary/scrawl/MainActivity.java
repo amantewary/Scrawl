@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity
         //Loading Labels from database
         //TODO: Need to move this in splash screen
         LabelRequestHandler request = new LabelRequestHandler();
-        request.getLabel(MainActivity.this, 1, new ILabelResponse() {
+        request.getLabel(MainActivity.this, 44, new ILabelResponse() {
             @Override
             public void onSuccess(@NonNull List<LabelHandler> labels) {
                 Log.d(TAG, "onResponse: Received Information: " + labels.toString());
