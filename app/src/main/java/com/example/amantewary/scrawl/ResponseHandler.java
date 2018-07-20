@@ -4,7 +4,6 @@ import android.content.Context;
 import android.util.Log;
 
 import com.example.amantewary.scrawl.API.IHandleResponse;
-import com.example.amantewary.scrawl.Handlers.DataHandler;
 
 import java.util.List;
 
@@ -13,26 +12,25 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-
 public class ResponseHandler {
 
     public ResponseHandler() {
     }
 
-    public static  void ResponseFromGetMethod(Call<List<DataHandler>> call, final IHandleResponse callbacks, final Context context){
+    public static <T> void ResponseFromGetMethod(Call<List<T>> call, final IHandleResponse callbacks, final Context context) {
 
-        call.enqueue(new Callback<List<DataHandler>>() {
+        call.enqueue(new Callback<List<T>>() {
             @Override
-            public void onResponse(Call<List<DataHandler>> call, Response<List<DataHandler>> response) {
+            public void onResponse(Call<List<T>> call, Response<List<T>> response) {
                 Log.d(context.getClass().getSimpleName(), "onResponse: Server Response: " + response.toString());
-                List<DataHandler>responseList = response.body();
+                List<T> responseList = response.body();
                 if (callbacks != null) {
                     callbacks.onSuccess(responseList);
                 }
             }
 
             @Override
-            public void onFailure(Call<List<DataHandler>> call, Throwable t) {
+            public void onFailure(Call<List<T>> call, Throwable t) {
                 callbacks.onError(t);
             }
         });

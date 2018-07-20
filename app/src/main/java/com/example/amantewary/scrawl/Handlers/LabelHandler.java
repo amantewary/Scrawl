@@ -40,20 +40,20 @@ public class LabelHandler {
         return name;
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public Integer getUser_id() {
-        return user_id;
-    }
-
     public void setName(String name) {
         this.name = name;
     }
 
+    public Integer getId() {
+        return id;
+    }
+
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Integer getUser_id() {
+        return user_id;
     }
 
     public void setUser_id(Integer user_id) {
@@ -63,7 +63,6 @@ public class LabelHandler {
     public ArrayList<String> getLabelHandlers() {
         return labelHandlers;
     }
-
 
 
 }
