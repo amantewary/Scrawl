@@ -23,6 +23,7 @@ public class FilteredNotesActivity extends AppCompatActivity {
     private FilteredNotesListAdapter filteredNotesListAdapter;
     private Toolbar toolbar;
     private String label_name;
+    private SessionManager sessionManager;
 
     protected void viewBinder() {
         toolbar = findViewById(R.id.toolbar);
@@ -52,9 +53,10 @@ public class FilteredNotesActivity extends AppCompatActivity {
 
     public void populateFilteredNotesList(String label_name) {
         NotesRequestHandler request = new NotesRequestHandler();
+        Integer cur_usr_id = sessionManager.getUserId();
 
         try {
-            request.getNotesListByLabel(FilteredNotesActivity.this, label_name, new INoteResponse() {
+            request.getNotesListByLabel(FilteredNotesActivity.this, label_name, cur_usr_id, new INoteResponse() {
                 @Override
                 public void onSuccess(@NonNull List<NoteHandler> note) {
                     Log.d(TAG, "onResponse: Received Information: " + note.toString());
