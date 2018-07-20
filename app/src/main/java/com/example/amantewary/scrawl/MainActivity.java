@@ -19,6 +19,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
@@ -34,8 +35,9 @@ import com.l4digital.fastscroll.FastScrollRecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity{
 
     private static final String TAG = "MainActivity";
     FirebaseAnalytics mFirebaseAnalytics;
@@ -45,11 +47,13 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<String> labelList;
     private Toolbar toolbar;
     private ListView listView;
+    private Button addLabel;
     private DrawerLayout drawer;
     private LinearLayout logout;
     private SwipeRefreshLayout swiperefresh;
     private SessionManager sessionManager;
-
+    ArrayList<String> labelString;
+    NavObserver navObserver;
     protected void viewBinder() {
         toolbar = findViewById(R.id.toolbar);
         notesListView = findViewById(R.id.viewNoteList);
@@ -57,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
         drawer = findViewById(R.id.drawer_layout);
         logout = findViewById(R.id.nav_lout);
         swiperefresh = findViewById(R.id.swiperefresh);
+        addLabel = findViewById(R.id.add_label_nav);
     }
 
     @Override
@@ -74,8 +79,11 @@ public class MainActivity extends AppCompatActivity {
         toggle.syncState();
         ArrayList<NavgitationModel> navgitationModels = new ArrayList<>();
         loadLabelsForList(navgitationModels);
-        navigationDrawerAdapter = new NavigationDrawerAdapter(navgitationModels, this);
+        navObserver = new NavObserver();
+        navigationDrawerAdapter = new NavigationDrawerAdapter(navgitationModels, this, navObserver);
         listView.setAdapter(navigationDrawerAdapter);
+
+        labelString = LabelLoader.getInstance().loadLabel(this);
 
 
         //Loading Labels from database
@@ -89,6 +97,12 @@ public class MainActivity extends AppCompatActivity {
                 // Factory Design Pattern
                 Intent intent = new Intent(MainActivity.this, AddNotesActivity.class);
                 startActivity(intent);
+            }
+        });
+        addLabel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
             }
         });
 
@@ -184,8 +198,10 @@ public class MainActivity extends AppCompatActivity {
     public void onBackPressed() {
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
-
             drawer.closeDrawer(GravityCompat.START);
+            Log.e(TAG,"Here nav Observer Called");
+            navObserver.callForDrawerClose(MainActivity.class.getCanonicalName());
+            navigationDrawerAdapter.notifyDataSetChanged();
         } else {
             super.onBackPressed();
         }
@@ -249,7 +265,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     void loadLabelsForList(ArrayList<NavgitationModel> navList) {
-        ArrayList<String> labelString = LabelLoader.getInstance().loadLabel(this);
+        labelString = LabelLoader.getInstance().loadLabel(this);
 
         for (String labelName : labelString) {
             navList.add(new NavgitationModel(getResources().getDrawable(R.drawable.ic_bookmark_black_24dp), labelName));
