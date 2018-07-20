@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -45,7 +44,6 @@ public class MainActivity extends AppCompatActivity{
     private FastScrollRecyclerView notesListView;
     private NotesListAdapter notesAdapter;
     private ArrayList<String> labelList;
-    private Toolbar toolbar;
     private ListView listView;
     private Button addLabel;
     private DrawerLayout drawer;
@@ -56,7 +54,6 @@ public class MainActivity extends AppCompatActivity{
     NavObserver navObserver;
 
     protected void viewBinder() {
-        toolbar = findViewById(R.id.toolbar);
         notesListView = findViewById(R.id.viewNoteList);
         listView = findViewById(R.id.lstDrawerItems);
         drawer = findViewById(R.id.drawer_layout);
@@ -73,6 +70,7 @@ public class MainActivity extends AppCompatActivity{
         viewBinder();
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         mFirebaseAnalytics.setCurrentScreen(this, getClass().getCanonicalName(), null);
+<<<<<<< HEAD
 
         final ArrayList<NavgitationModel> navgitationModels = new ArrayList<>();
         loadLabelsForList(navgitationModels);
@@ -83,6 +81,9 @@ public class MainActivity extends AppCompatActivity{
         labelString = LabelLoader.getInstance().loadLabel(this);
 
 
+=======
+        Toolbar toolbar = findViewById(R.id.toolbar);
+>>>>>>> devint
         setSupportActionBar(toolbar);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close){

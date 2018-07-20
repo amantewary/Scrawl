@@ -1,4 +1,4 @@
-CREATE DEFINER=`CSCI5308_19_DEVINT_USER`@`%` PROCEDURE `spCreateNote`(IN parameter_label_name VARCHAR(255), parameter_title VARCHAR(255), parameter_body TEXT, parameter_url VARCHAR(255), parameter_user_id INT(11))
+CREATE DEFINER=`CSCI5308_19_DEVINT_USER`@`%` PROCEDURE `spCreateNote`(IN parameter_label_name VARCHAR(255), parameter_title VARCHAR(255), parameter_body TEXT, parameter_url VARCHAR(255), parameter_user_id INT(11), parameter_status VARCHAR(255), parameter_date VARCHAR(45))
 BEGIN
 	INSERT INTO notes 
 		SET 
@@ -6,6 +6,8 @@ BEGIN
 			title = parameter_title, 
 			body = parameter_body, 
 			url = parameter_url, 
-			user_id = parameter_user_id;
+			user_id = parameter_user_id,
+            status = parameter_status,
+            date = parameter_date;
 			
 END

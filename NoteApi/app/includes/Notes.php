@@ -19,11 +19,13 @@ class Notes
     public $url;
     public $user_id;
     public $created_at;
+    public $status;
+    public $date;
 
     public function create()
     {
         error_log('Invoked create() Method Inside Notes Class');
-        $query = 'CALL spCreateNote(:label_name, :title, :body, :url, :user_id)';
+        $query = 'CALL spCreateNote(:label_name, :title, :body, :url, :user_id, :status, :date)';
 
         $stmt = $this->con->prepare($query);
         $this->label_name = htmlspecialchars(strip_tags($this->label_name));
@@ -31,11 +33,15 @@ class Notes
         $this->body = htmlspecialchars(strip_tags($this->body));
         $this->url = htmlspecialchars(strip_tags($this->url));
         $this->user_id = htmlspecialchars(strip_tags($this->user_id));
+        $this->status = htmlspecialchars(strip_tags($this->status));
+        $this->date = htmlspecialchars(strip_tags($this->date));
         $stmt->bindParam(':label_name', $this->label_name);
         $stmt->bindParam(':title', $this->title);
         $stmt->bindParam(':body', $this->body);
         $stmt->bindParam(':url', $this->url);
         $stmt->bindParam(':user_id', $this->user_id);
+        $stmt->bindParam(':status', $this->status);
+        $stmt->bindParam(':date', $this->date);
         try {
             if ($stmt->execute()) {
                 error_log('Note Created by User: ' . $this->user_id);
@@ -77,6 +83,8 @@ class Notes
                 $this->url = $row['url'];
                 $this->user_id = $row['user_id'];
                 $this->label_name = $row['label_name'];
+                $this->status = $row['status'];
+                $this->date = $row['date'];
                 error_log('Retrieved Note');
                 return $stmt;
             }
@@ -91,10 +99,12 @@ class Notes
     {
         error_log('Invoked readByLabel Method');
         try {
-            $query = 'CALL spGetNoteByLabel(:label_name)';
+            $query = 'CALL spGetNoteByLabel(:label_name, :user_id)';
             $stmt = $this->con->prepare($query);
             $this->label_name = htmlspecialchars(strip_tags($this->label_name));
+            $this->user_id = htmlspecialchars(strip_tags($this->user_id));
             $stmt->bindParam(':label_name', $this->label_name);
+            $stmt->bindParam(':user_id', $this->user_id);
             if($stmt->execute()) {
                 error_log('Retrieved Note');
                 return $stmt;
@@ -127,7 +137,7 @@ class Notes
 
     public function update()
     {
-        $query = 'CALL spUpdateNote(:label_name, :title, :body, :url, :user_id, :id)';
+        $query = 'CALL spUpdateNote(:label_name, :title, :body, :url, :user_id, :id, :status, :date)';
         $stmt = $this->con->prepare($query);
         $this->title = htmlspecialchars(strip_tags($this->title));
         $this->body = htmlspecialchars(strip_tags($this->body));
@@ -135,12 +145,16 @@ class Notes
         $this->user_id = htmlspecialchars(strip_tags($this->user_id));
         $this->label_name = htmlspecialchars(strip_tags($this->label_name));
         $this->id = htmlspecialchars(strip_tags($this->id));
+        $this->status = htmlspecialchars(strip_tags($this->status));
+        $this->date = htmlspecialchars(strip_tags($this->date));
         $stmt->bindParam(':label_name', $this->label_name);
         $stmt->bindParam(':title', $this->title);
         $stmt->bindParam(':body', $this->body);
         $stmt->bindParam(':url', $this->url);
         $stmt->bindParam(':user_id', $this->user_id);
         $stmt->bindParam(':id', $this->id);
+        $stmt->bindParam(':status', $this->status);
+        $stmt->bindParam(':date', $this->date);
         try {
             if ($stmt->execute()) {
                 error_log('Note Updated');

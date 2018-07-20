@@ -84,7 +84,7 @@
                     android:layout_marginBottom="8dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="16dp"
-                    android:text="TEST"
+                    android:text="(created)"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/viewNotesLink" />
@@ -95,7 +95,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="16dp"
-                    android:text="TextView"
+                    android:text="DATE"
                     app:layout_constraintStart_toEndOf="@+id/viewNoteStatus"
                     app:layout_constraintTop_toBottomOf="@+id/viewNotesLink" />
 

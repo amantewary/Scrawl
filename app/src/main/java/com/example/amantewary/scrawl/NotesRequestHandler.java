@@ -116,13 +116,13 @@ public class NotesRequestHandler {
         }
     }
 
-    public void getNotesListByLabel(final Context context, String label_name, @Nullable final INoteResponse callbacks) {
+    public void getNotesListByLabel(final Context context, String label_name, Integer user_id,@Nullable final INoteResponse callbacks) {
         dialog = new ProgressDialog(context);
         dialog.setMessage("Loading...");
         dialog.show();
         try {
             RetroFitInstance.getRetrofit().create(IGetNoteByLabel.class)
-                    .getNotesByLabel(label_name)
+                    .getNotesByLabel(label_name, user_id)
                     .enqueue(new Callback<List<NoteHandler>>() {
                         @Override
                         public void onResponse(Call<List<NoteHandler>> call, Response<List<NoteHandler>> response) {
