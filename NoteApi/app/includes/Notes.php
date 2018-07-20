@@ -91,10 +91,12 @@ class Notes
     {
         error_log('Invoked readByLabel Method');
         try {
-            $query = 'CALL spGetNoteByLabel(:label_name)';
+            $query = 'CALL spGetNoteByLabel(:label_name, :user_id)';
             $stmt = $this->con->prepare($query);
             $this->label_name = htmlspecialchars(strip_tags($this->label_name));
+            $this->user_id = htmlspecialchars(strip_tags($this->user_id));
             $stmt->bindParam(':label_name', $this->label_name);
+            $stmt->bindParam(':user_id', $this->user_id);
             if($stmt->execute()) {
                 error_log('Retrieved Note');
                 return $stmt;
