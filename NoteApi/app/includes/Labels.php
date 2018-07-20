@@ -13,27 +13,25 @@ require  'HttpLogger.php';
       $this->con = $db;
     }
     public function read() {
-      error_log('Invoked read() Method');
+      error_log('Invoked read() Method in Labels class');
         try{
             $query = 'CALL spGetLabels(:user_id)';
             $stmt = $this->con->prepare($query);
             $this->user_id = htmlspecialchars(strip_tags($this->user_id));
             $stmt->bindParam(':user_id', $this->user_id);
             if($stmt->execute()) {
-                error_log('Retrieved Labels List');
+                error_log('Retrieved Labels List By User: ' . $this->user_id);
                 return $stmt;
-            }else{
-                throw new PDOException();
             }
         }catch(\PDOException $e) {
-            error_log('Error while retrieving labels: ' . $e->getMessage());
+            error_log('[Error] While Retrieving Labels: ' . $e->getMessage() . 'By User: ' . $this->user_id);
         return $e;
         }
     }
 
     public function create()
     {
-        error_log('Invoked create() Method Inside Labels');
+        error_log('Invoked create() Method Inside Labels Class');
         $query = 'CALL spCreateLabel(:name, :user_id)';
 
         $stmt = $this->con->prepare($query);
@@ -43,13 +41,11 @@ require  'HttpLogger.php';
         $stmt->bindParam(':user_id', $this->user_id);
         try {
             if ($stmt->execute()) {
-                error_log('Label Created');
-                return true;
-            }else {
-                throw new PDOException();
+                error_log('Label Created With Name: ' . $this->name . 'By User: ' . $this->user_id);
+                return $stmt;
             }
         }catch (\PDOException $e) {
-            error_log("Error: " . $e->getMessage());
+            error_log("[Error] While Creating Notes: " . $e->getMessage() . 'By User: ' . $this->user_id);
             return $e;
         }
     }
@@ -65,13 +61,10 @@ require  'HttpLogger.php';
             $stmt->execute();
             if ($stmt->rowCount()) {
                 error_log('Label Deleted');
-                return true;
-            }else{
-                error_log("Deletion Failed");
-                return false;
+                return $stmt;
             }
         }catch(\PDOException $e) {
-            error_log("Error: " . $e->getMessage());
+            error_log("[Error] Label Deletion Failed: " . $e->getMessage());
         }
     }
   }

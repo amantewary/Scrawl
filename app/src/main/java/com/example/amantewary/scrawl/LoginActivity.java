@@ -29,10 +29,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.amantewary.scrawl.API.ILoginUser;
 import com.example.amantewary.scrawl.Handlers.UserClass;
 import com.example.amantewary.scrawl.API.Users.ILoginUser;
-import com.example.amantewary.scrawl.Handlers.LoginUserClass;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -220,7 +218,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     private void requestLogin(final String email, final String password) {
 
-
         ILoginUser service = RetroFitInstance.getRetrofit().create(ILoginUser.class);
         RequestBody body = RequestBody.create(MediaType.parse("text/plain"), email);
         RequestBody body2 = RequestBody.create(MediaType.parse("text/plain"), password);
@@ -236,6 +233,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                         Log.e(TAG, response.body().getUsername());
 
                         sessionManager.createLoginSession(new UserClass(response.body().getEmail(), response.body().getUsername(), response.body().getUserId()));
+
                         startActivity(new Intent(getApplicationContext(), MainActivity.class));
                         finish();
                     } else {

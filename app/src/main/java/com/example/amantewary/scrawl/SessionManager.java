@@ -16,9 +16,7 @@ import java.util.HashMap;
 
 public class SessionManager {
 
-
     SharedPreferences pref;
-
 
     SharedPreferences.Editor editor;
 
@@ -27,12 +25,9 @@ public class SessionManager {
 
     Context context;
 
-
     int PRIVATE_MODE = 0;
 
-
     private static final String Shared_Pref_Name = "Scrawl";
-
 
     private static final String IS_LOGIN = "Is_Login";
 
@@ -41,6 +36,7 @@ public class SessionManager {
     public static final String KEY_USERID = "userId";
 
     public static final String KEY_EMAIL = "email";
+
 
     public SessionManager(Context context){
         this.context = context;
@@ -62,10 +58,10 @@ public class SessionManager {
 
         editor.putString(KEY_USERID, userClass.getUserId());
 
+
         // commit changes
         editor.commit();
     }
-
 
     public boolean checkLogin(){
         if(!this.isLoggedIn()){
@@ -73,10 +69,7 @@ public class SessionManager {
         }else{
             return true;
         }
-
     }
-
-
 
     public HashMap<String, String> getUserDetails(){
         HashMap<String, String> user = new HashMap<String, String>();
@@ -92,16 +85,22 @@ public class SessionManager {
         return user;
     }
 
-
     public void logoutUser(){
         // Clearing all data from Shared Preferences
         editor.clear();
         editor.commit();
     }
 
-
     public boolean isLoggedIn(){
         return pref.getBoolean(IS_LOGIN, false);
+    }
+
+    public String getUserEmail() {
+        return pref.getString(KEY_EMAIL,null);
+    }
+
+    public Integer getUserId() {
+        return pref.getInt(KEY_USERID,0);
     }
 }
 

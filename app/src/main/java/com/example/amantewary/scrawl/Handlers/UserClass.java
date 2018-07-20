@@ -1,6 +1,8 @@
 package com.example.amantewary.scrawl.Handlers;
 
 
+import android.content.Intent;
+
 import com.google.gson.annotations.SerializedName;
 
 public class UserClass {
@@ -25,6 +27,7 @@ public class UserClass {
         this.password = password;
         this.email = email;
     }
+
     public UserClass(String email, String username, String userId) {
         this.email = email;
         this.username = username;
@@ -39,7 +42,6 @@ public class UserClass {
     public void setError_msg(String error_msg) {
         this.error_msg = error_msg;
     }
-
 
     public String getEmail() {
         return email;
@@ -79,5 +81,7 @@ public class UserClass {
 
     public void setUserId(String userId) {
         this.userId = userId;
+
+
     }
 }

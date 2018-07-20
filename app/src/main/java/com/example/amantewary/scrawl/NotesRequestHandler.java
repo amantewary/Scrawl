@@ -58,8 +58,6 @@ public class NotesRequestHandler {
         sessionManager = new SessionManager(context);
         dialog.setMessage("Loading...");
         dialog.show();
-        RetroFitInstance.getRetrofit().create(INoteAPI.class)
-                .getNotesByUser(Integer.valueOf(sessionManager.getUserDetails().get("userId")))
         RetroFitInstance.getRetrofit().create(IGetNote.class)
                 .getNotesByUser(user_id)
                 .enqueue(new Callback<List<NoteHandler>>() {

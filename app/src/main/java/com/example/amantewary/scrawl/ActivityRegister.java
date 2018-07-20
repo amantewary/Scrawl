@@ -10,11 +10,8 @@ import android.widget.Button;
 import android.widget.Toast;
 
 
-import com.example.amantewary.scrawl.API.IRegisterUser;
-import com.example.amantewary.scrawl.Handlers.UserClass;=
 import com.example.amantewary.scrawl.API.Users.IRegisterUser;
-import com.example.amantewary.scrawl.Handlers.LoginUserClass;
->>>>>>> devint
+import com.example.amantewary.scrawl.Handlers.UserClass;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -22,11 +22,16 @@ import android.widget.Toast;
 
 import com.example.amantewary.scrawl.API.Notes.INoteResponse;
 import com.example.amantewary.scrawl.API.IShareAPI;
+import com.example.amantewary.scrawl.Handlers.UserClass;
 import com.example.amantewary.scrawl.Handlers.NoteHandler;
 import com.example.amantewary.scrawl.Handlers.ShareHandler;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -44,6 +49,7 @@ public class ViewNotesActivity extends AppCompatActivity implements View.OnClick
     private Button btn_edit, btn_share, btn_delete, btn_collaborate;
     private NoteHandler noteHandler;
     private NotesRequestHandler request;
+    private SessionManager sessionManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,6 +124,8 @@ public class ViewNotesActivity extends AppCompatActivity implements View.OnClick
         btn_collaborate.setOnClickListener(this);
         btn_share.setOnClickListener(this);
         btn_delete.setOnClickListener(this);
+
+        sessionManager = new SessionManager(getApplicationContext());
 
     }
 
@@ -244,17 +252,59 @@ public class ViewNotesActivity extends AppCompatActivity implements View.OnClick
 
     }
 
-    public void setCollaborateInfo(String collaborate_with) {
+    public void setCollaborateInfo(final String collaborate_with) {
+
         try {
-            //Check if the user is logged in
-            String share_from = SessionManager.KEY_EMAIL;
+            if (sessionManager.checkLogin()){
+                final String share_from = sessionManager.getUserEmail();
 
-            String share_to = collaborate_with;
+                final Boolean[] result = new Boolean[1];
+                IShareAPI service = RetroFitInstance.getRetrofit().create(IShareAPI.class);
+                RequestBody body = RequestBody.create(MediaType.parse("text/plain"), collaborate_with);
+                Map<String, RequestBody> requestBodyMap = new HashMap<>();
+                requestBodyMap.put("email", body);
+                Call<UserClass> call = service.checkIfUserExists(requestBodyMap);
+                call.enqueue(new Callback<UserClass>() {
+                    @Override
+                    public void onResponse(Call<UserClass> call, retrofit2.Response<UserClass> response) {
+                        if (response.isSuccessful()) {
+                            if (response.body().getError().equals("false")) {
+                                result[0] = false;
+                                String share_to = collaborate_with;
+                                Integer note_id = noteId;
+                                ShareHandler shareHandler = new ShareHandler(share_from, share_to, note_id);
+                                sendRequest(shareHandler);
+                            } else {
+                                result[0] = true;
+                                Toast.makeText(getApplicationContext(), "Sorry. This user does not exist.", Toast.LENGTH_LONG).show();
+                            }
+                        } else {
+                            Log.e(TAG, "" + response.raw());
+                        }
+                    }
 
-            Integer note_id = noteId;
+                    @Override
+                    public void onFailure(Call<UserClass> call, Throwable t) {
+                        t.printStackTrace();
+                        Log.e(TAG, "ifUserExists.onFailure" + t.getMessage());
+                    }
+                });
 
-            ShareHandler shareHandler = new ShareHandler(share_from, share_to, note_id);
-            sendRequest(shareHandler);
+            }else {
+                new  AlertDialog.Builder(this)
+                        .setTitle("You have not logged in" )
+                        .setMessage("You have not logged in" )
+                        .setPositiveButton("Login", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Intent intent = new Intent(ViewNotesActivity.this, LoginActivity.class);
+                                startActivity(intent);
+                            }
+                        })
+                        .setNegativeButton("Cancel" , null)
+                        .show();
+            }
+
         } catch (Exception e) {
             Log.e("Message", e.toString());
         }

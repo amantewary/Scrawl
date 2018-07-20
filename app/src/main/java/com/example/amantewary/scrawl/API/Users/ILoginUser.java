@@ -14,4 +14,5 @@ public interface ILoginUser {
     @Multipart
     @POST("~kamath/QA_Devint/login.php")
     Call<UserClass> sendPost(@PartMap Map<String, RequestBody> parameters);
+ ;
 }

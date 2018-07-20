@@ -22,7 +22,7 @@ class Notes
 
     public function create()
     {
-        error_log('Invoked create() Method');
+        error_log('Invoked create() Method Inside Notes Class');
         $query = 'CALL spCreateNote(:label_name, :title, :body, :url, :user_id)';
 
         $stmt = $this->con->prepare($query);
@@ -38,13 +38,11 @@ class Notes
         $stmt->bindParam(':user_id', $this->user_id);
         try {
             if ($stmt->execute()) {
-                error_log('Note Created');
-                return true;
-            }else {
-                throw new PDOException();
+                error_log('Note Created by User: ' . $this->user_id);
+                return $stmt;
             }
         }catch (\PDOException $e) {
-            error_log("Error: " . $e->getMessage());
+            error_log("[Error] While Creating Notes: " . $e->getMessage() . "By User: " . $this->user_id);
             return $e;
         }
     }
@@ -58,8 +56,6 @@ class Notes
             if($stmt->execute()) {
                 error_log('Retrieved Notes List');
                 return $stmt;
-            }else{
-                throw new PDOException();
             }
         } catch (\PDOException $e) {
             error_log('Error while retrieving notes: ' . $e->getMessage());
@@ -82,9 +78,7 @@ class Notes
                 $this->user_id = $row['user_id'];
                 $this->label_name = $row['label_name'];
                 error_log('Retrieved Note');
-                return true;
-            }else{
-                throw new PDOException();
+                return $stmt;
             }
         } catch (\PDOException $e) {
             print_r($e);
@@ -104,8 +98,6 @@ class Notes
             if($stmt->execute()) {
                 error_log('Retrieved Note');
                 return $stmt;
-            }else{
-                throw new PDOException();
             }
         } catch (\PDOException $e) {
             print_r($e);
@@ -116,17 +108,15 @@ class Notes
 
     public function readByUser()
     {
-        error_log('Invoked readByLabel Method');
+        error_log('Invoked readByUser() Method Inside Notes Class');
         try {
             $query = 'CALL spGetNoteByUser(:user_id)';
             $stmt = $this->con->prepare($query);
             $this->user_id = htmlspecialchars(strip_tags($this->user_id));
             $stmt->bindParam(':user_id', $this->user_id);
             if($stmt->execute()) {
-                error_log('Retrieved Note');
+                error_log('Retrieved Note By User ID: ' . $this->user_id);
                 return $stmt;
-            }else{
-                throw new PDOException();
             }
         } catch (\PDOException $e) {
             print_r($e);
@@ -154,12 +144,10 @@ class Notes
         try {
             if ($stmt->execute()) {
                 error_log('Note Updated');
-                return true;
-            }else {
-                throw new PDOException();
+                return $stmt;
             }
         }catch(\PDOException $e) {
-            error_log("Error: " .  $e->getMessage());
+            error_log("[Error] " .  $e->getMessage());
             return $e;
         }
     }
@@ -174,14 +162,32 @@ class Notes
         try {
             $stmt->execute();
             if ($stmt->rowCount()) {
-                error_log('Note Deleted');
-                return true;
-            }else{
-                error_log("Deletion Failed");
-                return false;
+                error_log('Note Deleted with ID: ' . $this->id);
+                return $stmt;
             }
         }catch(\PDOException $e) {
-            error_log("Error: " . $e->getMessage());
+            error_log("[Error] Note Deletion Failed: " . $e->getMessage() . "With Note ID: " . $this->id);
+        }
+    }
+
+
+    public function readAllNotesByUser($share_to, $userid)
+    {
+        error_log('Invoked readAllNotes Method');
+        try {
+            $query = 'CALL spGetAllNotesByUser(:share_to, :userid)';
+            $stmt = $this->con->prepare($query);
+            $stmt->bindParam(':share_to', $share_to);
+            $stmt->bindParam(':userid', $userid);
+
+            if($stmt->execute()) {
+                error_log('Successfully retrieved all shared and owned notes');
+                return $stmt;
+            }
+        } catch (\PDOException $e) {
+            print_r($e);
+            error_log('Note Not Available: ' . $e->getMessage());
+            return $e;
         }
     }
 
