@@ -32,6 +32,7 @@ public class NavigationDrawerAdapter extends ArrayAdapter<NavgitationModel> impl
     private Context mContext;
     private boolean editToggle = true;
     private boolean mode = false;
+    private int currentPosition;
 
 
     public NavigationDrawerAdapter(ArrayList<NavgitationModel> list, Context context, NavObserver navObserver) {
@@ -47,10 +48,10 @@ public class NavigationDrawerAdapter extends ArrayAdapter<NavgitationModel> impl
 
     @NonNull
     @Override
-    public View getView(final int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+    public View getView(final int position, @Nullable View convertView, @NonNull final ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) mContext
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View rowView = inflater.inflate(R.layout.nav_item, parent, false);
+        final View rowView = inflater.inflate(R.layout.nav_item, parent, false);
         final ViewSwitcher viewSwitcher = rowView.findViewById(R.id.viewSwitcher);
         LinearLayout layout = (LinearLayout) rowView.findViewById(R.id.nav_linear_layout);
         final TextView labelNameTV = (TextView) rowView.findViewById(R.id.nav_text_view);
@@ -67,40 +68,42 @@ public class NavigationDrawerAdapter extends ArrayAdapter<NavgitationModel> impl
                     Intent intent = new Intent(mContext, FilteredNotesActivity.class);
                     intent.putExtra("label_name", labelNameTV.getText());
                     mContext.startActivity(intent);
-                }else{
-                    // Todo: Add code to save labels
-
                 }
-
             }
         });
 
 
+        // This code needs refactoring
         labelImage.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
                 if (editToggle) {
+
+                    String label = navigationList.get(position).getTitle();
                     mode = false;
                     editToggle = false;
-                    Log.e(TAG, "Here true" + position);
+                    currentPosition = position;
+                    Log.e(TAG, "position" + position);
+                    labelEdittext.setBackgroundResource( R.drawable.border);
+                    toggleVisibility(currentPosition, parent);
                     labelImage.setImageResource(R.drawable.ic_bookmark_grey_24dp);
-                    String label = labelNameTV.getText().toString();
-                    viewSwitcher.showNext();
                     labelEdittext.setText(label);
+                    viewSwitcher.showNext();
 
                 } else {
                     mode = true;
                     editToggle = true;
+                    toggleVisibility(currentPosition, parent);
                     navigationList.add(position,new NavgitationModel(navigationList.get(position).getLabelImageView(),labelEdittext.getText().toString()));
-                    Log.e(TAG, "Here " + navigationList.get(position).getTitle());
                     navigationList.remove(position+1);
+                    Log.e(TAG, "HEre");
                     labelImage.setImageDrawable(navigationList.get(position).getLabelImageView());
                     labelNameTV.setText(navigationList.get(position).getTitle());
                     viewSwitcher.showPrevious();
                 }
 
 
-                return true;
+                return false;
             }
         });
 
@@ -116,6 +119,29 @@ public class NavigationDrawerAdapter extends ArrayAdapter<NavgitationModel> impl
 
             }
         }
+    }
+
+    void toggleVisibility(int currentPosition, ViewGroup parent){
+        if(!editToggle){
+            for ( int i = 0; i < parent.getChildCount();  i++ ){
+                if (i != currentPosition){
+
+                    Log.e(TAG, ""+parent.getChildCount());
+                    View view = parent.getChildAt(i);
+                    view.animate().alpha(0.0f).setDuration(500);
+                    view.setVisibility(View.GONE);
+                }
+            }
+        }else{
+            for ( int i = 0; i < parent.getChildCount();  i++ ){
+                    Log.e(TAG, ""+parent.getChildCount());
+                    View view = parent.getChildAt(i);
+                    view.animate().alpha(1.0f).setDuration(500);
+                    view.setVisibility(View.VISIBLE);
+
+            }
+        }
+
     }
 
 

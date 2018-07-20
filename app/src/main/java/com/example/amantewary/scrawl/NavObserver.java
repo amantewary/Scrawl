@@ -1,8 +1,5 @@
 package com.example.amantewary.scrawl;
 
-import android.content.Context;
-import android.support.v4.widget.DrawerLayout;
-import android.util.Log;
 
 import java.util.Observable;
 

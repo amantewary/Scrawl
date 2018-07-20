@@ -7,24 +7,29 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 
 import com.example.amantewary.scrawl.Handlers.NoteHandler;
 import com.example.amantewary.scrawl.R;
 import com.example.amantewary.scrawl.ViewNotesActivity;
 import com.l4digital.fastscroll.FastScroller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
-public class NotesListAdapter extends RecyclerView.Adapter<ViewHolder> implements FastScroller.SectionIndexer {
+public class NotesListAdapter extends RecyclerView.Adapter<ViewHolder> implements FastScroller.SectionIndexer, Filterable {
 
 
     private Context context;
     private List<NoteHandler> notesList;
+    private List<NoteHandler> notesListFilter;
 
     public NotesListAdapter(Context context, List<NoteHandler> notesList) {
         this.context = context;
         this.notesList = notesList;
+        this.notesListFilter = notesList;
     }
 
     @NonNull
@@ -50,7 +55,7 @@ public class NotesListAdapter extends RecyclerView.Adapter<ViewHolder> implement
 
     @Override
     public int getItemCount() {
-        return this.notesList.size();
+        return this.notesListFilter.size();
     }
 
     @Override
@@ -61,4 +66,38 @@ public class NotesListAdapter extends RecyclerView.Adapter<ViewHolder> implement
             return String.valueOf(notesList.get(position).getTitle().charAt(0));
         }
     }
+
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+                String charString = charSequence.toString();
+                if (charString.isEmpty()) {
+                    notesListFilter = notesList;
+                } else {
+                    List<NoteHandler> filteredList = new ArrayList<>();
+                    for (NoteHandler row : filteredList) {
+
+                        if (row.getLabel_name().toLowerCase().contains(charString.toLowerCase()) || row.getBody().contains(charSequence)) {
+                            filteredList.add(row);
+                        }
+                    }
+
+                    notesListFilter = filteredList;
+                }
+
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = notesListFilter;
+                return filterResults;
+            }
+
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                notesListFilter = (ArrayList<NoteHandler>) filterResults.values;
+                notifyDataSetChanged();
+            }
+        };
+    }
 }
+

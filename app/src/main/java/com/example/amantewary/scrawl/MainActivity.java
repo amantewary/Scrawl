@@ -70,7 +70,6 @@ public class MainActivity extends AppCompatActivity{
         viewBinder();
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         mFirebaseAnalytics.setCurrentScreen(this, getClass().getCanonicalName(), null);
-<<<<<<< HEAD
 
         final ArrayList<NavgitationModel> navgitationModels = new ArrayList<>();
         loadLabelsForList(navgitationModels);
@@ -80,10 +79,7 @@ public class MainActivity extends AppCompatActivity{
 
         labelString = LabelLoader.getInstance().loadLabel(this);
 
-
-=======
         Toolbar toolbar = findViewById(R.id.toolbar);
->>>>>>> devint
         setSupportActionBar(toolbar);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close){
