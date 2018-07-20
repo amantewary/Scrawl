@@ -6,10 +6,10 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.example.amantewary.scrawl.API.Labels.ILabelResponse;
 import com.example.amantewary.scrawl.API.Labels.ICreateLabel;
 import com.example.amantewary.scrawl.API.Labels.IDeleteLabel;
 import com.example.amantewary.scrawl.API.Labels.IGetLabels;
+import com.example.amantewary.scrawl.API.Labels.ILabelResponse;
 import com.example.amantewary.scrawl.Handlers.LabelHandler;
 
 import java.util.List;
@@ -25,26 +25,26 @@ public class LabelRequestHandler {
 
     public void getLabel(final Context context, final Integer user_id, final @Nullable ILabelResponse callbacks) {
         IGetLabels labelAPI = RetroFitInstance.getRetrofit().create(IGetLabels.class);
-                Call<List<LabelHandler>> call = labelAPI.getLabels(user_id);
-                try {
-                    call.enqueue(new Callback<List<LabelHandler>>() {
-                        @Override
-                        public void onResponse(Call<List<LabelHandler>> call, Response<List<LabelHandler>> response) {
-                            Log.d(context.getClass().getSimpleName(), "onResponse: Server Response: " + response.toString());
-                            labels = response.body();
-                            if (callbacks != null) {
-                                callbacks.onSuccess(labels);
-                            }
-                        }
-
-                        @Override
-                        public void onFailure(Call<List<LabelHandler>> call, Throwable t) {
-                            callbacks.onError(t);
-                        }
-                    });
-                }catch (Exception e){
-                    Log.e(TAG,"Message: " + e.toString());
+        Call<List<LabelHandler>> call = labelAPI.getLabels(user_id);
+        try {
+            call.enqueue(new Callback<List<LabelHandler>>() {
+                @Override
+                public void onResponse(Call<List<LabelHandler>> call, Response<List<LabelHandler>> response) {
+                    Log.d(context.getClass().getSimpleName(), "onResponse: Server Response: " + response.toString());
+                    labels = response.body();
+                    if (callbacks != null) {
+                        callbacks.onSuccess(labels);
+                    }
                 }
+
+                @Override
+                public void onFailure(Call<List<LabelHandler>> call, Throwable t) {
+                    callbacks.onError(t);
+                }
+            });
+        } catch (Exception e) {
+            Log.e(TAG, "Message: " + e.toString());
+        }
 
     }
 
@@ -68,8 +68,8 @@ public class LabelRequestHandler {
                             ((Activity) (context)).finish();
                         }
                     });
-        }catch (Exception e){
-            Log.e(TAG,"Message: " + e.toString());
+        } catch (Exception e) {
+            Log.e(TAG, "Message: " + e.toString());
         }
     }
 
@@ -93,8 +93,8 @@ public class LabelRequestHandler {
                             ((Activity) (context)).finish();
                         }
                     });
-        }catch (Exception e){
-            Log.e(TAG,"Message: " + e.toString());
+        } catch (Exception e) {
+            Log.e(TAG, "Message: " + e.toString());
         }
     }
 }

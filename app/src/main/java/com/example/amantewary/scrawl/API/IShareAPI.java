@@ -30,8 +30,9 @@ public interface IShareAPI {
     @GET("~hhou/QA_Devint/NoteApi/v1/shares/readNoteByUserId")
     Call<List<NoteHandler>> getSharedNotesByUserID(@Query("share_to") Integer share_to);
 
-    @Headers("Content-Type: application/json")
-    @GET("~hhou/QA_Devint/NoteApi/v1/shares/getAllNotesForUser")
-    Call<List<NoteHandler>> getAllNotesByUserID(@Query("share_to") String share_to, @Query("userid") Integer userid);
+//  TODO: Moved To IGetNote
+//    @Headers("Content-Type: application/json")
+//    @GET("~hhou/QA_Devint/NoteApi/v1/shares/getAllNotesForUser")
+//    Call<List<NoteHandler>> getAllNotesByUserID(@Query("share_to") String share_to, @Query("userid") Integer userid);
 
 }

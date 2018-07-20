@@ -7,9 +7,9 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.example.amantewary.scrawl.API.IShareAPI;
 import com.example.amantewary.scrawl.API.Notes.ICreateNote;
 import com.example.amantewary.scrawl.API.Notes.IDeleteNote;
+import com.example.amantewary.scrawl.API.Notes.IGetNote;
 import com.example.amantewary.scrawl.API.Notes.IGetNoteById;
 import com.example.amantewary.scrawl.API.Notes.IGetNoteByLabel;
 import com.example.amantewary.scrawl.API.Notes.INoteResponse;
@@ -52,8 +52,8 @@ public class NotesRequestHandler {
                             ((Activity) (context)).finish();
                         }
                     });
-        }catch (Exception e){
-            Log.e(TAG,"Message: " + e.toString());
+        } catch (Exception e) {
+            Log.e(TAG, "Message: " + e.toString());
         }
     }
 
@@ -62,7 +62,7 @@ public class NotesRequestHandler {
         dialog.setMessage("Loading...");
         dialog.show();
 
-        RetroFitInstance.getRetrofit().create(IShareAPI.class)
+        RetroFitInstance.getRetrofit().create(IGetNote.class)
                 .getAllNotesByUserID(share_to, userid)
                 .enqueue(new Callback<List<NoteHandler>>() {
                     @Override
@@ -109,8 +109,8 @@ public class NotesRequestHandler {
                             callbacks.onError(t);
                         }
                     });
-        }catch (Exception e){
-            Log.e(TAG,"Message: " + e.toString());
+        } catch (Exception e) {
+            Log.e(TAG, "Message: " + e.toString());
         }
     }
 
@@ -138,8 +138,8 @@ public class NotesRequestHandler {
                             callbacks.onError(t);
                         }
                     });
-        }catch (Exception e){
-            Log.e(TAG,"Message: " + e.toString());
+        } catch (Exception e) {
+            Log.e(TAG, "Message: " + e.toString());
         }
     }
 
@@ -167,8 +167,8 @@ public class NotesRequestHandler {
                             ((Activity) (context)).finish();
                         }
                     });
-        }catch (Exception e){
-            Log.e(TAG,"Message: " + e.toString());
+        } catch (Exception e) {
+            Log.e(TAG, "Message: " + e.toString());
         }
     }
 
@@ -196,8 +196,8 @@ public class NotesRequestHandler {
                             ((Activity) (context)).finish();
                         }
                     });
-        }catch (Exception e){
-            Log.e(TAG,"Message: " + e.toString());
+        } catch (Exception e) {
+            Log.e(TAG, "Message: " + e.toString());
         }
     }
 

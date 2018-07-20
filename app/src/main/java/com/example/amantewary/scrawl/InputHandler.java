@@ -19,28 +19,26 @@ import java.util.regex.Pattern;
 public class InputHandler extends Observable {
 
     private static final String TAG = "InputHandler";
-
+    List<String> badWords = new ArrayList<>();
     private Context context;
 
     public InputHandler(Context context) {
         this.context = context;
     }
 
-    List<String> badWords = new ArrayList<>();
-
-    public boolean inputValidator(String title, String body, String link){
+    public boolean inputValidator(String title, String body, String link) {
 
         if (!TextUtils.isEmpty(title)
                 && !TextUtils.isEmpty(body)
                 && (Patterns.WEB_URL.matcher(link).matches()
                 || TextUtils.isEmpty(link))) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
 
-    public String inputCensor(String input){
+    public String inputCensor(String input) {
         String temp = input;
         Log.e("Temp", input);
         readTxt();
@@ -49,7 +47,7 @@ public class InputHandler extends Observable {
             input = pattern.matcher(input).replaceAll(new String(new char[word.length()]).replace('\0', '*'));
         }
         Log.e("input", input);
-        if (!temp.equals(input)){
+        if (!temp.equals(input)) {
             setChanged();
             notifyObservers();
         }
@@ -57,7 +55,7 @@ public class InputHandler extends Observable {
         return input;
     }
 
-    public void inputErrorHandling(EditText title, EditText body, EditText link){
+    public void inputErrorHandling(EditText title, EditText body, EditText link) {
 
         if (title.getText().toString().trim().matches("")) {
             title.setBackgroundResource(R.drawable.border_error);
@@ -76,15 +74,14 @@ public class InputHandler extends Observable {
         if (!Patterns.WEB_URL.matcher(link.getText().toString().trim()).matches()) {
             link.setError("Please Enter Valid URL");
             return;
-        }
-        else {
+        } else {
             link.setBackgroundResource(R.drawable.border);
         }
 
     }
 
-    private void readTxt(){
-        try{
+    private void readTxt() {
+        try {
             InputStreamReader inputStream = new InputStreamReader(context.getAssets().open("swearwords.txt"));
             BufferedReader reader = new BufferedReader(inputStream);
             String mLine = reader.readLine();
@@ -94,8 +91,8 @@ public class InputHandler extends Observable {
                 mLine = reader.readLine();
             }
             reader.close();
-        }catch (IOException e){
-            Log.e("TAG",""+ e);
+        } catch (IOException e) {
+            Log.e("TAG", "" + e);
         }
 
     }
@@ -126,8 +123,8 @@ public class InputHandler extends Observable {
                     }
                 }
             });
-        }catch(Exception e){
-            Log.e(TAG,"Message: " + e.toString());
+        } catch (Exception e) {
+            Log.e(TAG, "Message: " + e.toString());
         }
     }
 }

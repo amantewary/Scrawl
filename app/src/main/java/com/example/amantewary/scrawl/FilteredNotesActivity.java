@@ -24,7 +24,7 @@ public class FilteredNotesActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private String label_name;
 
-    protected void viewBinder(){
+    protected void viewBinder() {
         toolbar = findViewById(R.id.toolbar);
         notesListView = findViewById(R.id.viewFilteredNoteList);
     }
@@ -40,7 +40,7 @@ public class FilteredNotesActivity extends AppCompatActivity {
         if (bundle != null) {
             label_name = bundle.getString("label_name");
         }
-        Log.e(TAG,"LABEL_NAME" + label_name);
+        Log.e(TAG, "LABEL_NAME" + label_name);
 
     }
 
@@ -50,7 +50,7 @@ public class FilteredNotesActivity extends AppCompatActivity {
         populateFilteredNotesList(label_name);
     }
 
-    public void populateFilteredNotesList(String label_name){
+    public void populateFilteredNotesList(String label_name) {
         NotesRequestHandler request = new NotesRequestHandler();
 
         try {
@@ -69,8 +69,8 @@ public class FilteredNotesActivity extends AppCompatActivity {
                     Toast.makeText(FilteredNotesActivity.this, "Notes Not Available For This Label", Toast.LENGTH_SHORT).show();
                 }
             });
-        }catch (Exception e){
-            Log.e(TAG,"Message: " + e.toString());
+        } catch (Exception e) {
+            Log.e(TAG, "Message: " + e.toString());
         }
     }
 }

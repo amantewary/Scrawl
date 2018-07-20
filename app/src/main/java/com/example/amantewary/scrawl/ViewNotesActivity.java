@@ -20,8 +20,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.amantewary.scrawl.API.Notes.INoteResponse;
 import com.example.amantewary.scrawl.API.IShareAPI;
+import com.example.amantewary.scrawl.API.Notes.INoteResponse;
 import com.example.amantewary.scrawl.Handlers.LoginUserClass;
 import com.example.amantewary.scrawl.Handlers.NoteHandler;
 import com.example.amantewary.scrawl.Handlers.ShareHandler;
@@ -52,12 +52,13 @@ public class ViewNotesActivity extends AppCompatActivity implements View.OnClick
     private SessionManager sessionManager;
 
 
-    protected void viewBinder(){
+    protected void viewBinder() {
         btn_edit = findViewById(R.id.btn_edit);
         btn_collaborate = findViewById(R.id.btn_collaborate);
         btn_share = findViewById(R.id.btn_share);
         btn_delete = findViewById(R.id.btn_delete);
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -117,7 +118,6 @@ public class ViewNotesActivity extends AppCompatActivity implements View.OnClick
         tv_note_link = findViewById(R.id.viewNotesLink);
 
 
-
         btn_edit.setOnClickListener(this);
         btn_collaborate.setOnClickListener(this);
         btn_share.setOnClickListener(this);
@@ -138,17 +138,18 @@ public class ViewNotesActivity extends AppCompatActivity implements View.OnClick
                     Log.d(TAG, "onResponse: Received Information: " + note.toString());
                     setView(note);
                 }
+
                 @Override
                 public void onError(@NonNull Throwable throwable) {
                     Log.e(TAG, "onFailure: Something Went Wrong: " + throwable.getMessage());
                 }
             });
-        }catch (Exception e){
-            Log.e(TAG,"Message: " + e.toString());
+        } catch (Exception e) {
+            Log.e(TAG, "Message: " + e.toString());
         }
     }
 
-    public void setView(List<NoteHandler> note){
+    public void setView(List<NoteHandler> note) {
         try {
             for (NoteHandler n : note) {
                 collapsingToolbarLayout.setTitle(n.getTitle());
@@ -156,8 +157,8 @@ public class ViewNotesActivity extends AppCompatActivity implements View.OnClick
                 tv_note_content.setText(n.getBody());
                 tv_note_link.setText(n.getUrl());
             }
-        }catch (Exception e){
-            Log.e(TAG,"Message: " + e.toString());
+        } catch (Exception e) {
+            Log.e(TAG, "Message: " + e.toString());
         }
 
     }
@@ -261,7 +262,7 @@ public class ViewNotesActivity extends AppCompatActivity implements View.OnClick
     public void setCollaborateInfo(final String collaborate_with) {
 
         try {
-            if (sessionManager.checkLogin()){
+            if (sessionManager.checkLogin()) {
                 final String share_from = sessionManager.getUserEmail();
 
                 final Boolean[] result = new Boolean[1];
@@ -296,10 +297,10 @@ public class ViewNotesActivity extends AppCompatActivity implements View.OnClick
                     }
                 });
 
-            }else {
-                new  AlertDialog.Builder(this)
-                        .setTitle("You have not logged in" )
-                        .setMessage("You have not logged in" )
+            } else {
+                new AlertDialog.Builder(this)
+                        .setTitle("You have not logged in")
+                        .setMessage("You have not logged in")
                         .setPositiveButton("Login", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -307,12 +308,12 @@ public class ViewNotesActivity extends AppCompatActivity implements View.OnClick
                                 startActivity(intent);
                             }
                         })
-                        .setNegativeButton("Cancel" , null)
+                        .setNegativeButton("Cancel", null)
                         .show();
             }
 
         } catch (Exception e) {
-            Log.e(TAG,"Message: " + e.toString());
+            Log.e(TAG, "Message: " + e.toString());
         }
     }
 
@@ -358,8 +359,8 @@ public class ViewNotesActivity extends AppCompatActivity implements View.OnClick
                 }
             });
             deleteAlert.show();
-        }catch (Exception e){
-            Log.e(TAG,"Message: " + e.toString());
+        } catch (Exception e) {
+            Log.e(TAG, "Message: " + e.toString());
         }
 
     }

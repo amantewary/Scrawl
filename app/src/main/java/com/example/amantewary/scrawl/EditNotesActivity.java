@@ -39,7 +39,7 @@ public class EditNotesActivity extends AppCompatActivity implements Observer {
     private InputHandler inputHandler;
     private NotesRequestHandler request;
 
-    protected void viewBinder(){
+    protected void viewBinder() {
         et_title = findViewById(R.id.et_title_edit);
         et_content = findViewById(R.id.et_content_edit);
         et_link = findViewById(R.id.et_link_edit);
@@ -64,7 +64,7 @@ public class EditNotesActivity extends AppCompatActivity implements Observer {
         inputHandler.doRealTimeLanguageCheck(et_title);
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
-        if(bundle != null){
+        if (bundle != null) {
             noteId = bundle.getInt("noteid");
         }
 
@@ -87,13 +87,13 @@ public class EditNotesActivity extends AppCompatActivity implements Observer {
 
     }
 
-    public void getNoteByNoteID(){
-        try{
-            request.getSingleNote(EditNotesActivity.this,noteId, new INoteResponse(){
+    public void getNoteByNoteID() {
+        try {
+            request.getSingleNote(EditNotesActivity.this, noteId, new INoteResponse() {
                 @Override
                 public void onSuccess(@NonNull List<NoteHandler> note) {
                     Log.d(TAG, "onResponse: Received Information: " + note.toString());
-                    for(NoteHandler n : note){
+                    for (NoteHandler n : note) {
                         et_title.setText(n.getTitle());
                         et_content.setText(n.getBody());
                         et_link.setText(n.getUrl());
@@ -105,8 +105,8 @@ public class EditNotesActivity extends AppCompatActivity implements Observer {
                     Log.e(TAG, "onFailure: Something Went Wrong: " + throwable.getMessage());
                 }
             });
-        }catch (Exception e){
-            Log.e(TAG,"Message: " + e.toString());
+        } catch (Exception e) {
+            Log.e(TAG, "Message: " + e.toString());
         }
     }
 
@@ -126,7 +126,7 @@ public class EditNotesActivity extends AppCompatActivity implements Observer {
         return super.onOptionsItemSelected(item);
     }
 
-    public void editNote(){
+    public void editNote() {
 
         String label = inputHandler.inputCensor(labelSpinner.getSelectedItem().toString());
         String title = inputHandler.inputCensor(et_title.getText().toString().trim());
@@ -139,16 +139,17 @@ public class EditNotesActivity extends AppCompatActivity implements Observer {
             } else {
                 inputHandler.inputErrorHandling(et_title, et_content, et_link);
             }
-        }catch (Exception e){
-            Log.e(TAG,"Message: " + e.toString());
+        } catch (Exception e) {
+            Log.e(TAG, "Message: " + e.toString());
         }
 
     }
+
     @Override
     public void update(Observable observable, Object o) {
-        if(observable instanceof InputHandler){
+        if (observable instanceof InputHandler) {
             Log.e(TAG, "Here");
-            Toast.makeText(getApplicationContext(),"All bad words will be censored", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "All bad words will be censored", Toast.LENGTH_SHORT).show();
         }
     }
 

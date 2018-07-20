@@ -35,7 +35,7 @@ public class AddNotesActivity extends AppCompatActivity implements Observer {
     private InputHandler inputHandler;
     private String title, label, body, link;
 
-    protected void viewBinder(){
+    protected void viewBinder() {
         tv_date = findViewById(R.id.tv_date);
         et_content = findViewById(R.id.et_content);
         et_title = findViewById(R.id.et_title);
@@ -60,8 +60,8 @@ public class AddNotesActivity extends AppCompatActivity implements Observer {
                     }
                 }
             }
-        }catch (Exception e){
-            Log.e(TAG,"Message: " + e.toString());
+        } catch (Exception e) {
+            Log.e(TAG, "Message: " + e.toString());
         }
     }
 
@@ -130,7 +130,7 @@ public class AddNotesActivity extends AppCompatActivity implements Observer {
                 inputHandler.inputErrorHandling(et_title, et_content, et_link);
             }
         } catch (Exception e) {
-            Log.e(TAG,"Message: " + e.toString());
+            Log.e(TAG, "Message: " + e.toString());
         }
     }
 

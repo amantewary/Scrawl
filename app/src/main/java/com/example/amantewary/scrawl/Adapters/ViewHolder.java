@@ -12,7 +12,7 @@ public class ViewHolder extends RecyclerView.ViewHolder {
     TextView label;
     View parentView;
 
-    public ViewHolder (@NonNull View view){
+    public ViewHolder(@NonNull View view) {
         super(view);
         this.title = view.findViewById(R.id.viewNoteTitle);
         this.label = view.findViewById(R.id.viewLabel);

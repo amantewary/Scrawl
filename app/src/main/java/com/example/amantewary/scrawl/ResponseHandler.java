@@ -12,19 +12,18 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-
 public class ResponseHandler {
 
     public ResponseHandler() {
     }
 
-    public static <T> void ResponseFromGetMethod(Call<List<T>> call, final IHandleResponse callbacks, final Context context){
+    public static <T> void ResponseFromGetMethod(Call<List<T>> call, final IHandleResponse callbacks, final Context context) {
 
         call.enqueue(new Callback<List<T>>() {
             @Override
             public void onResponse(Call<List<T>> call, Response<List<T>> response) {
                 Log.d(context.getClass().getSimpleName(), "onResponse: Server Response: " + response.toString());
-                List<T>responseList = response.body();
+                List<T> responseList = response.body();
                 if (callbacks != null) {
                     callbacks.onSuccess(responseList);
                 }

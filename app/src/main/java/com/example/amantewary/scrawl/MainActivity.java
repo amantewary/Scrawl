@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity
         listView = findViewById(R.id.lstDrawerItems);
         drawer = findViewById(R.id.drawer_layout);
         logout = findViewById(R.id.nav_lout);
-        swiperefresh =findViewById(R.id.swiperefresh);
+        swiperefresh = findViewById(R.id.swiperefresh);
     }
 
     @Override
@@ -113,7 +113,7 @@ public class MainActivity extends AppCompatActivity
                         populateNotesList();
                         swiperefresh.setRefreshing(false);
                     }
-                },0);
+                }, 0);
 
             }
         });
@@ -133,11 +133,6 @@ public class MainActivity extends AppCompatActivity
         try {
             request.getAllNotesByUserId(MainActivity.this, cur_usr_email, cur_usr_id, new INoteResponse() {
                 @Override
-                public int hashCode() {
-                    return super.hashCode();
-                }
-
-                @Override
                 public void onSuccess(@NonNull List<NoteHandler> notes) {
                     Log.d(TAG, "getID:" + String.valueOf(notes.get(0).getId()));
                     if (notes.get(0).getId() != null) {
@@ -153,12 +148,12 @@ public class MainActivity extends AppCompatActivity
                     Log.e(TAG, "populateNotesList().onError: Something Went Wrong: " + throwable.getMessage());
                 }
             });
-        }catch (Exception e){
-            Log.e(TAG,"Message:" + e.toString());
+        } catch (Exception e) {
+            Log.e(TAG, "Message:" + e.toString());
         }
     }
 
-    public void initialLabelListLoading(){
+    public void initialLabelListLoading() {
         try {
             LabelRequestHandler request = new LabelRequestHandler();
             request.getLabel(MainActivity.this, 44, new ILabelResponse() {
@@ -172,13 +167,14 @@ public class MainActivity extends AppCompatActivity
                     }
                     LabelLoader.getInstance().saveLabel(MainActivity.this, labelList);
                 }
+
                 @Override
                 public void onError(@NonNull Throwable throwable) {
                     Log.e(TAG, "onFailure: Something Went Wrong: " + throwable.getMessage());
                 }
             });
-        }catch (Exception e){
-            Log.e(TAG,"Message" + e.toString());
+        } catch (Exception e) {
+            Log.e(TAG, "Message" + e.toString());
         }
     }
 

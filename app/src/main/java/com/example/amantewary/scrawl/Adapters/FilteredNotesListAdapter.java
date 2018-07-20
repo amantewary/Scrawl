@@ -15,7 +15,7 @@ import com.l4digital.fastscroll.FastScroller;
 
 import java.util.List;
 
-public class FilteredNotesListAdapter extends RecyclerView.Adapter<ViewHolder> implements FastScroller.SectionIndexer{
+public class FilteredNotesListAdapter extends RecyclerView.Adapter<ViewHolder> implements FastScroller.SectionIndexer {
 
     private Context context;
     private List<NoteHandler> notesList;
@@ -50,11 +50,12 @@ public class FilteredNotesListAdapter extends RecyclerView.Adapter<ViewHolder> i
     public int getItemCount() {
         return this.notesList.size();
     }
+
     @Override
     public String getSectionText(int position) {
-        if (notesList.get(position).getTitle().equals("") || notesList.get(position).getTitle() == null){
+        if (notesList.get(position).getTitle().equals("") || notesList.get(position).getTitle() == null) {
             return "a";
-        }else{
+        } else {
             return String.valueOf(notesList.get(position).getTitle().charAt(0));
         }
     }
