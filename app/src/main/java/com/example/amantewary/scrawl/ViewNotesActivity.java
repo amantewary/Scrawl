@@ -20,9 +20,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.amantewary.scrawl.API.Notes.INoteResponse;
 import com.example.amantewary.scrawl.API.IShareAPI;
+<<<<<<< HEAD
 import com.example.amantewary.scrawl.Handlers.UserClass;
+=======
+import com.example.amantewary.scrawl.API.Notes.INoteResponse;
+import com.example.amantewary.scrawl.Handlers.LoginUserClass;
+>>>>>>> devint
 import com.example.amantewary.scrawl.Handlers.NoteHandler;
 import com.example.amantewary.scrawl.Handlers.ShareHandler;
 
@@ -51,11 +55,20 @@ public class ViewNotesActivity extends AppCompatActivity implements View.OnClick
     private NotesRequestHandler request;
     private SessionManager sessionManager;
 
+
+    protected void viewBinder() {
+        btn_edit = findViewById(R.id.btn_edit);
+        btn_collaborate = findViewById(R.id.btn_collaborate);
+        btn_share = findViewById(R.id.btn_share);
+        btn_delete = findViewById(R.id.btn_delete);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_viewnotesscroll);
+        viewBinder();
         collapsingToolbarLayout = findViewById(R.id.subtitlecollapsingtoolbarlayout);
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
@@ -76,15 +89,8 @@ public class ViewNotesActivity extends AppCompatActivity implements View.OnClick
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//
-//                Intent intent = new Intent(activity_viewnotesscroll.this, NewMessageActivity.class);
-//                startActivity(intent);
-
                 if (mBottomSheetBehavior1.getState() != BottomSheetBehavior.STATE_EXPANDED) {
                     mBottomSheetBehavior1.setState(BottomSheetBehavior.STATE_EXPANDED);
-
                 } else {
                     mBottomSheetBehavior1.setState(BottomSheetBehavior.STATE_COLLAPSED);
                 }
@@ -115,10 +121,6 @@ public class ViewNotesActivity extends AppCompatActivity implements View.OnClick
         tv_note_content = findViewById(R.id.viewNotesBody);
         tv_note_link = findViewById(R.id.viewNotesLink);
 
-        btn_edit = (Button) findViewById(R.id.btn_edit);
-        btn_collaborate = (Button) findViewById(R.id.btn_collaborate);
-        btn_share = (Button) findViewById(R.id.btn_share);
-        btn_delete = (Button) findViewById(R.id.btn_delete);
 
         btn_edit.setOnClickListener(this);
         btn_collaborate.setOnClickListener(this);
@@ -133,26 +135,35 @@ public class ViewNotesActivity extends AppCompatActivity implements View.OnClick
     protected void onStart() {
         super.onStart();
         request = new NotesRequestHandler();
-        request.getSingleNote(ViewNotesActivity.this, noteId, new INoteResponse() {
-            @Override
-            public void onSuccess(@NonNull List<NoteHandler> note) {
-                Log.d(TAG, "onResponse: Received Information: " + note.toString());
-                setView(note);
-            }
-            @Override
-            public void onError(@NonNull Throwable throwable) {
-                Log.e(TAG, "onFailure: Something Went Wrong: " + throwable.getMessage());
-            }
-        });
+        try {
+            request.getSingleNote(ViewNotesActivity.this, noteId, new INoteResponse() {
+                @Override
+                public void onSuccess(@NonNull List<NoteHandler> note) {
+                    Log.d(TAG, "onResponse: Received Information: " + note.toString());
+                    setView(note);
+                }
+
+                @Override
+                public void onError(@NonNull Throwable throwable) {
+                    Log.e(TAG, "onFailure: Something Went Wrong: " + throwable.getMessage());
+                }
+            });
+        } catch (Exception e) {
+            Log.e(TAG, "Message: " + e.toString());
+        }
     }
 
-    public void setView(List<NoteHandler> note){
-        for (NoteHandler n : note) {
-                    collapsingToolbarLayout.setTitle(n.getTitle());
-                    collapsingToolbarLayout.setSubtitle(n.getLabel_name());
-                    tv_note_content.setText(n.getBody());
-                    tv_note_link.setText(n.getUrl());
-                }
+    public void setView(List<NoteHandler> note) {
+        try {
+            for (NoteHandler n : note) {
+                collapsingToolbarLayout.setTitle(n.getTitle());
+                collapsingToolbarLayout.setSubtitle(n.getLabel_name());
+                tv_note_content.setText(n.getBody());
+                tv_note_link.setText(n.getUrl());
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "Message: " + e.toString());
+        }
 
     }
 
@@ -255,7 +266,7 @@ public class ViewNotesActivity extends AppCompatActivity implements View.OnClick
     public void setCollaborateInfo(final String collaborate_with) {
 
         try {
-            if (sessionManager.checkLogin()){
+            if (sessionManager.checkLogin()) {
                 final String share_from = sessionManager.getUserEmail();
 
                 final Boolean[] result = new Boolean[1];
@@ -290,10 +301,10 @@ public class ViewNotesActivity extends AppCompatActivity implements View.OnClick
                     }
                 });
 
-            }else {
-                new  AlertDialog.Builder(this)
-                        .setTitle("You have not logged in" )
-                        .setMessage("You have not logged in" )
+            } else {
+                new AlertDialog.Builder(this)
+                        .setTitle("You have not logged in")
+                        .setMessage("You have not logged in")
                         .setPositiveButton("Login", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -301,12 +312,12 @@ public class ViewNotesActivity extends AppCompatActivity implements View.OnClick
                                 startActivity(intent);
                             }
                         })
-                        .setNegativeButton("Cancel" , null)
+                        .setNegativeButton("Cancel", null)
                         .show();
             }
 
         } catch (Exception e) {
-            Log.e("Message", e.toString());
+            Log.e(TAG, "Message: " + e.toString());
         }
     }
 
@@ -332,25 +343,29 @@ public class ViewNotesActivity extends AppCompatActivity implements View.OnClick
     public void deleteNote() {
 
         //Builder
-        AlertDialog.Builder deleteAlert = new AlertDialog.Builder(ViewNotesActivity.this);
-        deleteAlert.setTitle("Delete Note");
-        deleteAlert.setMessage("Are you sure?");
-        deleteAlert.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                noteHandler = new NoteHandler(noteId);
-                request = new NotesRequestHandler();
-                request.deleteNote(noteHandler, ViewNotesActivity.this);
-                finish();
-            }
-        });
-        deleteAlert.setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
-            }
-        });
-        deleteAlert.show();
+        try {
+            AlertDialog.Builder deleteAlert = new AlertDialog.Builder(ViewNotesActivity.this);
+            deleteAlert.setTitle("Delete Note");
+            deleteAlert.setMessage("Are you sure?");
+            deleteAlert.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    noteHandler = new NoteHandler(noteId);
+                    request = new NotesRequestHandler();
+                    request.deleteNote(noteHandler, ViewNotesActivity.this);
+                    finish();
+                }
+            });
+            deleteAlert.setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            });
+            deleteAlert.show();
+        } catch (Exception e) {
+            Log.e(TAG, "Message: " + e.toString());
+        }
 
     }
 

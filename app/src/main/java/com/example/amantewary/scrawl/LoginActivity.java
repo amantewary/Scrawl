@@ -54,6 +54,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      */
     private static final int REQUEST_READ_CONTACTS = 0;
     EmailPasswordValidation emailPasswordValidation;
+    SessionManager sessionManager;
     private String TAG = LoginActivity.class.getCanonicalName();
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
@@ -64,7 +65,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
-    SessionManager sessionManager;
     private Button mEmailSignInButton;
     private Button mRegisterLink;
 

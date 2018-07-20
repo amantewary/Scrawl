@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 
 public class SplashScreen extends AppCompatActivity {
     SessionManager sessionManager;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,16 +26,16 @@ public class SplashScreen extends AppCompatActivity {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-                if (sessionManager.checkLogin()){
-                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                    finish();
-                }else{
-                    startActivity(new Intent(getApplicationContext(), ActivityRegister.class));
-                    finish();
-
-                }
+            if (sessionManager.checkLogin()) {
+                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                finish();
+            } else {
+                startActivity(new Intent(getApplicationContext(), ActivityRegister.class));
+                finish();
 
             }
 
         }
+
+    }
 }

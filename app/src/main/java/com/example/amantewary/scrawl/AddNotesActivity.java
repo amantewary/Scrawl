@@ -4,8 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -25,8 +23,6 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class AddNotesActivity extends AppCompatActivity implements Observer {
 
@@ -37,6 +33,7 @@ public class AddNotesActivity extends AppCompatActivity implements Observer {
     private Spinner sp_add_labels;
     private ArrayList<String> labels;
     private InputHandler inputHandler;
+<<<<<<< HEAD
     private  SessionManager sessionManager;
     /**
      * A method to check if a string is a link
@@ -83,9 +80,37 @@ public class AddNotesActivity extends AppCompatActivity implements Observer {
                     String sharedText = intent.getStringExtra(Intent.EXTRA_TEXT);
                     if (sharedText != null) {
                         et_content.setText(sharedText);
+=======
+    private String title, label, body, link;
+
+    protected void viewBinder() {
+        tv_date = findViewById(R.id.tv_date);
+        et_content = findViewById(R.id.et_content);
+        et_title = findViewById(R.id.et_title);
+        et_link = findViewById(R.id.et_link);
+        sp_add_labels = findViewById(R.id.sp_add_label);
+    }
+
+    private void handleSendNotes() {
+        SessionManager sessionManager = new SessionManager(getApplicationContext());
+        try {
+            if (sessionManager.checkLogin()) {
+                Intent intent = getIntent();
+                String action = intent.getAction();
+                String type = intent.getType();
+
+                if (Intent.ACTION_SEND.equals(action) && type != null) {
+                    if ("text/plain".equals(type)) {
+                        String sharedText = intent.getStringExtra(Intent.EXTRA_TEXT);
+                        if (sharedText != null) {
+                            et_content.setText(sharedText);
+                        }
+>>>>>>> devint
                     }
                 }
             }
+        } catch (Exception e) {
+            Log.e(TAG, "Message: " + e.toString());
         }
     }
 
@@ -93,7 +118,11 @@ public class AddNotesActivity extends AppCompatActivity implements Observer {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_notes);
+<<<<<<< HEAD
         sessionManager = new SessionManager(getApplicationContext());
+=======
+        viewBinder();
+>>>>>>> devint
         Toolbar toolbar_edit_note = (Toolbar) findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar_edit_note);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
@@ -101,15 +130,8 @@ public class AddNotesActivity extends AppCompatActivity implements Observer {
         inputHandler.addObserver(this);
 
         setTitle("Add Note");
-
-        tv_date = findViewById(R.id.tv_date);
-        et_content = findViewById(R.id.et_content);
-        et_title = findViewById(R.id.et_title);
-        et_link = findViewById(R.id.et_link);
-        sp_add_labels = findViewById(R.id.sp_add_label);
-
-
-        doRealTimeCheck();
+        inputHandler.doRealTimeLanguageCheck(et_content);
+        inputHandler.doRealTimeLanguageCheck(et_title);
 
         //make tv_date show current date
         Date c = Calendar.getInstance().getTime();
@@ -148,11 +170,10 @@ public class AddNotesActivity extends AppCompatActivity implements Observer {
     public void addNote() {
 
         try {
-
-            String label = inputHandler.inputCensor(sp_add_labels.getSelectedItem().toString());
-            String title = inputHandler.inputCensor(et_title.getText().toString().trim());
-            String body = inputHandler.inputCensor(et_content.getText().toString().trim());
-            String link = et_link.getText().toString().trim();
+            label = inputHandler.inputCensor(sp_add_labels.getSelectedItem().toString());
+            title = inputHandler.inputCensor(et_title.getText().toString().trim());
+            body = inputHandler.inputCensor(et_content.getText().toString().trim());
+            link = et_link.getText().toString().trim();
             //TODO: Need to change user_id once login and registration is done.
             NoteHandler noteHandler = new NoteHandler(label, title, body, link, Integer.valueOf(sessionManager.getUserDetails().get("userId")));
             if (inputHandler.inputValidator(title, body, link)) {
@@ -162,7 +183,7 @@ public class AddNotesActivity extends AppCompatActivity implements Observer {
                 inputHandler.inputErrorHandling(et_title, et_content, et_link);
             }
         } catch (Exception e) {
-            Log.e("Message", "" + e);
+            Log.e(TAG, "Message: " + e.toString());
         }
     }
 
@@ -173,46 +194,5 @@ public class AddNotesActivity extends AppCompatActivity implements Observer {
             Log.e(TAG, "Here");
             Toast.makeText(getApplicationContext(), "All bad words will be censored!", Toast.LENGTH_SHORT).show();
         }
-    }
-
-    //TODO: Need to move this in InputHandler Class
-    private void doRealTimeCheck() {
-        et_content.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                if (editable.length() != 0) {
-                    inputHandler.inputCensor(et_content.getText().toString().trim());
-                }
-            }
-        });
-
-        et_title.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                if (editable.length() != 0) {
-                    inputHandler.inputCensor(et_content.getText().toString().trim());
-                }
-            }
-        });
     }
 }

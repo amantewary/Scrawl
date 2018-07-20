@@ -3,8 +3,6 @@ package com.example.amantewary.scrawl;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.example.amantewary.scrawl.Handlers.UserClass;
-
 import java.util.HashMap;
 
 /**
@@ -23,55 +21,27 @@ public class SessionManager {
     private static final String IS_LOGIN = "Is_Login";
     SharedPreferences pref;
     SharedPreferences.Editor editor;
-<<<<<<< HEAD
-
-
-    UserClass userClass;
-
-=======
->>>>>>> devint
     Context context;
     int PRIVATE_MODE = 0;
 
-<<<<<<< HEAD
-    private static final String Shared_Pref_Name = "Scrawl";
-
-    private static final String IS_LOGIN = "Is_Login";
-
-    public static final String KEY_NAME = "username";
-
-    public static final String KEY_USERID = "userId";
-
-    public static final String KEY_EMAIL = "email";
-
-
-    public SessionManager(Context context){
-=======
     public SessionManager(Context context) {
->>>>>>> devint
         this.context = context;
         pref = context.getSharedPreferences(Shared_Pref_Name, PRIVATE_MODE);
         editor = pref.edit();
     }
 
-<<<<<<< HEAD
-
-    public void createLoginSession(UserClass userClass){
-=======
     public void createLoginSession(String name, String email, Integer userid) {
->>>>>>> devint
         // Storing login value as TRUE
-        this.userClass = userClass;
         editor.putBoolean(IS_LOGIN, true);
 
         // Storing name in pref
-        editor.putString(KEY_NAME, userClass.getUsername());
+        editor.putString(KEY_NAME, name);
 
         // Storing email in pref
-        editor.putString(KEY_EMAIL, userClass.getEmail());
+        editor.putString(KEY_EMAIL, email);
 
-        editor.putString(KEY_USERID, userClass.getUserId());
-
+        // Storing user id in pref
+        editor.putInt(KEY_USERID, userid);
 
         // commit changes
         editor.commit();
@@ -92,8 +62,6 @@ public class SessionManager {
 
         // user email id
         user.put(KEY_EMAIL, pref.getString(KEY_EMAIL, null));
-
-        user.put(KEY_USERID, pref.getString(KEY_USERID, null));
 
         // return user
         return user;

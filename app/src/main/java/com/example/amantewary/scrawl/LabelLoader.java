@@ -10,18 +10,20 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 import static android.content.Context.MODE_PRIVATE;
+
 //SINGLETON
 public class LabelLoader {
     private static final LabelLoader ourInstance = new LabelLoader();
     private ArrayList<String> labels;
 
+    private LabelLoader() {
+    }
+
     public static LabelLoader getInstance() {
         return ourInstance;
     }
 
-    private LabelLoader() {
-    }
-    public void saveLabel(Context context, ArrayList<String> labels){
+    public void saveLabel(Context context, ArrayList<String> labels) {
         this.labels = labels;
         SharedPreferences sharedPreferences = context.getSharedPreferences("spLabel", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -31,13 +33,14 @@ public class LabelLoader {
         editor.apply();
     }
 
-    public ArrayList<String> loadLabel(Context context){
+    public ArrayList<String> loadLabel(Context context) {
         SharedPreferences sharedPreferences = context.getSharedPreferences("spLabel", MODE_PRIVATE);
         Gson gson = new Gson();
         String json = sharedPreferences.getString("label list", null);
-        Type type = new TypeToken<ArrayList<String>>() {}.getType();
+        Type type = new TypeToken<ArrayList<String>>() {
+        }.getType();
         labels = gson.fromJson(json, type);
-        if(labels == null){
+        if (labels == null) {
             labels = new ArrayList<>();
         }
         return labels;

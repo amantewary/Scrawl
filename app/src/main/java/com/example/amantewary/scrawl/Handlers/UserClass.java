@@ -1,8 +1,6 @@
 package com.example.amantewary.scrawl.Handlers;
 
 
-import android.content.Intent;
-
 import com.google.gson.annotations.SerializedName;
 
 public class UserClass {
