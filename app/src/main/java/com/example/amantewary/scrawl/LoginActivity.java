@@ -69,8 +69,7 @@ public class LoginActivity extends AppCompatActivity {
         sessionManager = new SessionManager(getApplicationContext());
         initLayout();
 
-
-
+        
     }
 
     public void initLayout() {

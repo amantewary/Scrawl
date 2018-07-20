@@ -62,11 +62,14 @@ public class NavigationDrawerAdapter extends ArrayAdapter<NavgitationModel> impl
         layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (editToggle) {
+                if (mode) {
                     Log.e(TAG, "Here " + labelNameTV.getText());
                     Intent intent = new Intent(mContext, FilteredNotesActivity.class);
                     intent.putExtra("label_name", labelNameTV.getText());
                     mContext.startActivity(intent);
+                }else{
+                    // Todo: Add code to save labels
+
                 }
 
             }
@@ -77,26 +80,30 @@ public class NavigationDrawerAdapter extends ArrayAdapter<NavgitationModel> impl
             @Override
             public boolean onLongClick(View view) {
                 if (editToggle) {
-                    editToggle = false;
                     mode = false;
-
+                    editToggle = false;
                     Log.e(TAG, "Here true" + position);
                     labelImage.setImageResource(R.drawable.ic_bookmark_grey_24dp);
                     String label = labelNameTV.getText().toString();
                     viewSwitcher.showNext();
                     labelEdittext.setText(label);
+
                 } else {
-                    editToggle = true;
                     mode = true;
-                    viewSwitcher.showPrevious();
+                    editToggle = true;
+                    navigationList.add(position,new NavgitationModel(navigationList.get(position).getLabelImageView(),labelEdittext.getText().toString()));
+                    Log.e(TAG, "Here " + navigationList.get(position).getTitle());
+                    navigationList.remove(position+1);
                     labelImage.setImageDrawable(navigationList.get(position).getLabelImageView());
-                    Log.e(TAG, "Here " + position);
+                    labelNameTV.setText(navigationList.get(position).getTitle());
+                    viewSwitcher.showPrevious();
                 }
 
 
                 return true;
             }
         });
+
 
         return rowView;
     }
@@ -106,8 +113,7 @@ public class NavigationDrawerAdapter extends ArrayAdapter<NavgitationModel> impl
     public void update(Observable observable, Object o) {
         if (observable instanceof NavObserver) {
             if (o.equals(MainActivity.class.getCanonicalName())) {
-                if (mode) {
-                }
+
             }
         }
     }

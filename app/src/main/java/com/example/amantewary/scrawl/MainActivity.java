@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity{
     private SessionManager sessionManager;
     ArrayList<String> labelString;
     NavObserver navObserver;
+
     protected void viewBinder() {
         toolbar = findViewById(R.id.toolbar);
         notesListView = findViewById(R.id.viewNoteList);
@@ -72,18 +73,29 @@ public class MainActivity extends AppCompatActivity{
         viewBinder();
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         mFirebaseAnalytics.setCurrentScreen(this, getClass().getCanonicalName(), null);
-        setSupportActionBar(toolbar);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
-        ArrayList<NavgitationModel> navgitationModels = new ArrayList<>();
+
+        final ArrayList<NavgitationModel> navgitationModels = new ArrayList<>();
         loadLabelsForList(navgitationModels);
         navObserver = new NavObserver();
         navigationDrawerAdapter = new NavigationDrawerAdapter(navgitationModels, this, navObserver);
         listView.setAdapter(navigationDrawerAdapter);
 
         labelString = LabelLoader.getInstance().loadLabel(this);
+
+
+        setSupportActionBar(toolbar);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close){
+            @Override
+            public void onDrawerClosed(View drawerView) {
+                super.onDrawerClosed(drawerView);
+                Log.e(TAG,"Drawer closed Here");
+                navigationDrawerAdapter.notifyDataSetChanged();
+            }
+        };
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
 
 
         //Loading Labels from database
@@ -102,7 +114,7 @@ public class MainActivity extends AppCompatActivity{
         addLabel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                navObserver.callForAddLabel(MainActivity.class.getCanonicalName());
             }
         });
 
@@ -199,9 +211,6 @@ public class MainActivity extends AppCompatActivity{
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-            Log.e(TAG,"Here nav Observer Called");
-            navObserver.callForDrawerClose(MainActivity.class.getCanonicalName());
-            navigationDrawerAdapter.notifyDataSetChanged();
         } else {
             super.onBackPressed();
         }
