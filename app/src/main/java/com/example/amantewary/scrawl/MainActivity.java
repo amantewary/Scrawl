@@ -64,6 +64,7 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         viewBinder();
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         mFirebaseAnalytics.setCurrentScreen(this, getClass().getCanonicalName(), null);
@@ -128,7 +129,7 @@ public class MainActivity extends AppCompatActivity
         String cur_usr_email = sessionManager.getUserEmail();
         Integer cur_usr_id = sessionManager.getUserId();
 
-        SharesRequestHandler request = new SharesRequestHandler();
+        NotesRequestHandler request = new NotesRequestHandler();
         try {
             request.getAllNotesByUserId(MainActivity.this, cur_usr_email, cur_usr_id, new INoteResponse() {
                 @Override

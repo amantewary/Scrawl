@@ -33,6 +33,7 @@ public class AddNotesActivity extends AppCompatActivity implements Observer {
     private Spinner sp_add_labels;
     private ArrayList<String> labels;
     private InputHandler inputHandler;
+    private String title, label, body, link;
 
     protected void viewBinder(){
         tv_date = findViewById(R.id.tv_date);
@@ -116,11 +117,10 @@ public class AddNotesActivity extends AppCompatActivity implements Observer {
     public void addNote() {
 
         try {
-
-            String label = inputHandler.inputCensor(sp_add_labels.getSelectedItem().toString());
-            String title = inputHandler.inputCensor(et_title.getText().toString().trim());
-            String body = inputHandler.inputCensor(et_content.getText().toString().trim());
-            String link = et_link.getText().toString().trim();
+            label = inputHandler.inputCensor(sp_add_labels.getSelectedItem().toString());
+            title = inputHandler.inputCensor(et_title.getText().toString().trim());
+            body = inputHandler.inputCensor(et_content.getText().toString().trim());
+            link = et_link.getText().toString().trim();
             //TODO: Need to change user_id once login and registration is done.
             NoteHandler noteHandler = new NoteHandler(label, title, body, link, 1);
             if (inputHandler.inputValidator(title, body, link)) {

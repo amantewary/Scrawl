@@ -7,12 +7,12 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.example.amantewary.scrawl.API.Notes.INoteResponse;
+import com.example.amantewary.scrawl.API.IShareAPI;
 import com.example.amantewary.scrawl.API.Notes.ICreateNote;
 import com.example.amantewary.scrawl.API.Notes.IDeleteNote;
-import com.example.amantewary.scrawl.API.Notes.IGetNote;
 import com.example.amantewary.scrawl.API.Notes.IGetNoteById;
 import com.example.amantewary.scrawl.API.Notes.IGetNoteByLabel;
+import com.example.amantewary.scrawl.API.Notes.INoteResponse;
 import com.example.amantewary.scrawl.API.Notes.IUpdateNote;
 import com.example.amantewary.scrawl.Handlers.NoteHandler;
 
@@ -57,32 +57,33 @@ public class NotesRequestHandler {
         }
     }
 
-    public void getNoteList(final Context context, Integer user_id ,@Nullable final INoteResponse callbacks) {
+    public void getAllNotesByUserId(final Context context, String share_to, Integer userid, @Nullable final INoteResponse callbacks) {
         dialog = new ProgressDialog(context);
         dialog.setMessage("Loading...");
         dialog.show();
-        try {
-            RetroFitInstance.getRetrofit().create(IGetNote.class)
-                    .getNotesByUser(user_id)
-                    .enqueue(new Callback<List<NoteHandler>>() {
-                        @Override
-                        public void onResponse(Call<List<NoteHandler>> call, Response<List<NoteHandler>> response) {
-                            dialog.dismiss();
-                            Log.d(context.getClass().getSimpleName(), "onResponse: Server Response: " + response.toString());
-                            notes = response.body();
-                            if (callbacks != null) {
-                                callbacks.onSuccess(notes);
-                            }
-                        }
 
-                        @Override
-                        public void onFailure(Call<List<NoteHandler>> call, Throwable t) {
-                            callbacks.onError(t);
+        RetroFitInstance.getRetrofit().create(IShareAPI.class)
+                .getAllNotesByUserID(share_to, userid)
+                .enqueue(new Callback<List<NoteHandler>>() {
+                    @Override
+                    public void onResponse(Call<List<NoteHandler>> call, Response<List<NoteHandler>> response) {
+                        dialog.dismiss();
+
+                        Log.d(context.getClass().getSimpleName(), "onResponse: Server Response: " + response.toString());
+
+                        notes = response.body();
+
+                        if (callbacks != null) {
+                            callbacks.onSuccess(notes);
                         }
-                    });
-        }catch (Exception e){
-            Log.e(TAG,"Message: " + e.toString());
-        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<NoteHandler>> call, Throwable t) {
+                        dialog.dismiss();
+                        callbacks.onError(t);
+                    }
+                });
     }
 
     public void getSingleNote(final Context context, Integer noteId, @Nullable final INoteResponse callbacks) {

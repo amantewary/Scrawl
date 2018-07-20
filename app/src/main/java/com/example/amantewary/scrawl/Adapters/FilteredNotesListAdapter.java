@@ -7,7 +7,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.example.amantewary.scrawl.Handlers.NoteHandler;
 import com.example.amantewary.scrawl.R;
@@ -16,7 +15,7 @@ import com.l4digital.fastscroll.FastScroller;
 
 import java.util.List;
 
-public class FilteredNotesListAdapter extends RecyclerView.Adapter<FilteredNotesListAdapter.ViewHolder> implements FastScroller.SectionIndexer{
+public class FilteredNotesListAdapter extends RecyclerView.Adapter<ViewHolder> implements FastScroller.SectionIndexer{
 
     private Context context;
     private List<NoteHandler> notesList;
@@ -57,19 +56,6 @@ public class FilteredNotesListAdapter extends RecyclerView.Adapter<FilteredNotes
             return "a";
         }else{
             return String.valueOf(notesList.get(position).getTitle().charAt(0));
-        }
-    }
-
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView title;
-        TextView label;
-        View parentView;
-
-        public ViewHolder (@NonNull View view){
-            super(view);
-            this.title = view.findViewById(R.id.viewNoteTitle);
-            this.label = view.findViewById(R.id.viewLabel);
-            this.parentView = view;
         }
     }
 }

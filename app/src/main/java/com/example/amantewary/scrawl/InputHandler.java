@@ -111,12 +111,12 @@ public class InputHandler extends Observable {
             editText.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
+                    // TODO Auto-generated method stub
                 }
 
                 @Override
                 public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
+                    // TODO Auto-generated method stub
                 }
 
                 @Override
