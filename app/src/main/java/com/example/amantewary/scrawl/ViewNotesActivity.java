@@ -21,12 +21,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.amantewary.scrawl.API.IShareAPI;
-<<<<<<< HEAD
 import com.example.amantewary.scrawl.Handlers.UserClass;
-=======
 import com.example.amantewary.scrawl.API.Notes.INoteResponse;
-import com.example.amantewary.scrawl.Handlers.LoginUserClass;
->>>>>>> devint
+
 import com.example.amantewary.scrawl.Handlers.NoteHandler;
 import com.example.amantewary.scrawl.Handlers.ShareHandler;
 

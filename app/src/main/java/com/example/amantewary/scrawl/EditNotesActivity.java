@@ -38,6 +38,7 @@ public class EditNotesActivity extends AppCompatActivity implements Observer {
     private Integer noteId;
     private InputHandler inputHandler;
     private NotesRequestHandler request;
+    private SessionManager sessionManager;
 
     protected void viewBinder() {
         et_title = findViewById(R.id.et_title_edit);
@@ -132,16 +133,9 @@ public class EditNotesActivity extends AppCompatActivity implements Observer {
         String title = inputHandler.inputCensor(et_title.getText().toString().trim());
         String body = inputHandler.inputCensor(et_content.getText().toString().trim());
         String link = et_link.getText().toString().trim();
-<<<<<<< HEAD
-        //Todo: add userId here
-        NoteHandler noteHandler = new NoteHandler(noteId, label, title, body, link, 1);
-        if (inputHandler.inputValidator(title, body, link)) {
-            request.editNote(noteHandler, EditNotesActivity.this);
-        }else{
-            inputHandler.inputErrorHandling(et_title, et_content, et_link);
-=======
         try {
-            NoteHandler noteHandler = new NoteHandler(noteId, label, title, body, link, 1);
+            sessionManager = new SessionManager(getApplicationContext());
+            NoteHandler noteHandler = new NoteHandler(noteId, label, title, body, link, Integer.parseInt(sessionManager.getUserDetails().get("userid")));
             if (inputHandler.inputValidator(title, body, link)) {
                 request.editNote(noteHandler, EditNotesActivity.this);
             } else {
@@ -149,10 +143,10 @@ public class EditNotesActivity extends AppCompatActivity implements Observer {
             }
         } catch (Exception e) {
             Log.e(TAG, "Message: " + e.toString());
->>>>>>> devint
         }
 
     }
+
 
     @Override
     public void update(Observable observable, Object o) {

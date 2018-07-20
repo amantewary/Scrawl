@@ -27,7 +27,6 @@ public class NavigationDrawerAdapter extends ArrayAdapter<NavgitationModel> {
     private ArrayList<NavgitationModel> navigationList;
     private Context mContext;
     private boolean editToggle = true;
-    private boolean textToggle = false;
 
 
     public NavigationDrawerAdapter(ArrayList<NavgitationModel> list, Context context) {
@@ -56,10 +55,13 @@ public class NavigationDrawerAdapter extends ArrayAdapter<NavgitationModel> {
         layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.e(TAG, "Here " + labelNameTV.getText());
-                Intent intent = new Intent(mContext, FilteredNotesActivity.class);
-                intent.putExtra("label_name", labelNameTV.getText());
-                mContext.startActivity(intent);
+                if(editToggle){
+                    Log.e(TAG, "Here " + labelNameTV.getText());
+                    Intent intent = new Intent(mContext, FilteredNotesActivity.class);
+                    intent.putExtra("label_name", labelNameTV.getText());
+                    mContext.startActivity(intent);
+                }
+
             }
         });
 
@@ -69,7 +71,6 @@ public class NavigationDrawerAdapter extends ArrayAdapter<NavgitationModel> {
             public boolean onLongClick(View view) {
                 if (editToggle) {
                     editToggle = false;
-                    textToggle = true;
                     Log.e(TAG, "Here true" + position);
                     labelImage.setImageResource(R.drawable.ic_bookmark_grey_24dp);
                     String label = labelNameTV.getText().toString();

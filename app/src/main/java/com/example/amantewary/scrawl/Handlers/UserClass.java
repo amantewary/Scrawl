@@ -18,7 +18,7 @@ public class UserClass {
     String error_msg;
 
     @SerializedName("userId")
-    String userId;
+    Integer userId;
 
 
     public UserClass(String email, String password) {
@@ -26,7 +26,7 @@ public class UserClass {
         this.email = email;
     }
 
-    public UserClass(String email, String username, String userId) {
+    public UserClass(String email, String username, Integer userId) {
         this.email = email;
         this.username = username;
         this.userId = userId;
@@ -73,11 +73,11 @@ public class UserClass {
         this.error = error;
     }
 
-    public String getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
 
 

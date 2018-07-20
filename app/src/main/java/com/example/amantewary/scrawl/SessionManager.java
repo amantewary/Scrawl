@@ -2,6 +2,7 @@ package com.example.amantewary.scrawl;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import com.example.amantewary.scrawl.Handlers.UserClass;
 
@@ -23,43 +24,22 @@ public class SessionManager {
     private static final String IS_LOGIN = "Is_Login";
     SharedPreferences pref;
     SharedPreferences.Editor editor;
-<<<<<<< HEAD
-
-
-    UserClass userClass;
-
-=======
->>>>>>> devint
     Context context;
     int PRIVATE_MODE = 0;
 
-<<<<<<< HEAD
-    private static final String Shared_Pref_Name = "Scrawl";
+    UserClass userClass;
 
-    private static final String IS_LOGIN = "Is_Login";
-
-    public static final String KEY_NAME = "username";
-
-    public static final String KEY_USERID = "userId";
-
-    public static final String KEY_EMAIL = "email";
 
 
     public SessionManager(Context context){
-=======
-    public SessionManager(Context context) {
->>>>>>> devint
         this.context = context;
         pref = context.getSharedPreferences(Shared_Pref_Name, PRIVATE_MODE);
         editor = pref.edit();
     }
 
-<<<<<<< HEAD
 
     public void createLoginSession(UserClass userClass){
-=======
-    public void createLoginSession(String name, String email, Integer userid) {
->>>>>>> devint
+
         // Storing login value as TRUE
         this.userClass = userClass;
         editor.putBoolean(IS_LOGIN, true);
@@ -70,7 +50,7 @@ public class SessionManager {
         // Storing email in pref
         editor.putString(KEY_EMAIL, userClass.getEmail());
 
-        editor.putString(KEY_USERID, userClass.getUserId());
+        editor.putInt(KEY_USERID, userClass.getUserId());
 
 
         // commit changes
@@ -93,8 +73,8 @@ public class SessionManager {
         // user email id
         user.put(KEY_EMAIL, pref.getString(KEY_EMAIL, null));
 
-        user.put(KEY_USERID, pref.getString(KEY_USERID, null));
-
+        user.put(KEY_USERID, String.valueOf(pref.getInt(KEY_USERID,0)));
+        Log.e("Session ", String.valueOf(pref.getInt(KEY_USERID,0)));
         // return user
         return user;
     }
@@ -114,7 +94,7 @@ public class SessionManager {
     }
 
     public Integer getUserId() {
-        return pref.getInt(KEY_USERID, 0);
+        return pref.getInt(KEY_USERID, -1);
     }
 }
 
