@@ -3,6 +3,7 @@ package com.example.amantewary.scrawl;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -56,7 +57,7 @@ public class MainActivity extends AppCompatActivity
         listView = findViewById(R.id.lstDrawerItems);
         drawer = findViewById(R.id.drawer_layout);
         logout = findViewById(R.id.nav_lout);
-//        swiperefresh =(SwipeRefreshLayout)findViewById(R.id.swiperefresh);
+        swiperefresh = findViewById(R.id.swiperefresh);
     }
 
     @Override
@@ -72,33 +73,15 @@ public class MainActivity extends AppCompatActivity
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-
-
         ArrayList<NavgitationModel> navgitationModels = new ArrayList<>();
-
         loadLabelsForList(navgitationModels);
-
         navigationDrawerAdapter = new NavigationDrawerAdapter(navgitationModels, this);
-
         listView.setAdapter(navigationDrawerAdapter);
 
 
         //Loading Labels from database
         //TODO: Need to move this in splash screen
-        LabelRequestHandler request = new LabelRequestHandler();
-        request.getLabel(MainActivity.this, 1, new ILabelResponse() {
-            @Override
-            public void onSuccess(@NonNull List<LabelHandler> labels) {
-                Log.d(TAG, "onResponse: Received Information: " + labels.toString());
-                storeLabelFromResponse(labels);
-//                writeToFile(labelList);
-            }
-
-            @Override
-            public void onError(@NonNull Throwable throwable) {
-                Log.e(TAG, "onFailure: Something Went Wrong: " + throwable.getMessage());
-            }
-        });
+        initialLabelListLoading();
 
         FloatingActionButton fab = findViewById(R.id.fab_add_note);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -119,20 +102,21 @@ public class MainActivity extends AppCompatActivity
 
         sessionManager = new SessionManager(getApplicationContext());
 
-//        swiperefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-//            @Override
-//            public void onRefresh() {
-//                Log.i(TAG, "onRefresh called from SwipeRefreshLayout");
-//
-//                new Handler().postDelayed(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        swiperefresh.setRefreshing(false);
-//                    }
-//                },2000);
-//
-//            }
-//        });
+        swiperefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                Log.i(TAG, "onRefresh called from SwipeRefreshLayout");
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        populateNotesList();
+                        swiperefresh.setRefreshing(false);
+                    }
+                }, 0);
+
+            }
+        });
     }
 
     @Override
@@ -145,58 +129,53 @@ public class MainActivity extends AppCompatActivity
         String cur_usr_email = sessionManager.getUserEmail();
         Integer cur_usr_id = sessionManager.getUserId();
 
-        SharesRequestHandler request = new SharesRequestHandler();
-        request.getAllNotesByUserId(MainActivity.this, cur_usr_email, cur_usr_id, new INoteResponse() {
-            @Override
-            public int hashCode() {
-                return super.hashCode();
-            }
-
-            @Override
-            public void onSuccess(@NonNull List<NoteHandler> notes) {
-                Log.d(TAG, "getID:"+String.valueOf(notes.get(0).getId()));
-                if (notes.get(0).getId()!=null){
-                    Log.d(TAG, "populateNotesList().onResponse: Received Information: " + notes.toString());
-                    notesAdapter = new NotesListAdapter(MainActivity.this, notes);
-                    notesListView.setAdapter(notesAdapter);
-                    notesListView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+        NotesRequestHandler request = new NotesRequestHandler();
+        try {
+            request.getAllNotesByUserId(MainActivity.this, cur_usr_email, cur_usr_id, new INoteResponse() {
+                @Override
+                public void onSuccess(@NonNull List<NoteHandler> notes) {
+                    Log.d(TAG, "getID:" + String.valueOf(notes.get(0).getId()));
+                    if (notes.get(0).getId() != null) {
+                        Log.d(TAG, "populateNotesList().onResponse: Received Information: " + notes.toString());
+                        notesAdapter = new NotesListAdapter(MainActivity.this, notes);
+                        notesListView.setAdapter(notesAdapter);
+                        notesListView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+                    }
                 }
-            }
 
-            @Override
-            public void onError(@NonNull Throwable throwable) {
-                Log.e(TAG, "populateNotesList().onError: Something Went Wrong: " + throwable.getMessage());
-            }
-        });
+                @Override
+                public void onError(@NonNull Throwable throwable) {
+                    Log.e(TAG, "populateNotesList().onError: Something Went Wrong: " + throwable.getMessage());
+                }
+            });
+        } catch (Exception e) {
+            Log.e(TAG, "Message:" + e.toString());
+        }
     }
 
-//    protected void populateNotesList() {
-//        NotesRequestHandler request = new NotesRequestHandler();
-//        request.getNoteList(MainActivity.this, 1, new INoteResponse() {
-//
-//            @Override
-//            public void onSuccess(@NonNull List<NoteHandler> note) {
-//                Log.d(TAG, "onResponse: Received Information: " + note.toString());
-//                notesAdapter = new NotesListAdapter(MainActivity.this, note);
-//                notesListView.setAdapter(notesAdapter);
-//                notesListView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
-//            }
-//
-//            @Override
-//            public void onError(@NonNull Throwable throwable) {
-//                Log.e(TAG, "onFailure: Something Went Wrong: " + throwable.getMessage());
-//                Toast.makeText(MainActivity.this, "Something Went Wrong", Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//    }
+    public void initialLabelListLoading() {
+        try {
+            LabelRequestHandler request = new LabelRequestHandler();
+            request.getLabel(MainActivity.this, 44, new ILabelResponse() {
+                @Override
+                public void onSuccess(@NonNull List<LabelHandler> labels) {
+                    Log.d(TAG, "onResponse: Received Information: " + labels.toString());
+                    labelList = new ArrayList<>();
+                    for (LabelHandler label : labels) {
+                        Log.e("label", label.getName());
+                        labelList.add(label.getName());
+                    }
+                    LabelLoader.getInstance().saveLabel(MainActivity.this, labelList);
+                }
 
-    public void storeLabelFromResponse(List<LabelHandler> labels) {
-        labelList = new ArrayList<>();
-        for (LabelHandler label : labels) {
-            Log.e("label", label.getName());
-            labelList.add(label.getName());
+                @Override
+                public void onError(@NonNull Throwable throwable) {
+                    Log.e(TAG, "onFailure: Something Went Wrong: " + throwable.getMessage());
+                }
+            });
+        } catch (Exception e) {
+            Log.e(TAG, "Message" + e.toString());
         }
-        LabelLoader.getInstance().saveLabel(MainActivity.this, labelList);
     }
 
 
