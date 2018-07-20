@@ -2,7 +2,7 @@ package com.example.amantewary.scrawl;
 
 
 /**
- * Todo: This is a Singleton class to store all the app URls. Make sure you guys add Your URLs here
+ * Todo: This is a Singleton class to store all the app URls.
  */
 
 public class AppURLs {

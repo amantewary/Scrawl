@@ -33,6 +33,9 @@ public class AddNotesActivity extends AppCompatActivity implements Observer {
     private Spinner sp_add_labels;
     private ArrayList<String> labels;
     private InputHandler inputHandler;
+    private  SessionManager sessionManager;
+
+
     private String title, label, body, link;
 
     protected void viewBinder() {
@@ -69,6 +72,7 @@ public class AddNotesActivity extends AppCompatActivity implements Observer {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_notes);
+        sessionManager = new SessionManager(getApplicationContext());
         viewBinder();
         Toolbar toolbar_edit_note = (Toolbar) findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar_edit_note);
@@ -122,7 +126,7 @@ public class AddNotesActivity extends AppCompatActivity implements Observer {
             body = inputHandler.inputCensor(et_content.getText().toString().trim());
             link = et_link.getText().toString().trim();
             //TODO: Need to change user_id once login and registration is done.
-            NoteHandler noteHandler = new NoteHandler(label, title, body, link, 1);
+            NoteHandler noteHandler = new NoteHandler(label, title, body, link, Integer.parseInt(sessionManager.getUserDetails().get("userid")));
             if (inputHandler.inputValidator(title, body, link)) {
                 NotesRequestHandler request = new NotesRequestHandler();
                 request.createNote(noteHandler, AddNotesActivity.this);
@@ -139,7 +143,7 @@ public class AddNotesActivity extends AppCompatActivity implements Observer {
     public void update(Observable observable, Object o) {
         if (observable instanceof InputHandler) {
             Log.e(TAG, "Here");
-            Toast.makeText(getApplicationContext(), "All bad words will be censored", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "All bad words will be censored!", Toast.LENGTH_SHORT).show();
         }
     }
 }

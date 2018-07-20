@@ -21,8 +21,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.amantewary.scrawl.API.IShareAPI;
+import com.example.amantewary.scrawl.Handlers.UserClass;
 import com.example.amantewary.scrawl.API.Notes.INoteResponse;
-import com.example.amantewary.scrawl.Handlers.LoginUserClass;
+
 import com.example.amantewary.scrawl.Handlers.NoteHandler;
 import com.example.amantewary.scrawl.Handlers.ShareHandler;
 
@@ -270,10 +271,10 @@ public class ViewNotesActivity extends AppCompatActivity implements View.OnClick
                 RequestBody body = RequestBody.create(MediaType.parse("text/plain"), collaborate_with);
                 Map<String, RequestBody> requestBodyMap = new HashMap<>();
                 requestBodyMap.put("email", body);
-                Call<LoginUserClass> call = service.checkIfUserExists(requestBodyMap);
-                call.enqueue(new Callback<LoginUserClass>() {
+                Call<UserClass> call = service.checkIfUserExists(requestBodyMap);
+                call.enqueue(new Callback<UserClass>() {
                     @Override
-                    public void onResponse(Call<LoginUserClass> call, retrofit2.Response<LoginUserClass> response) {
+                    public void onResponse(Call<UserClass> call, retrofit2.Response<UserClass> response) {
                         if (response.isSuccessful()) {
                             if (response.body().getError().equals("false")) {
                                 result[0] = false;
@@ -291,7 +292,7 @@ public class ViewNotesActivity extends AppCompatActivity implements View.OnClick
                     }
 
                     @Override
-                    public void onFailure(Call<LoginUserClass> call, Throwable t) {
+                    public void onFailure(Call<UserClass> call, Throwable t) {
                         t.printStackTrace();
                         Log.e(TAG, "ifUserExists.onFailure" + t.getMessage());
                     }

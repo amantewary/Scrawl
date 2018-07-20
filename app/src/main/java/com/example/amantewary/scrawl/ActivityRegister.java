@@ -9,8 +9,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+
 import com.example.amantewary.scrawl.API.Users.IRegisterUser;
-import com.example.amantewary.scrawl.Handlers.LoginUserClass;
+import com.example.amantewary.scrawl.Handlers.UserClass;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -115,28 +116,28 @@ public class ActivityRegister extends AppCompatActivity {
         requestBodyMap.put("email", body);
         requestBodyMap.put("password", body2);
         requestBodyMap.put("name", body3);
-        Call<LoginUserClass> call = service.sendPostRegister(requestBodyMap);
+        Call<UserClass> call = service.sendPostRegister(requestBodyMap);
         try {
-            call.enqueue(new Callback<LoginUserClass>() {
+            call.enqueue(new Callback<UserClass>() {
                 @Override
-                public void onResponse(Call<LoginUserClass> call, Response<LoginUserClass> response) {
+                public void onResponse(Call<UserClass> call, Response<UserClass> response) {
                     if (response.isSuccessful()) {
-                            if (response.body().getError().equals("false")) {
-                                Log.e(TAG, response.body().getUsername());
-                                sessionManager.createLoginSession(response.body().getUsername(), response.body().getEmail(), response.body().getId());
-                                startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                                finish();
-                            } else {
-                                Toast.makeText(getApplicationContext(), response.body().getError_msg(), Toast.LENGTH_LONG).show();
+                        if (response.body().getError().equals("false")) {
+                            Log.e(TAG, response.body().getUsername());
+                            sessionManager.createLoginSession(new UserClass(response.body().getUsername(), response.body().getEmail(), response.body().getUserId()));
+                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                            finish();
+                        } else {
+                            Toast.makeText(getApplicationContext(), response.body().getError_msg(), Toast.LENGTH_LONG).show();
 
-                            }
+                        }
                     } else {
                         Log.e(TAG, "" + response.raw());
                     }
                 }
 
                 @Override
-                public void onFailure(Call<LoginUserClass> call, Throwable t) {
+                public void onFailure(Call<UserClass> call, Throwable t) {
                     t.printStackTrace();
                     Toast.makeText(getApplicationContext(), "Looks like something is wrong!", Toast.LENGTH_SHORT).show();
                 }

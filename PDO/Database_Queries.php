@@ -7,6 +7,8 @@
  */
 
 require 'config.php';
+
+class Database_Queries{
 require 'error_logger.php';
 
 function getUserData($pdo)
@@ -29,6 +31,22 @@ function getUserData($pdo)
 }
 
 // code to register the user
+    function registerUser($pdo, $name, $email, $password)
+    {
+        try {
+            $uniqueId = uniqid('', true);
+            $hash = $this->hashPassword($password);
+            $encrypted_password = $hash["encrypted"];
+            $salt = $hash["salt"];
+            $stmt = $pdo->prepare("CALL spRegisterUser(?, ?, ?, ?, now(), now(), ?)") or die(mysql_error());
+            error_log("\r\nConnection Opened at " . date("d-m-Y (D) H:i:s", time()) . "\r\n", 3, "log.txt");
+
+            $stmt->execute(array($uniqueId, $name, $email, $encrypted_password, $salt));
+
+            if ($stmt) {
+                $stmt = $pdo->prepare("SELECT username,id,email_address from user where email_address=?");
+                $stmt->execute(array($email));
+                $rows = $stmt->fetch(PDO::FETCH_ASSOC);
 function registerUser($pdo, $name, $email, $password)
 {
     try {
@@ -45,6 +63,7 @@ VALUES (?, ?, ?, ?, now(), now(), ?)") or die(mysql_error());
             $stmt = $pdo->prepare("SELECT id,username,email_address from user where email_address=?");
             $stmt->execute(array($email));
             $rows = $stmt->fetch(PDO::FETCH_ASSOC);
+>>>>>>> devint
 
             return $rows;
         }
@@ -60,6 +79,7 @@ VALUES (?, ?, ?, ?, now(), now(), ?)") or die(mysql_error());
 function loginUser($pdo, $email, $password)
 {
 
+                if ($encrypted_password == $this->dehashPassword($password, $salt)) {
     try {
         $stmt = $pdo->prepare("SELECT * from user where email_address=?");
 

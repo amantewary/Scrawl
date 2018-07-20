@@ -1,6 +1,6 @@
 package com.example.amantewary.scrawl.API;
 
-import com.example.amantewary.scrawl.Handlers.LoginUserClass;
+import com.example.amantewary.scrawl.Handlers.UserClass;
 import com.example.amantewary.scrawl.Handlers.NoteHandler;
 import com.example.amantewary.scrawl.Handlers.ShareHandler;
 
@@ -24,7 +24,7 @@ public interface IShareAPI {
 
     @Multipart
     @POST("~hhou/QA_Devint/checkIfUserExist.php")
-    Call<LoginUserClass> checkIfUserExists(@PartMap Map<String, RequestBody> parameters);
+    Call<UserClass> checkIfUserExists(@PartMap Map<String, RequestBody> parameters);
 
     @Headers("Content-Type: application/json")
     @GET("~hhou/QA_Devint/NoteApi/v1/shares/readNoteByUserId")

@@ -2,6 +2,9 @@ package com.example.amantewary.scrawl;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
+
+import com.example.amantewary.scrawl.Handlers.UserClass;
 
 import java.util.HashMap;
 
@@ -24,24 +27,31 @@ public class SessionManager {
     Context context;
     int PRIVATE_MODE = 0;
 
-    public SessionManager(Context context) {
+    UserClass userClass;
+
+
+
+    public SessionManager(Context context){
         this.context = context;
         pref = context.getSharedPreferences(Shared_Pref_Name, PRIVATE_MODE);
         editor = pref.edit();
     }
 
-    public void createLoginSession(String name, String email, Integer userid) {
+
+    public void createLoginSession(UserClass userClass){
+
         // Storing login value as TRUE
+        this.userClass = userClass;
         editor.putBoolean(IS_LOGIN, true);
 
         // Storing name in pref
-        editor.putString(KEY_NAME, name);
+        editor.putString(KEY_NAME, userClass.getUsername());
 
         // Storing email in pref
-        editor.putString(KEY_EMAIL, email);
+        editor.putString(KEY_EMAIL, userClass.getEmail());
 
-        // Storing user id in pref
-        editor.putInt(KEY_USERID, userid);
+        editor.putInt(KEY_USERID, userClass.getUserId());
+
 
         // commit changes
         editor.commit();
@@ -63,6 +73,8 @@ public class SessionManager {
         // user email id
         user.put(KEY_EMAIL, pref.getString(KEY_EMAIL, null));
 
+        user.put(KEY_USERID, String.valueOf(pref.getInt(KEY_USERID,0)));
+        Log.e("Session ", String.valueOf(pref.getInt(KEY_USERID,0)));
         // return user
         return user;
     }
@@ -82,7 +94,7 @@ public class SessionManager {
     }
 
     public Integer getUserId() {
-        return pref.getInt(KEY_USERID, 0);
+        return pref.getInt(KEY_USERID, -1);
     }
 }
 

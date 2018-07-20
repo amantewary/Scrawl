@@ -27,6 +27,7 @@ public class NotesRequestHandler {
     private static final String TAG = "NotesRequestHandler";
     private List<NoteHandler> notes;
     private ProgressDialog dialog;
+    private SessionManager sessionManager;
 
     public void createNote(NoteHandler noteHandler, final Context context) {
         dialog = new ProgressDialog(context);
@@ -59,6 +60,7 @@ public class NotesRequestHandler {
 
     public void getAllNotesByUserId(final Context context, String share_to, Integer userid, @Nullable final INoteResponse callbacks) {
         dialog = new ProgressDialog(context);
+        sessionManager = new SessionManager(context);
         dialog.setMessage("Loading...");
         dialog.show();
 

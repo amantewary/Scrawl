@@ -38,6 +38,7 @@ public class EditNotesActivity extends AppCompatActivity implements Observer {
     private Integer noteId;
     private InputHandler inputHandler;
     private NotesRequestHandler request;
+    private SessionManager sessionManager;
 
     protected void viewBinder() {
         et_title = findViewById(R.id.et_title_edit);
@@ -133,7 +134,8 @@ public class EditNotesActivity extends AppCompatActivity implements Observer {
         String body = inputHandler.inputCensor(et_content.getText().toString().trim());
         String link = et_link.getText().toString().trim();
         try {
-            NoteHandler noteHandler = new NoteHandler(noteId, label, title, body, link, 1);
+            sessionManager = new SessionManager(getApplicationContext());
+            NoteHandler noteHandler = new NoteHandler(noteId, label, title, body, link, Integer.parseInt(sessionManager.getUserDetails().get("userid")));
             if (inputHandler.inputValidator(title, body, link)) {
                 request.editNote(noteHandler, EditNotesActivity.this);
             } else {
@@ -144,6 +146,7 @@ public class EditNotesActivity extends AppCompatActivity implements Observer {
         }
 
     }
+
 
     @Override
     public void update(Observable observable, Object o) {

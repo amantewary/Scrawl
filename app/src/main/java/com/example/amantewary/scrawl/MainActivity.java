@@ -35,8 +35,7 @@ import com.l4digital.fastscroll.FastScrollRecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
     FirebaseAnalytics mFirebaseAnalytics;
@@ -64,7 +63,7 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        sessionManager = new SessionManager(getApplicationContext());
         viewBinder();
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         mFirebaseAnalytics.setCurrentScreen(this, getClass().getCanonicalName(), null);
@@ -100,7 +99,6 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        sessionManager = new SessionManager(getApplicationContext());
 
         swiperefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -138,8 +136,11 @@ public class MainActivity extends AppCompatActivity
                     if (notes.get(0).getId() != null) {
                         Log.d(TAG, "populateNotesList().onResponse: Received Information: " + notes.toString());
                         notesAdapter = new NotesListAdapter(MainActivity.this, notes);
+                        LinearLayoutManager linearLayout = new LinearLayoutManager(MainActivity.this);
+                        linearLayout.setReverseLayout(true);
+                        linearLayout.setStackFromEnd(true);
+                        notesListView.setLayoutManager(linearLayout);
                         notesListView.setAdapter(notesAdapter);
-                        notesListView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
                     }
                 }
 
@@ -156,7 +157,7 @@ public class MainActivity extends AppCompatActivity
     public void initialLabelListLoading() {
         try {
             LabelRequestHandler request = new LabelRequestHandler();
-            request.getLabel(MainActivity.this, 44, new ILabelResponse() {
+            request.getLabel(MainActivity.this, Integer.parseInt(sessionManager.getUserDetails().get("userid")), new ILabelResponse() {
                 @Override
                 public void onSuccess(@NonNull List<LabelHandler> labels) {
                     Log.d(TAG, "onResponse: Received Information: " + labels.toString());
@@ -210,31 +211,6 @@ public class MainActivity extends AppCompatActivity
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_add) {
-
-
-        } else if (id == R.id.nav_logout) {
-        }
-
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
     }
 
     private void showDialog() {
