@@ -8,6 +8,7 @@
   $db = $database->connect();
   $note = new Notes($db);
   $note->label_name = isset($_GET['label_name']) ? $_GET['label_name'] : die();
+  $note->user_id = isset($_GET['user_id']) ? $_GET['user_id'] : die();
   error_log('Request to Access Notes with label: ' . $note->label_name);
   $result = $note->readByLabel();
   $num = $result->rowCount();

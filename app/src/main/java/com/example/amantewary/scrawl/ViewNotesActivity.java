@@ -46,7 +46,7 @@ public class ViewNotesActivity extends AppCompatActivity implements View.OnClick
     private FloatingActionButton fab;
     private SubtitleCollapsingToolbarLayout collapsingToolbarLayout;
     private Integer noteId;
-    private TextView tv_note_content, tv_note_link;
+    private TextView tv_note_content, tv_note_link, tv_note_date, tv_note_status;
     private Button btn_edit, btn_share, btn_delete, btn_collaborate;
     private NoteHandler noteHandler;
     private NotesRequestHandler request;
@@ -58,6 +58,10 @@ public class ViewNotesActivity extends AppCompatActivity implements View.OnClick
         btn_collaborate = findViewById(R.id.btn_collaborate);
         btn_share = findViewById(R.id.btn_share);
         btn_delete = findViewById(R.id.btn_delete);
+        tv_note_content = findViewById(R.id.viewNotesBody);
+        tv_note_link = findViewById(R.id.viewNotesLink);
+        tv_note_date = findViewById(R.id.viewNoteDate);
+        tv_note_status = findViewById(R.id.viewNoteStatus);
     }
 
     @Override
@@ -115,8 +119,7 @@ public class ViewNotesActivity extends AppCompatActivity implements View.OnClick
             }
         });
 
-        tv_note_content = findViewById(R.id.viewNotesBody);
-        tv_note_link = findViewById(R.id.viewNotesLink);
+
 
 
         btn_edit.setOnClickListener(this);
@@ -157,6 +160,8 @@ public class ViewNotesActivity extends AppCompatActivity implements View.OnClick
                 collapsingToolbarLayout.setSubtitle(n.getLabel_name());
                 tv_note_content.setText(n.getBody());
                 tv_note_link.setText(n.getUrl());
+                tv_note_date.setText(n.getDate());
+                tv_note_status.setText(n.getStatus());
             }
         } catch (Exception e) {
             Log.e(TAG, "Message: " + e.toString());
@@ -350,7 +355,6 @@ public class ViewNotesActivity extends AppCompatActivity implements View.OnClick
                     noteHandler = new NoteHandler(noteId);
                     request = new NotesRequestHandler();
                     request.deleteNote(noteHandler, ViewNotesActivity.this);
-                    finish();
                 }
             });
             deleteAlert.setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {

@@ -16,6 +16,8 @@
   $note->url = $data->url;
   $note->user_id = $data->user_id;
   $note->label_name = $data->label_name;
+  $note->status = $data->status;
+  $note->date = $data->date;
   error_log('Request Access To Update Notes By User ID: ' . $note->user_id);
   if($note->update()) {
     echo json_encode(

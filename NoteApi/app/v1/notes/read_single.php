@@ -17,7 +17,9 @@
     'body' => $note->body,
     'url' => $note->url,
     'user_id' => $note->user_id,
-    'label_name' => $note->label_name
+    'label_name' => $note->label_name,
+    'date' => $note->date,
+    'status' => $note->status
   );
   array_push($note_arr, $note_item);
   print_r(json_encode($note_arr));

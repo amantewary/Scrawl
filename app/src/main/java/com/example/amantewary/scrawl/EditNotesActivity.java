@@ -133,9 +133,11 @@ public class EditNotesActivity extends AppCompatActivity implements Observer {
         String title = inputHandler.inputCensor(et_title.getText().toString().trim());
         String body = inputHandler.inputCensor(et_content.getText().toString().trim());
         String link = et_link.getText().toString().trim();
+        String status = "(modified)";
+        String date = tv_date.getText().toString();
         try {
             sessionManager = new SessionManager(getApplicationContext());
-            NoteHandler noteHandler = new NoteHandler(noteId, label, title, body, link, Integer.parseInt(sessionManager.getUserDetails().get("userid")));
+            NoteHandler noteHandler = new NoteHandler(noteId, label, title, body, link, Integer.parseInt(sessionManager.getUserDetails().get("userid")), status, date);
             if (inputHandler.inputValidator(title, body, link)) {
                 request.editNote(noteHandler, EditNotesActivity.this);
             } else {

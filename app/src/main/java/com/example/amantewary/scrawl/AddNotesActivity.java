@@ -125,8 +125,10 @@ public class AddNotesActivity extends AppCompatActivity implements Observer {
             title = inputHandler.inputCensor(et_title.getText().toString().trim());
             body = inputHandler.inputCensor(et_content.getText().toString().trim());
             link = et_link.getText().toString().trim();
+            String status = "(created)";
+            String date = tv_date.getText().toString();
             //TODO: Need to change user_id once login and registration is done.
-            NoteHandler noteHandler = new NoteHandler(label, title, body, link, Integer.parseInt(sessionManager.getUserDetails().get("userid")));
+            NoteHandler noteHandler = new NoteHandler(label, title, body, link, Integer.parseInt(sessionManager.getUserDetails().get("userid")), status, date);
             if (inputHandler.inputValidator(title, body, link)) {
                 NotesRequestHandler request = new NotesRequestHandler();
                 request.createNote(noteHandler, AddNotesActivity.this);

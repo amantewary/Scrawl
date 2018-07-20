@@ -7,43 +7,53 @@ public class NoteHandler {
 
     @SerializedName("id")
     @Expose
-    Integer id;
+    private Integer id;
     @SerializedName("label_name")
     @Expose
-    String label_name;
+    private String label_name;
     @SerializedName("title")
     @Expose
-    String title;
+    private String title;
     @SerializedName("body")
     @Expose
-    String body;
+    private String body;
     @SerializedName("url")
     @Expose
-    String url;
+    private String url;
     @SerializedName("user_id")
     @Expose
-    Integer user_id;
+    private Integer user_id;
+    @SerializedName("status")
+    @Expose
+    private String status;
+    @SerializedName("date")
+    @Expose
+    private String date;
 
 
     public NoteHandler(Integer id) {
         this.id = id;
     }
 
-    public NoteHandler(String label_name, String title, String body, String url, Integer user_id) {
+    public NoteHandler(String label_name, String title, String body, String url, Integer user_id, String status, String date) {
         this.label_name = label_name;
         this.title = title;
         this.body = body;
         this.url = url;
         this.user_id = user_id;
+        this.status = status;
+        this.date = date;
     }
 
-    public NoteHandler(Integer id, String label_name, String title, String body, String url, Integer user_id) {
+    public NoteHandler(Integer id, String label_name, String title, String body, String url, Integer user_id, String status, String date) {
         this.id = id;
         this.label_name = label_name;
         this.title = title;
         this.body = body;
         this.url = url;
         this.user_id = user_id;
+        this.status = status;
+        this.date = date;
     }
 
     public Integer getId() {
@@ -56,10 +66,6 @@ public class NoteHandler {
 
     public String getLabel_name() {
         return label_name;
-    }
-
-    public void setLabel_name(String label_name) {
-        this.label_name = label_name;
     }
 
     public String getTitle() {
@@ -92,5 +98,21 @@ public class NoteHandler {
 
     public void setUser_id(Integer user_id) {
         this.user_id = user_id;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 }
