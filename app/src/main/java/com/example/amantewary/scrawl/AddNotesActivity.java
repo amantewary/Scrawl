@@ -4,8 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -78,8 +76,8 @@ public class AddNotesActivity extends AppCompatActivity implements Observer {
         inputHandler.addObserver(this);
 
         setTitle("Add Note");
-
-        doRealTimeCheck();
+        inputHandler.doRealTimeLanguageCheck(et_content);
+        inputHandler.doRealTimeLanguageCheck(et_title);
 
         //make tv_date show current date
         Date c = Calendar.getInstance().getTime();
@@ -143,46 +141,5 @@ public class AddNotesActivity extends AppCompatActivity implements Observer {
             Log.e(TAG, "Here");
             Toast.makeText(getApplicationContext(), "All bad words will be censored", Toast.LENGTH_SHORT).show();
         }
-    }
-
-    //TODO: Need to move this in InputHandler Class
-    private void doRealTimeCheck() {
-        et_content.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                if (editable.length() != 0) {
-                    inputHandler.inputCensor(et_content.getText().toString().trim());
-                }
-            }
-        });
-
-        et_title.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                if (editable.length() != 0) {
-                    inputHandler.inputCensor(et_content.getText().toString().trim());
-                }
-            }
-        });
     }
 }

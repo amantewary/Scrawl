@@ -60,6 +60,8 @@ public class EditNotesActivity extends AppCompatActivity implements Observer {
         inputHandler = new InputHandler(getApplicationContext());
         request = new NotesRequestHandler();
         inputHandler.addObserver(this);
+        inputHandler.doRealTimeLanguageCheck(et_content);
+        inputHandler.doRealTimeLanguageCheck(et_title);
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         if(bundle != null){
@@ -146,7 +148,7 @@ public class EditNotesActivity extends AppCompatActivity implements Observer {
     public void update(Observable observable, Object o) {
         if(observable instanceof InputHandler){
             Log.e(TAG, "Here");
-            Toast.makeText(getApplicationContext(),"I know you are adding bad words.. naughty bow", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(),"All bad words will be censored", Toast.LENGTH_SHORT).show();
         }
     }
 

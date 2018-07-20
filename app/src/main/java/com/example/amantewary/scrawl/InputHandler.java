@@ -1,7 +1,9 @@
 package com.example.amantewary.scrawl;
 
 import android.content.Context;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.util.Patterns;
 import android.widget.EditText;
@@ -15,6 +17,8 @@ import java.util.Observable;
 import java.util.regex.Pattern;
 
 public class InputHandler extends Observable {
+
+    private static final String TAG = "InputHandler";
 
     private Context context;
 
@@ -100,5 +104,30 @@ public class InputHandler extends Observable {
     public void notifyObservers() {
         super.notifyObservers();
 
+    }
+
+    public void doRealTimeLanguageCheck(final EditText editText) {
+        try {
+            editText.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                }
+
+                @Override
+                public void afterTextChanged(Editable editable) {
+                    if (editable.length() != 0) {
+                        inputCensor(editText.getText().toString().trim());
+                    }
+                }
+            });
+        }catch(Exception e){
+            Log.e(TAG,"Message: " + e.toString());
+        }
     }
 }
