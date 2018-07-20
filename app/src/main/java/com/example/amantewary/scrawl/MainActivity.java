@@ -13,11 +13,15 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -41,6 +45,7 @@ public class MainActivity extends AppCompatActivity{
     private static final String TAG = "MainActivity";
     FirebaseAnalytics mFirebaseAnalytics;
     NavigationDrawerAdapter navigationDrawerAdapter;
+    AutoCompleteTextView searchBar;
     private FastScrollRecyclerView notesListView;
     private NotesListAdapter notesAdapter;
     private ArrayList<String> labelList;
@@ -60,6 +65,7 @@ public class MainActivity extends AppCompatActivity{
         logout = findViewById(R.id.nav_lout);
         swiperefresh = findViewById(R.id.swiperefresh);
         addLabel = findViewById(R.id.add_label_nav);
+        searchBar = findViewById(R.id.viewSearchBar);
     }
 
     @Override
@@ -92,6 +98,9 @@ public class MainActivity extends AppCompatActivity{
         };
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+
+
+
 
 
 
@@ -144,6 +153,24 @@ public class MainActivity extends AppCompatActivity{
     protected void onResume() {
         super.onResume();
         populateNotesList();
+
+        // listening to search query text change
+        searchBar.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                notesAdapter.getFilter().filter(charSequence);
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
     }
 
     protected void populateNotesList() {

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,7 +41,7 @@ public class NotesListAdapter extends RecyclerView.Adapter<ViewHolder> implement
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        final NoteHandler notes = notesList.get(position);
+        final NoteHandler notes = notesListFilter.get(position);
         holder.title.setText(notes.getTitle());
         holder.label.setText(notes.getLabel_name());
         holder.parentView.setOnClickListener(new View.OnClickListener() {
@@ -73,13 +74,16 @@ public class NotesListAdapter extends RecyclerView.Adapter<ViewHolder> implement
             @Override
             protected FilterResults performFiltering(CharSequence charSequence) {
                 String charString = charSequence.toString();
+                Log.e("Notes", charString);
+
                 if (charString.isEmpty()) {
                     notesListFilter = notesList;
                 } else {
                     List<NoteHandler> filteredList = new ArrayList<>();
-                    for (NoteHandler row : filteredList) {
+                    for (NoteHandler row : notesList) {
 
-                        if (row.getLabel_name().toLowerCase().contains(charString.toLowerCase()) || row.getBody().contains(charSequence)) {
+                        if (row.getLabel_name().toLowerCase().contains(charString.toLowerCase()) || row.getBody().contains(charSequence)
+                                || row.getTitle().toLowerCase().contains(charString.toLowerCase())) {
                             filteredList.add(row);
                         }
                     }
