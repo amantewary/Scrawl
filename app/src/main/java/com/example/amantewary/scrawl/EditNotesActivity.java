@@ -39,20 +39,24 @@ public class EditNotesActivity extends AppCompatActivity implements Observer {
     private InputHandler inputHandler;
     private NotesRequestHandler request;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_notes);
-        Toolbar toolbar_edit_note = findViewById(R.id.tool_bar);
-        setSupportActionBar(toolbar_edit_note);
-        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-        setTitle("Edit Note");
-
+    protected void viewBinder(){
         et_title = findViewById(R.id.et_title_edit);
         et_content = findViewById(R.id.et_content_edit);
         et_link = findViewById(R.id.et_link_edit);
         labelSpinner = findViewById(R.id.sp_edit_label);
         tv_date = findViewById(R.id.tv_date_edit);
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_edit_notes);
+        viewBinder();
+        Toolbar toolbar_edit_note = findViewById(R.id.tool_bar);
+        setSupportActionBar(toolbar_edit_note);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        setTitle("Edit Note");
+
         inputHandler = new InputHandler(getApplicationContext());
         request = new NotesRequestHandler();
         inputHandler.addObserver(this);
@@ -77,29 +81,31 @@ public class EditNotesActivity extends AppCompatActivity implements Observer {
         labelSpinner.setAdapter(labelAdapter);
 
         //Abstract Factory
-        request.getSingleNote(EditNotesActivity.this,noteId, new INoteResponse(){
+        getNoteByNoteID();
 
-            @Override
-            public int hashCode() {
-                return super.hashCode();
-            }
+    }
 
-            @Override
-            public void onSuccess(@NonNull List<NoteHandler> note) {
-                Log.d(TAG, "onResponse: Received Information: " + note.toString());
-                for(NoteHandler n : note){
-                    et_title.setText(n.getTitle());
-                    et_content.setText(n.getBody());
-                    et_link.setText(n.getUrl());
+    public void getNoteByNoteID(){
+        try{
+            request.getSingleNote(EditNotesActivity.this,noteId, new INoteResponse(){
+                @Override
+                public void onSuccess(@NonNull List<NoteHandler> note) {
+                    Log.d(TAG, "onResponse: Received Information: " + note.toString());
+                    for(NoteHandler n : note){
+                        et_title.setText(n.getTitle());
+                        et_content.setText(n.getBody());
+                        et_link.setText(n.getUrl());
+                    }
                 }
-            }
 
-            @Override
-            public void onError(@NonNull Throwable throwable) {
-                Log.e(TAG, "onFailure: Something Went Wrong: " + throwable.getMessage());
-            }
-        });
-
+                @Override
+                public void onError(@NonNull Throwable throwable) {
+                    Log.e(TAG, "onFailure: Something Went Wrong: " + throwable.getMessage());
+                }
+            });
+        }catch (Exception e){
+            Log.e(TAG,"Message: " + e.toString());
+        }
     }
 
     @Override
@@ -124,11 +130,15 @@ public class EditNotesActivity extends AppCompatActivity implements Observer {
         String title = inputHandler.inputCensor(et_title.getText().toString().trim());
         String body = inputHandler.inputCensor(et_content.getText().toString().trim());
         String link = et_link.getText().toString().trim();
-        NoteHandler noteHandler = new NoteHandler(noteId, label, title, body, link, 1);
-        if (inputHandler.inputValidator(title, body, link)) {
-            request.editNote(noteHandler, EditNotesActivity.this);
-        }else{
-            inputHandler.inputErrorHandling(et_title, et_content, et_link);
+        try {
+            NoteHandler noteHandler = new NoteHandler(noteId, label, title, body, link, 1);
+            if (inputHandler.inputValidator(title, body, link)) {
+                request.editNote(noteHandler, EditNotesActivity.this);
+            } else {
+                inputHandler.inputErrorHandling(et_title, et_content, et_link);
+            }
+        }catch (Exception e){
+            Log.e(TAG,"Message: " + e.toString());
         }
 
     }

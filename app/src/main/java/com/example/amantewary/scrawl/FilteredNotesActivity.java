@@ -53,20 +53,24 @@ public class FilteredNotesActivity extends AppCompatActivity {
     public void populateFilteredNotesList(String label_name){
         NotesRequestHandler request = new NotesRequestHandler();
 
-        request.getNotesListByLabel(FilteredNotesActivity.this, label_name, new INoteResponse() {
-            @Override
-            public void onSuccess(@NonNull List<NoteHandler> note) {
-                Log.d(TAG, "onResponse: Received Information: " + note.toString());
-                filteredNotesListAdapter = new FilteredNotesListAdapter(FilteredNotesActivity.this, note);
-                notesListView.setAdapter(filteredNotesListAdapter);
-                notesListView.setLayoutManager(new LinearLayoutManager(FilteredNotesActivity.this));
-            }
+        try {
+            request.getNotesListByLabel(FilteredNotesActivity.this, label_name, new INoteResponse() {
+                @Override
+                public void onSuccess(@NonNull List<NoteHandler> note) {
+                    Log.d(TAG, "onResponse: Received Information: " + note.toString());
+                    filteredNotesListAdapter = new FilteredNotesListAdapter(FilteredNotesActivity.this, note);
+                    notesListView.setAdapter(filteredNotesListAdapter);
+                    notesListView.setLayoutManager(new LinearLayoutManager(FilteredNotesActivity.this));
+                }
 
-            @Override
-            public void onError(@NonNull Throwable throwable) {
-                Log.e(TAG, "onFailure: Something Went Wrong: " + throwable.getMessage());
-                Toast.makeText(FilteredNotesActivity.this, "Notes Not Available For This Label", Toast.LENGTH_SHORT).show();
-            }
-        });
+                @Override
+                public void onError(@NonNull Throwable throwable) {
+                    Log.e(TAG, "onFailure: Something Went Wrong: " + throwable.getMessage());
+                    Toast.makeText(FilteredNotesActivity.this, "Notes Not Available For This Label", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }catch (Exception e){
+            Log.e(TAG,"Message: " + e.toString());
+        }
     }
 }
