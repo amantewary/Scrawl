@@ -170,4 +170,25 @@ class Notes
         }
     }
 
+
+    public function readAllNotesByUser($share_to, $userid)
+    {
+        error_log('Invoked readAllNotes Method');
+        try {
+            $query = 'CALL spGetAllNotesByUser(:share_to, :userid)';
+            $stmt = $this->con->prepare($query);
+            $stmt->bindParam(':share_to', $share_to);
+            $stmt->bindParam(':userid', $userid);
+
+            if($stmt->execute()) {
+                error_log('Successfully retrieved all shared and owned notes');
+                return $stmt;
+            }
+        } catch (\PDOException $e) {
+            print_r($e);
+            error_log('Note Not Available: ' . $e->getMessage());
+            return $e;
+        }
+    }
+
 }

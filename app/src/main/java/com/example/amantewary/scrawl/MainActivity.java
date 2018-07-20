@@ -8,6 +8,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -19,7 +20,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.example.amantewary.scrawl.API.Labels.ILabelResponse;
 import com.example.amantewary.scrawl.API.Notes.INoteResponse;
@@ -47,6 +47,8 @@ public class MainActivity extends AppCompatActivity
     private ListView listView;
     private DrawerLayout drawer;
     private LinearLayout logout;
+    private SwipeRefreshLayout swiperefresh;
+    private SessionManager sessionManager;
 
     protected void viewBinder() {
         toolbar = findViewById(R.id.toolbar);
@@ -54,6 +56,7 @@ public class MainActivity extends AppCompatActivity
         listView = findViewById(R.id.lstDrawerItems);
         drawer = findViewById(R.id.drawer_layout);
         logout = findViewById(R.id.nav_lout);
+//        swiperefresh =(SwipeRefreshLayout)findViewById(R.id.swiperefresh);
     }
 
     @Override
@@ -113,6 +116,23 @@ public class MainActivity extends AppCompatActivity
                 showDialog();
             }
         });
+
+        sessionManager = new SessionManager(getApplicationContext());
+
+//        swiperefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+//            @Override
+//            public void onRefresh() {
+//                Log.i(TAG, "onRefresh called from SwipeRefreshLayout");
+//
+//                new Handler().postDelayed(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        swiperefresh.setRefreshing(false);
+//                    }
+//                },2000);
+//
+//            }
+//        });
     }
 
     @Override
@@ -122,24 +142,53 @@ public class MainActivity extends AppCompatActivity
     }
 
     protected void populateNotesList() {
-        NotesRequestHandler request = new NotesRequestHandler();
-        request.getNoteList(MainActivity.this, 1, new INoteResponse() {
+        String cur_usr_email = sessionManager.getUserEmail();
+        Integer cur_usr_id = sessionManager.getUserId();
+
+        SharesRequestHandler request = new SharesRequestHandler();
+        request.getAllNotesByUserId(MainActivity.this, cur_usr_email, cur_usr_id, new INoteResponse() {
+            @Override
+            public int hashCode() {
+                return super.hashCode();
+            }
 
             @Override
-            public void onSuccess(@NonNull List<NoteHandler> note) {
-                Log.d(TAG, "onResponse: Received Information: " + note.toString());
-                notesAdapter = new NotesListAdapter(MainActivity.this, note);
-                notesListView.setAdapter(notesAdapter);
-                notesListView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+            public void onSuccess(@NonNull List<NoteHandler> notes) {
+                Log.d(TAG, "getID:"+String.valueOf(notes.get(0).getId()));
+                if (notes.get(0).getId()!=null){
+                    Log.d(TAG, "populateNotesList().onResponse: Received Information: " + notes.toString());
+                    notesAdapter = new NotesListAdapter(MainActivity.this, notes);
+                    notesListView.setAdapter(notesAdapter);
+                    notesListView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+                }
             }
 
             @Override
             public void onError(@NonNull Throwable throwable) {
-                Log.e(TAG, "onFailure: Something Went Wrong: " + throwable.getMessage());
-                Toast.makeText(MainActivity.this, "Something Went Wrong", Toast.LENGTH_SHORT).show();
+                Log.e(TAG, "populateNotesList().onError: Something Went Wrong: " + throwable.getMessage());
             }
         });
     }
+
+//    protected void populateNotesList() {
+//        NotesRequestHandler request = new NotesRequestHandler();
+//        request.getNoteList(MainActivity.this, 1, new INoteResponse() {
+//
+//            @Override
+//            public void onSuccess(@NonNull List<NoteHandler> note) {
+//                Log.d(TAG, "onResponse: Received Information: " + note.toString());
+//                notesAdapter = new NotesListAdapter(MainActivity.this, note);
+//                notesListView.setAdapter(notesAdapter);
+//                notesListView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+//            }
+//
+//            @Override
+//            public void onError(@NonNull Throwable throwable) {
+//                Log.e(TAG, "onFailure: Something Went Wrong: " + throwable.getMessage());
+//                Toast.makeText(MainActivity.this, "Something Went Wrong", Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//    }
 
     public void storeLabelFromResponse(List<LabelHandler> labels) {
         labelList = new ArrayList<>();
