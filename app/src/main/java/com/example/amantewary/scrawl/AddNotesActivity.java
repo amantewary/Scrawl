@@ -147,5 +147,6 @@ public class AddNotesActivity extends AppCompatActivity implements Observer {
             Log.e(TAG, "Here");
             Toast.makeText(getApplicationContext(), "All bad words will be censored!", Toast.LENGTH_SHORT).show();
         }
+
     }
 }

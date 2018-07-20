@@ -13,11 +13,16 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
@@ -33,20 +38,25 @@ import com.l4digital.fastscroll.FastScrollRecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity{
 
     private static final String TAG = "MainActivity";
     FirebaseAnalytics mFirebaseAnalytics;
     NavigationDrawerAdapter navigationDrawerAdapter;
+    AutoCompleteTextView searchBar;
     private FastScrollRecyclerView notesListView;
     private NotesListAdapter notesAdapter;
     private ArrayList<String> labelList;
     private ListView listView;
+    private Button addLabel;
     private DrawerLayout drawer;
     private LinearLayout logout;
     private SwipeRefreshLayout swiperefresh;
     private SessionManager sessionManager;
+    ArrayList<String> labelString;
+    NavObserver navObserver;
 
     protected void viewBinder() {
         notesListView = findViewById(R.id.viewNoteList);
@@ -54,6 +64,8 @@ public class MainActivity extends AppCompatActivity {
         drawer = findViewById(R.id.drawer_layout);
         logout = findViewById(R.id.nav_lout);
         swiperefresh = findViewById(R.id.swiperefresh);
+        addLabel = findViewById(R.id.add_label_nav);
+        searchBar = findViewById(R.id.viewSearchBar);
     }
 
     @Override
@@ -64,16 +76,32 @@ public class MainActivity extends AppCompatActivity {
         viewBinder();
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         mFirebaseAnalytics.setCurrentScreen(this, getClass().getCanonicalName(), null);
+
+        final ArrayList<NavgitationModel> navgitationModels = new ArrayList<>();
+        loadLabelsForList(navgitationModels);
+        navObserver = new NavObserver();
+        navigationDrawerAdapter = new NavigationDrawerAdapter(navgitationModels, this, navObserver);
+        listView.setAdapter(navigationDrawerAdapter);
+
+        labelString = LabelLoader.getInstance().loadLabel(this);
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close){
+            @Override
+            public void onDrawerClosed(View drawerView) {
+                super.onDrawerClosed(drawerView);
+                Log.e(TAG,"Drawer closed Here");
+                navigationDrawerAdapter.notifyDataSetChanged();
+            }
+        };
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-        ArrayList<NavgitationModel> navgitationModels = new ArrayList<>();
-        loadLabelsForList(navgitationModels);
-        navigationDrawerAdapter = new NavigationDrawerAdapter(navgitationModels, this);
-        listView.setAdapter(navigationDrawerAdapter);
+
+
+
+
 
 
         //Loading Labels from database
@@ -87,6 +115,12 @@ public class MainActivity extends AppCompatActivity {
                 // Factory Design Pattern
                 Intent intent = new Intent(MainActivity.this, AddNotesActivity.class);
                 startActivity(intent);
+            }
+        });
+        addLabel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                navObserver.callForAddLabel(MainActivity.class.getCanonicalName());
             }
         });
 
@@ -119,6 +153,24 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         populateNotesList();
+
+        // listening to search query text change
+        searchBar.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                notesAdapter.getFilter().filter(charSequence);
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
     }
 
     protected void populateNotesList() {
@@ -182,7 +234,6 @@ public class MainActivity extends AppCompatActivity {
     public void onBackPressed() {
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
-
             drawer.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
@@ -247,7 +298,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     void loadLabelsForList(ArrayList<NavgitationModel> navList) {
-        ArrayList<String> labelString = LabelLoader.getInstance().loadLabel(this);
+        labelString = LabelLoader.getInstance().loadLabel(this);
 
         for (String labelName : labelString) {
             navList.add(new NavgitationModel(getResources().getDrawable(R.drawable.ic_bookmark_black_24dp), labelName));
