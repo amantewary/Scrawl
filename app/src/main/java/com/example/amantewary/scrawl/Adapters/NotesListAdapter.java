@@ -13,6 +13,7 @@ import android.widget.Filterable;
 
 import com.example.amantewary.scrawl.Handlers.NoteHandler;
 import com.example.amantewary.scrawl.R;
+import com.example.amantewary.scrawl.SessionManager;
 import com.example.amantewary.scrawl.ViewNotesActivity;
 import com.l4digital.fastscroll.FastScroller;
 
@@ -26,11 +27,13 @@ public class NotesListAdapter extends RecyclerView.Adapter<ViewHolder> implement
     private Context context;
     private List<NoteHandler> notesList;
     private List<NoteHandler> notesListFilter;
+    private SessionManager sessionManager;
 
     public NotesListAdapter(Context context, List<NoteHandler> notesList) {
         this.context = context;
         this.notesList = notesList;
         this.notesListFilter = notesList;
+        sessionManager = new SessionManager(context.getApplicationContext());
     }
 
     @NonNull
@@ -44,6 +47,10 @@ public class NotesListAdapter extends RecyclerView.Adapter<ViewHolder> implement
         final NoteHandler notes = notesListFilter.get(position);
         holder.title.setText(notes.getTitle());
         holder.label.setText(notes.getLabel_name());
+        if (!sessionManager.getUserId().equals(notes.getUser_id())){
+            String shared_from = String.valueOf(notes.getUser_id());
+            holder.shared_by.setText("Shared by other");
+        }
         holder.parentView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
