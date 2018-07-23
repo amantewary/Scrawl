@@ -16,6 +16,7 @@ public class ViewSharedNoteActivity extends ViewNoteBaseActivity {
 
         btn_collaborate.setVisibility(View.GONE);
         btn_share.setVisibility(View.GONE);
+        btn_delete.setText("Cancel collaboration");
     }
 
     @Override
@@ -29,12 +30,12 @@ public class ViewSharedNoteActivity extends ViewNoteBaseActivity {
                 startActivity(intent);
                 break;
             case R.id.btn_delete:
-                deleteNote();
+                cancelShare();
                 break;
         }
     }
 
-    public void deleteNote() {
+    public void cancelShare() {
 
     }
 

@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.amantewary.scrawl.API.IShareAPI;
 import com.example.amantewary.scrawl.API.Users.ICheckUser;
 import com.example.amantewary.scrawl.BaseActivities.ViewNoteBaseActivity;
 import com.example.amantewary.scrawl.Handlers.NoteHandler;
@@ -23,7 +22,6 @@ import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
-import retrofit2.Response;
 
 public class ViewOwnedNoteActivity extends ViewNoteBaseActivity {
 
@@ -156,22 +154,8 @@ public class ViewOwnedNoteActivity extends ViewNoteBaseActivity {
     }
 
     private void sendRequest(ShareHandler shareHandler) {
-        IShareAPI shareAPI = RetroFitInstance.getRetrofit().create(IShareAPI.class);
-        Call<ShareHandler> call = shareAPI.createShare(shareHandler);
-        call.enqueue(new Callback<ShareHandler>() {
-            @Override
-            public void onResponse(Call<ShareHandler> call, Response<ShareHandler> response) {
-                Log.d(TAG, "onResponse: Server Response: " + response.toString());
-                Log.d(TAG, "onResponse: Received Information: " + response.body().toString());
-                Toast.makeText(ViewOwnedNoteActivity.this, "Shared Successfully", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onFailure(Call<ShareHandler> call, Throwable t) {
-                Log.e(TAG, "onFailure: Something Went Wrong: " + t.getMessage());
-                Toast.makeText(ViewOwnedNoteActivity.this, "Something Went Wrong", Toast.LENGTH_SHORT).show();
-            }
-        });
+        SharesRequestHandler sharesRequestHandler = new SharesRequestHandler();
+        sharesRequestHandler.createShare(shareHandler,ViewOwnedNoteActivity.this);
     }
 
     public void deleteNote() {
