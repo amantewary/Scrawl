@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ViewSwitcher;
 
 import com.example.amantewary.scrawl.FilteredNotesActivity;
@@ -33,7 +34,8 @@ public class NavigationDrawerAdapter extends ArrayAdapter<NavgitationModel> impl
     private boolean editToggle = true;
     private boolean mode = false;
     private int currentPosition;
-
+    EditText newLabel;
+    ViewSwitcher newViewSwitcher;
 
     public NavigationDrawerAdapter(ArrayList<NavgitationModel> list, Context context, NavObserver navObserver) {
         super(context, R.layout.nav_item, list);
@@ -60,6 +62,8 @@ public class NavigationDrawerAdapter extends ArrayAdapter<NavgitationModel> impl
         labelNameTV.setText(navigationList.get(position).getTitle());
         labelImage.setImageDrawable(navigationList.get(position).getLabelImageView());
 
+        newLabel = labelEdittext;
+        this.newViewSwitcher = viewSwitcher;
         layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -77,6 +81,7 @@ public class NavigationDrawerAdapter extends ArrayAdapter<NavgitationModel> impl
         labelImage.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
+//                if(validlabel(navigationList.get(position).getTitle()))
                 if (editToggle) {
 
                     String label = navigationList.get(position).getTitle();
@@ -116,7 +121,9 @@ public class NavigationDrawerAdapter extends ArrayAdapter<NavgitationModel> impl
     public void update(Observable observable, Object o) {
         if (observable instanceof NavObserver) {
             if (o.equals(MainActivity.class.getCanonicalName())) {
-
+                if(!addNewLabel()){
+                    Toast.makeText(mContext, "Oops! something went Wrong", Toast.LENGTH_SHORT).show();
+                }
             }
         }
     }
@@ -142,6 +149,19 @@ public class NavigationDrawerAdapter extends ArrayAdapter<NavgitationModel> impl
             }
         }
 
+    }
+
+    boolean addNewLabel(){
+        navigationList.add(navigationList.size()+1,new NavgitationModel(mContext.getResources().getDrawable(R.drawable.ic_bookmark_black_24dp), "Label"));
+        newViewSwitcher.showNext();
+
+        return true;
+    }
+
+    boolean validlabel(String labelTitle){
+
+        return !(labelTitle.equals(navigationList.get(0).getTitle())) || !(labelTitle.equals(navigationList.get(1).getTitle()))
+                || !(labelTitle.equals(navigationList.get(2).getTitle())) || !(labelTitle.equals(navigationList.get(3).getTitle()));
     }
 
 
