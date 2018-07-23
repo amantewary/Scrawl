@@ -1,7 +1,6 @@
 package com.example.amantewary.scrawl.Adapters;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -12,11 +11,11 @@ import android.widget.Filter;
 import android.widget.Filterable;
 
 import com.example.amantewary.scrawl.Handlers.NoteHandler;
+import com.example.amantewary.scrawl.NoteState.NoteContext;
+import com.example.amantewary.scrawl.NoteState.OwnedNote;
+import com.example.amantewary.scrawl.NoteState.SharedNote;
 import com.example.amantewary.scrawl.R;
 import com.example.amantewary.scrawl.SessionManager;
-import com.example.amantewary.scrawl.ViewNotesActivity;
-import com.example.amantewary.scrawl.ViewOwnedNoteActivity;
-import com.example.amantewary.scrawl.ViewSharedNoteActivity;
 import com.l4digital.fastscroll.FastScroller;
 
 import java.util.ArrayList;
@@ -53,22 +52,16 @@ public class NotesListAdapter extends RecyclerView.Adapter<ViewHolder> implement
             String shared_from = String.valueOf(notes.getUser_id());
             holder.shared_by.setText("Shared by other");
         }
+        final NoteContext noteContext = new NoteContext();
         holder.parentView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent intent = new Intent(context, ViewNotesActivity.class);
-//                Intent intent = new Intent(context, ViewOwnedNoteActivity.class);
-//                intent.putExtra("noteid", notes.getId());
-//                context.startActivity(intent);
-
                 if (!sessionManager.getUserId().equals(notes.getUser_id())){
-                    Intent intent = new Intent(context, ViewSharedNoteActivity.class);
-                    intent.putExtra("noteid", notes.getId());
-                    context.startActivity(intent);
+                    SharedNote sharedNote = new SharedNote();
+                    sharedNote.runViewNoteActivity(noteContext, context, notes.getId());
                 }else {
-                    Intent intent = new Intent(context, ViewOwnedNoteActivity.class);
-                    intent.putExtra("noteid", notes.getId());
-                    context.startActivity(intent);
+                    OwnedNote ownedNote = new OwnedNote();
+                    ownedNote.runViewNoteActivity(noteContext, context, notes.getId());
                 }
             }
         });

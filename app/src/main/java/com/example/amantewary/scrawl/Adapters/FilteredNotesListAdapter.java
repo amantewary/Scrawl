@@ -1,7 +1,6 @@
 package com.example.amantewary.scrawl.Adapters;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,11 +8,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.amantewary.scrawl.Handlers.NoteHandler;
+import com.example.amantewary.scrawl.NoteState.NoteContext;
+import com.example.amantewary.scrawl.NoteState.OwnedNote;
+import com.example.amantewary.scrawl.NoteState.SharedNote;
 import com.example.amantewary.scrawl.R;
 import com.example.amantewary.scrawl.SessionManager;
-import com.example.amantewary.scrawl.ViewNotesActivity;
-import com.example.amantewary.scrawl.ViewOwnedNoteActivity;
-import com.example.amantewary.scrawl.ViewSharedNoteActivity;
 import com.l4digital.fastscroll.FastScroller;
 
 import java.util.List;
@@ -47,14 +46,13 @@ public class FilteredNotesListAdapter extends RecyclerView.Adapter<ViewHolder> i
 //                Intent intent = new Intent(context, ViewNotesActivity.class);
 //                intent.putExtra("noteid", notes.getId());
 //                context.startActivity(intent);
+                NoteContext noteContext = new NoteContext();
                 if (!sessionManager.getUserId().equals(notes.getUser_id())){
-                    Intent intent = new Intent(context, ViewSharedNoteActivity.class);
-                    intent.putExtra("noteid", notes.getId());
-                    context.startActivity(intent);
+                    SharedNote sharedNote = new SharedNote();
+                    sharedNote.runViewNoteActivity(noteContext, context, notes.getId());
                 }else {
-                    Intent intent = new Intent(context, ViewOwnedNoteActivity.class);
-                    intent.putExtra("noteid", notes.getId());
-                    context.startActivity(intent);
+                    OwnedNote ownedNote = new OwnedNote();
+                    ownedNote.runViewNoteActivity(noteContext, context, notes.getId());
                 }
             }
         });
