@@ -21,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.amantewary.scrawl.API.IShareAPI;
+import com.example.amantewary.scrawl.API.Users.ICheckUser;
 import com.example.amantewary.scrawl.Handlers.UserClass;
 import com.example.amantewary.scrawl.API.Notes.INoteResponse;
 
@@ -119,16 +120,12 @@ public class ViewNotesActivity extends AppCompatActivity implements View.OnClick
             }
         });
 
-
-
-
         btn_edit.setOnClickListener(this);
         btn_collaborate.setOnClickListener(this);
         btn_share.setOnClickListener(this);
         btn_delete.setOnClickListener(this);
 
         sessionManager = new SessionManager(getApplicationContext());
-
     }
 
     @Override
@@ -154,6 +151,8 @@ public class ViewNotesActivity extends AppCompatActivity implements View.OnClick
     }
 
     public void setView(List<NoteHandler> note) {
+
+        //TODO: REFACTORING
         try {
             for (NoteHandler n : note) {
                 collapsingToolbarLayout.setTitle(n.getTitle());
@@ -166,7 +165,6 @@ public class ViewNotesActivity extends AppCompatActivity implements View.OnClick
         } catch (Exception e) {
             Log.e(TAG, "Message: " + e.toString());
         }
-
     }
 
     @Override
@@ -229,6 +227,7 @@ public class ViewNotesActivity extends AppCompatActivity implements View.OnClick
     }
 
 
+    /////
     private void setShareIntent() {
         try {
             Intent sendIntent = new Intent();
@@ -239,9 +238,9 @@ public class ViewNotesActivity extends AppCompatActivity implements View.OnClick
         } catch (Exception e) {
             Log.e(TAG, "Failed to set Share Intent: " + e.getMessage());
         }
-
     }
 
+    /////
     private void showDialog() {
 
         final EditText et_collaborate_with = new EditText(this);
@@ -272,7 +271,7 @@ public class ViewNotesActivity extends AppCompatActivity implements View.OnClick
                 final String share_from = sessionManager.getUserEmail();
 
                 final Boolean[] result = new Boolean[1];
-                IShareAPI service = RetroFitInstance.getRetrofit().create(IShareAPI.class);
+                ICheckUser service = RetroFitInstance.getRetrofit().create(ICheckUser.class);
                 RequestBody body = RequestBody.create(MediaType.parse("text/plain"), collaborate_with);
                 Map<String, RequestBody> requestBodyMap = new HashMap<>();
                 requestBodyMap.put("email", body);
