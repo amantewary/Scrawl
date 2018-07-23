@@ -32,7 +32,7 @@ public class NavigationDrawerAdapter extends ArrayAdapter<NavgitationModel> impl
     private ArrayList<NavgitationModel> navigationList;
     private Context mContext;
     private boolean editToggle = true;
-    private boolean mode = false;
+    private boolean mode = true;
     private int currentPosition;
     EditText newLabel;
     ViewSwitcher newViewSwitcher;
@@ -81,32 +81,34 @@ public class NavigationDrawerAdapter extends ArrayAdapter<NavgitationModel> impl
         labelImage.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
-//                if(validlabel(navigationList.get(position).getTitle()))
-                if (editToggle) {
+                if (validlabel(navigationList.get(position).getTitle())) {
+                    if (editToggle) {
 
-                    String label = navigationList.get(position).getTitle();
-                    mode = false;
-                    editToggle = false;
-                    currentPosition = position;
-                    Log.e(TAG, "position" + position);
-                    labelEdittext.setBackgroundResource( R.drawable.border);
-                    toggleVisibility(currentPosition, parent);
-                    labelImage.setImageResource(R.drawable.ic_bookmark_grey_24dp);
-                    labelEdittext.setText(label);
-                    viewSwitcher.showNext();
+                        String label = navigationList.get(position).getTitle();
+                        mode = false;
+                        editToggle = false;
+                        currentPosition = position;
+                        Log.e(TAG, "position" + position);
+                        labelEdittext.setBackgroundResource(R.drawable.border);
+                        toggleVisibility(currentPosition, parent);
+                        labelImage.setImageResource(R.drawable.ic_bookmark_grey_24dp);
+                        labelEdittext.setText(label);
+                        viewSwitcher.showNext();
 
-                } else {
-                    mode = true;
-                    editToggle = true;
-                    toggleVisibility(currentPosition, parent);
-                    navigationList.add(position,new NavgitationModel(navigationList.get(position).getLabelImageView(),labelEdittext.getText().toString()));
-                    navigationList.remove(position+1);
-                    Log.e(TAG, "HEre");
-                    labelImage.setImageDrawable(navigationList.get(position).getLabelImageView());
-                    labelNameTV.setText(navigationList.get(position).getTitle());
-                    viewSwitcher.showPrevious();
+                    } else {
+                        mode = true;
+                        editToggle = true;
+                        toggleVisibility(currentPosition, parent);
+                        navigationList.add(position, new NavgitationModel(navigationList.get(position).getLabelImageView(), labelEdittext.getText().toString()));
+                        navigationList.remove(position + 1);
+                        Log.e(TAG, "HEre");
+                        labelImage.setImageDrawable(navigationList.get(position).getLabelImageView());
+                        labelNameTV.setText(navigationList.get(position).getTitle());
+                        viewSwitcher.showPrevious();
+                    }
+
+
                 }
-
 
                 return false;
             }
@@ -121,49 +123,48 @@ public class NavigationDrawerAdapter extends ArrayAdapter<NavgitationModel> impl
     public void update(Observable observable, Object o) {
         if (observable instanceof NavObserver) {
             if (o.equals(MainActivity.class.getCanonicalName())) {
-                if(!addNewLabel()){
+                if (!addNewLabel()) {
                     Toast.makeText(mContext, "Oops! something went Wrong", Toast.LENGTH_SHORT).show();
                 }
             }
         }
     }
 
-    void toggleVisibility(int currentPosition, ViewGroup parent){
-        if(!editToggle){
-            for ( int i = 0; i < parent.getChildCount();  i++ ){
-                if (i != currentPosition){
+    void toggleVisibility(int currentPosition, ViewGroup parent) {
+        if (!editToggle) {
+            for (int i = 0; i < parent.getChildCount(); i++) {
+                if (i != currentPosition) {
 
-                    Log.e(TAG, ""+parent.getChildCount());
+                    Log.e(TAG, "" + parent.getChildCount());
                     View view = parent.getChildAt(i);
                     view.animate().alpha(0.0f).setDuration(500);
                     view.setVisibility(View.GONE);
                 }
             }
-        }else{
-            for ( int i = 0; i < parent.getChildCount();  i++ ){
-                    Log.e(TAG, ""+parent.getChildCount());
-                    View view = parent.getChildAt(i);
-                    view.animate().alpha(1.0f).setDuration(500);
-                    view.setVisibility(View.VISIBLE);
+        } else {
+            for (int i = 0; i < parent.getChildCount(); i++) {
+                Log.e(TAG, "" + parent.getChildCount());
+                View view = parent.getChildAt(i);
+                view.animate().alpha(1.0f).setDuration(500);
+                view.setVisibility(View.VISIBLE);
 
             }
         }
 
     }
 
-    boolean addNewLabel(){
-        navigationList.add(navigationList.size()+1,new NavgitationModel(mContext.getResources().getDrawable(R.drawable.ic_bookmark_black_24dp), "Label"));
+    boolean addNewLabel() {
+        navigationList.add(navigationList.size(), new NavgitationModel(mContext.getResources().getDrawable(R.drawable.ic_bookmark_black_24dp), "Label"));
         newViewSwitcher.showNext();
 
         return true;
     }
 
-    boolean validlabel(String labelTitle){
+    boolean validlabel(String labelTitle) {
 
-        return !(labelTitle.equals(navigationList.get(0).getTitle())) || !(labelTitle.equals(navigationList.get(1).getTitle()))
-                || !(labelTitle.equals(navigationList.get(2).getTitle())) || !(labelTitle.equals(navigationList.get(3).getTitle()));
+        return !(labelTitle.equals(navigationList.get(0).getTitle())) && !(labelTitle.equals(navigationList.get(1).getTitle()))
+                && !(labelTitle.equals(navigationList.get(2).getTitle())) && !(labelTitle.equals(navigationList.get(3).getTitle()));
     }
-
 
 
 }
