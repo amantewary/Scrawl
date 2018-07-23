@@ -108,6 +108,8 @@ public class NavigationDrawerAdapter extends ArrayAdapter<NavgitationModel> impl
                     }
 
 
+                }else{
+                    Toast.makeText(mContext,"This label is not editable", Toast.LENGTH_SHORT).show();
                 }
 
                 return false;
@@ -155,6 +157,8 @@ public class NavigationDrawerAdapter extends ArrayAdapter<NavgitationModel> impl
 
     boolean addNewLabel() {
         navigationList.add(navigationList.size(), new NavgitationModel(mContext.getResources().getDrawable(R.drawable.ic_bookmark_black_24dp), "Label"));
+        newLabel.setBackgroundResource(R.drawable.border);
+        newLabel.setText("Label");
         newViewSwitcher.showNext();
 
         return true;
