@@ -12,8 +12,8 @@ import android.widget.Filterable;
 
 import com.example.amantewary.scrawl.Handlers.NoteHandler;
 import com.example.amantewary.scrawl.NoteState.NoteContext;
-import com.example.amantewary.scrawl.NoteState.OwnedNote;
 import com.example.amantewary.scrawl.NoteState.SharedNote;
+import com.example.amantewary.scrawl.NoteState.ViewNote;
 import com.example.amantewary.scrawl.R;
 import com.example.amantewary.scrawl.SessionManager;
 import com.l4digital.fastscroll.FastScroller;
@@ -60,8 +60,8 @@ public class NotesListAdapter extends RecyclerView.Adapter<ViewHolder> implement
                     SharedNote sharedNote = new SharedNote();
                     sharedNote.runViewNoteActivity(noteContext, context, notes.getId());
                 }else {
-                    OwnedNote ownedNote = new OwnedNote();
-                    ownedNote.runViewNoteActivity(noteContext, context, notes.getId());
+                    ViewNote note = new ViewNote();
+                    note.runViewNoteActivity(noteContext, context, notes.getId());
                 }
             }
         });
