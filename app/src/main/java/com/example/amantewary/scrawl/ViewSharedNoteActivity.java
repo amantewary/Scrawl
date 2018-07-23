@@ -1,12 +1,19 @@
 package com.example.amantewary.scrawl;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.View;
 
 import com.example.amantewary.scrawl.BaseActivities.ViewNoteBaseActivity;
+import com.example.amantewary.scrawl.Handlers.NoteHandler;
+import com.example.amantewary.scrawl.Handlers.ShareHandler;
 
 public class ViewSharedNoteActivity extends ViewNoteBaseActivity {
+
+    private ShareHandler shareHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +43,6 @@ public class ViewSharedNoteActivity extends ViewNoteBaseActivity {
     }
 
     public void cancelShare() {
-
     }
 
 }

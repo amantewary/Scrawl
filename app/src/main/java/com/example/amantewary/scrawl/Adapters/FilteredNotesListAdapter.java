@@ -10,7 +10,10 @@ import android.view.ViewGroup;
 
 import com.example.amantewary.scrawl.Handlers.NoteHandler;
 import com.example.amantewary.scrawl.R;
+import com.example.amantewary.scrawl.SessionManager;
 import com.example.amantewary.scrawl.ViewNotesActivity;
+import com.example.amantewary.scrawl.ViewOwnedNoteActivity;
+import com.example.amantewary.scrawl.ViewSharedNoteActivity;
 import com.l4digital.fastscroll.FastScroller;
 
 import java.util.List;
@@ -19,10 +22,12 @@ public class FilteredNotesListAdapter extends RecyclerView.Adapter<ViewHolder> i
 
     private Context context;
     private List<NoteHandler> notesList;
+    private SessionManager sessionManager;
 
     public FilteredNotesListAdapter(Context context, List<NoteHandler> notesList) {
         this.context = context;
         this.notesList = notesList;
+        sessionManager = new SessionManager(context.getApplicationContext());
     }
 
     @NonNull
@@ -39,9 +44,18 @@ public class FilteredNotesListAdapter extends RecyclerView.Adapter<ViewHolder> i
         holder.parentView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, ViewNotesActivity.class);
-                intent.putExtra("noteid", notes.getId());
-                context.startActivity(intent);
+//                Intent intent = new Intent(context, ViewNotesActivity.class);
+//                intent.putExtra("noteid", notes.getId());
+//                context.startActivity(intent);
+                if (!sessionManager.getUserId().equals(notes.getUser_id())){
+                    Intent intent = new Intent(context, ViewSharedNoteActivity.class);
+                    intent.putExtra("noteid", notes.getId());
+                    context.startActivity(intent);
+                }else {
+                    Intent intent = new Intent(context, ViewOwnedNoteActivity.class);
+                    intent.putExtra("noteid", notes.getId());
+                    context.startActivity(intent);
+                }
             }
         });
     }
