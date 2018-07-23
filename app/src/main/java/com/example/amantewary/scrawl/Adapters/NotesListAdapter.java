@@ -1,7 +1,6 @@
 package com.example.amantewary.scrawl.Adapters;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -12,8 +11,11 @@ import android.widget.Filter;
 import android.widget.Filterable;
 
 import com.example.amantewary.scrawl.Handlers.NoteHandler;
+import com.example.amantewary.scrawl.NoteState.NoteContext;
+import com.example.amantewary.scrawl.NoteState.SharedNote;
+import com.example.amantewary.scrawl.NoteState.ViewNote;
 import com.example.amantewary.scrawl.R;
-import com.example.amantewary.scrawl.ViewNotesActivity;
+import com.example.amantewary.scrawl.SessionManager;
 import com.l4digital.fastscroll.FastScroller;
 
 import java.util.ArrayList;
@@ -26,11 +28,13 @@ public class NotesListAdapter extends RecyclerView.Adapter<ViewHolder> implement
     private Context context;
     private List<NoteHandler> notesList;
     private List<NoteHandler> notesListFilter;
+    private SessionManager sessionManager;
 
     public NotesListAdapter(Context context, List<NoteHandler> notesList) {
         this.context = context;
         this.notesList = notesList;
         this.notesListFilter = notesList;
+        sessionManager = new SessionManager(context.getApplicationContext());
     }
 
     @NonNull
@@ -44,12 +48,21 @@ public class NotesListAdapter extends RecyclerView.Adapter<ViewHolder> implement
         final NoteHandler notes = notesListFilter.get(position);
         holder.title.setText(notes.getTitle());
         holder.label.setText(notes.getLabel_name());
+        if (!sessionManager.getUserId().equals(notes.getUser_id())){
+            String shared_from = String.valueOf(notes.getUser_id());
+            holder.shared_by.setText("Shared by other");
+        }
+        final NoteContext noteContext = new NoteContext();
         holder.parentView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, ViewNotesActivity.class);
-                intent.putExtra("noteid", notes.getId());
-                context.startActivity(intent);
+                if (!sessionManager.getUserId().equals(notes.getUser_id())){
+                    SharedNote sharedNote = new SharedNote();
+                    sharedNote.runViewNoteActivity(noteContext, context, notes.getId());
+                }else {
+                    ViewNote note = new ViewNote();
+                    note.runViewNoteActivity(noteContext, context, notes.getId());
+                }
             }
         });
     }

@@ -10,12 +10,14 @@ import com.example.amantewary.scrawl.R;
 public class ViewHolder extends RecyclerView.ViewHolder {
     TextView title;
     TextView label;
+    TextView shared_by;
     View parentView;
 
     public ViewHolder(@NonNull View view) {
         super(view);
         this.title = view.findViewById(R.id.viewNoteTitle);
         this.label = view.findViewById(R.id.viewLabel);
+        this.shared_by = view.findViewById(R.id.tv_sharedby);
         this.parentView = view;
     }
 }

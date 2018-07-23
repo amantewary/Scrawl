@@ -1,216 +1,55 @@
 package com.example.amantewary.scrawl;
 
+import android.app.AlarmManager;
+import android.app.DialogFragment;
+import android.app.PendingIntent;
+import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.BottomSheetBehavior;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.SubtitleCollapsingToolbarLayout;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.amantewary.scrawl.API.IShareAPI;
-import com.example.amantewary.scrawl.Handlers.UserClass;
-import com.example.amantewary.scrawl.API.Notes.INoteResponse;
-
+import com.example.amantewary.scrawl.API.Users.ICheckUser;
+import com.example.amantewary.scrawl.BaseActivities.ViewNoteBaseActivity;
 import com.example.amantewary.scrawl.Handlers.NoteHandler;
 import com.example.amantewary.scrawl.Handlers.ShareHandler;
+import com.example.amantewary.scrawl.Handlers.UserClass;
 
+import java.util.Calendar;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
-import retrofit2.Response;
 
-
-public class ViewNotesActivity extends AppCompatActivity implements View.OnClickListener {
-    private static final String TAG = "ViewNotesActivity";
-
-    private Menu menu;
-    private BottomSheetBehavior mBottomSheetBehavior1;
-    private FloatingActionButton fab;
-    private SubtitleCollapsingToolbarLayout collapsingToolbarLayout;
-    private Integer noteId;
-    private TextView tv_note_content, tv_note_link, tv_note_date, tv_note_status;
-    private Button btn_edit, btn_share, btn_delete, btn_collaborate;
-    private NoteHandler noteHandler;
-    private NotesRequestHandler request;
-    private SessionManager sessionManager;
-
-
-    protected void viewBinder() {
-        btn_edit = findViewById(R.id.btn_edit);
-        btn_collaborate = findViewById(R.id.btn_collaborate);
-        btn_share = findViewById(R.id.btn_share);
-        btn_delete = findViewById(R.id.btn_delete);
-        tv_note_content = findViewById(R.id.viewNotesBody);
-        tv_note_link = findViewById(R.id.viewNotesLink);
-        tv_note_date = findViewById(R.id.viewNoteDate);
-        tv_note_status = findViewById(R.id.viewNoteStatus);
-    }
+public class ViewNotesActivity extends ViewNoteBaseActivity implements TimePickerDialog.OnTimeSetListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_viewnotesscroll);
-        viewBinder();
-        collapsingToolbarLayout = findViewById(R.id.subtitlecollapsingtoolbarlayout);
-        Intent intent = getIntent();
-        Bundle bundle = intent.getExtras();
-        if (bundle != null) {
-            noteId = bundle.getInt("noteid");
-        }
-        collapsingToolbarLayout.setExpandedSubtitleTextAppearance(R.style.TextAppearance_AppCompat_Subhead);
+        TAG = "ViewNotesActivity";
 
-        final Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(mToolbar);
-//        mToolbar.setTitle("My Title");
-        View bottomSheet = findViewById(R.id.menu_sheet);
-        mBottomSheetBehavior1 = BottomSheetBehavior.from(bottomSheet);
-        mBottomSheetBehavior1.setHideable(true);
-        mBottomSheetBehavior1.setPeekHeight(0);
-        mBottomSheetBehavior1.setState(BottomSheetBehavior.STATE_COLLAPSED);
-        final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.cog);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (mBottomSheetBehavior1.getState() != BottomSheetBehavior.STATE_EXPANDED) {
-                    mBottomSheetBehavior1.setState(BottomSheetBehavior.STATE_EXPANDED);
-                } else {
-                    mBottomSheetBehavior1.setState(BottomSheetBehavior.STATE_COLLAPSED);
-                }
-
-            }
-        });
-
-        AppBarLayout mAppBarLayout = findViewById(R.id.app_bar);
-        mAppBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
-            boolean isShow = false;
-            int scrollRange = -1;
-
-            @Override
-            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
-                if (scrollRange == -1) {
-                    scrollRange = appBarLayout.getTotalScrollRange();
-                }
-                if (scrollRange + verticalOffset == 0) {
-                    isShow = true;
-                    showOption(R.id.action_info);
-                } else if (isShow) {
-                    isShow = false;
-                    hideOption(R.id.action_info);
-                }
-            }
-        });
-
-
-
-
-        btn_edit.setOnClickListener(this);
         btn_collaborate.setOnClickListener(this);
         btn_share.setOnClickListener(this);
-        btn_delete.setOnClickListener(this);
-
-        sessionManager = new SessionManager(getApplicationContext());
-
     }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        request = new NotesRequestHandler();
-        try {
-            request.getSingleNote(ViewNotesActivity.this, noteId, new INoteResponse() {
-                @Override
-                public void onSuccess(@NonNull List<NoteHandler> note) {
-                    Log.d(TAG, "onResponse: Received Information: " + note.toString());
-                    setView(note);
-                }
-
-                @Override
-                public void onError(@NonNull Throwable throwable) {
-                    Log.e(TAG, "onFailure: Something Went Wrong: " + throwable.getMessage());
-                }
-            });
-        } catch (Exception e) {
-            Log.e(TAG, "Message: " + e.toString());
-        }
-    }
-
-    public void setView(List<NoteHandler> note) {
-        try {
-            for (NoteHandler n : note) {
-                collapsingToolbarLayout.setTitle(n.getTitle());
-                collapsingToolbarLayout.setSubtitle(n.getLabel_name());
-                tv_note_content.setText(n.getBody());
-                tv_note_link.setText(n.getUrl());
-                tv_note_date.setText(n.getDate());
-                tv_note_status.setText(n.getStatus());
-            }
-        } catch (Exception e) {
-            Log.e(TAG, "Message: " + e.toString());
-        }
-
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        this.menu = menu;
-        getMenuInflater().inflate(R.menu.activity_viewnotesmenu, menu);
-        hideOption(R.id.action_info);
-
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        } else if (id == R.id.action_info) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    private void hideOption(int id) {
-        MenuItem item = menu.findItem(id);
-        item.setVisible(false);
-    }
-
-    private void showOption(int id) {
-        MenuItem item = menu.findItem(id);
-        item.setVisible(true);
-    }
-
 
     @Override
     public void onClick(View view) {
-        //Replace Condition Polymorphism
+        super.onClick(view);
+
         switch (view.getId()) {
+            case R.id.btn_timer:
+                DialogFragment timePicker = new TimePicker();
+                timePicker.show(getFragmentManager(), "time picker");
+                break;
             case R.id.btn_edit:
                 Intent intent = new Intent(ViewNotesActivity.this, EditNotesActivity.class);
                 intent.putExtra("noteid", noteId);
@@ -229,6 +68,7 @@ public class ViewNotesActivity extends AppCompatActivity implements View.OnClick
     }
 
 
+    /////
     private void setShareIntent() {
         try {
             Intent sendIntent = new Intent();
@@ -239,9 +79,38 @@ public class ViewNotesActivity extends AppCompatActivity implements View.OnClick
         } catch (Exception e) {
             Log.e(TAG, "Failed to set Share Intent: " + e.getMessage());
         }
-
     }
 
+    @Override
+    public void onTimeSet(android.widget.TimePicker view, int hourOfDay, int minute) {
+
+        /*
+            Setting the Calendar instance to the time picked
+            using TimePicker Dialog
+         */
+        Calendar calender = Calendar.getInstance();
+        calender.set(Calendar.HOUR_OF_DAY, hourOfDay);
+        calender.set(Calendar.MINUTE, minute);
+        calender.set(Calendar.SECOND, 0);
+        calender.set(Calendar.MILLISECOND, 0);
+        /*
+            Converting Time to millisecond for setting it in AlarmManager &
+            Creating a dynamic requestId using current system time.
+         */
+        long timeInMillis = calender.getTimeInMillis();
+        final int requestId = (int) System.currentTimeMillis();
+        /*
+            Setting an AlarmManager and passing the intent to NotificationReceiver.java
+         */
+        AlarmManager noteAlarm = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(ViewNotesActivity.this, NotificationReceiver.class);
+        intent.putExtra("notetitle", collapsingToolbarLayout.getTitle());
+        PendingIntent reminder = PendingIntent.getBroadcast(this, requestId, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        noteAlarm.setExact(AlarmManager.RTC_WAKEUP, timeInMillis, reminder);
+        Toast.makeText(this, "Reminder Set", Toast.LENGTH_LONG).show();
+    }
+
+    /////
     private void showDialog() {
 
         final EditText et_collaborate_with = new EditText(this);
@@ -272,7 +141,7 @@ public class ViewNotesActivity extends AppCompatActivity implements View.OnClick
                 final String share_from = sessionManager.getUserEmail();
 
                 final Boolean[] result = new Boolean[1];
-                IShareAPI service = RetroFitInstance.getRetrofit().create(IShareAPI.class);
+                ICheckUser service = RetroFitInstance.getRetrofit().create(ICheckUser.class);
                 RequestBody body = RequestBody.create(MediaType.parse("text/plain"), collaborate_with);
                 Map<String, RequestBody> requestBodyMap = new HashMap<>();
                 requestBodyMap.put("email", body);
@@ -324,22 +193,8 @@ public class ViewNotesActivity extends AppCompatActivity implements View.OnClick
     }
 
     private void sendRequest(ShareHandler shareHandler) {
-        IShareAPI shareAPI = RetroFitInstance.getRetrofit().create(IShareAPI.class);
-        Call<ShareHandler> call = shareAPI.createShare(shareHandler);
-        call.enqueue(new Callback<ShareHandler>() {
-            @Override
-            public void onResponse(Call<ShareHandler> call, Response<ShareHandler> response) {
-                Log.d(TAG, "onResponse: Server Response: " + response.toString());
-                Log.d(TAG, "onResponse: Received Information: " + response.body().toString());
-                Toast.makeText(ViewNotesActivity.this, "Shared Successfully", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onFailure(Call<ShareHandler> call, Throwable t) {
-                Log.e(TAG, "onFailure: Something Went Wrong: " + t.getMessage());
-                Toast.makeText(ViewNotesActivity.this, "Something Went Wrong", Toast.LENGTH_SHORT).show();
-            }
-        });
+        SharesRequestHandler sharesRequestHandler = new SharesRequestHandler();
+        sharesRequestHandler.createShare(shareHandler,ViewNotesActivity.this);
     }
 
     public void deleteNote() {
