@@ -76,12 +76,22 @@
 
 
                 <Button
+                    android:id="@+id/btn_timer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_timer_icon"
+                    android:drawablePadding="8dp"
+                    android:layout_marginTop="10dp"
+                    android:theme="@style/NormalButtonTheme"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:gravity="center_vertical|center_horizontal|start"
+                    android:text="Set Reminder" />
+                <Button
                     android:id="@+id/btn_edit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawableStart="@drawable/ic_edit_black_24dp"
                     android:drawablePadding="8dp"
-                    android:layout_marginTop="10dp"
                     android:theme="@style/NormalButtonTheme"
                     android:foreground="?android:attr/selectableItemBackground"
                     android:gravity="center_vertical|center_horizontal|start"

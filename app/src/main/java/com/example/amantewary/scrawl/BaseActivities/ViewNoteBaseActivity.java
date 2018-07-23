@@ -21,7 +21,6 @@ import com.example.amantewary.scrawl.Handlers.NoteHandler;
 import com.example.amantewary.scrawl.NotesRequestHandler;
 import com.example.amantewary.scrawl.R;
 import com.example.amantewary.scrawl.SessionManager;
-import com.example.amantewary.scrawl.ViewNotesActivity;
 
 import java.util.List;
 
@@ -35,13 +34,14 @@ public abstract class ViewNoteBaseActivity extends AppCompatActivity implements 
     protected SubtitleCollapsingToolbarLayout collapsingToolbarLayout;
     protected Integer noteId;
     protected TextView tv_note_content, tv_note_link, tv_note_date, tv_note_status;
-    protected Button btn_edit, btn_share, btn_delete, btn_collaborate;
+    protected Button btn_edit, btn_share, btn_delete, btn_collaborate, btn_timer;
     protected NoteHandler noteHandler;
     protected NotesRequestHandler request;
     protected SessionManager sessionManager;
 
 
     protected void viewBinder() {
+        btn_timer = findViewById(R.id.btn_timer);
         btn_edit = findViewById(R.id.btn_edit);
         btn_collaborate = findViewById(R.id.btn_collaborate);
         btn_share = findViewById(R.id.btn_share);
@@ -106,6 +106,7 @@ public abstract class ViewNoteBaseActivity extends AppCompatActivity implements 
             }
         });
 
+        btn_timer.setOnClickListener(this);
         btn_edit.setOnClickListener(this);
         btn_delete.setOnClickListener(this);
 

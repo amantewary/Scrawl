@@ -9,10 +9,8 @@ import android.view.ViewGroup;
 
 import com.example.amantewary.scrawl.Handlers.NoteHandler;
 import com.example.amantewary.scrawl.NoteState.NoteContext;
-import com.example.amantewary.scrawl.NoteState.OwnedNote;
-import com.example.amantewary.scrawl.NoteState.SharedNote;
+import com.example.amantewary.scrawl.NoteState.ViewNote;
 import com.example.amantewary.scrawl.R;
-import com.example.amantewary.scrawl.SessionManager;
 import com.l4digital.fastscroll.FastScroller;
 
 import java.util.List;
@@ -21,12 +19,10 @@ public class FilteredNotesListAdapter extends RecyclerView.Adapter<ViewHolder> i
 
     private Context context;
     private List<NoteHandler> notesList;
-    private SessionManager sessionManager;
 
     public FilteredNotesListAdapter(Context context, List<NoteHandler> notesList) {
         this.context = context;
         this.notesList = notesList;
-        sessionManager = new SessionManager(context.getApplicationContext());
     }
 
     @NonNull
@@ -40,20 +36,12 @@ public class FilteredNotesListAdapter extends RecyclerView.Adapter<ViewHolder> i
         final NoteHandler notes = notesList.get(position);
         holder.title.setText(notes.getTitle());
         holder.label.setText(notes.getLabel_name());
+        final NoteContext noteContext = new NoteContext();
         holder.parentView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent intent = new Intent(context, ViewNotesActivity.class);
-//                intent.putExtra("noteid", notes.getId());
-//                context.startActivity(intent);
-                NoteContext noteContext = new NoteContext();
-                if (!sessionManager.getUserId().equals(notes.getUser_id())){
-                    SharedNote sharedNote = new SharedNote();
-                    sharedNote.runViewNoteActivity(noteContext, context, notes.getId());
-                }else {
-                    OwnedNote ownedNote = new OwnedNote();
-                    ownedNote.runViewNoteActivity(noteContext, context, notes.getId());
-                }
+                ViewNote note = new ViewNote();
+                note.runViewNoteActivity(noteContext, context, notes.getId());
             }
         });
     }
