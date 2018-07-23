@@ -151,6 +151,8 @@ public class ViewNotesActivity extends AppCompatActivity implements View.OnClick
     }
 
     public void setView(List<NoteHandler> note) {
+
+        //TODO: REFACTORING
         try {
             for (NoteHandler n : note) {
                 collapsingToolbarLayout.setTitle(n.getTitle());
@@ -225,6 +227,7 @@ public class ViewNotesActivity extends AppCompatActivity implements View.OnClick
     }
 
 
+    /////
     private void setShareIntent() {
         try {
             Intent sendIntent = new Intent();
@@ -235,9 +238,9 @@ public class ViewNotesActivity extends AppCompatActivity implements View.OnClick
         } catch (Exception e) {
             Log.e(TAG, "Failed to set Share Intent: " + e.getMessage());
         }
-
     }
 
+    /////
     private void showDialog() {
 
         final EditText et_collaborate_with = new EditText(this);

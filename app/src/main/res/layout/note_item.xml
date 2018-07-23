@@ -15,7 +15,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:orientation="vertical">
-        
+
         <TextView
             android:id="@+id/viewNoteTitle"
             style="@style/Base.TextAppearance.AppCompat.Body1"

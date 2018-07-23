@@ -15,6 +15,8 @@ import com.example.amantewary.scrawl.Handlers.NoteHandler;
 import com.example.amantewary.scrawl.R;
 import com.example.amantewary.scrawl.SessionManager;
 import com.example.amantewary.scrawl.ViewNotesActivity;
+import com.example.amantewary.scrawl.ViewOwnedNoteActivity;
+import com.example.amantewary.scrawl.ViewSharedNoteActivity;
 import com.l4digital.fastscroll.FastScroller;
 
 import java.util.ArrayList;
@@ -54,9 +56,20 @@ public class NotesListAdapter extends RecyclerView.Adapter<ViewHolder> implement
         holder.parentView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, ViewNotesActivity.class);
-                intent.putExtra("noteid", notes.getId());
-                context.startActivity(intent);
+//                Intent intent = new Intent(context, ViewNotesActivity.class);
+//                Intent intent = new Intent(context, ViewOwnedNoteActivity.class);
+//                intent.putExtra("noteid", notes.getId());
+//                context.startActivity(intent);
+
+                if (!sessionManager.getUserId().equals(notes.getUser_id())){
+                    Intent intent = new Intent(context, ViewSharedNoteActivity.class);
+                    intent.putExtra("noteid", notes.getId());
+                    context.startActivity(intent);
+                }else {
+                    Intent intent = new Intent(context, ViewOwnedNoteActivity.class);
+                    intent.putExtra("noteid", notes.getId());
+                    context.startActivity(intent);
+                }
             }
         });
     }
