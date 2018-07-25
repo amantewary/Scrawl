@@ -51,6 +51,7 @@ public class InputHandlerTest {
         assertThat(result, is(false));
     }
 
+
     @Test
     public void inputValidator_correctInput_trueReturned() {
         boolean result = SUT.inputValidator("TITLE","BODY","www.test.com");
