@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".EditNotesActivity">
+
+    <include
+        android:id="@+id/tool_bar"
+        layout="@layout/tool_bar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/et_title_edit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <EditText
+        android:id="@+id/et_title_edit"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/border"
+        android:ems="10"
+        android:hint="@string/input_title_here"
+        android:inputType="textPersonName"
+        android:padding="5dp"
+        android:textColorHint="@color/colorHint"
+        android:textCursorDrawable="@null"
+        app:layout_constraintBottom_toTopOf="@+id/sp_edit_label"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tool_bar" />
+
+
+    <Spinner
+        android:id="@+id/sp_edit_label"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/et_content_edit"
+        app:layout_constraintEnd_toStartOf="@+id/tv_date_edit"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_title_edit" />
+
+    <TextView
+        android:id="@+id/tv_date_edit"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toTopOf="@+id/et_content_edit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/sp_edit_label"
+        app:layout_constraintTop_toBottomOf="@+id/et_title_edit" />
+
+
+    <EditText
+        android:id="@+id/et_content_edit"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/border"
+        android:ems="10"
+        android:gravity="top|start"
+        android:hint="@string/input_note_here"
+        android:inputType="textMultiLine"
+        android:padding="5dp"
+        android:scrollIndicators="right|end"
+        android:scrollbars="vertical"
+        android:textColorHint="@color/colorHint"
+        android:textCursorDrawable="@null"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/et_link_edit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sp_edit_label" />
+
+    <EditText
+        android:id="@+id/et_link_edit"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:autofillHints="Add Link"
+        android:background="@drawable/border"
+        android:ems="10"
+        android:hint="@string/input_link_here"
+        android:inputType="textUri"
+        android:maxLines="1"
+        android:padding="5dp"
+        android:textColorHint="@color/colorHint"
+        android:textCursorDrawable="@null"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_content_edit" />
+
+
+</android.support.constraint.ConstraintLayout>
