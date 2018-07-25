@@ -24,7 +24,7 @@ public class ViewSharedNoteActivity extends ViewNoteBaseActivity implements Time
         super.onCreate(savedInstanceState);
         btn_collaborate.setVisibility(View.GONE);
         btn_share.setVisibility(View.GONE);
-        btn_delete.setText("Cancel collaboration");
+        btn_delete.setVisibility(View.GONE);
     }
 
     @Override
@@ -37,6 +37,7 @@ public class ViewSharedNoteActivity extends ViewNoteBaseActivity implements Time
                 intent.putExtra("noteid", noteId);
                 startActivity(intent);
                 break;
+
             case R.id.btn_delete:
                 cancelShare();
                 break;
@@ -78,7 +79,7 @@ public class ViewSharedNoteActivity extends ViewNoteBaseActivity implements Time
 
 
 
-    public void cancelShare() {
-    }
+
+
 
 }
