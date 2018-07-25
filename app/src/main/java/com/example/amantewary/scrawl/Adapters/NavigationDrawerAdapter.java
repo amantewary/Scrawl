@@ -101,7 +101,7 @@ public class NavigationDrawerAdapter extends ArrayAdapter<NavgitationModel> impl
                         toggleVisibility(currentPosition, parent);
                         navigationList.add(position, new NavgitationModel(navigationList.get(position).getLabelImageView(), labelEdittext.getText().toString()));
                         navigationList.remove(position + 1);
-                        Log.e(TAG, "HEre");
+                        Log.e(TAG, "HEre" + editToggle);
                         labelImage.setImageDrawable(navigationList.get(position).getLabelImageView());
                         labelNameTV.setText(navigationList.get(position).getTitle());
                         viewSwitcher.showPrevious();
@@ -124,10 +124,13 @@ public class NavigationDrawerAdapter extends ArrayAdapter<NavgitationModel> impl
     @Override
     public void update(Observable observable, Object o) {
         if (observable instanceof NavObserver) {
-            if (o.equals(MainActivity.class.getCanonicalName())) {
+            if (o.equals("Label")) {
                 if (!addNewLabel()) {
                     Toast.makeText(mContext, "Oops! something went Wrong", Toast.LENGTH_SHORT).show();
                 }
+            }else if(o.equals("Drawer")){
+                mode = true;
+                editToggle = true;
             }
         }
     }
@@ -159,8 +162,6 @@ public class NavigationDrawerAdapter extends ArrayAdapter<NavgitationModel> impl
         navigationList.add(navigationList.size(), new NavgitationModel(mContext.getResources().getDrawable(R.drawable.ic_bookmark_black_24dp), "Label"));
         newLabel.setBackgroundResource(R.drawable.border);
         newLabel.setText("Label");
-        newViewSwitcher.showNext();
-
         return true;
     }
 

@@ -10,4 +10,9 @@ public class NavObserver extends Observable{
         notifyObservers(className);
     }
 
+    void callForDrawerClose(String classname){
+        setChanged();
+        notifyObservers(classname);
+    }
+
 }
