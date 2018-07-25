@@ -6,7 +6,6 @@ import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.example.amantewary.scrawl.API.IShareAPI;
 import com.example.amantewary.scrawl.API.Shares.ICreateShare;
 import com.example.amantewary.scrawl.API.Shares.IDeleteShare;
 import com.example.amantewary.scrawl.Handlers.ShareHandler;

@@ -8,26 +8,19 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.amantewary.scrawl.API.Users.ICheckUser;
+import com.example.amantewary.scrawl.API.Users.IUserExistResponse;
 import com.example.amantewary.scrawl.BaseActivities.ViewNoteBaseActivity;
 import com.example.amantewary.scrawl.Handlers.NoteHandler;
 import com.example.amantewary.scrawl.Handlers.ShareHandler;
-import com.example.amantewary.scrawl.Handlers.UserClass;
 
 import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Map;
-
-import okhttp3.MediaType;
-import okhttp3.RequestBody;
-import retrofit2.Call;
-import retrofit2.Callback;
 
 public class ViewNotesActivity extends ViewNoteBaseActivity implements TimePickerDialog.OnTimeSetListener{
 
@@ -139,37 +132,28 @@ public class ViewNotesActivity extends ViewNoteBaseActivity implements TimePicke
                 if (sessionManager.checkLogin()) {
                     final String share_from = sessionManager.getUserEmail();
 
-                    final Boolean[] result = new Boolean[1];
-                    ICheckUser service = RetroFitInstance.getRetrofit().create(ICheckUser.class);
-                    RequestBody body = RequestBody.create(MediaType.parse("text/plain"), collaborate_with);
-                    Map<String, RequestBody> requestBodyMap = new HashMap<>();
-                    requestBodyMap.put("email", body);
-                    Call<UserClass> call = service.checkIfUserExists(requestBodyMap);
-                    call.enqueue(new Callback<UserClass>() {
-                        @Override
-                        public void onResponse(Call<UserClass> call, retrofit2.Response<UserClass> response) {
-                            if (response.isSuccessful()) {
-                                if (response.body().getError().equals("false")) {
-                                    result[0] = false;
-                                    String share_to = collaborate_with;
+                    UserRequestHandler userRequestHandler = new UserRequestHandler();
+                    try{
+                        userRequestHandler.checkIfUserExists(this, collaborate_with, new IUserExistResponse() {
+                            @Override
+                            public void onSuccess(@NonNull Boolean ifExist) {
+                                if (ifExist){
                                     Integer note_id = noteId;
-                                    ShareHandler shareHandler = new ShareHandler(share_from, share_to, note_id);
+                                    ShareHandler shareHandler = new ShareHandler(share_from, collaborate_with, note_id);
                                     sendRequest(shareHandler);
-                                } else {
-                                    result[0] = true;
+                                }else {
                                     Toast.makeText(getApplicationContext(), "Sorry. This user does not exist.", Toast.LENGTH_LONG).show();
                                 }
-                            } else {
-                                Log.e(TAG, "" + response.raw());
                             }
-                        }
 
-                        @Override
-                        public void onFailure(Call<UserClass> call, Throwable t) {
-                            t.printStackTrace();
-                            Log.e(TAG, "ifUserExists.onFailure" + t.getMessage());
-                        }
-                    });
+                            @Override
+                            public void onError(@NonNull Throwable throwable) {
+                                Log.e(TAG, "onFailure: Something Went Wrong: " + throwable.getMessage());
+                            }
+                        });
+                    }catch (Exception e) {
+                        Log.e(TAG, "Message: " + e.toString());
+                    }
 
                 } else {
                     new AlertDialog.Builder(this)
