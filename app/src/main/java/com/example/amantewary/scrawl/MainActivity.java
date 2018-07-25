@@ -93,6 +93,7 @@ public class MainActivity extends AppCompatActivity{
                 super.onDrawerClosed(drawerView);
                 Log.e(TAG,"Drawer closed Here");
                 navigationDrawerAdapter.notifyDataSetChanged();
+                navObserver.callForDrawerClose("Drawer");
             }
         };
         drawer.addDrawerListener(toggle);
@@ -119,7 +120,7 @@ public class MainActivity extends AppCompatActivity{
         addLabel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                navObserver.callForAddLabel(MainActivity.class.getCanonicalName());
+                navObserver.callForAddLabel("Label");
                 navigationDrawerAdapter.notifyDataSetChanged();
 
 
