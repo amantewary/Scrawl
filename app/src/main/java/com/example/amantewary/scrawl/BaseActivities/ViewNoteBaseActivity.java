@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.amantewary.scrawl.API.Notes.INoteResponse;
+import com.example.amantewary.scrawl.EmailPasswordValidation;
 import com.example.amantewary.scrawl.Handlers.NoteHandler;
 import com.example.amantewary.scrawl.NotesRequestHandler;
 import com.example.amantewary.scrawl.R;
@@ -38,6 +39,8 @@ public abstract class ViewNoteBaseActivity extends AppCompatActivity implements 
     protected NoteHandler noteHandler;
     protected NotesRequestHandler request;
     protected SessionManager sessionManager;
+    protected EmailPasswordValidation emailPasswordValidation;
+
 
 
     protected void viewBinder() {
@@ -111,6 +114,8 @@ public abstract class ViewNoteBaseActivity extends AppCompatActivity implements 
         btn_delete.setOnClickListener(this);
 
         sessionManager = new SessionManager(getApplicationContext());
+        emailPasswordValidation = new EmailPasswordValidation();
+
     }
 
     @Override
