@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="input_title_here">Input title here…</string>
+    <string name="add_label">Add label</string>
+    <string name="may_22_2018">May 22, 2018</string>
+    <string name="input_note_here">Input note here…</string>
+    <string name="save">Save</string>
+    <string name="input_link_here">Input link here…</string>
+    <string name="login_to_register"><u>New User? Register here</u></string>
+    <string name="register_to_login"><u>Already a user? Sign-in here</u></string>
+</resources>

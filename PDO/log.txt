@@ -1,0 +1,101 @@
+Error PDOException: SQLSTATE[HY000] [1045] Access denied for user 'CSCI5308_19_DEVINT_USER'@'76-11-22-245.eastlink.ca' (using password: NO) in /Applications/XAMPP/xamppfiles/htdocs/PDO/config.php:16
+Stack trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/PDO/config.php(16): PDO->__construct('mysql:host=db-5...', 'CSCI5308_19_DEV...', '', Array)
+#1 /Applications/XAMPP/xamppfiles/htdocs/PDO/Database_Queries.php(9): require('/Applications/X...')
+#2 /Applications/XAMPP/xamppfiles/htdocs/PDO/login.php(9): require_once('/Applications/X...')
+#3 {main}[10-Jul-2018 18:52:46 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined function now() in /Applications/XAMPP/xamppfiles/htdocs/PDO/login.php:40
+Stack trace:
+#0 {main}
+  thrown in /Applications/XAMPP/xamppfiles/htdocs/PDO/login.php on line 40
+[10-Jul-2018 18:53:40 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined method PDO::now() in /Applications/XAMPP/xamppfiles/htdocs/PDO/login.php:40
+Stack trace:
+#0 {main}
+  thrown in /Applications/XAMPP/xamppfiles/htdocs/PDO/login.php on line 40
+[10-Jul-2018 18:57:23 Europe/Berlin] PHP Notice:  Array to string conversion in /Applications/XAMPP/xamppfiles/htdocs/PDO/login.php on line 40
+Error PDOException: SQLSTATE[HY000] [1045] Access denied for user ''@'T8A51.WPA.Dal.Ca' (using password: YES) in /Applications/XAMPP/xamppfiles/htdocs/PDO/config.php:15
+Stack trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/PDO/config.php(15): PDO->__construct('mysql:host=db-5...', '', 'CSCI5308_19_DEV...', Array)
+#1 /Applications/XAMPP/xamppfiles/htdocs/PDO/AllTestCases.php(10): require('/Applications/X...')
+#2 /Applications/XAMPP/xamppfiles/htdocs/PDO/vendor/phpunit/phpunit/src/Util/FileLoader.php(57): include_once('/Applications/X...')
+#3 /Applications/XAMPP/xamppfiles/htdocs/PDO/vendor/phpunit/phpunit/src/Util/FileLoader.php(45): PHPUnit\Util\FileLoader::load('/Applications/X...')
+#4 /Applications/XAMPP/xamppfiles/htdocs/PDO/vendor/phpunit/phpunit/src/Runner/StandardTestSuiteLoader.php(39): PHPUnit\Util\FileLoader::checkAndLoad('/Applications/X...')
+#5 /Applications/XAMPP/xamppfiles/htdocs/PDO/vendor/phpunit/phpunit/src/Runner/BaseTestRunner.php(130): PHPUnit\Runner\StandardTestSuiteLoader->load('AllTestCases', '/Applications/X...')
+#6 /Applications/XAMPP/xamppfiles/htdocs/PDO/vendor/phpunit/phpunit/src/Runner/BaseTestRunner.php(78): PHPUnit\Runner\BaseTestRunner->loadSuiteClass('AllTestCases', '/Applications/X...')
+#7 /Applications/XAMPP/xamppfiles/htdocs/PDO/vendor/phpunit/phpunit/src/TextUI/Command.php(176): PHPUnit\Runner\BaseTestRunner->getTest('AllTestCases', '/Applications/X...', Array)
+#8 /Applications/XAMPP/xamppfiles/htdocs/PDO/vendor/phpunit/phpunit/src/TextUI/Command.php(155): PHPUnit\TextUI\Command->run(Array, true)
+#9 /Applications/XAMPP/xamppfiles/htdocs/PDO/vendor/phpunit/phpunit/phpunit(53): PHPUnit\TextUI\Command::main()
+#10 {main}[12-Jul-2018 15:15:33 Europe/Berlin] PHP Notice:  Array to string conversion in /Applications/XAMPP/xamppfiles/htdocs/PDO/Database_Queries.php on line 98
+Connection Opened at Array
+[12-Jul-2018 15:15:33 Europe/Berlin] PHP Notice:  Array to string conversion in /Applications/XAMPP/xamppfiles/htdocs/PDO/Database_Queries.php on line 140
+Connection Closed at Array[12-Jul-2018 15:15:33 Europe/Berlin] PHP Notice:  Array to string conversion in /Applications/XAMPP/xamppfiles/htdocs/PDO/Database_Queries.php on line 68
+Connection Opened at Array
+[12-Jul-2018 15:15:33 Europe/Berlin] PHP Notice:  Array to string conversion in /Applications/XAMPP/xamppfiles/htdocs/PDO/Database_Queries.php on line 140
+Connection Closed at Array[12-Jul-2018 15:15:33 Europe/Berlin] PHP Notice:  Array to string conversion in /Applications/XAMPP/xamppfiles/htdocs/PDO/Database_Queries.php on line 140
+Connection Closed at Array[12-Jul-2018 15:15:33 Europe/Berlin] PHP Notice:  Array to string conversion in /Applications/XAMPP/xamppfiles/htdocs/PDO/login.php on line 41
+[12-Jul-2018 15:15:58 Europe/Berlin] PHP Notice:  Array to string conversion in /Applications/XAMPP/xamppfiles/htdocs/PDO/Database_Queries.php on line 98
+Connection Opened at Array
+[12-Jul-2018 15:15:58 Europe/Berlin] PHP Notice:  Array to string conversion in /Applications/XAMPP/xamppfiles/htdocs/PDO/Database_Queries.php on line 140
+Connection Closed at Array[12-Jul-2018 15:15:58 Europe/Berlin] PHP Notice:  Array to string conversion in /Applications/XAMPP/xamppfiles/htdocs/PDO/Database_Queries.php on line 68
+Connection Opened at Array
+[12-Jul-2018 15:15:58 Europe/Berlin] PHP Notice:  Array to string conversion in /Applications/XAMPP/xamppfiles/htdocs/PDO/Database_Queries.php on line 140
+Connection Closed at Array[12-Jul-2018 15:15:58 Europe/Berlin] PHP Notice:  Array to string conversion in /Applications/XAMPP/xamppfiles/htdocs/PDO/Database_Queries.php on line 140
+Connection Closed at Array[12-Jul-2018 15:15:58 Europe/Berlin] PHP Notice:  Array to string conversion in /Applications/XAMPP/xamppfiles/htdocs/PDO/login.php on line 41
+Connection Opened at 1531401679
+Connection Closed at 1531401679[12-Jul-2018 15:21:19 Europe/Berlin] PHP Notice:  Array to string conversion in /Applications/XAMPP/xamppfiles/htdocs/PDO/Database_Queries.php on line 68
+Connection Opened at Array
+Connection Closed at 1531401679Connection Closed at 1531401679[12-Jul-2018 15:21:19 Europe/Berlin] PHP Notice:  Array to string conversion in /Applications/XAMPP/xamppfiles/htdocs/PDO/login.php on line 41
+Connection Opened at 1531401729
+Connection Closed at 1531401729Connection Opened at 1531401729
+Connection Closed at 1531401729Connection Closed at 1531401729[12-Jul-2018 15:22:09 Europe/Berlin] PHP Notice:  Array to string conversion in /Applications/XAMPP/xamppfiles/htdocs/PDO/login.php on line 41
+Connection Opened at 1531401882
+Connection Closed at 1531401882Connection Opened at 1531401882
+Connection Closed at 1531401882Connection Closed at 1531401882Connection Opened at 1531401985
+Connection Opened at 1531401985
+Connection Closed at 1531401985Connection Opened at 1531402123
+Connection Opened at 1531402123
+Connection Closed at 1531402123Connection Opened at 1531402292
+Connection Opened at 1531402292
+Connection Closed at 1531402292Connection Opened at 1531402421
+Connection Opened at 1531402421
+Connection Closed at 1531402421Connection Opened at 12-07-2018 (Thu) 15:35:19
+Connection Opened at 12-07-2018 (Thu) 15:35:19
+
+Connection Closed at 1531402519
+Connection Opened at 12-07-2018 (Thu) 15:36:14
+
+Connection Opened at 12-07-2018 (Thu) 15:36:14
+Connection Closed at 1531402574
+Connection Opened at 13-07-2018 (Fri) 03:58:37 Request From ::1 
+
+Connection Opened at 13-07-2018 (Fri) 03:58:37
+Connection Closed at 13-07-2018 (Fri) 03:58:37
+Connection Opened at 13-07-2018 (Fri) 03:59:11 Request From ::1 
+
+Connection Opened at 13-07-2018 (Fri) 03:59:11
+Connection Closed at 13-07-2018 (Fri) 03:59:11
+Connection Opened at 13-07-2018 (Fri) 04:01:43 Request From ::1 
+Connection Closed at 13-07-2018 (Fri) 04:01:43
+Connection Opened at 13-07-2018 (Fri) 04:03:59 Request From ::1 
+Connection Closed at 13-07-2018 (Fri) 04:03:59
+
+Connection Opened at 18-07-2018 (Wed) 01:13:35
+
+Connection Opened at 18-07-2018 (Wed) 01:13:35 Request From ::1 
+
+Connection Opened at 18-07-2018 (Wed) 01:13:35
+
+Connection Closed at 18-07-2018 (Wed) 01:13:35
+
+Connection Opened at 18-07-2018 (Wed) 01:15:11
+
+Connection Opened at 18-07-2018 (Wed) 01:15:11 Request From ::1 
+
+Connection Closed at 18-07-2018 (Wed) 01:15:11
+
+Connection Opened at 18-07-2018 (Wed) 01:15:24
+
+Connection Opened at 18-07-2018 (Wed) 01:15:47
+
+Connection Opened at 18-07-2018 (Wed) 01:15:47
+
+Connection Closed at 18-07-2018 (Wed) 01:15:47
