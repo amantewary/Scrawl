@@ -31,11 +31,12 @@ import retrofit2.Callback;
 
 public class ViewNotesActivity extends ViewNoteBaseActivity implements TimePickerDialog.OnTimeSetListener {
 
+    private static final String TAG = "ViewNotesActivity";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        TAG = "ViewNotesActivity";
 
         btn_collaborate.setOnClickListener(this);
         btn_share.setOnClickListener(this);
