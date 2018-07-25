@@ -31,11 +31,12 @@ import retrofit2.Callback;
 
 public class ViewNotesActivity extends ViewNoteBaseActivity implements TimePickerDialog.OnTimeSetListener {
 
+    private static final String TAG = "ViewNotesActivity";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        TAG = "ViewNotesActivity";
 
         btn_collaborate.setOnClickListener(this);
         btn_share.setOnClickListener(this);
@@ -67,8 +68,6 @@ public class ViewNotesActivity extends ViewNoteBaseActivity implements TimePicke
         }
     }
 
-
-    /////
     private void setShareIntent() {
         try {
             Intent sendIntent = new Intent();
@@ -110,7 +109,6 @@ public class ViewNotesActivity extends ViewNoteBaseActivity implements TimePicke
         Toast.makeText(this, "Reminder Set", Toast.LENGTH_LONG).show();
     }
 
-    /////
     private void showDialog() {
 
         final EditText et_collaborate_with = new EditText(this);
@@ -210,6 +208,7 @@ public class ViewNotesActivity extends ViewNoteBaseActivity implements TimePicke
                     noteHandler = new NoteHandler(noteId);
                     request = new NotesRequestHandler();
                     request.deleteNote(noteHandler, ViewNotesActivity.this);
+
                 }
             });
             deleteAlert.setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {

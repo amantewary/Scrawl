@@ -48,9 +48,10 @@ public class NotesListAdapter extends RecyclerView.Adapter<ViewHolder> implement
         final NoteHandler notes = notesListFilter.get(position);
         holder.title.setText(notes.getTitle());
         holder.label.setText(notes.getLabel_name());
-        if (!sessionManager.getUserId().equals(notes.getUser_id())){
-            String shared_from = String.valueOf(notes.getUser_id());
-            holder.shared_by.setText("Shared by other");
+        if (sessionManager.getUserId().equals(notes.getUser_id())){
+            holder.shared_by.setText("");
+        }else {
+            holder.shared_by.setText("shared by other");
         }
         final NoteContext noteContext = new NoteContext();
         holder.parentView.setOnClickListener(new View.OnClickListener() {
@@ -87,7 +88,7 @@ public class NotesListAdapter extends RecyclerView.Adapter<ViewHolder> implement
             @Override
             protected FilterResults performFiltering(CharSequence charSequence) {
                 String charString = charSequence.toString();
-                Log.e("Notes", charString);
+                Log.e("NotesListAdapter.Notes:", charString);
 
                 if (charString.isEmpty()) {
                     notesListFilter = notesList;
