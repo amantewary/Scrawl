@@ -129,64 +129,66 @@ public class ViewNotesActivity extends ViewNoteBaseActivity implements TimePicke
             Log.e(TAG, "Failed to show Dialog " + e.getMessage());
         }
 
-
     }
 
     public void setCollaborateInfo(final String collaborate_with) {
+        if (!emailPasswordValidation.isEmailValid(collaborate_with)){
+            Toast.makeText(this, "Please input a valid email address.", Toast.LENGTH_LONG).show();
+        }else {
+            try {
+                if (sessionManager.checkLogin()) {
+                    final String share_from = sessionManager.getUserEmail();
 
-        try {
-            if (sessionManager.checkLogin()) {
-                final String share_from = sessionManager.getUserEmail();
-
-                final Boolean[] result = new Boolean[1];
-                ICheckUser service = RetroFitInstance.getRetrofit().create(ICheckUser.class);
-                RequestBody body = RequestBody.create(MediaType.parse("text/plain"), collaborate_with);
-                Map<String, RequestBody> requestBodyMap = new HashMap<>();
-                requestBodyMap.put("email", body);
-                Call<UserClass> call = service.checkIfUserExists(requestBodyMap);
-                call.enqueue(new Callback<UserClass>() {
-                    @Override
-                    public void onResponse(Call<UserClass> call, retrofit2.Response<UserClass> response) {
-                        if (response.isSuccessful()) {
-                            if (response.body().getError().equals("false")) {
-                                result[0] = false;
-                                String share_to = collaborate_with;
-                                Integer note_id = noteId;
-                                ShareHandler shareHandler = new ShareHandler(share_from, share_to, note_id);
-                                sendRequest(shareHandler);
+                    final Boolean[] result = new Boolean[1];
+                    ICheckUser service = RetroFitInstance.getRetrofit().create(ICheckUser.class);
+                    RequestBody body = RequestBody.create(MediaType.parse("text/plain"), collaborate_with);
+                    Map<String, RequestBody> requestBodyMap = new HashMap<>();
+                    requestBodyMap.put("email", body);
+                    Call<UserClass> call = service.checkIfUserExists(requestBodyMap);
+                    call.enqueue(new Callback<UserClass>() {
+                        @Override
+                        public void onResponse(Call<UserClass> call, retrofit2.Response<UserClass> response) {
+                            if (response.isSuccessful()) {
+                                if (response.body().getError().equals("false")) {
+                                    result[0] = false;
+                                    String share_to = collaborate_with;
+                                    Integer note_id = noteId;
+                                    ShareHandler shareHandler = new ShareHandler(share_from, share_to, note_id);
+                                    sendRequest(shareHandler);
+                                } else {
+                                    result[0] = true;
+                                    Toast.makeText(getApplicationContext(), "Sorry. This user does not exist.", Toast.LENGTH_LONG).show();
+                                }
                             } else {
-                                result[0] = true;
-                                Toast.makeText(getApplicationContext(), "Sorry. This user does not exist.", Toast.LENGTH_LONG).show();
+                                Log.e(TAG, "" + response.raw());
                             }
-                        } else {
-                            Log.e(TAG, "" + response.raw());
                         }
-                    }
 
-                    @Override
-                    public void onFailure(Call<UserClass> call, Throwable t) {
-                        t.printStackTrace();
-                        Log.e(TAG, "ifUserExists.onFailure" + t.getMessage());
-                    }
-                });
+                        @Override
+                        public void onFailure(Call<UserClass> call, Throwable t) {
+                            t.printStackTrace();
+                            Log.e(TAG, "ifUserExists.onFailure" + t.getMessage());
+                        }
+                    });
 
-            } else {
-                new AlertDialog.Builder(this)
-                        .setTitle("You have not logged in")
-                        .setMessage("You have not logged in")
-                        .setPositiveButton("Login", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                Intent intent = new Intent(ViewNotesActivity.this, LoginActivity.class);
-                                startActivity(intent);
-                            }
-                        })
-                        .setNegativeButton("Cancel", null)
-                        .show();
+                } else {
+                    new AlertDialog.Builder(this)
+                            .setTitle("You have not logged in")
+                            .setMessage("You have not logged in")
+                            .setPositiveButton("Login", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Intent intent = new Intent(ViewNotesActivity.this, LoginActivity.class);
+                                    startActivity(intent);
+                                }
+                            })
+                            .setNegativeButton("Cancel", null)
+                            .show();
+                }
+
+            } catch (Exception e) {
+                Log.e(TAG, "Message: " + e.toString());
             }
-
-        } catch (Exception e) {
-            Log.e(TAG, "Message: " + e.toString());
         }
     }
 
