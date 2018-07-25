@@ -67,8 +67,6 @@ public class ViewNotesActivity extends ViewNoteBaseActivity implements TimePicke
         }
     }
 
-
-    /////
     private void setShareIntent() {
         try {
             Intent sendIntent = new Intent();
@@ -110,7 +108,6 @@ public class ViewNotesActivity extends ViewNoteBaseActivity implements TimePicke
         Toast.makeText(this, "Reminder Set", Toast.LENGTH_LONG).show();
     }
 
-    /////
     private void showDialog() {
 
         final EditText et_collaborate_with = new EditText(this);
