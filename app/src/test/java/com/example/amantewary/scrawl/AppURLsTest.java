@@ -14,7 +14,7 @@ public class AppURLsTest {
 
     @Test
     public void getCorrectAppURL(){
-        assertSame(appURLs.baseUrl, "https://web.cs.dal.ca/");
+        assertSame(AppURLs.getInstance().baseUrl, "https://web.cs.dal.ca/");
     }
 
 }

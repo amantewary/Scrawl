@@ -14,7 +14,7 @@ public class RetroFitInstance {
         // Lazy initialization
         if (retrofit == null) {
             retrofit = new retrofit2.Retrofit.Builder()
-                    .baseUrl(AppURLs.baseUrl)
+                    .baseUrl(AppURLs.getInstance().getBaseUrl())
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
         }
