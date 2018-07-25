@@ -13,7 +13,6 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -39,7 +38,6 @@ import com.l4digital.fastscroll.FastScrollRecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Observable;
 
 public class MainActivity extends AppCompatActivity{
 
@@ -154,8 +152,8 @@ public class MainActivity extends AppCompatActivity{
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
+    protected void onStart() {
+        super.onStart();
         populateNotesList();
 
         // listening to search query text change
@@ -181,20 +179,25 @@ public class MainActivity extends AppCompatActivity{
         String cur_usr_email = sessionManager.getUserEmail();
         Integer cur_usr_id = sessionManager.getUserId();
 
+
         NotesRequestHandler request = new NotesRequestHandler();
         try {
             request.getAllNotesByUserId(MainActivity.this, cur_usr_email, cur_usr_id, new INoteResponse() {
                 @Override
                 public void onSuccess(@NonNull List<NoteHandler> notes) {
+                    List<NoteHandler> notesList = new ArrayList<>();
+                    notesList.clear();
                     Log.d(TAG, "getID:" + String.valueOf(notes.get(0).getId()));
                     if (notes.get(0).getId() != null) {
                         Log.d(TAG, "populateNotesList().onResponse: Received Information: " + notes.toString());
-                        notesAdapter = new NotesListAdapter(MainActivity.this, notes);
+                        notesList = notes;
+                        notesAdapter = new NotesListAdapter(MainActivity.this, notesList);
                         LinearLayoutManager linearLayout = new LinearLayoutManager(MainActivity.this);
                         linearLayout.setReverseLayout(true);
                         linearLayout.setStackFromEnd(true);
                         notesListView.setLayoutManager(linearLayout);
                         notesListView.setAdapter(notesAdapter);
+                        notesAdapter.notifyDataSetChanged();
                     }
                 }
 

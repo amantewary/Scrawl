@@ -39,7 +39,6 @@ public class ViewSharedNoteActivity extends ViewNoteBaseActivity implements Time
                 break;
 
             case R.id.btn_delete:
-                cancelShare();
                 break;
             case R.id.btn_timer:
                 DialogFragment timePicker = new TimePicker();

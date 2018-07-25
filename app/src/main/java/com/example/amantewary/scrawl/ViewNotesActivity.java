@@ -208,6 +208,7 @@ public class ViewNotesActivity extends ViewNoteBaseActivity implements TimePicke
                     noteHandler = new NoteHandler(noteId);
                     request = new NotesRequestHandler();
                     request.deleteNote(noteHandler, ViewNotesActivity.this);
+
                 }
             });
             deleteAlert.setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
