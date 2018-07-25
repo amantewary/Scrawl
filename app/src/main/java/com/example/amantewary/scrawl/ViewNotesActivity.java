@@ -29,7 +29,7 @@ import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 
-public class ViewNotesActivity extends ViewNoteBaseActivity implements TimePickerDialog.OnTimeSetListener {
+public class ViewNotesActivity extends ViewNoteBaseActivity implements TimePickerDialog.OnTimeSetListener{
 
     private static final String TAG = "ViewNotesActivity";
 
