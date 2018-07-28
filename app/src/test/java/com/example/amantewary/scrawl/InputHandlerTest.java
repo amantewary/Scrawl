@@ -8,26 +8,29 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
+import org.robolectric.annotation.Config;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.core.IsNull.nullValue;
 import static org.junit.Assert.assertThat;
 
 @RunWith(RobolectricTestRunner.class)
+@Config(constants = BuildConfig.class)
 public class InputHandlerTest {
 
-    InputHandler SUT;
-    Activity activity;
-    EditText testTitle;
-    EditText testBody;
-    EditText testUrl;
+    private InputHandler SUT;
+    private Activity activity;
+    private EditText testTitle;
+    private EditText testBody;
+    private EditText testUrl;
 
     @Before
-    public void setUp() throws Exception {
-        activity = Robolectric.setupActivity(AddNotesActivity.class);;
+    public void setUp() {
+        activity = Robolectric.setupActivity(AddNotesActivity.class);
         SUT = new InputHandler(activity);
-        testTitle = (EditText) activity.findViewById(R.id.et_title);
-        testBody = (EditText) activity.findViewById(R.id.et_content);
-        testUrl = (EditText) activity.findViewById(R.id.et_link);
+        testTitle = activity.findViewById(R.id.et_title);
+        testBody = activity.findViewById(R.id.et_content);
+        testUrl = activity.findViewById(R.id.et_link);
     }
 
     @Test
@@ -87,12 +90,69 @@ public class InputHandlerTest {
 
     @Test
     public void inputCensor_badWordsString_emptyStringReturned() {
-        String result = SUT.inputCensor("bitch");
-        assertThat(result, is("*****"));
+        String result = SUT.inputCensor("hell");
+        assertThat(result, is("****"));
     }
 
     @Test
-    public void inputErrorHandler() {
-//        SUT.inputErrorHandling(EditText);
+    public void inputErrorHandler_validInput_noErrorReturned() throws NullPointerException{
+        testTitle.setText("TITLE");
+        testBody.setText("BODY");
+        testUrl.setText("www.test.com");
+        SUT.inputErrorHandling(testTitle, testBody, testUrl);
+        assertThat(testTitle.getError(), is(nullValue()));
+        assertThat(testBody.getError(), is(nullValue()));
+        assertThat(testUrl.getError(),is(nullValue()));
+    }
+
+    @Test
+    public void inputErrorHandler_emptyString_errorReturned() {
+        testTitle.setText("");
+        testBody.setText("");
+        testUrl.setText("");
+        SUT.inputErrorHandling(testTitle, testBody, testUrl);
+        String result = testTitle.getError().toString();
+        assertThat(result, is("Enter Note Title"));
+    }
+
+    @Test
+    public void inputErrorHandler_emptyBodyAndUrl_errorReturned() {
+        testTitle.setText("TITLE");
+        testBody.setText("");
+        testUrl.setText("");
+        SUT.inputErrorHandling(testTitle, testBody, testUrl);
+        String result = testBody.getError().toString();
+        assertThat(result, is("Enter Note Body"));
+    }
+
+    @Test
+    public void inputErrorHandler_emptyUrl_errorReturned() {
+        testTitle.setText("TITLE");
+        testBody.setText("BODY");
+        testUrl.setText("");
+        SUT.inputErrorHandling(testTitle, testBody, testUrl);
+        String result = testUrl.getError().toString();
+        assertThat(result, is("Please Enter Valid URL"));
+    }
+
+    @Test
+    public void inputErrorHandler_invalidPatternUrl_errorReturned() {
+        testTitle.setText("TITLE");
+        testBody.setText("BODY");
+        testUrl.setText("URL");
+        SUT.inputErrorHandling(testTitle, testBody, testUrl);
+        String result = testUrl.getError().toString();
+        assertThat(result, is("Please Enter Valid URL"));
+    }
+
+    @Test
+    public void inputErrorHandler_singleCharacter_sameCharacterReturned() throws NullPointerException{
+        testTitle.setText("a");
+        testBody.setText("a");
+        testUrl.setText("a");
+        SUT.inputErrorHandling(testTitle, testBody, testUrl);
+        assertThat(testTitle.getError(), is(nullValue()));
+        assertThat(testBody.getError(), is(nullValue()));
+        assertThat(testUrl.getError().toString(),is("Please Enter Valid URL"));
     }
 }
