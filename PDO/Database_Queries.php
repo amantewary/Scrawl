@@ -63,7 +63,7 @@ VALUES (?, ?, ?, ?, now(), now(), ?)") or die(mysql_error());
             $stmt = $pdo->prepare("SELECT id,username,email_address from user where email_address=?");
             $stmt->execute(array($email));
             $rows = $stmt->fetch(PDO::FETCH_ASSOC);
->>>>>>> devint
+
 
             return $rows;
         }

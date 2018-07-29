@@ -8,6 +8,7 @@ require  'HttpLogger.php';
     private $table = 'labels';
     public $id;
     public $name;
+    public $user_id;
     public $created_at;
     public function __construct($db) {
       $this->con = $db;
