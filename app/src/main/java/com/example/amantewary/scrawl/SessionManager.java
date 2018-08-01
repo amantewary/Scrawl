@@ -17,16 +17,15 @@ import java.util.HashMap;
 
 public class SessionManager {
 
-    public static final String KEY_NAME = "username";
-    public static final String KEY_EMAIL = "email";
-    public static final String KEY_USERID = "userid";
+    private static final String KEY_NAME = "username";
+    private static final String KEY_EMAIL = "email";
+    private static final String KEY_USERID = "userid";
     private static final String Shared_Pref_Name = "Scrawl";
     private static final String IS_LOGIN = "Is_Login";
     SharedPreferences pref;
     SharedPreferences.Editor editor;
     Context context;
     int PRIVATE_MODE = 0;
-
     UserClass userClass;
 
 

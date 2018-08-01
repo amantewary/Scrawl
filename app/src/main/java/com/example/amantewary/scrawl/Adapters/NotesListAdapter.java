@@ -16,13 +16,12 @@ import com.example.amantewary.scrawl.NoteState.SharedNote;
 import com.example.amantewary.scrawl.NoteState.ViewNote;
 import com.example.amantewary.scrawl.R;
 import com.example.amantewary.scrawl.SessionManager;
-import com.l4digital.fastscroll.FastScroller;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class NotesListAdapter extends RecyclerView.Adapter<ViewHolder> implements FastScroller.SectionIndexer, Filterable {
+public class NotesListAdapter extends RecyclerView.Adapter<ViewHolder> implements Filterable {
 
 
     private Context context;
@@ -73,14 +72,6 @@ public class NotesListAdapter extends RecyclerView.Adapter<ViewHolder> implement
         return this.notesListFilter.size();
     }
 
-    @Override
-    public String getSectionText(int position) {
-        if (notesList.get(position).getTitle().equals("") || notesList.get(position).getTitle() == null) {
-            return "a";
-        } else {
-            return String.valueOf(notesList.get(position).getTitle().charAt(0));
-        }
-    }
 
     @Override
     public Filter getFilter() {
