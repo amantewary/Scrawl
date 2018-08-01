@@ -39,7 +39,7 @@ public class NavigationDrawerAdapter extends ArrayAdapter<NavgitationModel> impl
     private int currentPosition;
     LabelRequestHandler labelRequestHandler;
     EditText newLabel;
-    String oldName="";
+    String oldName = "";
 
     ViewSwitcher newViewSwitcher;
     SessionManager sessionManager;
@@ -72,6 +72,18 @@ public class NavigationDrawerAdapter extends ArrayAdapter<NavgitationModel> impl
         labelNameTV.setText(navigationList.get(position).getTitle());
         labelImage.setImageDrawable(navigationList.get(position).getLabelImageView());
 
+
+        deleteLabel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mode = true;
+                editToggle = true;
+                viewSwitcher.showPrevious();
+                labelRequestHandler.deleteLabel(new LabelHandler(navigationList.get(position).getTitle(), sessionManager.getUserId()), mContext);
+                navigationList.remove(position);
+
+            }
+        });
         newLabel = labelEdittext;
         this.newViewSwitcher = viewSwitcher;
         layout.setOnClickListener(new View.OnClickListener() {
@@ -120,8 +132,8 @@ public class NavigationDrawerAdapter extends ArrayAdapter<NavgitationModel> impl
                     }
 
 
-                }else{
-                    Toast.makeText(mContext,"This label is not editable", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(mContext, "This label is not editable", Toast.LENGTH_SHORT).show();
                 }
 
                 return false;
@@ -140,7 +152,7 @@ public class NavigationDrawerAdapter extends ArrayAdapter<NavgitationModel> impl
                 if (!addNewLabel()) {
                     Toast.makeText(mContext, "Oops! something went Wrong", Toast.LENGTH_SHORT).show();
                 }
-            }else if(o.equals("Drawer")){
+            } else if (o.equals("Drawer")) {
                 mode = true;
                 editToggle = true;
             }
