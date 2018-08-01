@@ -15,6 +15,12 @@ public class LabelHandler {
     @SerializedName("user_id")
     @Expose
     Integer user_id;
+    @SerializedName("old_name")
+    @Expose
+    String old_name;
+    @SerializedName("new_name")
+    @Expose
+    String new_name;
 
 
     ArrayList<String> labelHandlers;
@@ -33,6 +39,28 @@ public class LabelHandler {
     public LabelHandler(String name, Integer user_id) {
         this.name = name;
         this.user_id = user_id;
+    }
+
+    public LabelHandler(String new_name, Integer user_id, String old_name) {
+        this.user_id = user_id;
+        this.old_name = old_name;
+        this.new_name = new_name;
+    }
+
+    public String getOld_name() {
+        return old_name;
+    }
+
+    public void setOld_name(String old_name) {
+        this.old_name = old_name;
+    }
+
+    public String getNew_name() {
+        return new_name;
+    }
+
+    public void setNew_name(String new_name) {
+        this.new_name = new_name;
     }
 
     public String getName() {
