@@ -30,9 +30,8 @@ public class LabelHandler {
         this.name = name;
     }
 
-    public LabelHandler(String name, Integer id, Integer user_id) {
+    public LabelHandler(String name, Integer user_id) {
         this.name = name;
-        this.id = id;
         this.user_id = user_id;
     }
 

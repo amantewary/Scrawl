@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-
 import com.example.amantewary.scrawl.API.Users.IRegisterUser;
 import com.example.amantewary.scrawl.Handlers.UserClass;
 
