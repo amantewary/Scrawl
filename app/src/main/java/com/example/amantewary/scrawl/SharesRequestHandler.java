@@ -10,17 +10,13 @@ import com.example.amantewary.scrawl.API.Shares.ICreateShare;
 import com.example.amantewary.scrawl.API.Shares.IDeleteShare;
 import com.example.amantewary.scrawl.Handlers.ShareHandler;
 
-import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class SharesRequestHandler {
     private static final String TAG = "SharesRequestHandler";
-    private List<ShareHandler> shares;
     private ProgressDialog dialog;
-    private SessionManager sessionManager;
 
     public void createShare(ShareHandler shareHandler, final Context context) {
         dialog = new ProgressDialog(context);
