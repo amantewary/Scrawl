@@ -39,14 +39,18 @@ public class NavigationDrawerAdapter extends ArrayAdapter<NavgitationModel> impl
     private int currentPosition;
     LabelRequestHandler labelRequestHandler;
     EditText newLabel;
+    String oldName="";
+
     ViewSwitcher newViewSwitcher;
     SessionManager sessionManager;
 
     public NavigationDrawerAdapter(ArrayList<NavgitationModel> list, Context context, NavObserver navObserver) {
         super(context, R.layout.nav_item, list);
         Log.e(TAG, "Here created Observer");
+        labelRequestHandler = new LabelRequestHandler();
         this.navigationList = list;
         this.mContext = context;
+        sessionManager = new SessionManager(context);
         navObserver.addObserver(this);
 
 
@@ -91,6 +95,7 @@ public class NavigationDrawerAdapter extends ArrayAdapter<NavgitationModel> impl
                     if (editToggle) {
 
                         String label = navigationList.get(position).getTitle();
+                        oldName = label;
                         mode = false;
                         editToggle = false;
                         currentPosition = position;
@@ -107,10 +112,8 @@ public class NavigationDrawerAdapter extends ArrayAdapter<NavgitationModel> impl
                         toggleVisibility(currentPosition, parent);
                         navigationList.add(position, new NavgitationModel(navigationList.get(position).getLabelImageView(), labelEdittext.getText().toString()));
                         navigationList.remove(position + 1);
-                        Log.e(TAG, "HEre" + editToggle);
-                        labelRequestHandler = new LabelRequestHandler();
-                        sessionManager = new SessionManager(mContext);
-                        labelRequestHandler.createLabel(new LabelHandler(navigationList.get(position).getTitle(), sessionManager.getUserId()), mContext);
+                        Log.e(TAG, "HEre" + oldName);
+                        labelRequestHandler.editLabel(new LabelHandler(navigationList.get(position).getTitle(), sessionManager.getUserId(), oldName), mContext);
                         labelImage.setImageDrawable(navigationList.get(position).getLabelImageView());
                         labelNameTV.setText(navigationList.get(position).getTitle());
                         viewSwitcher.showPrevious();
@@ -168,9 +171,11 @@ public class NavigationDrawerAdapter extends ArrayAdapter<NavgitationModel> impl
     }
 
     boolean addNewLabel() {
+        String newLabelName = "Label";
         navigationList.add(navigationList.size(), new NavgitationModel(mContext.getResources().getDrawable(R.drawable.ic_bookmark_black_24dp), "Label"));
         newLabel.setBackgroundResource(R.drawable.border);
-        newLabel.setText("Label");
+        newLabel.setText(newLabelName);
+        labelRequestHandler.createLabel(new LabelHandler(newLabelName, sessionManager.getUserId()), mContext);
         return true;
     }
 
