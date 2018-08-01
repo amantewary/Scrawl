@@ -77,10 +77,12 @@ require  'HttpLogger.php';
     public function delete()
     {
 
-        $query = 'CALL spDeleteLabel(:name)';
+        $query = 'CALL spDeleteLabel(:name, :user_id)';
         $stmt = $this->con->prepare($query);
         $this->name = htmlspecialchars(strip_tags($this->name));
+        $this->user_id = htmlspecialchars(strip_tags($this->user_id));
         $stmt->bindParam(':name', $this->name);
+        $stmt->bindParam(':user_id', $this->user_id);
         try {
             $stmt->execute();
             if ($stmt->rowCount()) {

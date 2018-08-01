@@ -13,7 +13,7 @@
   $label->new_name = $data->new_name;
   $label->user_id = $data->user_id;
   $label->old_name = $data->old_name;
-  error_log('Request Access To Update Labels By User ID: ' . $label->user_id);
+  error_log('Request Access To Update Labels By User ID: ' . $label->user_id . 'with old label name ' . $label->old_name . ' & new label name ' . $label->new_name);
   if($label->update()) {
     echo json_encode(
       array('message' => 'Label Updated')
@@ -25,4 +25,3 @@
     );
       $database->disconnect($db);
   }
-
