@@ -32,8 +32,9 @@ public class LabelHandler {
         this.labelHandlers = labelHandlers;
     }
 
-    public LabelHandler(String name) {
+    public LabelHandler(String name, Integer user_id) {
         this.name = name;
+        this.user_id = user_id;
     }
 
     public LabelHandler(String name, Integer user_id) {
