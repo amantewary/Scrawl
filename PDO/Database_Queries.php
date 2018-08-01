@@ -7,9 +7,9 @@
  */
 
 require 'config.php';
-
-class Database_Queries{
 require 'error_logger.php';
+
+class Database_Queries {
 
 function getUserData($pdo)
 {
@@ -79,87 +79,91 @@ VALUES (?, ?, ?, ?, now(), now(), ?)") or die(mysql_error());
 function loginUser($pdo, $email, $password)
 {
 
-                if ($encrypted_password == $this->dehashPassword($password, $salt)) {
-    try {
-        $stmt = $pdo->prepare("SELECT * from user where email_address=?");
+    if ($encrypted_password == $this->dehashPassword($password, $salt)) {
+        try {
+            $stmt = $pdo->prepare("SELECT * from user where email_address=?");
 
-        $stmt->execute(array($email));
-        if ($stmt) {
-            $rows = $stmt->fetch(PDO::FETCH_ASSOC);
-            $encrypted_password = $rows['password'];
-            $salt = $rows['salt'];
+            $stmt->execute(array($email));
+            if ($stmt) {
+                $rows = $stmt->fetch(PDO::FETCH_ASSOC);
+                $encrypted_password = $rows['password'];
+                $salt = $rows['salt'];
 
-            if ($encrypted_password == dehashPassword($password, $salt)) {
+                if ($encrypted_password == dehashPassword($password, $salt)) {
 
-                return $rows;
+                    return $rows;
+                } else {
+                    return false;
+                }
+            }
+        } catch (Exception $e) {
+            print_r($e);
+            error_log("Time: " . date("d-m-Y (D) H:i:s", time()) . " Error " . $e, 3, "log.txt");
+            return false;
+        }
+
+    }
+
+//check if user exists or not?
+    function isUserExists($pdo, $email)
+    {
+        $affected_rows = 0;
+        try {
+            $stmt = $pdo->prepare("SELECT * from user where email_address=?");
+
+            $stmt->execute(array($email));
+            $affected_rows = $stmt->rowCount();
+            if ($affected_rows > 0) {
+                return true;
             } else {
                 return false;
             }
-        }
-    } catch (Exception $e) {
-        print_r($e);
-        error_log("Time: ".date("d-m-Y (D) H:i:s", time()) ." Error " . $e, 3, "log.txt");
-        return false;
-    }
-
-}
-
-//check if user exists or not?
-function isUserExists($pdo, $email)
-{
-    $affected_rows = 0;
-    try {
-        $stmt = $pdo->prepare("SELECT * from user where email_address=?");
-
-        $stmt->execute(array($email));
-        $affected_rows = $stmt->rowCount();
-        if ($affected_rows > 0) {
-            return true;
-        } else {
+        } catch (Exception $e) {
+            print_r($e);
+            error_log("Time: " . date("d-m-Y (D) H:i:s", time()) . " Error " . $e, 3, "log.txt");
             return false;
         }
-    } catch (Exception $e) {
-        print_r($e);
-        error_log("Time: ".date("d-m-Y (D) H:i:s", time()) ." Error " . $e, 3, "log.txt");
-        return false;
     }
-}
 
 
-/*
- * Code for hashing and validating password is inspired from: https://www.androidhive.info/2012/01/android-login-and-registration-with-php-mysql-and-sqlite/
- *
- */
-function hashPassword($password)
-{
+    /*
+     * Code for hashing and validating password is inspired from: https://www.androidhive.info/2012/01/android-login-and-registration-with-php-mysql-and-sqlite/
+     *
+     */
+    function hashPassword($password)
+    {
 
-    $salt = sha1(rand());
-    $salt = substr($salt, 0, 10);
-    $encrypted = base64_encode(sha1($password . $salt, true) . $salt);
-    $hash = array("salt" => $salt, "encrypted" => $encrypted);
-    return $hash;
-}
+        $salt = sha1(rand());
+        $salt = substr($salt, 0, 10);
+        $encrypted = base64_encode(sha1($password . $salt, true) . $salt);
+        $hash = array("salt" => $salt, "encrypted" => $encrypted);
+        return $hash;
+    }
 
-function dehashPassword($password, $salt)
-{
-    $hash = base64_encode(sha1($password . $salt, true) . $salt);
-    return $hash;
-}
+    function dehashPassword($password, $salt)
+    {
+        $hash = base64_encode(sha1($password . $salt, true) . $salt);
+        return $hash;
+    }
 
-function closeConnection()
-{
-    $stmt = null;
-    $pdo = null;
-    error_log("\r\nConnection Closed at " . date("d-m-Y (D) H:i:s", time()) ."\r\n", 3, "log.txt");
+    function closeConnection()
+    {
+        $stmt = null;
+        $pdo = null;
+        error_log("\r\nConnection Closed at " . date("d-m-Y (D) H:i:s", time()) . "\r\n", 3, "log.txt");
 
-}
-function openConnection(){
-    error_log("\r\nConnection Opened at ". date("d-m-Y (D) H:i:s", time()). " " ."Request From ".$_SERVER['REMOTE_ADDR']. " \r\n", 3, "log.txt");
+    }
 
-}
-function tracker(){
-    error_log("\r\nTime: ".date("d-m-Y (D) H:i:s", time()) . "      Request Agent " . $_SERVER['HTTP_USER_AGENT'] . "\r\n" . "Request Method " . $_SERVER['REQUEST_METHOD'] . "\r\n Requested at " . $_SERVER['REQUEST_TIME'] . "\r\nConnection Status " . connection_status() . "\r\n ", 3, "tracker.txt");
+    function openConnection()
+    {
+        error_log("\r\nConnection Opened at " . date("d-m-Y (D) H:i:s", time()) . " " . "Request From " . $_SERVER['REMOTE_ADDR'] . " \r\n", 3, "log.txt");
 
-}
+    }
+
+    function tracker()
+    {
+        error_log("\r\nTime: " . date("d-m-Y (D) H:i:s", time()) . "      Request Agent " . $_SERVER['HTTP_USER_AGENT'] . "\r\n" . "Request Method " . $_SERVER['REQUEST_METHOD'] . "\r\n Requested at " . $_SERVER['REQUEST_TIME'] . "\r\nConnection Status " . connection_status() . "\r\n ", 3, "tracker.txt");
+
+    }
 
 ?>

@@ -1,7 +1,6 @@
 package com.example.amantewary.scrawl;
 
 
-import android.support.design.widget.TextInputLayout;
 import android.support.test.espresso.ViewInteraction;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
@@ -13,92 +12,88 @@ import android.view.ViewParent;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
-import org.hamcrest.core.IsInstanceOf;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static android.support.test.espresso.Espresso.onView;
-import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.Espresso.pressBack;
+import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.action.ViewActions.scrollTo;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static android.support.test.espresso.matcher.ViewMatchers.withClassName;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
+import static org.hamcrest.Matchers.is;
 
 @LargeTest
 @RunWith(AndroidJUnit4.class)
-public class ActivityRegisterTest {
+public class SetReminderTest {
 
     @Rule
-    public ActivityTestRule<ActivityRegister> mActivityTestRule = new ActivityTestRule<>(ActivityRegister.class);
+    public ActivityTestRule<SplashScreen> mActivityTestRule = new ActivityTestRule<>(SplashScreen.class);
 
     @Test
-    public void activityRegisterTest() {
+    public void setReminderTest() {
         try {
             Thread.sleep(2000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
-        ViewInteraction linearLayout = onView(
+        ViewInteraction cardView = onView(
                 allOf(childAtPosition(
-                        childAtPosition(
-                                withId(android.R.id.content),
-                                0),
-                        0),
+                        allOf(withId(R.id.viewNoteList),
+                                childAtPosition(
+                                        withClassName(is("android.support.constraint.ConstraintLayout")),
+                                        0)),
+                        5),
                         isDisplayed()));
-        linearLayout.check(matches(isDisplayed()));
+        cardView.perform(click());
 
-        ViewInteraction editText = onView(
-                allOf(withId(R.id.editTextUserName),
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        ViewInteraction floatingActionButton = onView(
+                allOf(withId(R.id.cog),
                         childAtPosition(
                                 childAtPosition(
-                                        IsInstanceOf.<View>instanceOf(TextInputLayout.class),
+                                        withId(android.R.id.content),
+                                        0),
+                                2),
+                        isDisplayed()));
+        floatingActionButton.perform(click());
+
+        ViewInteraction appCompatButton3 = onView(
+                allOf(withId(R.id.btn_timer), withText("Set Reminder"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withClassName(is("android.support.v7.widget.CardView")),
                                         0),
                                 0),
                         isDisplayed()));
-        editText.check(matches(withText("")));
+        appCompatButton3.perform(click());
 
-        ViewInteraction editText2 = onView(
-                allOf(withId(R.id.editTextEmail),
+        ViewInteraction appCompatButton4 = onView(
+                allOf(withId(android.R.id.button1), withText("OK"),
                         childAtPosition(
                                 childAtPosition(
-                                        IsInstanceOf.<View>instanceOf(TextInputLayout.class),
+                                        withClassName(is("android.widget.ScrollView")),
                                         0),
-                                0),
-                        isDisplayed()));
-        editText2.check(matches(withText("")));
+                                3)));
+        appCompatButton4.perform(scrollTo(), click());
 
-        ViewInteraction editText3 = onView(
-                allOf(withId(R.id.editTextPassword),
-                        childAtPosition(
-                                childAtPosition(
-                                        IsInstanceOf.<View>instanceOf(TextInputLayout.class),
-                                        0),
-                                0),
-                        isDisplayed()));
-        editText3.check(matches(withText("")));
+        pressBack();
 
-        ViewInteraction button = onView(
-                allOf(withId(R.id.buttonRegister),
-                        childAtPosition(
-                                childAtPosition(
-                                        IsInstanceOf.<View>instanceOf(android.view.ViewGroup.class),
-                                        0),
-                                3),
-                        isDisplayed()));
-        button.check(matches(isDisplayed()));
-
-        ViewInteraction button2 = onView(
-                allOf(withId(R.id.register_to_login_button),
-                        childAtPosition(
-                                childAtPosition(
-                                        IsInstanceOf.<View>instanceOf(android.view.ViewGroup.class),
-                                        0),
-                                4),
-                        isDisplayed()));
-        button2.check(matches(isDisplayed()));
-
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     private static Matcher<View> childAtPosition(

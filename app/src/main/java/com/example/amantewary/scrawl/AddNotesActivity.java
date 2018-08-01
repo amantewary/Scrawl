@@ -137,7 +137,6 @@ public class AddNotesActivity extends AppCompatActivity implements Observer {
         }
     }
 
-
     @Override
     public void update(Observable observable, Object o) {
         if (observable instanceof InputHandler) {

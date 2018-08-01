@@ -22,7 +22,7 @@ import com.example.amantewary.scrawl.Handlers.ShareHandler;
 
 import java.util.Calendar;
 
-public class ViewNotesActivity extends ViewNoteBaseActivity implements TimePickerDialog.OnTimeSetListener{
+public class ViewNotesActivity extends ViewNoteBaseActivity implements TimePickerDialog.OnTimeSetListener {
 
     private static final String TAG = "ViewNotesActivity";
 
@@ -125,23 +125,23 @@ public class ViewNotesActivity extends ViewNoteBaseActivity implements TimePicke
     }
 
     public void setCollaborateInfo(final String collaborate_with) {
-        if (!emailPasswordValidation.isEmailValid(collaborate_with)){
+        if (!emailPasswordValidation.isEmailValid(collaborate_with)) {
             Toast.makeText(this, "Please input a valid email address.", Toast.LENGTH_LONG).show();
-        }else {
+        } else {
             try {
                 if (sessionManager.checkLogin()) {
                     final String share_from = sessionManager.getUserEmail();
 
                     UserRequestHandler userRequestHandler = new UserRequestHandler();
-                    try{
+                    try {
                         userRequestHandler.checkIfUserExists(this, collaborate_with, new IUserExistResponse() {
                             @Override
                             public void onSuccess(@NonNull Boolean ifExist) {
-                                if (ifExist){
+                                if (ifExist) {
                                     Integer note_id = noteId;
                                     ShareHandler shareHandler = new ShareHandler(share_from, collaborate_with, note_id);
                                     sendRequest(shareHandler);
-                                }else {
+                                } else {
                                     Toast.makeText(getApplicationContext(), "Sorry. This user does not exist.", Toast.LENGTH_LONG).show();
                                 }
                             }
@@ -151,7 +151,7 @@ public class ViewNotesActivity extends ViewNoteBaseActivity implements TimePicke
                                 Log.e(TAG, "onFailure: Something Went Wrong: " + throwable.getMessage());
                             }
                         });
-                    }catch (Exception e) {
+                    } catch (Exception e) {
                         Log.e(TAG, "Message: " + e.toString());
                     }
 
@@ -178,7 +178,7 @@ public class ViewNotesActivity extends ViewNoteBaseActivity implements TimePicke
 
     private void sendRequest(ShareHandler shareHandler) {
         SharesRequestHandler sharesRequestHandler = new SharesRequestHandler();
-        sharesRequestHandler.createShare(shareHandler,ViewNotesActivity.this);
+        sharesRequestHandler.createShare(shareHandler, ViewNotesActivity.this);
     }
 
     public void deleteNote() {
