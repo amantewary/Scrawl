@@ -12,7 +12,6 @@ class NotesTest extends TestCase
 {
 
 
-
     public function testRead()
     {
         $stmtMock = $this->createMock(\PDOStatement::class);
@@ -30,7 +29,7 @@ class NotesTest extends TestCase
         $stmtMock = $this->createMock(\PDOStatement::class);
         $pdoMock = $this->createMock(\PDO::class);
         $stmtMock->method('execute')
-            ->willReturn(false);
+            ->will($this->throwException(new PDOException()));
         $pdoMock->method('prepare')
             ->willReturn($stmtMock);
         $test = new Notes($pdoMock);
@@ -41,12 +40,24 @@ class NotesTest extends TestCase
     {
         $stmtMock = $this->createMock(\PDOStatement::class);
         $pdoMock = $this->createMock(\PDO::class);
-        $stmtMock->method('execute')
+        $stmtMock->method('rowCount')
             ->willReturn(true);
         $pdoMock->method('prepare')
             ->willReturn($stmtMock);
         $test = new Notes($pdoMock);
-        $this->assertTrue($test->delete());
+        $this->assertEquals($stmtMock,$test->delete());
+    }
+
+    public function testDeleteFail()
+    {
+        $stmtMock = $this->createMock(\PDOStatement::class);
+        $pdoMock = $this->createMock(\PDO::class);
+        $stmtMock->method('rowCount')
+            ->willReturn(false);
+        $pdoMock->method('prepare')
+            ->willReturn($stmtMock);
+        $test = new Notes($pdoMock);
+        $this->assertNull($test->delete());
     }
 
 
@@ -59,7 +70,7 @@ class NotesTest extends TestCase
         $pdoMock->method('prepare')
             ->willReturn($stmtMock);
         $test = new Notes($pdoMock);
-        $this->assertEquals(true,$test->read_single());
+        $this->assertEquals($stmtMock,$test->read_single());
     }
 
     public function testRead_singleFail()
@@ -67,7 +78,7 @@ class NotesTest extends TestCase
         $stmtMock = $this->createMock(\PDOStatement::class);
         $pdoMock = $this->createMock(\PDO::class);
         $stmtMock->method('execute')
-            ->willReturn(false);
+            ->will($this->throwException(new PDOException()));
         $pdoMock->method('prepare')
             ->willReturn($stmtMock);
         $test = new Notes($pdoMock);
@@ -83,15 +94,16 @@ class NotesTest extends TestCase
         $pdoMock->method('prepare')
             ->willReturn($stmtMock);
         $test = new Notes($pdoMock);
-        $this->assertTrue($test->create());
+        $this->assertEquals($stmtMock,$test->create());
     }
+
 
     public function testCreateFail()
     {
         $stmtMock = $this->createMock(\PDOStatement::class);
         $pdoMock = $this->createMock(\PDO::class);
         $stmtMock->method('execute')
-            ->willReturn(false);
+            ->will($this->throwException(new PDOException()));
         $pdoMock->method('prepare')
             ->willReturn($stmtMock);
         $test = new Notes($pdoMock);
@@ -108,7 +120,7 @@ class NotesTest extends TestCase
         $pdoMock->method('prepare')
             ->willReturn($stmtMock);
         $test = new Notes($pdoMock);
-        $this->assertTrue($test->update());
+        $this->assertEquals($stmtMock ,$test->update());
     }
 
     public function testUpdateFail()
@@ -116,7 +128,7 @@ class NotesTest extends TestCase
         $stmtMock = $this->createMock(\PDOStatement::class);
         $pdoMock = $this->createMock(\PDO::class);
         $stmtMock->method('execute')
-            ->willReturn(false);
+            ->will($this->throwException(new PDOException()));
         $pdoMock->method('prepare')
             ->willReturn($stmtMock);
         $test = new Notes($pdoMock);

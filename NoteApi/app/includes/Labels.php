@@ -8,7 +8,10 @@ require  'HttpLogger.php';
     private $table = 'labels';
     public $id;
     public $name;
+    public $user_id;
     public $created_at;
+    public $new_name;
+    public $old_name;
     public function __construct($db) {
       $this->con = $db;
     }
@@ -46,6 +49,27 @@ require  'HttpLogger.php';
             }
         }catch (\PDOException $e) {
             error_log("[Error] While Creating Notes: " . $e->getMessage() . 'By User: ' . $this->user_id);
+            return $e;
+        }
+    }
+
+    public function update()
+    {
+        $query = 'CALL spUpdateLabel(:new_name, :user_id, :old_name)';
+        $stmt = $this->con->prepare($query);
+        $this->new_name = htmlspecialchars(strip_tags($this->new_name));
+        $this->user_id = htmlspecialchars(strip_tags($this->user_id));
+        $this->old_name = htmlspecialchars(strip_tags($this->old_name));
+        $stmt->bindParam(':new_name', $this->new_name);
+        $stmt->bindParam(':user_id', $this->user_id);
+        $stmt->bindParam(':old_name', $this->old_name);
+        try {
+            if ($stmt->execute()) {
+                error_log('Label Updated');
+                return $stmt;
+            }
+        }catch(\PDOException $e) {
+            error_log("[Error] " .  $e->getMessage());
             return $e;
         }
     }

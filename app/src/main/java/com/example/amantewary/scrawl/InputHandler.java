@@ -24,6 +24,7 @@ public class InputHandler extends Observable {
 
     public InputHandler(Context context) {
         this.context = context;
+        readTxt();
     }
 
     public boolean inputValidator(String title, String body, String link) {
@@ -41,7 +42,6 @@ public class InputHandler extends Observable {
     public String inputCensor(String input) {
         String temp = input;
         Log.e("Temp", input);
-        readTxt();
         for (String word : badWords) {
             Pattern pattern = Pattern.compile("\\b" + word + "\\b", Pattern.CASE_INSENSITIVE);
             input = pattern.matcher(input).replaceAll(new String(new char[word.length()]).replace('\0', '*'));
@@ -60,6 +60,7 @@ public class InputHandler extends Observable {
         if (title.getText().toString().trim().matches("")) {
             title.setBackgroundResource(R.drawable.border_error);
             title.setError("Enter Note Title");
+            Log.d(TAG,"Note Title Not Entered");
             return;
         } else {
             title.setBackgroundResource(R.drawable.border);
