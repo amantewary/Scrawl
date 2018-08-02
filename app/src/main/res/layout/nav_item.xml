@@ -24,16 +24,29 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/nav_text_view"
                 android:text="@string/app_name"/>
-            <EditText
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="gone"
-                android:maxLines="1"
-                android:imeOptions="actionDone"
-                android:singleLine="true"
-                android:focusable="true"
-                android:layout_margin="@dimen/activity_vertical_margin"
-                android:id="@+id/nav_edit_text"/>
+                android:orientation="horizontal"
+                android:weightSum="1"
+                android:layout_height="wrap_content">
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_weight="0.75"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:imeOptions="actionDone"
+                    android:singleLine="true"
+                    android:focusable="true"
+                    android:layout_margin="@dimen/activity_vertical_margin"
+                    android:id="@+id/nav_edit_text"/>
+                <ImageButton
+                    android:layout_width="0dp"
+                    android:layout_weight="0.25"
+                    android:layout_gravity="center"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/btn_delete"
+                    android:src="@drawable/ic_close_black_24dp"/>
+            </LinearLayout>
 
         </ViewSwitcher>
 

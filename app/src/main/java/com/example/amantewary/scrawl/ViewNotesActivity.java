@@ -61,7 +61,7 @@ public class ViewNotesActivity extends ViewNoteBaseActivity implements TimePicke
         }
     }
 
-    private void setShareIntent() {
+    public void setShareIntent() {
         try {
             Intent sendIntent = new Intent();
             sendIntent.setAction(Intent.ACTION_SEND);

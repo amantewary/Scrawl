@@ -17,8 +17,6 @@ import java.util.Calendar;
 
 public class ViewSharedNoteActivity extends ViewNoteBaseActivity implements TimePickerDialog.OnTimeSetListener{
 
-    private ShareHandler shareHandler;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

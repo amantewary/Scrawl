@@ -59,14 +59,12 @@ public class LabelRequestHandler {
                             Log.d(context.getClass().getSimpleName(), "onResponse: Server Response: " + response.toString());
                             Log.d(context.getClass().getSimpleName(), "onResponse: Received Information: " + response.body().toString());
                             Toast.makeText(context, "Label Created", Toast.LENGTH_SHORT).show();
-                            ((Activity) (context)).finish();
                         }
 
                         @Override
                         public void onFailure(Call<LabelHandler> call, Throwable t) {
                             Log.e(context.getClass().getSimpleName(), "onFailure: Something Went Wrong: " + t.getMessage());
                             Toast.makeText(context, "Something Went Wrong", Toast.LENGTH_SHORT).show();
-                            ((Activity) (context)).finish();
                         }
                     });
         } catch (Exception e) {
@@ -84,14 +82,12 @@ public class LabelRequestHandler {
                             Log.d(context.getClass().getSimpleName(), "onResponse: Server Response: " + response.toString());
                             Log.d(context.getClass().getSimpleName(), "onResponse: Received Information: " + response.body().toString());
                             Toast.makeText(context, "Note Edited", Toast.LENGTH_SHORT).show();
-                            ((Activity) (context)).finish();
                         }
 
                         @Override
                         public void onFailure(Call<LabelHandler> call, Throwable t) {
                             Log.e(context.getClass().getSimpleName(), "onFailure: Something Went Wrong: " + t.getMessage());
                             Toast.makeText(context, "Something Went Wrong", Toast.LENGTH_SHORT).show();
-                            ((Activity) (context)).finish();
                         }
                     });
         } catch (Exception e) {
@@ -109,14 +105,12 @@ public class LabelRequestHandler {
                             Log.d(context.getClass().getSimpleName(), "onResponse: Server Response: " + response.toString());
                             Log.d(context.getClass().getSimpleName(), "onResponse: Received Information: " + response.body().toString());
                             Toast.makeText(context, "Label Deleted", Toast.LENGTH_SHORT).show();
-                            ((Activity) (context)).finish();
                         }
 
                         @Override
                         public void onFailure(Call<LabelHandler> call, Throwable t) {
                             Log.e(context.getClass().getSimpleName(), "onFailure: Something Went Wrong: " + t.getMessage());
                             Toast.makeText(context, "Something Went Wrong", Toast.LENGTH_SHORT).show();
-                            ((Activity) (context)).finish();
                         }
                     });
         } catch (Exception e) {

@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -17,10 +18,12 @@ import android.widget.Toast;
 import android.widget.ViewSwitcher;
 
 import com.example.amantewary.scrawl.FilteredNotesActivity;
+import com.example.amantewary.scrawl.Handlers.LabelHandler;
 import com.example.amantewary.scrawl.Handlers.NavgitationModel;
-import com.example.amantewary.scrawl.MainActivity;
+import com.example.amantewary.scrawl.LabelRequestHandler;
 import com.example.amantewary.scrawl.NavObserver;
 import com.example.amantewary.scrawl.R;
+import com.example.amantewary.scrawl.SessionManager;
 
 import java.util.ArrayList;
 import java.util.Observable;
@@ -34,14 +37,20 @@ public class NavigationDrawerAdapter extends ArrayAdapter<NavgitationModel> impl
     private boolean editToggle = true;
     private boolean mode = true;
     private int currentPosition;
+    LabelRequestHandler labelRequestHandler;
     EditText newLabel;
+    String oldName = "";
+
     ViewSwitcher newViewSwitcher;
+    SessionManager sessionManager;
 
     public NavigationDrawerAdapter(ArrayList<NavgitationModel> list, Context context, NavObserver navObserver) {
         super(context, R.layout.nav_item, list);
         Log.e(TAG, "Here created Observer");
+        labelRequestHandler = new LabelRequestHandler();
         this.navigationList = list;
         this.mContext = context;
+        sessionManager = new SessionManager(context);
         navObserver.addObserver(this);
 
 
@@ -58,10 +67,23 @@ public class NavigationDrawerAdapter extends ArrayAdapter<NavgitationModel> impl
         LinearLayout layout = (LinearLayout) rowView.findViewById(R.id.nav_linear_layout);
         final TextView labelNameTV = (TextView) rowView.findViewById(R.id.nav_text_view);
         final ImageView labelImage = (ImageView) rowView.findViewById(R.id.nav_labels);
+        final ImageButton deleteLabel = (ImageButton) rowView.findViewById(R.id.btn_delete);
         final EditText labelEdittext = (EditText) rowView.findViewById(R.id.nav_edit_text);
         labelNameTV.setText(navigationList.get(position).getTitle());
         labelImage.setImageDrawable(navigationList.get(position).getLabelImageView());
 
+
+        deleteLabel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mode = true;
+                editToggle = true;
+                viewSwitcher.showPrevious();
+                labelRequestHandler.deleteLabel(new LabelHandler(navigationList.get(position).getTitle(), sessionManager.getUserId()), mContext);
+                navigationList.remove(position);
+
+            }
+        });
         newLabel = labelEdittext;
         this.newViewSwitcher = viewSwitcher;
         layout.setOnClickListener(new View.OnClickListener() {
@@ -85,6 +107,7 @@ public class NavigationDrawerAdapter extends ArrayAdapter<NavgitationModel> impl
                     if (editToggle) {
 
                         String label = navigationList.get(position).getTitle();
+                        oldName = label;
                         mode = false;
                         editToggle = false;
                         currentPosition = position;
@@ -101,15 +124,16 @@ public class NavigationDrawerAdapter extends ArrayAdapter<NavgitationModel> impl
                         toggleVisibility(currentPosition, parent);
                         navigationList.add(position, new NavgitationModel(navigationList.get(position).getLabelImageView(), labelEdittext.getText().toString()));
                         navigationList.remove(position + 1);
-                        Log.e(TAG, "HEre" + editToggle);
+                        Log.e(TAG, "HEre" + oldName);
+                        labelRequestHandler.editLabel(new LabelHandler(navigationList.get(position).getTitle(), sessionManager.getUserId(), oldName), mContext);
                         labelImage.setImageDrawable(navigationList.get(position).getLabelImageView());
                         labelNameTV.setText(navigationList.get(position).getTitle());
                         viewSwitcher.showPrevious();
                     }
 
 
-                }else{
-                    Toast.makeText(mContext,"This label is not editable", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(mContext, "This label is not editable", Toast.LENGTH_SHORT).show();
                 }
 
                 return false;
@@ -128,7 +152,7 @@ public class NavigationDrawerAdapter extends ArrayAdapter<NavgitationModel> impl
                 if (!addNewLabel()) {
                     Toast.makeText(mContext, "Oops! something went Wrong", Toast.LENGTH_SHORT).show();
                 }
-            }else if(o.equals("Drawer")){
+            } else if (o.equals("Drawer")) {
                 mode = true;
                 editToggle = true;
             }
@@ -159,9 +183,11 @@ public class NavigationDrawerAdapter extends ArrayAdapter<NavgitationModel> impl
     }
 
     boolean addNewLabel() {
+        String newLabelName = "Label";
         navigationList.add(navigationList.size(), new NavgitationModel(mContext.getResources().getDrawable(R.drawable.ic_bookmark_black_24dp), "Label"));
         newLabel.setBackgroundResource(R.drawable.border);
-        newLabel.setText("Label");
+        newLabel.setText(newLabelName);
+        labelRequestHandler.createLabel(new LabelHandler(newLabelName, sessionManager.getUserId()), mContext);
         return true;
     }
 

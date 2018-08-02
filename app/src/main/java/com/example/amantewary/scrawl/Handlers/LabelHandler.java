@@ -37,11 +37,7 @@ public class LabelHandler {
         this.user_id = user_id;
     }
 
-    public LabelHandler(String name, Integer id, Integer user_id) {
-        this.name = name;
-        this.id = id;
-        this.user_id = user_id;
-    }
+
 
     public LabelHandler(String new_name, Integer user_id, String old_name) {
         this.user_id = user_id;
