@@ -17,49 +17,71 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static android.support.test.espresso.Espresso.onView;
-import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
+import static android.support.test.espresso.action.ViewActions.replaceText;
+import static android.support.test.espresso.action.ViewActions.scrollTo;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static android.support.test.espresso.matcher.ViewMatchers.withClassName;
+import static android.support.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
+import static org.hamcrest.Matchers.is;
 
 @LargeTest
 @RunWith(AndroidJUnit4.class)
-public class SplashScreenTest {
+public class MainActivityDrawer {
+
 
     @Rule
-    public ActivityTestRule<SplashScreen> mActivityTestRule = new ActivityTestRule<>(SplashScreen.class);
+    public ActivityTestRule<MainActivity> mainActivityActivityTestRule = new ActivityTestRule<>(MainActivity.class);
+
 
     @Test
-    public void splashScreenTest() {
+    public void mainActivityDrawer() {
+
+
         // Added a sleep statement to match the app's execution delay.
         // The recommended way to handle such scenarios is to use Espresso idling resources:
         // https://google.github.io/android-testing-support-library/docs/espresso/idling-resource/index.html
         try {
-            Thread.sleep(60000);
+            Thread.sleep(3566);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        mainActivityActivityTestRule.getActivity().populateNotesList();
 
-        ViewInteraction textView = onView(
-                allOf(withText("Scrawl"),
+
+        ViewInteraction appCompatImageButton = onView(
+                allOf(withContentDescription("Open navigation drawer"),
+                        childAtPosition(
+                                allOf(withId(R.id.toolbar),
+                                        childAtPosition(
+                                                withClassName(is("android.support.design.widget.AppBarLayout")),
+                                                0)),
+                                1),
+                        isDisplayed()));
+        appCompatImageButton.perform(click());
+
+        ViewInteraction linearLayout = onView(
+                allOf(withId(R.id.nav_lout),
                         childAtPosition(
                                 childAtPosition(
-                                        withId(android.R.id.content),
-                                        0),
-                                0),
+                                        withClassName(is("android.widget.LinearLayout")),
+                                        1),
+                                1),
                         isDisplayed()));
-        textView.check(matches(withText("Scrawl")));
+        linearLayout.perform(click());
 
-        ViewInteraction textView2 = onView(
-                allOf(withText("Scrawl"),
+        ViewInteraction appCompatButton3 = onView(
+                allOf(withId(android.R.id.button1), withText("OK"),
                         childAtPosition(
                                 childAtPosition(
-                                        withId(android.R.id.content),
+                                        withId(R.id.buttonPanel),
                                         0),
-                                0),
-                        isDisplayed()));
-        textView2.check(matches(isDisplayed()));
+                                3)));
+        appCompatButton3.perform(scrollTo(), click());
 
     }
 

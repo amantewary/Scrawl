@@ -197,11 +197,11 @@
       <path value="$PROJECT_DIR$/vendor/sebastian/comparator" />
     </include_path>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
-    <option name="x" value="-9" />
-    <option name="y" value="-9" />
-    <option name="width" value="1938" />
-    <option name="height" value="1048" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="39" />
+    <option name="y" value="23" />
+    <option name="width" value="1401" />
+    <option name="height" value="877" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -247,23 +247,18 @@
   <component name="RunManager" selected="PHPUnit.LabelsTest">
     <configuration name="LabelsTest" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
       <TestRunner class="LabelsTest" file="$PROJECT_DIR$/tests/LabelsTest.php" scope="Class" />
-      <method v="2" />
     </configuration>
     <configuration name="LabelsTest.testCreate" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
       <TestRunner class="LabelsTest" file="$PROJECT_DIR$/tests/LabelsTest.php" method="testCreate" scope="Method" />
-      <method v="2" />
     </configuration>
     <configuration name="LabelsTest.testCreateFail" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
       <TestRunner class="LabelsTest" file="$PROJECT_DIR$/tests/LabelsTest.php" method="testCreateFail" scope="Method" />
-      <method v="2" />
     </configuration>
     <configuration name="LabelsTest.testDelete" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
       <TestRunner class="LabelsTest" file="$PROJECT_DIR$/tests/LabelsTest.php" method="testDelete" scope="Method" />
-      <method v="2" />
     </configuration>
     <configuration name="LabelsTest.testDeleteFail" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
       <TestRunner class="LabelsTest" file="$PROJECT_DIR$/tests/LabelsTest.php" method="testDeleteFail" scope="Method" />
-      <method v="2" />
     </configuration>
     <list>
       <item itemvalue="PHPUnit.LabelsTest.testCreateFail" />

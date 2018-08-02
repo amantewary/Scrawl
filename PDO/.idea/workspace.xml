@@ -234,23 +234,18 @@
   <component name="RunManager" selected="PHPUnit.Database_QueriesTest">
     <configuration name="Database_QueriesTest" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
       <TestRunner class="Database_QueriesTest" file="$PROJECT_DIR$/tests/Database_QueriesTest.php" scope="Class" />
-      <method v="2" />
     </configuration>
     <configuration name="Database_QueriesTest.testGetUserData" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
       <TestRunner class="Database_QueriesTest" file="$PROJECT_DIR$/tests/Database_QueriesTest.php" method="testGetUserData" scope="Method" />
-      <method v="2" />
     </configuration>
     <configuration name="Database_QueriesTest.testIsUserExists" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
       <TestRunner class="Database_QueriesTest" file="$PROJECT_DIR$/tests/Database_QueriesTest.php" method="testIsUserExists" scope="Method" />
-      <method v="2" />
     </configuration>
     <configuration name="Database_QueriesTest.testLoginUser" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
       <TestRunner class="Database_QueriesTest" file="$PROJECT_DIR$/tests/Database_QueriesTest.php" method="testLoginUser" scope="Method" />
-      <method v="2" />
     </configuration>
     <configuration name="Database_QueriesTest.testRegisterUser" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
       <TestRunner class="Database_QueriesTest" file="$PROJECT_DIR$/tests/Database_QueriesTest.php" method="testRegisterUser" scope="Method" />
-      <method v="2" />
     </configuration>
     <list>
       <item itemvalue="PHPUnit.Database_QueriesTest.testGetUserData" />
@@ -262,8 +257,8 @@
     <recent_temporary>
       <list>
         <item itemvalue="PHPUnit.Database_QueriesTest" />
-        <item itemvalue="PHPUnit.Database_QueriesTest.testLoginUser" />
         <item itemvalue="PHPUnit.Database_QueriesTest.testIsUserExists" />
+        <item itemvalue="PHPUnit.Database_QueriesTest.testLoginUser" />
         <item itemvalue="PHPUnit.Database_QueriesTest.testRegisterUser" />
         <item itemvalue="PHPUnit.Database_QueriesTest.testGetUserData" />
       </list>
