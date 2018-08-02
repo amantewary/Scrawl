@@ -11,3 +11,36 @@ Stack trace:
 #8 D:\School\Term_3\QA\Project\Group19\PDO\vendor\phpunit\phpunit\src\TextUI\Command.php(155): PHPUnit\TextUI\Command->run(Array, true)
 #9 D:\School\Term_3\QA\Project\Group19\PDO\vendor\phpunit\phpunit\phpunit(53): PHPUnit\TextUI\Command::main()
 #10 {main}
+Connection Opened at 02-08-2018 (Thu) 14:35:50
+
+Connection Opened at 02-08-2018 (Thu) 14:37:51
+
+Connection Opened at 02-08-2018 (Thu) 14:38:49
+
+Connection Opened at 02-08-2018 (Thu) 14:39:09
+
+Connection Opened at 02-08-2018 (Thu) 14:39:48
+
+Connection Opened at 02-08-2018 (Thu) 14:40:15
+
+Connection Opened at 02-08-2018 (Thu) 14:44:25
+
+Connection Opened at 02-08-2018 (Thu) 14:46:35
+
+Connection Opened at 02-08-2018 (Thu) 14:46:51
+
+Connection Opened at 02-08-2018 (Thu) 14:47:19
+
+Connection Opened at 02-08-2018 (Thu) 14:47:32
+
+Connection Opened at 02-08-2018 (Thu) 14:49:38
+
+Connection Opened at 02-08-2018 (Thu) 14:50:01
+
+Connection Opened at 02-08-2018 (Thu) 14:51:36
+
+Connection Opened at 02-08-2018 (Thu) 14:51:36
+
+Connection Opened at 02-08-2018 (Thu) 14:51:36
+
+Connection Opened at 02-08-2018 (Thu) 14:51:36
