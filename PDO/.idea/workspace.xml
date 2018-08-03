@@ -3,8 +3,17 @@
   <component name="ChangeListManager">
     <list default="true" id="b524d92b-309d-4cd6-9efa-abec762e3ac5" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/../NoteApi/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../NoteApi/.idea/workspace.xml" afterDir="false" />
+<<<<<<< HEAD
       <change beforePath="$PROJECT_DIR$/tests/log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/tests/log.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../app/src/androidTest/java/com/example/amantewary/scrawl/LoginActivityTest.java" beforeDir="false" />
+=======
+      <change beforePath="$PROJECT_DIR$/../NoteApi/storedProcedures/spDeleteLabel.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../NoteApi/storedProcedures/spDeleteLabel.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Database_Queries.php" beforeDir="false" afterPath="$PROJECT_DIR$/Database_Queries.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/checkIfUserExist.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/Database_QueriesTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Database_QueriesTest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/tests/log.txt" afterDir="false" />
+>>>>>>> devint
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -56,17 +65,36 @@
       <file leaf-file-name="login.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/login.php">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
             <state relative-caret-position="75">
               <caret line="10" selection-start-line="10" selection-end-line="10" />
+=======
+            <state relative-caret-position="24">
+              <caret line="1" column="3" lean-forward="true" selection-start-line="1" selection-start-column="3" selection-end-line="1" selection-end-column="3" />
+              <folding>
+                <element signature="e#6#94#0#PHP" expanded="true" />
+              </folding>
+>>>>>>> devint
             </state>
           </provider>
         </entry>
       </file>
+<<<<<<< HEAD
       <file leaf-file-name="Database_Queries.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Database_Queries.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="-180">
               <caret line="65" column="6" selection-start-line="65" selection-start-column="6" selection-end-line="65" selection-end-column="6" />
+=======
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Database_Queries.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="672">
+              <caret line="82" column="30" selection-start-line="82" selection-start-column="30" selection-end-line="82" selection-end-column="30" />
+              <folding>
+                <element signature="e#6#94#0#PHP" expanded="true" />
+              </folding>
+>>>>>>> devint
             </state>
           </provider>
         </entry>
@@ -74,22 +102,46 @@
       <file leaf-file-name="Database_QueriesTest.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/tests/Database_QueriesTest.php">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
             <state relative-caret-position="-272">
               <caret line="12" column="1" lean-forward="true" selection-start-line="12" selection-start-column="1" selection-end-line="12" selection-end-column="1" />
+=======
+            <state relative-caret-position="836">
+              <caret line="57" column="26" selection-start-line="57" selection-start-column="26" selection-end-line="57" selection-end-column="26" />
+              <folding>
+                <element signature="e#6#95#0#PHP" expanded="true" />
+              </folding>
+>>>>>>> devint
             </state>
           </provider>
         </entry>
       </file>
+<<<<<<< HEAD
       <file leaf-file-name="Database_Queries.php.orig" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Database_Queries.php.orig">
           <provider selected="true" editor-type-id="text-editor" />
+=======
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/tests/log.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-392" />
+          </provider>
+>>>>>>> devint
         </entry>
       </file>
       <file leaf-file-name="register.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/register.php">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
             <state relative-caret-position="60">
               <caret line="9" column="26" selection-start-line="9" selection-start-column="26" selection-end-line="9" selection-end-column="26" />
+=======
+            <state relative-caret-position="-168">
+              <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
+              <folding>
+                <element signature="e#6#95#0#PHP" expanded="true" />
+              </folding>
+>>>>>>> devint
             </state>
           </provider>
         </entry>
@@ -280,6 +332,7 @@
     <servers />
   </component>
   <component name="TestHistory">
+<<<<<<< HEAD
     <history-entry file="Database_QueriesTest_testRegisterUser - 2018.08.02 at 09h 40m 16s.xml">
       <configuration name="Database_QueriesTest.testRegisterUser" configurationId="PHPUnitRunConfigurationType" />
     </history-entry>
@@ -308,10 +361,41 @@
       <configuration name="Database_QueriesTest" configurationId="PHPUnitRunConfigurationType" />
     </history-entry>
     <history-entry file="Database_QueriesTest - 2018.08.02 at 14h 30m 02s.xml">
+=======
+    <history-entry file="Database_QueriesTest_testGetUserData - 2018.08.02 at 09h 39m 48s.xml">
+      <configuration name="Database_QueriesTest.testGetUserData" configurationId="PHPUnitRunConfigurationType" />
+    </history-entry>
+    <history-entry file="Database_QueriesTest_testRegisterUser - 2018.08.02 at 09h 40m 16s.xml">
+      <configuration name="Database_QueriesTest.testRegisterUser" configurationId="PHPUnitRunConfigurationType" />
+    </history-entry>
+    <history-entry file="Database_QueriesTest_testRegisterUser - 2018.08.02 at 09h 44m 25s.xml">
+      <configuration name="Database_QueriesTest.testRegisterUser" configurationId="PHPUnitRunConfigurationType" />
+    </history-entry>
+    <history-entry file="Database_QueriesTest_testRegisterUser - 2018.08.02 at 09h 46m 35s.xml">
+      <configuration name="Database_QueriesTest.testRegisterUser" configurationId="PHPUnitRunConfigurationType" />
+    </history-entry>
+    <history-entry file="Database_QueriesTest_testRegisterUser - 2018.08.02 at 09h 46m 52s.xml">
+      <configuration name="Database_QueriesTest.testRegisterUser" configurationId="PHPUnitRunConfigurationType" />
+    </history-entry>
+    <history-entry file="Database_QueriesTest_testRegisterUser - 2018.08.02 at 09h 47m 19s.xml">
+      <configuration name="Database_QueriesTest.testRegisterUser" configurationId="PHPUnitRunConfigurationType" />
+    </history-entry>
+    <history-entry file="Database_QueriesTest_testIsUserExists - 2018.08.02 at 09h 47m 32s.xml">
+      <configuration name="Database_QueriesTest.testIsUserExists" configurationId="PHPUnitRunConfigurationType" />
+    </history-entry>
+    <history-entry file="Database_QueriesTest_testLoginUser - 2018.08.02 at 09h 49m 38s.xml">
+      <configuration name="Database_QueriesTest.testLoginUser" configurationId="PHPUnitRunConfigurationType" />
+    </history-entry>
+    <history-entry file="Database_QueriesTest_testLoginUser - 2018.08.02 at 09h 50m 01s.xml">
+      <configuration name="Database_QueriesTest.testLoginUser" configurationId="PHPUnitRunConfigurationType" />
+    </history-entry>
+    <history-entry file="Database_QueriesTest - 2018.08.02 at 09h 51m 36s.xml">
+>>>>>>> devint
       <configuration name="Database_QueriesTest" configurationId="PHPUnitRunConfigurationType" />
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
+<<<<<<< HEAD
     <option name="totallyTimeSpent" value="29858000" />
   </component>
   <component name="ToolWindowManager">
@@ -326,9 +410,24 @@
       <window_info anchor="bottom" id="Database Changes" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="10" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.32692307" />
+=======
+    <option name="totallyTimeSpent" value="29262000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="1912" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
+    <layout>
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18336888" />
+>>>>>>> devint
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="9" />
       <window_info id="Favorites" order="2" side_tool="true" />
+<<<<<<< HEAD
+=======
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.3275488" />
+>>>>>>> devint
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39975095" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
@@ -364,12 +463,36 @@
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39975095" />
       <window_info anchor="right" id="Database" order="3" />
+<<<<<<< HEAD
       <window_info anchor="bottom" id="Terminal" order="9" />
       <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info id="Favorites" order="2" side_tool="true" />
+=======
+    </layout>
+    <layout-to-restore>
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18389262" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32765958" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.39975095" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Database Changes" order="8" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Terminal" order="9" />
+      <window_info anchor="bottom" id="Version Control" order="10" />
+      <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Database" order="3" />
+>>>>>>> devint
     </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -543,35 +666,55 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/login.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="10" selection-start-line="10" selection-end-line="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/register.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="96">
-          <caret line="9" column="26" selection-start-line="9" selection-start-column="26" selection-end-line="9" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tests/Database_QueriesTest.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="48">
-          <caret line="10" column="7" selection-start-line="10" selection-start-column="7" selection-end-line="10" selection-end-column="7" />
+        <state relative-caret-position="24">
+          <caret line="1" column="3" lean-forward="true" selection-start-line="1" selection-start-column="3" selection-end-line="1" selection-end-column="3" />
+          <folding>
+            <element signature="e#6#94#0#PHP" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Database_Queries.php.orig">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/Database_Queries.php">
+    <entry file="file://$PROJECT_DIR$/register.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-452">
-          <caret line="78" column="6" lean-forward="true" selection-start-line="78" selection-start-column="6" selection-end-line="78" selection-end-column="6" />
+        <state relative-caret-position="-168">
+          <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
+          <folding>
+            <element signature="e#6#95#0#PHP" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Database_Queries.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="672">
+          <caret line="82" column="30" selection-start-line="82" selection-start-column="30" selection-end-line="82" selection-end-column="30" />
+          <folding>
+            <element signature="e#6#94#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/checkIfUserExist.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1032">
+          <caret line="52" lean-forward="true" selection-start-line="52" selection-end-line="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/Database_QueriesTest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="836">
+          <caret line="57" column="26" selection-start-line="57" selection-start-column="26" selection-end-line="57" selection-end-column="26" />
+          <folding>
+            <element signature="e#6#95#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+<<<<<<< HEAD
     <entry file="jar://$APPLICATION_HOME_DIR$/plugins/php/lib/php.jar!/stubs/json/json.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="189">
@@ -657,6 +800,8 @@
         </state>
       </provider>
     </entry>
+=======
+>>>>>>> devint
     <entry file="file://$PROJECT_DIR$/tests/log.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-392" />

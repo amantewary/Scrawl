@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d7da3b6d-5db0-4d91-ae07-dc5a772f477d" name="Default" comment="">
+<<<<<<< HEAD
 <<<<<<< Updated upstream
       <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/example/amantewary/scrawl/API/IHandleResponse.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/example/amantewary/scrawl/AddNotesActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/example/amantewary/scrawl/AddNotesActivity.java" afterDir="false" />
@@ -13,6 +14,15 @@
       <change beforePath="$PROJECT_DIR$/../PDO/tests/log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../PDO/tests/log.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../app/src/androidTest/java/com/example/amantewary/scrawl/LoginActivityTest.java" beforeDir="false" />
 >>>>>>> Stashed changes
+=======
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storedProcedures/spDeleteLabel.sql" beforeDir="false" afterPath="$PROJECT_DIR$/storedProcedures/spDeleteLabel.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PDO/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../PDO/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PDO/Database_Queries.php" beforeDir="false" afterPath="$PROJECT_DIR$/../PDO/Database_Queries.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PDO/checkIfUserExist.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PDO/tests/Database_QueriesTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/../PDO/tests/Database_QueriesTest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PDO/tests/log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../PDO/tests/log.txt" afterDir="false" />
+>>>>>>> devint
     </list>
     <ignored path="$PROJECT_DIR$/vendor/composer/" />
     <ignored path="$PROJECT_DIR$/vendor/doctrine/instantiator/" />
@@ -57,9 +67,10 @@
       <usages-collector id="statistics.lifecycle.project">
         <counts>
           <entry key="project.closed" value="2" />
+          <entry key="project.open.time.0" value="1" />
           <entry key="project.open.time.10" value="1" />
           <entry key="project.open.time.6" value="1" />
-          <entry key="project.opened" value="2" />
+          <entry key="project.opened" value="3" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -110,6 +121,7 @@
       <file leaf-file-name="ConnectDb.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/includes/ConnectDb.php">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
 <<<<<<< Updated upstream
             <state relative-caret-position="57">
               <caret line="17" column="30" lean-forward="true" selection-start-line="17" selection-start-column="30" selection-end-line="17" selection-end-column="30" />
@@ -117,6 +129,10 @@
             <state relative-caret-position="255">
               <caret line="17" column="30" selection-start-line="17" selection-start-column="30" selection-end-line="17" selection-end-column="30" />
 >>>>>>> Stashed changes
+=======
+            <state relative-caret-position="408">
+              <caret line="17" column="30" selection-start-line="17" selection-start-column="30" selection-end-line="17" selection-end-column="30" />
+>>>>>>> devint
             </state>
           </provider>
         </entry>
@@ -126,11 +142,15 @@
           <provider selected="true" editor-type-id="text-editor">
 <<<<<<< Updated upstream
             <state relative-caret-position="1536">
+<<<<<<< HEAD
               <caret line="64" column="29" selection-start-line="64" selection-start-column="29" selection-end-line="64" selection-end-column="29" />
 =======
             <state relative-caret-position="1335">
               <caret line="89" column="29" selection-start-line="89" selection-start-column="29" selection-end-line="89" selection-end-column="29" />
 >>>>>>> Stashed changes
+=======
+              <caret line="89" column="29" selection-start-line="89" selection-start-column="29" selection-end-line="89" selection-end-column="29" />
+>>>>>>> devint
             </state>
           </provider>
         </entry>
@@ -209,11 +229,11 @@
       <path value="$PROJECT_DIR$/vendor/sebastian/comparator" />
     </include_path>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-470" />
-    <option name="y" value="-20" />
-    <option name="width" value="2420" />
-    <option name="height" value="1105" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="39" />
+    <option name="y" value="23" />
+    <option name="width" value="1401" />
+    <option name="height" value="877" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -264,23 +284,18 @@
   <component name="RunManager" selected="PHPUnit.LabelsTest">
     <configuration name="LabelsTest" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
       <TestRunner class="LabelsTest" file="$PROJECT_DIR$/tests/LabelsTest.php" scope="Class" />
-      <method v="2" />
     </configuration>
     <configuration name="LabelsTest.testCreate" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
       <TestRunner class="LabelsTest" file="$PROJECT_DIR$/tests/LabelsTest.php" method="testCreate" scope="Method" />
-      <method v="2" />
     </configuration>
     <configuration name="LabelsTest.testCreateFail" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
       <TestRunner class="LabelsTest" file="$PROJECT_DIR$/tests/LabelsTest.php" method="testCreateFail" scope="Method" />
-      <method v="2" />
     </configuration>
     <configuration name="LabelsTest.testDelete" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
       <TestRunner class="LabelsTest" file="$PROJECT_DIR$/tests/LabelsTest.php" method="testDelete" scope="Method" />
-      <method v="2" />
     </configuration>
     <configuration name="LabelsTest.testDeleteFail" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
       <TestRunner class="LabelsTest" file="$PROJECT_DIR$/tests/LabelsTest.php" method="testDeleteFail" scope="Method" />
-      <method v="2" />
     </configuration>
     <list>
       <item itemvalue="PHPUnit.LabelsTest.testCreateFail" />
@@ -312,6 +327,7 @@
       <workItem from="1532831741576" duration="59000" />
       <workItem from="1532868643373" duration="5271000" />
       <workItem from="1533149192012" duration="37000" />
+      <workItem from="1533149465454" duration="627000" />
     </task>
     <servers />
   </component>
@@ -348,13 +364,17 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
+<<<<<<< HEAD
 <<<<<<< Updated upstream
     <option name="totallyTimeSpent" value="5367000" />
+=======
+    <option name="totallyTimeSpent" value="5994000" />
+>>>>>>> devint
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <frame x="-7" y="-7" width="1550" height="838" extended-state="7" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.16375838" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.16577181" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -482,7 +502,7 @@
     <entry file="file://$PROJECT_DIR$/app/includes/Labels.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1536">
-          <caret line="64" column="29" selection-start-line="64" selection-start-column="29" selection-end-line="64" selection-end-column="29" />
+          <caret line="89" column="29" selection-start-line="89" selection-start-column="29" selection-end-line="89" selection-end-column="29" />
         </state>
       </provider>
     </entry>
@@ -552,6 +572,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/includes/ConnectDb.php">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state relative-caret-position="57">
           <caret line="17" column="30" lean-forward="true" selection-start-line="17" selection-start-column="30" selection-end-line="17" selection-end-column="30" />
 <<<<<<< Updated upstream
@@ -599,6 +620,10 @@
         <state relative-caret-position="255">
           <caret line="17" column="30" selection-start-line="17" selection-start-column="30" selection-end-line="17" selection-end-column="30" />
 >>>>>>> Stashed changes
+=======
+        <state relative-caret-position="408">
+          <caret line="17" column="30" selection-start-line="17" selection-start-column="30" selection-end-line="17" selection-end-column="30" />
+>>>>>>> devint
         </state>
       </provider>
     </entry>
