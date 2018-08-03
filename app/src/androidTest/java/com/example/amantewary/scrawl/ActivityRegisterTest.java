@@ -29,6 +29,7 @@ import static org.hamcrest.Matchers.allOf;
 @RunWith(AndroidJUnit4.class)
 public class ActivityRegisterTest {
 
+    
     @Rule
     public ActivityTestRule<ActivityRegister> mActivityTestRule = new ActivityTestRule<>(ActivityRegister.class);
 
