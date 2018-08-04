@@ -21,11 +21,6 @@ public class UserClass {
     Integer userId;
 
 
-    public UserClass(String email, String password) {
-        this.password = password;
-        this.email = email;
-    }
-
     public UserClass(String email, String username, Integer userId) {
         this.email = email;
         this.username = username;
@@ -37,9 +32,6 @@ public class UserClass {
         return error_msg;
     }
 
-    public void setError_msg(String error_msg) {
-        this.error_msg = error_msg;
-    }
 
     public String getEmail() {
         return email;
@@ -69,17 +61,8 @@ public class UserClass {
         return error;
     }
 
-    public void setError(String error) {
-        this.error = error;
-    }
-
     public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-
-
-    }
 }

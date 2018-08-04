@@ -1,15 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d7da3b6d-5db0-4d91-ae07-dc5a772f477d" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storedProcedures/spDeleteLabel.sql" beforeDir="false" afterPath="$PROJECT_DIR$/storedProcedures/spDeleteLabel.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PDO/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../PDO/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PDO/Database_Queries.php" beforeDir="false" afterPath="$PROJECT_DIR$/../PDO/Database_Queries.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PDO/checkIfUserExist.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PDO/tests/Database_QueriesTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/../PDO/tests/Database_QueriesTest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PDO/tests/log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../PDO/tests/log.txt" afterDir="false" />
-    </list>
+    <list default="true" id="d7da3b6d-5db0-4d91-ae07-dc5a772f477d" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/vendor/composer/" />
     <ignored path="$PROJECT_DIR$/vendor/doctrine/instantiator/" />
     <ignored path="$PROJECT_DIR$/vendor/myclabs/deep-copy/" />

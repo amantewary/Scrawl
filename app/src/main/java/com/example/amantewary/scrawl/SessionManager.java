@@ -39,20 +39,15 @@ public class SessionManager {
 
     public void createLoginSession(UserClass userClass){
 
-        // Storing login value as TRUE
         this.userClass = userClass;
         editor.putBoolean(IS_LOGIN, true);
 
-        // Storing name in pref
         editor.putString(KEY_NAME, userClass.getUsername());
 
-        // Storing email in pref
         editor.putString(KEY_EMAIL, userClass.getEmail());
 
         editor.putInt(KEY_USERID, userClass.getUserId());
 
-
-        // commit changes
         editor.commit();
     }
 

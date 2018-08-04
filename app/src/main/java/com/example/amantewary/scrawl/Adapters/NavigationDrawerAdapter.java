@@ -52,11 +52,7 @@ public class NavigationDrawerAdapter extends ArrayAdapter<NavgitationModel> impl
         this.mContext = context;
         sessionManager = new SessionManager(context);
         navObserver.addObserver(this);
-
-
     }
-
-
     @NonNull
     @Override
     public View getView(final int position, @Nullable View convertView, @NonNull final ViewGroup parent) {
@@ -71,8 +67,6 @@ public class NavigationDrawerAdapter extends ArrayAdapter<NavgitationModel> impl
         final EditText labelEdittext = (EditText) rowView.findViewById(R.id.nav_edit_text);
         labelNameTV.setText(navigationList.get(position).getTitle());
         labelImage.setImageDrawable(navigationList.get(position).getLabelImageView());
-
-
         deleteLabel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -98,8 +92,6 @@ public class NavigationDrawerAdapter extends ArrayAdapter<NavgitationModel> impl
             }
         });
 
-
-        // This code needs refactoring
         labelImage.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
@@ -176,12 +168,9 @@ public class NavigationDrawerAdapter extends ArrayAdapter<NavgitationModel> impl
                 View view = parent.getChildAt(i);
                 view.animate().alpha(1.0f).setDuration(500);
                 view.setVisibility(View.VISIBLE);
-
             }
         }
-
     }
-
     boolean addNewLabel() {
         String newLabelName = "Label";
         navigationList.add(navigationList.size(), new NavgitationModel(mContext.getResources().getDrawable(R.drawable.ic_bookmark_black_24dp), "Label"));
@@ -190,7 +179,6 @@ public class NavigationDrawerAdapter extends ArrayAdapter<NavgitationModel> impl
         labelRequestHandler.createLabel(new LabelHandler(newLabelName, sessionManager.getUserId()), mContext);
         return true;
     }
-
     boolean validlabel(String labelTitle) {
 
         return !(labelTitle.equals(navigationList.get(0).getTitle())) && !(labelTitle.equals(navigationList.get(1).getTitle()))

@@ -17,14 +17,10 @@ public class NotificationReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         String noteTitle = intent.getStringExtra("notetitle");
         notificationHandler = new NotificationHandler(context);
-        /*
-            Setting notification message.
-         */
+
         NotificationCompat.Builder builder = notificationHandler.getChannelNotification("Check " + noteTitle, "Your Note is Ready");
         notificationHandler.getManager().notify(1, builder.build());
-        /*
-            Playing Notification Sound
-         */
+
         MediaPlayer notifyTone = MediaPlayer.create(context, Settings.System.DEFAULT_NOTIFICATION_URI);
         notifyTone.start();
     }

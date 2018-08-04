@@ -11,7 +11,6 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.amantewary.scrawl.BaseActivities.ViewNoteBaseActivity;
-import com.example.amantewary.scrawl.Handlers.ShareHandler;
 
 import java.util.Calendar;
 

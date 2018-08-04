@@ -81,7 +81,6 @@ public class AddNotesActivity extends AppCompatActivity implements Observer {
         inputHandler.doRealTimeLanguageCheck(et_content);
         inputHandler.doRealTimeLanguageCheck(et_title);
 
-        //make tv_date show current date
         Date c = Calendar.getInstance().getTime();
         SimpleDateFormat df = new SimpleDateFormat("MMM dd, yyyy", Locale.CANADA);
         String current_date = df.format(c);
