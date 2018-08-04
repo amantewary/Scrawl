@@ -67,7 +67,6 @@ public class ActivityRegister extends AppCompatActivity {
     }
 
     public void attemptRegister() {
-        // check every field is valid
 
         String email = inputEmail.getText().toString();
         String username = inputUsername.getText().toString();

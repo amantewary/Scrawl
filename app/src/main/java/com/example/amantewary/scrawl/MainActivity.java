@@ -96,9 +96,6 @@ public class MainActivity extends AppCompatActivity{
         };
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-
-        //Loading Labels from database
-        //TODO: Need to move this in splash screen
         initialLabelListLoading();
 
         FloatingActionButton fab = findViewById(R.id.fab_add_note);
@@ -149,8 +146,6 @@ public class MainActivity extends AppCompatActivity{
     protected void onResume() {
         super.onResume();
         populateNotesList();
-
-        // listening to search query text change
         searchBar.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -232,7 +227,6 @@ public class MainActivity extends AppCompatActivity{
             Log.e(TAG, "Message" + e.toString());
         }
     }
-
 
     @Override
     public void onBackPressed() {

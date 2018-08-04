@@ -10,7 +10,6 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
-//SINGLETON
 public class LabelLoader {
     private static final LabelLoader ourInstance = new LabelLoader();
     private ArrayList<String> labels;

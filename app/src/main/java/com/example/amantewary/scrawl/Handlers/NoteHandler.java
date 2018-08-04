@@ -76,23 +76,15 @@ public class NoteHandler {
     public String getUrl() {
         return url;
     }
-    public void setUrl(String url) {
-        this.url = url;
-    }
 
     public Integer getUser_id() {
         return user_id;
     }
 
-    public void setUser_id(Integer user_id) {
-        this.user_id = user_id;
-    }
     public String getStatus() {
         return status;
     }
-    public void setStatus(String status) {
-        this.status = status;
-    }
+
     public String getDate() {
         return date;
     }
