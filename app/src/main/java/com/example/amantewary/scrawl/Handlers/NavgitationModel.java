@@ -16,10 +16,6 @@ public class NavgitationModel {
         return labelImageView;
     }
 
-    public void setLabelImageView(Drawable labelImageView) {
-        this.labelImageView = labelImageView;
-    }
-
     public String getTitle() {
         return title;
     }

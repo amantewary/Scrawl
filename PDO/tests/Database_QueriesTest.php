@@ -25,41 +25,35 @@ class Database_QueriesTest extends TestCase
     }
 
 
-//    public function testLoginUser()
-//    {
-//
-//    }
+    //Will Return False As Salt is Not given while testing.
+    public function testLoginUser()
+    {
+        $stmtMock = $this->createMock(\PDOStatement::class);
+        $pdoMock = $this->createMock(\PDO::class);
+        $stmtMock->method('execute')
+            ->willReturn(true);
+        $pdoMock->method('prepare')
+            ->willReturn($stmtMock);
+        $stmtMock->method('fetch')
+            ->willReturn(\PDO::FETCH_ASSOC);
+        $test = new Database_Queries();
+        $this->assertEquals(false,$test->loginUser($pdoMock, "123@abc.com", "123456"));
+    }
 
 
-//    public function testRegisterUser()
-//    {
-//        $arrResult=null;
-//        $fetchMock = $this
-//            ->getMockBuilder("stdClass" /* or whatever has a fetchAll */)
-//            ->setMethods(array("fetch"))
-//            ->getMock();
-//        $fetchMock
-//            ->expects($this->once())->method("fetch")
-//            ->will($this->returnValue("hello!"));
-//        $stmtMock = $this->createMock(\PDOStatement::class);
-//        $pdoMock = $this->createMock(\PDO::class);
-//        $stmtMock->method('execute')
-//            ->willReturn(true);
-//        $stmtMock->expects($this->at(0))
-//            ->method('fetch')
-//            ->will($this->returnValue($arrResult[0]));
-//        $stmtMock->expects($this->at(1))
-//            ->method('fetch')
-//            ->will($this->returnValue($arrResult[1]));
-//        $stmtMock->expects($this->at(2))
-//            ->method('fetch')
-//            ->will($this->returnValue($arrResult[2]));
-//        $pdoMock->method('prepare')
-//            ->willReturn($stmtMock);
-//        $test = new Database_Queries();
-//        $this->assertEquals(true,$test->getUserData($pdoMock));
-//
-//    }
+    public function testRegisterUser()
+    {
+        $stmtMock = $this->createMock(\PDOStatement::class);
+        $pdoMock = $this->createMock(\PDO::class);
+        $stmtMock->method('execute')
+            ->willReturn(true);
+        $pdoMock->method('prepare')
+            ->willReturn($stmtMock);
+        $stmtMock->method('fetch')
+            ->willReturn(\PDO::FETCH_ASSOC);
+        $test = new Database_Queries();
+        $this->assertEquals(2,$test->registerUser($pdoMock, "NAME", "123@abc.com", "123456"));
+    }
 
     public function testIsUserExists()
     {

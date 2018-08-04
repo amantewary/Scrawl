@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/NoteApi.iml" filepath="$PROJECT_DIR$/.idea/NoteApi.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/NoteApi.iml" filepath="$PROJECT_DIR$/.idea/NoteApi.iml" />
     </modules>
   </component>
 </project>

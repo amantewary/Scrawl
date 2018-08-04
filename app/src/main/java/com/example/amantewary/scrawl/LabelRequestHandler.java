@@ -1,6 +1,5 @@
 package com.example.amantewary.scrawl;
 
-import android.app.Activity;
 import android.content.Context;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -10,6 +9,7 @@ import com.example.amantewary.scrawl.API.Labels.ICreateLabel;
 import com.example.amantewary.scrawl.API.Labels.IDeleteLabel;
 import com.example.amantewary.scrawl.API.Labels.IGetLabels;
 import com.example.amantewary.scrawl.API.Labels.ILabelResponse;
+import com.example.amantewary.scrawl.API.Labels.IUpdateLabel;
 import com.example.amantewary.scrawl.Handlers.LabelHandler;
 
 import java.util.List;
@@ -58,14 +58,35 @@ public class LabelRequestHandler {
                             Log.d(context.getClass().getSimpleName(), "onResponse: Server Response: " + response.toString());
                             Log.d(context.getClass().getSimpleName(), "onResponse: Received Information: " + response.body().toString());
                             Toast.makeText(context, "Label Created", Toast.LENGTH_SHORT).show();
-                            ((Activity) (context)).finish();
                         }
 
                         @Override
                         public void onFailure(Call<LabelHandler> call, Throwable t) {
                             Log.e(context.getClass().getSimpleName(), "onFailure: Something Went Wrong: " + t.getMessage());
                             Toast.makeText(context, "Something Went Wrong", Toast.LENGTH_SHORT).show();
-                            ((Activity) (context)).finish();
+                        }
+                    });
+        } catch (Exception e) {
+            Log.e(TAG, "Message: " + e.toString());
+        }
+    }
+
+    public void editLabel(LabelHandler labelHandler, final Context context) {
+        try {
+            RetroFitInstance.getRetrofit().create(IUpdateLabel.class)
+                    .updateLabel(labelHandler)
+                    .enqueue(new Callback<LabelHandler>() {
+                        @Override
+                        public void onResponse(Call<LabelHandler> call, Response<LabelHandler> response) {
+                            Log.d(context.getClass().getSimpleName(), "onResponse: Server Response: " + response.toString());
+                            Log.d(context.getClass().getSimpleName(), "onResponse: Received Information: " + response.body().toString());
+                            Toast.makeText(context, "Note Edited", Toast.LENGTH_SHORT).show();
+                        }
+
+                        @Override
+                        public void onFailure(Call<LabelHandler> call, Throwable t) {
+                            Log.e(context.getClass().getSimpleName(), "onFailure: Something Went Wrong: " + t.getMessage());
+                            Toast.makeText(context, "Something Went Wrong", Toast.LENGTH_SHORT).show();
                         }
                     });
         } catch (Exception e) {
@@ -83,14 +104,12 @@ public class LabelRequestHandler {
                             Log.d(context.getClass().getSimpleName(), "onResponse: Server Response: " + response.toString());
                             Log.d(context.getClass().getSimpleName(), "onResponse: Received Information: " + response.body().toString());
                             Toast.makeText(context, "Label Deleted", Toast.LENGTH_SHORT).show();
-                            ((Activity) (context)).finish();
                         }
 
                         @Override
                         public void onFailure(Call<LabelHandler> call, Throwable t) {
                             Log.e(context.getClass().getSimpleName(), "onFailure: Something Went Wrong: " + t.getMessage());
                             Toast.makeText(context, "Something Went Wrong", Toast.LENGTH_SHORT).show();
-                            ((Activity) (context)).finish();
                         }
                     });
         } catch (Exception e) {

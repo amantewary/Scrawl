@@ -13,12 +13,11 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -34,7 +33,6 @@ import com.example.amantewary.scrawl.Handlers.NavgitationModel;
 import com.example.amantewary.scrawl.Handlers.NoteHandler;
 import com.example.amantewary.scrawl.Handlers.SharedPreferenceHandler;
 import com.google.firebase.analytics.FirebaseAnalytics;
-import com.l4digital.fastscroll.FastScrollRecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,7 +43,7 @@ public class MainActivity extends AppCompatActivity{
     FirebaseAnalytics mFirebaseAnalytics;
     NavigationDrawerAdapter navigationDrawerAdapter;
     AutoCompleteTextView searchBar;
-    private FastScrollRecyclerView notesListView;
+    private RecyclerView notesListView;
     private NotesListAdapter notesAdapter;
     private ArrayList<String> labelList;
     private ListView listView;
@@ -98,14 +96,6 @@ public class MainActivity extends AppCompatActivity{
         };
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-
-
-
-
-
-
-        //Loading Labels from database
-        //TODO: Need to move this in splash screen
         initialLabelListLoading();
 
         FloatingActionButton fab = findViewById(R.id.fab_add_note);
@@ -146,18 +136,16 @@ public class MainActivity extends AppCompatActivity{
                         populateNotesList();
                         swiperefresh.setRefreshing(false);
                     }
-                }, 0);
+                }, 10);
 
             }
         });
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
+    protected void onResume() {
+        super.onResume();
         populateNotesList();
-
-        // listening to search query text change
         searchBar.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -204,6 +192,9 @@ public class MainActivity extends AppCompatActivity{
 
                 @Override
                 public void onError(@NonNull Throwable throwable) {
+                    List<NoteHandler> notesList = new ArrayList<>();
+                    notesAdapter = new NotesListAdapter(MainActivity.this, notesList);
+                    notesAdapter.notifyDataSetChanged();
                     Log.e(TAG, "populateNotesList().onError: Something Went Wrong: " + throwable.getMessage());
                 }
             });
@@ -236,7 +227,6 @@ public class MainActivity extends AppCompatActivity{
             Log.e(TAG, "Message" + e.toString());
         }
     }
-
 
     @Override
     public void onBackPressed() {

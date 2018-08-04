@@ -14,12 +14,11 @@ public class SplashScreen extends AppCompatActivity {
         setContentView(R.layout.splash_layout);
         sessionManager = new SessionManager(getApplicationContext());
         LogoLauncher logoLauncher = new LogoLauncher();
-//        logoLauncher.start();
+        logoLauncher.start();
     }
 
     private class LogoLauncher extends Thread {
         public void run() {
-
             try {
                 sleep(1500);
 
@@ -38,4 +37,6 @@ public class SplashScreen extends AppCompatActivity {
         }
 
     }
+
+
 }

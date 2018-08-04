@@ -8,7 +8,10 @@ require  'HttpLogger.php';
     private $table = 'labels';
     public $id;
     public $name;
+    public $user_id;
     public $created_at;
+    public $new_name;
+    public $old_name;
     public function __construct($db) {
       $this->con = $db;
     }
@@ -50,13 +53,36 @@ require  'HttpLogger.php';
         }
     }
 
+    public function update()
+    {
+        $query = 'CALL spUpdateLabel(:new_name, :user_id, :old_name)';
+        $stmt = $this->con->prepare($query);
+        $this->new_name = htmlspecialchars(strip_tags($this->new_name));
+        $this->user_id = htmlspecialchars(strip_tags($this->user_id));
+        $this->old_name = htmlspecialchars(strip_tags($this->old_name));
+        $stmt->bindParam(':new_name', $this->new_name);
+        $stmt->bindParam(':user_id', $this->user_id);
+        $stmt->bindParam(':old_name', $this->old_name);
+        try {
+            if ($stmt->execute()) {
+                error_log('Label Updated');
+                return $stmt;
+            }
+        }catch(\PDOException $e) {
+            error_log("[Error] " .  $e->getMessage());
+            return $e;
+        }
+    }
+
     public function delete()
     {
 
-        $query = 'CALL spDeleteLabel(:name)';
+        $query = 'CALL spDeleteLabel(:name, :user_id)';
         $stmt = $this->con->prepare($query);
         $this->name = htmlspecialchars(strip_tags($this->name));
+        $this->user_id = htmlspecialchars(strip_tags($this->user_id));
         $stmt->bindParam(':name', $this->name);
+        $stmt->bindParam(':user_id', $this->user_id);
         try {
             $stmt->execute();
             if ($stmt->rowCount()) {
