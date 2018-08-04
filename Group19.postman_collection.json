@@ -1,0 +1,859 @@
+{
+	"info": {
+		"_postman_id": "7139baff-ccee-43a9-a4ee-6db553f86269",
+		"name": "Group19",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "https://web.cs.dal.ca/~kamath/QA_Devint/login.php",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ccc6e41c-4ccf-4768-8a15-bedec0836014",
+						"type": "text/javascript",
+						"exec": [
+							"var vr = pm.variables.get(\"error_msg\");",
+							"",
+							"// example using pm.response.to.have",
+							"pm.test(\"response is ok 1\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"// example using response assertions",
+							"pm.test(\"response should be okay to process 2\", function () { ",
+							"    pm.response.to.not.be.error; ",
+							"    pm.response.to.not.have.jsonBody(\"error:true\"); ",
+							"});",
+							"",
+							"//check username-- will fail",
+							"pm.test(\"Check username from response 3\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.username).to.eql(\"test\");",
+							"});",
+							"",
+							"// example using response assertions",
+							"pm.test(\"response should be okay to process 4\" , function () { ",
+							"    pm.response.to.be.error; ",
+							"    pm.response.to.have.jsonBody(vr); ",
+							"});",
+							"",
+							"",
+							"pm.test(\"Check email from response 5\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.email).to.eql(\"test6@test.com\");",
+							"});",
+							"",
+							"pm.test(\"Content-Type check 6\", function () {",
+							"    pm.response.to.have.header(\"ext/html; charset=UTF-8\");",
+							"});",
+							"",
+							"pm.test(\"Successful POST request 7\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200,201]);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 400ms 8\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(400);",
+							"});",
+							"",
+							"// example using response assertions",
+							"pm.test(\"response should be okay to process 9\", function () { ",
+							"    pm.response.to.be.error; ",
+							"    pm.response.to.not.have.jsonBody(vr); ",
+							"});",
+							"",
+							"pm.test(\"error_msg\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.error_msg).to.not.eql(\"User with test6@test.com already exists!\");",
+							"});",
+							"",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"test\");",
+							"});",
+							"",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "email",
+							"value": "test6@test.com",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "123456",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "name",
+							"value": "test",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://web.cs.dal.ca/~kamath/QA_Devint/login.php",
+					"protocol": "https",
+					"host": [
+						"web",
+						"cs",
+						"dal",
+						"ca"
+					],
+					"path": [
+						"~kamath",
+						"QA_Devint",
+						"login.php"
+					]
+				},
+				"description": "For API testting"
+			},
+			"response": []
+		},
+		{
+			"name": "https://web.cs.dal.ca/~kamath/QA_Devint/register.php",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f9bcdfed-9b87-4f4c-a934-2ace3c652503",
+						"type": "text/javascript",
+						"exec": [
+							"// example using pm.response.to.have",
+							"pm.test(\"response is ok 1\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"// example using response assertions",
+							"pm.test(\"response should be okay to process 2\", function () { ",
+							"    pm.response.to.not.be.error; ",
+							"    pm.response.to.not.have.jsonBody(\"error:true\"); ",
+							"});",
+							"",
+							"",
+							"pm.test(\"Content-Type check 6\", function () {",
+							"    pm.response.to.have.header(\"ext/html; charset=UTF-8\");",
+							"});",
+							"",
+							"pm.test(\"Successful POST request 7\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200,201]);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 200ms 8\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(400);",
+							"});",
+							"",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "email",
+							"value": "test29@test.com",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "123456",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "name",
+							"value": "test",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://web.cs.dal.ca/~kamath/QA_Devint/register.php",
+					"protocol": "https",
+					"host": [
+						"web",
+						"cs",
+						"dal",
+						"ca"
+					],
+					"path": [
+						"~kamath",
+						"QA_Devint",
+						"register.php"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://web.cs.dal.ca/~kamath/QA_Devint/NoteApi/v1/notes/create.php",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3512f29e-5918-4f99-94cb-d9f4e84f009c",
+						"type": "text/javascript",
+						"exec": [
+							"",
+							"// Get status code",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"// check sucuessful POST request",
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200,201]);",
+							"});",
+							"",
+							"",
+							"// check response time",
+							"pm.test(\"Response time is less than 400ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(400);",
+							"});",
+							"",
+							"pm.test(\"Test message Content\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.message).to.eql(\"New Note Created\");",
+							"});",
+							"",
+							"// example using response assertions",
+							"pm.test(\"response should be okay\", function () { ",
+							"    pm.response.to.not.be.error; ",
+							"    pm.response.to.not.have.jsonBody(\"error\"); ",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"\\\"message\\\":\\\"New Note Created\\\"\");",
+							"});",
+							"",
+							"pm.test(\"Content-Type check\", function () {",
+							"    pm.response.to.have.header(\"application/json\");",
+							"});",
+							"",
+							"",
+							"",
+							"",
+							"var schema = {",
+							"    \"message\": {",
+							" \"type\": \"string\"",
+							"        ",
+							"    }",
+							"};",
+							"var data1 = [true,\"New Note Created\"];",
+							"var data2 = [false, \"sbdjkfbsdkfb\"];",
+							"pm.test('Schema is valid', function() {",
+							"  pm.expect(tv4.validate(data1, schema)).to.be.true;",
+							"  pm.expect(tv4.validate(data2, schema)).to.be.true;",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"label_name\":\"Important\",\n\t\"title\": \"Test\",\n\t\"body\": \"Test Body\",\n\t\"url\": \"someURl.com\",\n\t\"user_id\": 1,\n\t\"status\" : \"ssd\",\n\t\"date\" : \"Jul 25, 2018\"\n}"
+				},
+				"url": {
+					"raw": "https://web.cs.dal.ca/~kamath/QA_Devint/NoteApi/v1/notes/create.php",
+					"protocol": "https",
+					"host": [
+						"web",
+						"cs",
+						"dal",
+						"ca"
+					],
+					"path": [
+						"~kamath",
+						"QA_Devint",
+						"NoteApi",
+						"v1",
+						"notes",
+						"create.php"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://web.cs.dal.ca/~kamath/QA_Devint/NoteApi/v1/notes/update.php",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7261a28c-0012-4228-8adc-fa891cd75861",
+						"type": "text/javascript",
+						"exec": [
+							"var vr = pm.variables.get(\"message\");",
+							"",
+							"// Get status code",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"// check sucuessful POST request",
+							"pm.test(\"Successful PUT request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200,201]);",
+							"});",
+							"",
+							"",
+							"// check response time",
+							"pm.test(\"Response time is less than 400ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(400);",
+							"});",
+							"",
+							"",
+							"",
+							"",
+							"// example using response assertions",
+							"pm.test(\"response should be okay\", function () { ",
+							"    pm.response.to.not.be.error; ",
+							"    pm.response.to.not.have.jsonBody(\"error\"); ",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"\\\"message\\\":\\\"Note Updated\\\"\");",
+							"});",
+							"",
+							"pm.test(\"Content-Type check\", function () {",
+							"    pm.response.to.have.header(\"application/json\");",
+							"});",
+							"",
+							"",
+							"pm.test(\"response should be okay to process 4\" , function () { ",
+							"    pm.response.to.be.error; ",
+							"    pm.response.to.have.jsonBody(vr); ",
+							"});",
+							"",
+							"var schema = {",
+							"    \"message\": {",
+							" \"type\": \"string\"",
+							"    }",
+							"};",
+							"var data1 = [true,\"Note Updated\"];",
+							"var data2 = [false,\"sdkjsbdkjfb\"];",
+							"",
+							"pm.test('Schema is valid', function() {",
+							"  pm.expect(tv4.validate(data1, schema)).to.be.true;",
+							"  pm.expect(tv4.validate(data2, schema)).to.be.true;",
+							"  ",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "\n{\n\t\"label_name\":\"Important\",\n\t\"title\": \"Test\",\n\t\"body\": \"Test Body\",\n\t\"url\": \"someURl.com\",\n\t\"user_id\": \"sdfsdf\",\n\t\"id\" : \"1\"\n}\t\n"
+				},
+				"url": {
+					"raw": "https://web.cs.dal.ca/~kamath/QA_Devint/NoteApi/v1/notes/update.php",
+					"protocol": "https",
+					"host": [
+						"web",
+						"cs",
+						"dal",
+						"ca"
+					],
+					"path": [
+						"~kamath",
+						"QA_Devint",
+						"NoteApi",
+						"v1",
+						"notes",
+						"update.php"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://web.cs.dal.ca/~kamath/QA_Devint/NoteApi/v1/notes/read_single.php?id=1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8a4f8df0-e80e-4755-8770-1d07dc1fee36",
+						"type": "text/javascript",
+						"exec": [
+							"var vr = pm.variables.get(\"body\");",
+							"var vr2 = pm.variables.get(\"title\");",
+							"var vr3 = pm.variables.get(\"label_name\");",
+							"",
+							"// example using pm.response.to.have",
+							"pm.test(\"response is ok 1\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"// example using response assertions",
+							"pm.test(\"response should be okay to process 2\", function () { ",
+							"    pm.response.to.not.be.error; ",
+							"    pm.response.to.not.have.jsonBody(\"error:true\"); ",
+							"});",
+							"",
+							"//check username-- ",
+							"pm.test(\"Check username from response 3\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.title).to.not.eql(\"Test\");",
+							"});",
+							"",
+							"// example using response assertions",
+							"pm.test(\"response should be okay to process 4\" , function () { ",
+							"    pm.response.to.be.error; ",
+							"    pm.response.to.have.jsonBody(vr); ",
+							"});",
+							"",
+							"",
+							"pm.test(\"Check email from response 5\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.label_name).to.eql(vr3);",
+							"});",
+							"",
+							"pm.test(\"Content-Type check 6\", function () {",
+							"    pm.response.to.have.header(\"ext/html; charset=UTF-8\");",
+							"});",
+							"",
+							"pm.test(\"Successful GET request 7\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200,201]);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 400ms 8\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(400);",
+							"});",
+							"",
+							"// example using response assertions",
+							"pm.test(\"response should be okay to process 9\", function () { ",
+							"    pm.response.to.be.error; ",
+							"    pm.response.to.not.have.jsonBody(vr); ",
+							"});",
+							"",
+							"pm.test(\"body\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.body).to.eql(vr);",
+							"});",
+							"",
+							"pm.test(\"title\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.title).to.eql(vr2);",
+							"});",
+							"",
+							"",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "https://web.cs.dal.ca/~kamath/QA_Devint/NoteApi/v1/notes/read_single.php?id=1",
+					"protocol": "https",
+					"host": [
+						"web",
+						"cs",
+						"dal",
+						"ca"
+					],
+					"path": [
+						"~kamath",
+						"QA_Devint",
+						"NoteApi",
+						"v1",
+						"notes",
+						"read_single.php"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://web.cs.dal.ca/~kamath/QA_Devint/NoteApi/v1/notes/delete.php",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "79fac7ac-ad43-4ee1-a06b-f592dafac055",
+						"type": "text/javascript",
+						"exec": [
+							"var vr = pm.variables.get(\"message\");",
+							"",
+							"// example using pm.response.to.have",
+							"pm.test(\"response is ok 1\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"// example using response assertions",
+							"pm.test(\"response should be okay to process 2\", function () { ",
+							"    pm.response.to.not.be.error; ",
+							"    pm.response.to.not.have.jsonBody(\"error:true\"); ",
+							"});",
+							"",
+							"// example using response assertions",
+							"pm.test(\"response should be okay to process 4\" , function () { ",
+							"    pm.response.to.be.error; ",
+							"    pm.response.to.have.jsonBody(vr); ",
+							"});",
+							"",
+							"var schema = {",
+							"    \"message\": {",
+							" \"type\": \"string\"",
+							"    }",
+							"};",
+							"var data1 = [true,\"Note Deleted\"];",
+							"var data2 = [false,\"sdkjsbdkjfb\"];",
+							"",
+							"pm.test('Schema is valid', function() {",
+							"  pm.expect(tv4.validate(data1, schema)).to.be.true;",
+							"  pm.expect(tv4.validate(data2, schema)).to.be.true;",
+							"  ",
+							"});",
+							"",
+							"",
+							"pm.test(\"Content-Type check 6\", function () {",
+							"    pm.response.to.have.header(\"ext/html; charset=UTF-8\");",
+							"});",
+							"",
+							"pm.test(\"Successful GET request 7\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200,201]);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 400ms 8\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(400);",
+							"});",
+							"",
+							"// example using response assertions",
+							"pm.test(\"response should be okay to process 9\", function () { ",
+							"    pm.response.to.be.error; ",
+							"    pm.response.to.not.have.jsonBody(vr); ",
+							"});",
+							"",
+							"pm.test(\"body\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.body).to.eql(vr);",
+							"});",
+							"",
+							"",
+							"",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id\": 82\n}"
+				},
+				"url": {
+					"raw": "https://web.cs.dal.ca/~kamath/QA_Devint/NoteApi/v1/notes/delete.php",
+					"protocol": "https",
+					"host": [
+						"web",
+						"cs",
+						"dal",
+						"ca"
+					],
+					"path": [
+						"~kamath",
+						"QA_Devint",
+						"NoteApi",
+						"v1",
+						"notes",
+						"delete.php"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://web.cs.dal.ca/~kamath/QA_Devint/NoteApi/v1/notes/read.php",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b575cef5-904f-4caf-afc7-f7a114d675dd",
+						"type": "text/javascript",
+						"exec": [
+							"var vr = pm.variables.get(\"body\");",
+							"var vr2 = pm.variables.get(\"title\");",
+							"var vr3 = pm.variables.get(\"label_name\");",
+							"",
+							"// example using pm.response.to.have",
+							"pm.test(\"response is ok 1\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"// example using response assertions",
+							"pm.test(\"response should be okay to process 2\", function () { ",
+							"    pm.response.to.not.be.error; ",
+							"    pm.response.to.not.have.jsonBody(\"error:true\"); ",
+							"});",
+							"",
+							"",
+							"",
+							"// example using response assertions",
+							"pm.test(\"response should be okay to process 4\" , function () { ",
+							"    pm.response.to.be.error; ",
+							"    pm.response.to.have.jsonBody(vr); ",
+							"});",
+							"",
+							"",
+							"pm.test(\"Check email from response 5\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.label_name).to.eql(vr3);",
+							"});",
+							"",
+							"pm.test(\"Content-Type check 6\", function () {",
+							"    pm.response.to.have.header(\"ext/html; charset=UTF-8\");",
+							"});",
+							"",
+							"pm.test(\"Successful GET request 7\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200,201]);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 400ms 8\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(400);",
+							"});",
+							"",
+							"// example using response assertions",
+							"pm.test(\"response should be okay to process 9\", function () { ",
+							"    pm.response.to.be.error; ",
+							"    pm.response.to.not.have.jsonBody(vr); ",
+							"});",
+							"",
+							"pm.test(\"body\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.body).to.eql(vr);",
+							"});",
+							"",
+							"pm.test(\"title\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.title).to.eql(vr2);",
+							"});",
+							"",
+							"var schema = {",
+							"    \"id\" : {",
+							"      \"type\" : \"string\"  ",
+							"    },",
+							"    \"title\": {",
+							" \"type\": \"string\"",
+							"    },",
+							"     \"body\": {",
+							" \"type\": \"string\"",
+							"    }, \"url\": {",
+							" \"type\": \"string\"",
+							"    }, \"user_id\": {",
+							" \"type\": \"string\"",
+							"    }, \"label_name\": {",
+							" \"type\": \"string\"",
+							"    },",
+							"};",
+							"var data1 = [true,\"79\", \"Test\", \"Test Body\", null, \"0\", \"Important\"];",
+							"var data2 = [false,\"sdkjsbdkjfb\"];",
+							"",
+							"pm.test('Schema is valid', function() {",
+							"  pm.expect(tv4.validate(data1, schema)).to.be.true;",
+							"  pm.expect(tv4.validate(data2, schema)).to.be.true;",
+							"  ",
+							"});",
+							"",
+							"",
+							"",
+							"",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "https://web.cs.dal.ca/~kamath/QA_Devint/NoteApi/v1/notes/read.php",
+					"protocol": "https",
+					"host": [
+						"web",
+						"cs",
+						"dal",
+						"ca"
+					],
+					"path": [
+						"~kamath",
+						"QA_Devint",
+						"NoteApi",
+						"v1",
+						"notes",
+						"read.php"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://web.cs.dal.ca/~kamath/QA_Devint/NoteApi/v1/label/read.php",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a358683b-102d-48d5-8afb-ac5a6ccff281",
+						"type": "text/javascript",
+						"exec": [
+							"var vr = pm.variables.get(\"id\");",
+							"var vr2 = pm.variables.get(\"name\");",
+							"",
+							"// example using pm.response.to.have",
+							"pm.test(\"response is ok 1\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"// example using response assertions",
+							"pm.test(\"response should be okay to process 2\", function () { ",
+							"    pm.response.to.not.be.error; ",
+							"    pm.response.to.not.have.jsonBody(\"error:true\"); ",
+							"});",
+							"",
+							"",
+							"",
+							"// example using response assertions",
+							"pm.test(\"response should be okay to process 4\" , function () { ",
+							"    pm.response.to.be.error; ",
+							"    pm.response.to.have.jsonBody(vr); ",
+							"});",
+							"",
+							"",
+							"pm.test(\"Content-Type check 6\", function () {",
+							"    pm.response.to.have.header(\"ext/html; charset=UTF-8\");",
+							"});",
+							"",
+							"pm.test(\"Successful GET request 7\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200,201]);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 200ms 8\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(400);",
+							"});",
+							"",
+							"// example using response assertions",
+							"pm.test(\"response should be okay to process 9\", function () { ",
+							"    pm.response.to.be.error; ",
+							"    pm.response.to.not.have.jsonBody(vr); ",
+							"});",
+							"",
+							"// pm.test(\"id\", function () {",
+							"//     var jsonData = pm.response.json();",
+							"//     pm.expect(jsonData.body).to.eql(vr);",
+							"// });",
+							"",
+							"// pm.test(\"name\", function () {",
+							"//     var jsonData = pm.response.json();",
+							"//     pm.expect(jsonData.name).to.eql(vr2);",
+							"// });",
+							"",
+							"var schema = {",
+							"    \"id\" : {",
+							"      \"type\" : \"string\"  ",
+							"    },",
+							"    \"title\": {",
+							" \"type\": \"string\"",
+							"    },",
+							"     \"body\": {",
+							" \"type\": \"string\"",
+							"    }, \"url\": {",
+							" \"type\": \"string\"",
+							"    }, \"user_id\": {",
+							" \"type\": \"string\"",
+							"    }, \"label_name\": {",
+							" \"type\": \"string\"",
+							"    },",
+							"};",
+							"var data1 = [true,\"79\", \"Test\", \"Test Body\", null, \"0\", \"Important\"];",
+							"var data2 = [false,\"sdkjsbdkjfb\"];",
+							"",
+							"pm.test('Schema is valid', function() {",
+							"  pm.expect(tv4.validate(data1, schema)).to.be.true;",
+							"  pm.expect(tv4.validate(data2, schema)).to.be.true;",
+							"  ",
+							"});",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "https://web.cs.dal.ca/~kamath/QA_Devint/NoteApi/v1/label/read.php",
+					"protocol": "https",
+					"host": [
+						"web",
+						"cs",
+						"dal",
+						"ca"
+					],
+					"path": [
+						"~kamath",
+						"QA_Devint",
+						"NoteApi",
+						"v1",
+						"label",
+						"read.php"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
