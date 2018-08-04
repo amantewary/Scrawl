@@ -11,13 +11,10 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.amantewary.scrawl.BaseActivities.ViewNoteBaseActivity;
-import com.example.amantewary.scrawl.Handlers.ShareHandler;
 
 import java.util.Calendar;
 
 public class ViewSharedNoteActivity extends ViewNoteBaseActivity implements TimePickerDialog.OnTimeSetListener{
-
-    private ShareHandler shareHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

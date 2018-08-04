@@ -34,8 +34,6 @@ public class AddNotesActivity extends AppCompatActivity implements Observer {
     private ArrayList<String> labels;
     private InputHandler inputHandler;
     private  SessionManager sessionManager;
-
-
     private String title, label, body, link;
 
     protected void viewBinder() {
@@ -45,7 +43,6 @@ public class AddNotesActivity extends AppCompatActivity implements Observer {
         et_link = findViewById(R.id.et_link);
         sp_add_labels = findViewById(R.id.sp_add_label);
     }
-
     private void handleSendNotes() {
         SessionManager sessionManager = new SessionManager(getApplicationContext());
         try {
@@ -84,7 +81,6 @@ public class AddNotesActivity extends AppCompatActivity implements Observer {
         inputHandler.doRealTimeLanguageCheck(et_content);
         inputHandler.doRealTimeLanguageCheck(et_title);
 
-        //make tv_date show current date
         Date c = Calendar.getInstance().getTime();
         SimpleDateFormat df = new SimpleDateFormat("MMM dd, yyyy", Locale.CANADA);
         String current_date = df.format(c);
@@ -127,7 +123,6 @@ public class AddNotesActivity extends AppCompatActivity implements Observer {
             link = et_link.getText().toString().trim();
             String status = "(created)";
             String date = tv_date.getText().toString();
-            //TODO: Need to change user_id once login and registration is done.
             NoteHandler noteHandler = new NoteHandler(label, title, body, link, Integer.parseInt(sessionManager.getUserDetails().get("userid")), status, date);
             if (inputHandler.inputValidator(title, body, link)) {
                 NotesRequestHandler request = new NotesRequestHandler();
@@ -135,11 +130,11 @@ public class AddNotesActivity extends AppCompatActivity implements Observer {
             } else {
                 inputHandler.inputErrorHandling(et_title, et_content, et_link);
             }
+            Log.d(TAG,"Note Added Successfully");
         } catch (Exception e) {
             Log.e(TAG, "Message: " + e.toString());
         }
     }
-
 
     @Override
     public void update(Observable observable, Object o) {

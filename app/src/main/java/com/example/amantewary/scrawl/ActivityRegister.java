@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-
 import com.example.amantewary.scrawl.API.Users.IRegisterUser;
 import com.example.amantewary.scrawl.Handlers.UserClass;
 
@@ -68,7 +67,6 @@ public class ActivityRegister extends AppCompatActivity {
     }
 
     public void attemptRegister() {
-        // check every field is valid
 
         String email = inputEmail.getText().toString();
         String username = inputUsername.getText().toString();

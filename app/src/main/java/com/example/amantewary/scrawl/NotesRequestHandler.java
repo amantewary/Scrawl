@@ -28,7 +28,6 @@ public class NotesRequestHandler {
     private List<NoteHandler> notes;
     private ProgressDialog dialog;
     private SessionManager sessionManager;
-
     public void createNote(NoteHandler noteHandler, final Context context) {
         dialog = new ProgressDialog(context);
         dialog.setMessage("Loading...");

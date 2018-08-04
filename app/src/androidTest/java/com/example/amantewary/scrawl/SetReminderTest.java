@@ -17,50 +17,83 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static android.support.test.espresso.Espresso.onView;
-import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.Espresso.pressBack;
+import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.action.ViewActions.scrollTo;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static android.support.test.espresso.matcher.ViewMatchers.withClassName;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
+import static org.hamcrest.Matchers.is;
 
 @LargeTest
 @RunWith(AndroidJUnit4.class)
-public class SplashScreenTest {
+public class SetReminderTest {
 
     @Rule
     public ActivityTestRule<SplashScreen> mActivityTestRule = new ActivityTestRule<>(SplashScreen.class);
 
     @Test
-    public void splashScreenTest() {
-        // Added a sleep statement to match the app's execution delay.
-        // The recommended way to handle such scenarios is to use Espresso idling resources:
-        // https://google.github.io/android-testing-support-library/docs/espresso/idling-resource/index.html
+    public void setReminderTest() {
         try {
-            Thread.sleep(60000);
+            Thread.sleep(2000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
-        ViewInteraction textView = onView(
-                allOf(withText("Scrawl"),
+        ViewInteraction cardView = onView(
+                allOf(childAtPosition(
+                        allOf(withId(R.id.viewNoteList),
+                                childAtPosition(
+                                        withClassName(is("android.support.constraint.ConstraintLayout")),
+                                        0)),
+                        5),
+                        isDisplayed()));
+        cardView.perform(click());
+
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        ViewInteraction floatingActionButton = onView(
+                allOf(withId(R.id.cog),
                         childAtPosition(
                                 childAtPosition(
                                         withId(android.R.id.content),
                                         0),
-                                0),
+                                2),
                         isDisplayed()));
-        textView.check(matches(withText("Scrawl")));
+        floatingActionButton.perform(click());
 
-        ViewInteraction textView2 = onView(
-                allOf(withText("Scrawl"),
+        ViewInteraction appCompatButton3 = onView(
+                allOf(withId(R.id.btn_timer), withText("Set Reminder"),
                         childAtPosition(
                                 childAtPosition(
-                                        withId(android.R.id.content),
+                                        withClassName(is("android.support.v7.widget.CardView")),
                                         0),
                                 0),
                         isDisplayed()));
-        textView2.check(matches(isDisplayed()));
+        appCompatButton3.perform(click());
 
+        ViewInteraction appCompatButton4 = onView(
+                allOf(withId(android.R.id.button1), withText("OK"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withClassName(is("android.widget.ScrollView")),
+                                        0),
+                                3)));
+        appCompatButton4.perform(scrollTo(), click());
+
+        pressBack();
+
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     private static Matcher<View> childAtPosition(
