@@ -49,6 +49,7 @@ The application has different bells and whistles like it provide the ability to 
 We followed GitFlow [1] workflow for our project by assigning very specific roles to different branches of our GitHub repository and defining how and when they should interact. However, instead of making multiple feature branches we decided to create individual develop branches for every member of our team. We created three core branches, namely master, test, and devint. The devint branch was used to push new features and run on our development environment. The test branch was to test our application with Unit Test, Instrumentation Test, and Monkey Test (AWS Device Farm)[2]. The master branch was our release branch which was used to deploy our finished product to diawi.com [3]. We do have some hot fix branches.
 
 ![](http://res.cloudinary.com/dalcc/image/upload/v1534702607/QA_Project/image4.png)
+
 **_Fig. 1 GitFlow HotFix Branches [1]_**
 
 ### Code Review
